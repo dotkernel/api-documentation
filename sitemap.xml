@@ -6,11 +6,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://docs.dotkernel.org/api-documentation/v4/api-tools-migration/transition-from-api-tools/</loc>
-         <lastmod>2024-05-15</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/</loc>
          <lastmod>2024-05-15</lastmod>
          <changefreq>daily</changefreq>
@@ -37,6 +32,11 @@
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/server-requirements/</loc>
+         <lastmod>2024-05-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/</loc>
          <lastmod>2024-05-15</lastmod>
          <changefreq>daily</changefreq>
     </url>
