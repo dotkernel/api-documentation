@@ -17,8 +17,8 @@ nav:
           - "Packages": v4/introduction/packages.md
       - Tutorials:
           - "Creating a book module": v4/tutorials/create-book-module.md
-      - Api-Tools Migration:
-          - "Transition from api-tools": v4/api-tools-migration/transition-from-api-tools.md
+      - Transition from API Tools:
+          - "API Tools vs DotKernel API": v4/transition-from-api-tools/api-tools-vs-dotkernel-api.md
 site_name: api
 site_description: "DotKernel API"
 repo_url: "https://github.com/dotkernel/api"

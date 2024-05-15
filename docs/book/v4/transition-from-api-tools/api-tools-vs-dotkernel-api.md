@@ -1,6 +1,6 @@
-## Comparison between api-tools and Dotkernel API
+## Comparison between API Tools and DotKernel API
 
-|                    | API-TOOLS(APIGILITY)                           | DOTKERNEL API                                                            |
+|                    | API Tools (Apigility)                          | DotKernel API                                                            |
 |--------------------|------------------------------------------------|--------------------------------------------------------------------------|
 | URL                | [api-tools](https://api-tools.getlaminas.org/) | [Dotkernel API](https://www.dotkernel.org)                               |
 | YEAR               | 2012                                           | 2018                                                                     |
