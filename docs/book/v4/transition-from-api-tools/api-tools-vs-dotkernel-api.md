@@ -3,17 +3,17 @@
 |                    | API Tools (Apigility)                          | DotKernel API                                                            |
 |--------------------|------------------------------------------------|--------------------------------------------------------------------------|
 | URL                | [api-tools](https://api-tools.getlaminas.org/) | [Dotkernel API](https://www.dotkernel.org)                               |
-| YEAR               | 2012                                           | 2018                                                                     |
+| First Release      | 2012                                           | 2018                                                                     |
 | PHP VERSION        | <= 8.2                                         | >= 8.1                                                                   |
-| ARCHITECTURE       | MVC, Event Driven                              | Middleware                                                               |
+| Architecture       | MVC, Event Driven                              | Middleware                                                               |
 | OSS Lifecycle      | Archived                                       | ![](https://img.shields.io/osslifecycle/dotkernel/api?style=flat&label=) |
-| STYLE              | REST, RPC                                      | REST                                                                     |
-| VERSIONING         | Yes                                            | No                                                                       |
-| DOCUMENTATION      | Swagger (Automated)                            | Postman (Manual)                                                         |
-| LICENSE            | BSD-3                                          | MIT                                                                      |
-| DEFAULT DB LAYER   | laminas-db                                     | doctrine-orm                                                             |
-| AUTHORIZATION      | ACL                                            | RBAC-guard                                                               |
-| AUTHENTICATION     | HTTP Basic/Digest <br/> OAuth2.0               | OAuth2.0                                                                 |
+| Style              | REST, RPC                                      | REST                                                                     |
+| Versioning         | Yes                                            | No                                                                       |
+| Documentation      | Swagger (Automated)                            | Postman (Manual)                                                         |
+| License            | BSD-3                                          | MIT                                                                      |
+| Default DB Layer   | laminas-db                                     | doctrine-orm                                                             |
+| Authorization      | ACL                                            | RBAC-guard                                                               |
+| Authentication     | HTTP Basic/Digest <br/> OAuth2.0               | OAuth2.0                                                                 |
 | CI/CD              | Yes                                            | Yes                                                                      |
 | Unit Tests         | Yes                                            | Yes                                                                      |
 | Endpoint Generator | Yes                                            | No                                                                       |
