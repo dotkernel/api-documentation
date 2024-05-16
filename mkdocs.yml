@@ -10,11 +10,16 @@ nav:
   - v4:
       - Introduction:
           - "Introduction": v4/introduction/introduction.md
-          - "Getting Started": v4/introduction/getting-started.md
           - "Server Requirements": v4/introduction/server-requirements.md
           - "File Structure": v4/introduction/file-structure.md
-          - "Installation": v4/introduction/installation.md
           - "Packages": v4/introduction/packages.md
+      - Installation:
+          - "Getting Started": v4/installation/getting-started.md
+          - "Composer": v4/installation/composer.md
+          - "Configuration Files": v4/installation/configuration-files.md
+          - "Doctrine ORM": v4/installation/doctrine-orm.md
+          - "Test the Installation": v4/installation/test-the-installation.md
+          - "FAQ": v4/installation/faq.md
       - Tutorials:
           - "Creating a book module": v4/tutorials/create-book-module.md
       - Transition from API Tools:
