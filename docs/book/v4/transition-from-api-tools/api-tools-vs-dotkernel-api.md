@@ -8,7 +8,7 @@
 | Architecture       | MVC, Event Driven                              | Middleware                                                               |
 | OSS Lifecycle      | Archived                                       | ![](https://img.shields.io/osslifecycle/dotkernel/api?style=flat&label=) |
 | Style              | REST, RPC                                      | REST                                                                     |
-| Versioning         | Yes                                            | No                                                                       |
+| Versioning         | Yes                                            | No *                                                                     |
 | Documentation      | Swagger (Automated)                            | Postman (Manual)                                                         |
 | License            | BSD-3                                          | MIT                                                                      |
 | Default DB Layer   | laminas-db                                     | doctrine-orm                                                             |
@@ -16,5 +16,9 @@
 | Authentication     | HTTP Basic/Digest <br/> OAuth2.0               | OAuth2.0                                                                 |
 | CI/CD              | Yes                                            | Yes                                                                      |
 | Unit Tests         | Yes                                            | Yes                                                                      |
-| Endpoint Generator | Yes                                            | No                                                                       |
+| Endpoint Generator | Yes                                            | Under development                                                        |
 | PSR                | PSR-7                                          | PSR-7, PSR-15                                                            |
+
+
+### Note
+> * Versioning is not planned at all. [Quote from Roy T. Fielding](https://twitter.com/fielding/status/376835835670167552)
