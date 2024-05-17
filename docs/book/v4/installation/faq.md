@@ -32,4 +32,5 @@ chmod -R 777 public/uploads
 
 **Fix:**
 
-    chmod -R 777 log
+```shell
+chmod -R 777 log
