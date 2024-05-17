@@ -4,7 +4,7 @@
 
 If running your project you encounter some permission issues, follow the below steps.
 
-### Errors:
+### Errors
 
 > PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/_example.local_/html/data" is not writable...
 
@@ -18,7 +18,7 @@ If running your project you encounter some permission issues, follow the below s
 chmod -R 777 data
 ```
 
-### Error:
+### Error
 
 > PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/_example.local_/html/public/uploads" is not writable...
 
@@ -28,7 +28,7 @@ chmod -R 777 data
 chmod -R 777 public/uploads
 ```
 
-### Error:
+### Error
 
 > PHP Fatal error:  Uncaught ErrorException: fopen(/var/www/_example.local_/config/autoload/../../log/error-log-_yyyy-mm-dd.log_): Failed to open stream: Permission denied...
 
