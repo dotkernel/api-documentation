@@ -16,6 +16,7 @@ If running your project you encounter some permission issues, follow the below s
 
 ```shell
 chmod -R 777 data
+```
 
 ### Error:
 
@@ -25,6 +26,7 @@ chmod -R 777 data
 
 ```shell
 chmod -R 777 public/uploads
+```
 
 ### Error:
 
@@ -34,3 +36,4 @@ chmod -R 777 public/uploads
 
 ```shell
 chmod -R 777 log
+```
