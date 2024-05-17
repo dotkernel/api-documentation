@@ -4,6 +4,8 @@
 
 Make sure you fill out the database credentials in `config/autoload/local.php` under `$databases['default']`.
 
+Create a new MySQL database - set collation to `utf8mb4_general_ci`
+
 ## Running migrations
 
 * create a new MySQL database - set collation to `utf8mb4_general_ci`
