@@ -10,7 +10,7 @@
 
 * duplicate `config/autoload/local.php.dist` as `config/autoload/local.php`
 
-* duplicate `config/autoload/mail.local.php.dist` as `config/autoload/mail.local.php` 
+* duplicate `config/autoload/mail.local.php.dist` as `config/autoload/mail.local.php`
 
 ### Note
 
