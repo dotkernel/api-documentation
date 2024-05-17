@@ -9,7 +9,7 @@ Create a new MySQL database - set collation to `utf8mb4_general_ci`
 ## Running migrations
 
 * create a new MySQL database - set collation to `utf8mb4_general_ci`
-* run the database migrations by using the following command:
+Run the database migrations by using the following command:
 
 ```shell
 php vendor/bin/doctrine-migrations migrate
