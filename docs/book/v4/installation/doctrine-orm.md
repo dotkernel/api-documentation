@@ -8,7 +8,6 @@ Create a new MySQL database - set collation to `utf8mb4_general_ci`
 
 ## Running migrations
 
-* create a new MySQL database - set collation to `utf8mb4_general_ci`
 Run the database migrations by using the following command:
 
 ```shell
