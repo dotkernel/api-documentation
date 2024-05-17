@@ -4,7 +4,7 @@ Sending a GET request to the [home page](http://0.0.0.0:8080/) should output the
 
 > {"message": "Welcome to DotKernel API!"}
 
-## Old way of doing things, using PHP built in server
+## Old way of doing things, using PHP built-in server
 
 ```shell
 php -S 0.0.0.0:8080 -t public
