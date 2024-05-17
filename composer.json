@@ -1,0 +1,13 @@
+{
+    "name": "dotkernel/api-documentation",
+    "description": "DotKernel API documentation markdown files.",
+    "type": "metapackage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DotKernel Team",
+            "email": "team@dotkernel.com"
+        }
+    ],
+    "require": {}
+}
