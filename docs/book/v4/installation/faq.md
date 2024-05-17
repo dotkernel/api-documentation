@@ -14,7 +14,8 @@ If running your project you encounter some permission issues, follow the below s
 
 **Fix:**
 
-    chmod -R 777 data
+```shell
+chmod -R 777 data
 
 ### Error:
 
