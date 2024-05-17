@@ -23,7 +23,8 @@ chmod -R 777 data
 
 **Fix:**
 
-    chmod -R 777 public/uploads
+```shell
+chmod -R 777 public/uploads
 
 ### Error:
 
