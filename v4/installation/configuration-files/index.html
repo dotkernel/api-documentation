@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/installation/configuration-files/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>api - DotKernel Documentation</title>
+        <title>Configuration Files - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -127,7 +127,23 @@
                 <li class="breadcrumb-item"><a href="">API</a></li>
 
                 
-                    <li class="breadcrumb-item">api</li>
+                    <li class="breadcrumb-item"><a href="../../..">api</a></li>
+
+                    
+                        
+                            
+                            
+                        
+                    
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Installation</li>
+                            
+                        
+                    
+
+                    <li class="breadcrumb-item active" aria-current="page">Configuration Files</li>
                 
             
         </ol>
@@ -142,7 +158,7 @@
                     
     <div class="subnavigation hidden-print">
 <!--        <h4 class="subnavigation__title">-->
-<!--            <a href=".">api</a>-->
+<!--            <a href="../../..">api</a>-->
 <!--        </h4>-->
 
         <h5 class="subnavigation__title">Table of Contents</h5>
@@ -160,25 +176,25 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/introduction/introduction/" class="subnavigation__link">Introduction</a>
+        <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+        <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/introduction/file-structure/" class="subnavigation__link">File Structure</a>
+        <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/introduction/packages/" class="subnavigation__link">Packages</a>
+        <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
     </li>
 
             
@@ -193,37 +209,37 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/installation/getting-started/" class="subnavigation__link">Getting Started</a>
+        <a href="../getting-started/" class="subnavigation__link">Getting Started</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/installation/composer/" class="subnavigation__link">Composer</a>
+        <a href="../composer/" class="subnavigation__link">Composer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Configuration Files</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+        <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+        <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="v4/installation/faq/" class="subnavigation__link">FAQ</a>
+        <a href="../faq/" class="subnavigation__link">FAQ</a>
     </li>
 
             
@@ -238,7 +254,7 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+        <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
     </li>
 
             
@@ -253,7 +269,7 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="v4/transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
+        <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
     </li>
 
             
@@ -270,6 +286,24 @@
 
                     
                     
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#prepare-config-files" class="toc__link nav-link">Prepare config files</a>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+                    
                 </div>
                 <div class="col-lg-9 main_docs">
                     
@@ -277,23 +311,40 @@
 
 
 
-    <h1>api</h1>
-<p>DotKernel API</p>
 
+    
+    
+<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+    
 
-    <h2>Installation</h2>
-    <h3>Using Git</h3>
-    <pre class="highlight line-numbers">
-        <i class="bi bi-copy copy_btn" onclick="copy(this)"></i>
-        <code class="language-bash">git clone https://github.com/dotkernel/api.git dotkernel-api</code>
-    </pre>
-
-
-<h2>Support</h2>
+    <h1 id="configuration-files">Configuration Files</h1>
+<h2 id="prepare-config-files">Prepare config files</h2>
 <ul>
-    <li>Issues: <a href="https://github.com/dotkernel/api/issues">github.com/dotkernel/api/issues</a></li>
-    <li>Source: <a href="https://github.com/dotkernel/api">github.com/dotkernel/api</a></li>
+<li>duplicate <code>config/autoload/cors.local.php.dist</code> as <code>config/autoload/cors.local.php</code></li>
 </ul>
+<h3 id="note">Note</h3>
+<blockquote>
+<p>if your API will be consumed by another application, make sure to configure the <code>allowed_origins</code> variable</p>
+</blockquote>
+<ul>
+<li>
+<p>duplicate <code>config/autoload/local.php.dist</code> as <code>config/autoload/local.php</code></p>
+</li>
+<li>
+<p>duplicate <code>config/autoload/mail.local.php.dist</code> as <code>config/autoload/mail.local.php</code></p>
+</li>
+</ul>
+<h3 id="note_1">Note</h3>
+<blockquote>
+<p>if your API will send emails, make sure to fill in SMTP connection params</p>
+</blockquote>
+<ul>
+<li><strong>optional</strong>: in order to run/create tests, duplicate <code>config/autoload/local.test.php.dist</code> as <code>config/autoload/local.test.php</code></li>
+</ul>
+<h3 id="note_2">Note</h3>
+<blockquote>
+<p>this creates a new in-memory database that your tests will run on.</p>
+</blockquote>
 
 
 
@@ -303,14 +354,20 @@
         
         <li class="page-nav__item">
             
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../composer/">
+                    <small class="page-nav__label">Previous</small>
+                    <i class="bi bi-chevron-left"></i>
+                    Composer
+                </a>
+            
         </li>
 
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="v4/introduction/introduction/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../doctrine-orm/">
                     <small class="page-nav__label">Next</small>
-                    Introduction
+                    Doctrine ORM
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
@@ -414,7 +471,7 @@
 </footer>
 
         <script>
-            let base_url = '.',
+            let base_url = '../../..',
                 project  = "api",
                 siteName = 'api';
         </script>
@@ -439,8 +496,3 @@
 </div>-->
     </body>
 </html>
-
-<!--
-MkDocs version : 1.6.0
-Build Date UTC : 2024-05-17 10:48:58.649245+00:00
--->

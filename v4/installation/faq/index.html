@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/introduction/getting-started/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/installation/faq/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Getting Started - api - DotKernel Documentation</title>
+        <title>FAQ - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Introduction</li>
+                                <li class="breadcrumb-item">Installation</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+                    <li class="breadcrumb-item active" aria-current="page">FAQ</li>
                 
             
         </ol>
@@ -176,37 +176,70 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../introduction/" class="subnavigation__link">Introduction</a>
+        <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Installation</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../getting-started/" class="subnavigation__link">Getting Started</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../composer/" class="subnavigation__link">Composer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Getting Started</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../file-structure/" class="subnavigation__link">File Structure</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../installation/" class="subnavigation__link">Installation</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../packages/" class="subnavigation__link">Packages</a>
+        <a href="./" class="subnavigation__link">FAQ</a>
     </li>
 
             
@@ -258,6 +291,17 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#how-do-i-fix-common-permission-issues" class="toc__link nav-link">How do I fix common permission issues?</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -270,12 +314,32 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Introduction</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
     
 
-    <h1 id="clone-the-project">Clone the project</h1>
-<p>Using your terminal, navigate inside the directory you want to download the project files into. Make sure that the directory is empty before proceeding to the download process. Once there, run the following command:</p>
-<pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+    <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+<h2 id="how-do-i-fix-common-permission-issues">How do I fix common permission issues?</h2>
+<p>If running your project you encounter some permission issues, follow the below steps.</p>
+<h3 id="errors">Errors</h3>
+<blockquote>
+<p>PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/<em>example.local</em>/html/data" is not writable...</p>
+<p>PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/<em>example.local</em>/html/data/cache" is not writable...</p>
+<p>PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/<em>example.local</em>/html/data/cache/doctrine" is not writable...</p>
+</blockquote>
+<p><strong>Fix:</strong></p>
+<pre class="highlight"><code class="language-shell">chmod -R 777 data</code></pre>
+<h3 id="error">Error</h3>
+<blockquote>
+<p>PHP Fatal error:  Uncaught InvalidArgumentException: The directory "/var/www/<em>example.local</em>/html/public/uploads" is not writable...</p>
+</blockquote>
+<p><strong>Fix:</strong></p>
+<pre class="highlight"><code class="language-shell">chmod -R 777 public/uploads</code></pre>
+<h3 id="error_1">Error</h3>
+<blockquote>
+<p>PHP Fatal error:  Uncaught ErrorException: fopen(/var/www/<em>example.local</em>/config/autoload/../../log/error-log-<em>yyyy-mm-dd.log</em>): Failed to open stream: Permission denied...</p>
+</blockquote>
+<p><strong>Fix:</strong></p>
+<pre class="highlight"><code class="language-shell">chmod -R 777 log</code></pre>
 
 
 
@@ -285,10 +349,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../introduction/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../test-the-installation/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Introduction
+                    Test the Installation
                 </a>
             
         </li>
@@ -296,9 +360,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../server-requirements/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
                     <small class="page-nav__label">Next</small>
-                    Server Requirements
+                    Creating a book module
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

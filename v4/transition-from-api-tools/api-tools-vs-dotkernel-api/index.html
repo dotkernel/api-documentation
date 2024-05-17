@@ -182,12 +182,6 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../../introduction/getting-started/" class="subnavigation__link">Getting Started</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
         <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
     </li>
 
@@ -200,13 +194,52 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../../introduction/installation/" class="subnavigation__link">Installation</a>
+        <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Installation</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+        <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
     </li>
 
             
@@ -258,6 +291,17 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#note" class="toc__link nav-link">Note</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -273,7 +317,7 @@
 <!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
     
 
-    <h2 id="comparison-between-api-tools-and-dotkernel-api">Comparison between API Tools and DotKernel API</h2>
+    <h1 id="comparison-between-api-tools-and-dotkernel-api">Comparison between API Tools and DotKernel API</h1>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -306,7 +350,7 @@
 <tr>
 <td>OSS Lifecycle</td>
 <td>Archived</td>
-<td><img alt="" src="https://img.shields.io/osslifecycle/dotkernel/api?style=flat&amp;label=" /></td>
+<td><img alt="OSs Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/api?style=flat&amp;label=" /></td>
 </tr>
 <tr>
 <td>Style</td>
@@ -316,12 +360,17 @@
 <tr>
 <td>Versioning</td>
 <td>Yes</td>
-<td>No</td>
+<td>No *</td>
 </tr>
 <tr>
 <td>Documentation</td>
 <td>Swagger (Automated)</td>
 <td>Postman (Manual)</td>
+</tr>
+<tr>
+<td>Content-Negotiation</td>
+<td>Custom</td>
+<td>Hardcoded (hal+json, json)</td>
 </tr>
 <tr>
 <td>License</td>
@@ -340,7 +389,7 @@
 </tr>
 <tr>
 <td>Authentication</td>
-<td>HTTP Basic/Digest <br/> OAuth2.0</td>
+<td>HTTP Basic/Digest   OAuth2.0</td>
 <td>OAuth2.0</td>
 </tr>
 <tr>
@@ -356,7 +405,7 @@
 <tr>
 <td>Endpoint Generator</td>
 <td>Yes</td>
-<td>No</td>
+<td>Under development</td>
 </tr>
 <tr>
 <td>PSR</td>
@@ -365,6 +414,12 @@
 </tr>
 </tbody>
 </table></div>
+<h2 id="note">Note</h2>
+<blockquote>
+<ul>
+<li>Versioning is not planned at all. <a href="https://twitter.com/fielding/status/376835835670167552">Quote from Roy T. Fielding</a></li>
+</ul>
+</blockquote>
 
 
 

@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/introduction/installation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/installation/composer/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Installation - api - DotKernel Documentation</title>
+        <title>Composer - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Introduction</li>
+                                <li class="breadcrumb-item">Installation</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Composer</li>
                 
             
         </ol>
@@ -176,9 +176,36 @@
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../introduction/" class="subnavigation__link">Introduction</a>
+        <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
     </li>
 
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Installation</span>
+        <ul class="subnavigation__list">
             
                 
     <li class="subnavigation__list-item ">
@@ -187,26 +214,32 @@
 
             
                 
-    <li class="subnavigation__list-item ">
-        <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-    </li>
-
-            
-                
-    <li class="subnavigation__list-item ">
-        <a href="../file-structure/" class="subnavigation__link">File Structure</a>
-    </li>
-
-            
-                
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Installation</a>
+        <a href="./" class="subnavigation__link">Composer</a>
     </li>
 
             
                 
     <li class="subnavigation__list-item ">
-        <a href="../packages/" class="subnavigation__link">Packages</a>
+        <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../faq/" class="subnavigation__link">FAQ</a>
     </li>
 
             
@@ -270,38 +303,6 @@
                     <a href="#development-mode" class="toc__link nav-link">Development mode</a>
                 </li>
             
-                <li class="toc__entry">
-                    <a href="#prepare-config-files" class="toc__link nav-link">Prepare config files</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#setup-database" class="toc__link nav-link">Setup database</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-migrations" class="toc__link nav-link">Running migrations</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#executing-fixtures" class="toc__link nav-link">Executing fixtures</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#test-the-installation" class="toc__link nav-link">Test the installation</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-tests" class="toc__link nav-link">Running tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-unit-tests" class="toc__link nav-link">Running unit tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-functional-tests" class="toc__link nav-link">Running functional tests</a>
-                </li>
-            
             </ul>
         </div>
     
@@ -317,10 +318,10 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Introduction</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
     
 
-    <h1 id="installation">Installation</h1>
+    <h1 id="composer-installation-of-packages">Composer Installation of Packages</h1>
 <h2 id="install-dependencies">Install dependencies</h2>
 <pre class="highlight"><code class="language-shell">composer install</code></pre>
 <h2 id="development-mode">Development mode</h2>
@@ -330,49 +331,6 @@
 <pre class="highlight"><code class="language-shell">composer development-disable</code></pre>
 <p>You can check if you have development mode enabled by running:</p>
 <pre class="highlight"><code class="language-shell">composer development-status</code></pre>
-<h2 id="prepare-config-files">Prepare config files</h2>
-<ul>
-<li>duplicate <code>config/autoload/cors.local.php.dist</code> as <code>config/autoload/cors.local.php</code> &lt;- if your API will be consumed by another application, make sure configure the <code>allowed_origins</code></li>
-<li>duplicate <code>config/autoload/local.php.dist</code> as <code>config/autoload/local.php</code></li>
-<li>duplicate <code>config/autoload/mail.local.php.dist</code> as <code>config/autoload/mail.local.php</code> &lt;- if your API will send emails, make sure you fill in SMTP connection params</li>
-<li><strong>optional</strong>: in order to run/create tests, duplicate <code>config/autoload/local.test.php.dist</code> as <code>config/autoload/local.test.php</code> &lt;- this creates a new in-memory database that your tests will run on.</li>
-</ul>
-<h2 id="setup-database">Setup database</h2>
-<p>Make sure you fill out the database credentials in <code>config/autoload/local.php</code> under <code>$databases['default']</code>.</p>
-<h2 id="running-migrations">Running migrations</h2>
-<ul>
-<li>create a new MySQL database - set collation to <code>utf8mb4_general_ci</code></li>
-<li>run the database migrations by using the following command:</li>
-</ul>
-<pre class="highlight"><code class="language-shell">php vendor/bin/doctrine-migrations migrate</code></pre>
-<p>This command will prompt you to confirm that you want to run it.</p>
-<blockquote>
-<p>WARNING! You are about to execute a migration in database "..." that could result in schema changes and data loss. Are you sure you wish to continue? (yes/no) [yes]:</p>
-</blockquote>
-<p>Hit <code>Enter</code> to confirm the operation.</p>
-<h2 id="executing-fixtures">Executing fixtures</h2>
-<p><strong>Fixtures are used to seed the database with initial values and should be executed after migrating the database.</strong></p>
-<p>To list all the fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:list</code></pre>
-<p>This will output all the fixtures in the order of execution.</p>
-<p>To execute all fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:execute</code></pre>
-<p>To execute a specific fixture, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
-<p>More details on how fixtures work can be found here: https://github.com/dotkernel/dot-data-fixtures#creating-fixtures</p>
-<h2 id="test-the-installation">Test the installation</h2>
-<pre class="highlight"><code class="language-shell">php -S 0.0.0.0:8080 -t public</code></pre>
-<p>Sending a GET request to the <a href="http://0.0.0.0:8080/">home page</a> should output the following message:</p>
-<blockquote>
-<p>{"message": "Welcome to DotKernel API!"}</p>
-</blockquote>
-<h2 id="running-tests">Running tests</h2>
-<p>The project has 2 types of tests: functional and unit tests, you can run both types at the same type by executing this command:</p>
-<pre class="highlight"><code class="language-shell">php vendor/bin/phpunit</code></pre>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always</code></pre>
-<h2 id="running-functional-tests">Running functional tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
 
 
 
@@ -382,10 +340,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../file-structure/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../getting-started/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    File Structure
+                    Getting Started
                 </a>
             
         </li>
@@ -393,9 +351,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../configuration-files/">
                     <small class="page-nav__label">Next</small>
-                    Packages
+                    Configuration Files
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
