@@ -2,67 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/composer/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/configuration-files/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/doctrine-orm/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/faq/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/getting-started/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/test-the-installation/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/introduction/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/packages/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/server-requirements/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/tutorials/create-book-module/</loc>
-         <lastmod>2024-05-20</lastmod>
+         <lastmod>2024-05-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
