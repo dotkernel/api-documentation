@@ -6,11 +6,11 @@
 | First Release       | 2012                                        | 2018                                                                                  |
 | PHP Version         | <= 8.2                                      | >= 8.1                                                                                |
 | Architecture        | MVC, Event Driven                           | Middleware                                                                            |
-| OSS Lifecycle       | Archived                                    | ![OSs Lifecycle](https://img.shields.io/osslifecycle/dotkernel/api?style=flat&label=) |
+| OSS Lifecycle       | Archived                                    | ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/api?style=flat&label=) |
 | Style               | REST, RPC                                   | REST                                                                                  |
 | Versioning          | Yes                                         | Deprecations *                                                                        |
-| Documentation       | Swagger (Automated)                         | Postman (Manual)                                                                      |
-| Content-Negotiation | Custom                                      | hal+json, json  *                                                                     |
+| Documentation       | Swagger (Automated)                         | Postman (Manual) *                                                                    |
+| Content-Negotiation | Custom                                      | Custom                                            |
 | License             | BSD-3                                       | MIT                                                                                   |
 | Default DB Layer    | laminas-db                                  | doctrine-orm                                                                          |
 | Authorization       | ACL                                         | RBAC-guard                                                                            |
@@ -23,4 +23,4 @@
 ## Note
 
 > * Versioning is replaced with Deprecations , using evolution strategy
-> * A more complex Content-Negotiation is under development
+> * Version 5 ( [Roadmap](https://github.com/orgs/dotkernel/projects/15/views/1)) will implement OpenAPi 3.0
