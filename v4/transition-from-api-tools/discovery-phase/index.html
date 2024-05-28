@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/installation/getting-started/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/discovery-phase/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Getting Started - api - DotKernel Documentation</title>
+        <title>Discovery Phase - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Installation</li>
+                                <li class="breadcrumb-item">Transition from API Tools</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+                    <li class="breadcrumb-item active" aria-current="page">Discovery Phase</li>
                 
             
         </ol>
@@ -266,38 +266,38 @@
     <ul class="subnavigation__list collapse" id="installation">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Getting Started</a>
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -497,19 +497,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
+    <a href="../api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+    <a href="../transition-approach/" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -531,6 +531,29 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#database" class="toc__link nav-link">Database</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#authentication-and-authorization" class="toc__link nav-link">Authentication and Authorization</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#modules" class="toc__link nav-link">Modules</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#custom-functionalities" class="toc__link nav-link">Custom functionalities</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -543,12 +566,46 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
     
 
-    <h1 id="clone-the-project">Clone the project</h1>
-<p>Using your terminal, navigate inside the directory you want to download the project files into. Make sure that the directory is empty before proceeding to the download process. Once there, run the following command:</p>
-<pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+    <h1 id="discovery-phase-for-a-current-system-built-using-api-tools-wip">Discovery phase for a current system built using API Tools [WIP]</h1>
+<p>In order to transition a system built using api-tools to Dotkernel API , we need to analyze the core components
+of it.</p>
+<h2 id="database">Database</h2>
+<ul>
+<li>there is a database in the current API ?</li>
+<li>which is the connection to database</li>
+<li>which library is used for database interaction ( laminas-db, doctrine 2, eloquent, or else )</li>
+</ul>
+<h3 id="note">Note</h3>
+<blockquote>
+<p>Dotkernel API is tested only with MariaDB version 10.6 and 10.11 LTS</p>
+</blockquote>
+<h2 id="authentication-and-authorization">Authentication and Authorization</h2>
+<ul>
+<li>how authentication is done ? (basic, digest, oauth2, etc.)</li>
+<li>how authorization is done ?  (acl, rbac)</li>
+</ul>
+<h2 id="modules">Modules</h2>
+<ul>
+<li>analyze configuration files of the modules (what needs to be configured in order to use a module)</li>
+<li>analyze routes (which are the routes, protection rules, which one need auth, etc.)</li>
+<li>analyze response format (content negotiation and validation, which ones are json, hal, views, etc.)</li>
+<li>analyze input field validations</li>
+</ul>
+<h2 id="custom-functionalities">Custom functionalities</h2>
+<p>Analyze the custom code (code that cannot be generated through Admin UI and require manual implementation)</p>
+<p>For instance:</p>
+<ul>
+<li>caching</li>
+<li>events</li>
+<li>services</li>
+<li>extra installed packages and libraries</li>
+<li>jobs and queues</li>
+<li>third-parties</li>
+<li>tests</li>
+</ul>
 
 
 
@@ -558,22 +615,16 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../introduction/packages/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../transition-approach/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Packages
+                    Transition Approach
                 </a>
             
         </li>
 
         
         <li class="page-nav__item">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../composer/">
-                    <small class="page-nav__label">Next</small>
-                    Composer
-                    <i class="bi bi-chevron-right"></i>
-                </a>
             
         </li>
     </ul>

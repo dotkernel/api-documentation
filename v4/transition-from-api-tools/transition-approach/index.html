@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/installation/getting-started/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/transition-approach/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Getting Started - api - DotKernel Documentation</title>
+        <title>Transition Approach - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Installation</li>
+                                <li class="breadcrumb-item">Transition from API Tools</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+                    <li class="breadcrumb-item active" aria-current="page">Transition Approach</li>
                 
             
         </ol>
@@ -266,38 +266,38 @@
     <ul class="subnavigation__list collapse" id="installation">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Getting Started</a>
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -497,19 +497,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
+    <a href="../api-tools-vs-dotkernel-api/" class="subnavigation__link">API Tools vs DotKernel API</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+    <a href="../discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -531,6 +531,17 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#business-cases" class="toc__link nav-link">Business cases</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -543,12 +554,19 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
     
 
-    <h1 id="clone-the-project">Clone the project</h1>
-<p>Using your terminal, navigate inside the directory you want to download the project files into. Make sure that the directory is empty before proceeding to the download process. Once there, run the following command:</p>
-<pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+    <h1 id="transition-approach-wip">Transition approach  [WIP]</h1>
+<p>Dotkernel API is not a one-to-one replacement of api-tools ( former Apigility), but is only a potential solution to migrate to.</p>
+<p>Functionalities, components and architecture are different. </p>
+<p>See the <a href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/">Comparison between Dotkernel APi and api-tools</a></p>
+<h2 id="business-cases">Business cases</h2>
+<p>There are at least 2 approaches for this transition:</p>
+<h3 id="clone-11">Clone 1:1</h3>
+<p>and recreate all endpoints and entities</p>
+<h3 id="build-a-new-version-of-the-current-api-using-dotkernel-api">Build a new version of the current API using Dotkernel API</h3>
+<p>and keep it running as separate platforms until the sunset of the current version of api-tools</p>
 
 
 
@@ -558,10 +576,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../introduction/packages/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../api-tools-vs-dotkernel-api/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Packages
+                    API Tools vs DotKernel API
                 </a>
             
         </li>
@@ -569,9 +587,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../composer/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../discovery-phase/">
                     <small class="page-nav__label">Next</small>
-                    Composer
+                    Discovery Phase
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
