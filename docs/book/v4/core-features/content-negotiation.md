@@ -8,4 +8,3 @@
 
 Essentially, content negotiation is the *client* telling the server what it is sending and what it wants in return, and
 the server determining if it can do what the client requests.
-
