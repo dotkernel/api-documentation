@@ -7,7 +7,7 @@ route.
 It performs validation on the `Accept` and `Content-Type` headers of the request and response and returning appropriate
 errors responses when necessary.
 
-# Configuration
+## Configuration
 
 In DotKernel the configuration file for content negotiation is held on `config/autoload/content-negotiation.global.php`
 and the array look like this:
