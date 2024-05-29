@@ -1,4 +1,4 @@
-# Comparison between Laminas API Tools and DotKernel API
+# Laminas API Tools compared to DotKernel API
 
 |                     | API Tools (formerly Apigility)                 | DotKernel API                                                                         |
 |---------------------|------------------------------------------------|---------------------------------------------------------------------------------------|

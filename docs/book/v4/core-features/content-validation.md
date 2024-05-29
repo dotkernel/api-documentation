@@ -55,7 +55,7 @@ request headers will be validated against.
 
 This specifies that your server can return that representation, or at least one the representation send from the client
 
-```http request
+```shell
 GET /admin HTTP/1.1
 Accept: application/json
 ```
@@ -80,7 +80,7 @@ response.
 
 This aspect of content negotiation is the `Content-Type` key and determining if the server can deserialize the data.
 
-``` shell
+```shell
 POST /admin/1 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
