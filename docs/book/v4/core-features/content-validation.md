@@ -80,7 +80,7 @@ response.
 
 This aspect of content negotiation is the `Content-Type` key and determining if the server can deserialize the data.
 
-``` http request
+``` shell
 POST /admin/1 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
