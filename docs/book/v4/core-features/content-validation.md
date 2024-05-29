@@ -1,8 +1,17 @@
 # Content Negotiation
 
-Content negotiation validation in DotKernel happened through middleware, and it ensures that the incoming request
-and the outgoing response conform to the content types specified in the config file for all routes or for a specific
-route.
+**Content Negotiation** is performed by an application in order :
+
+- To match the requested representation as specified by the client via the Accept header with a representation the
+  application can deliver.
+- To determine the `Content-Type` of incoming data and deserialize it so the application can utilize it.
+
+Essentially, content negotiation is the *client* telling the server what it is sending and what it wants in return, and
+the server determining if it can do what the client requests.
+
+Content negotiation validation in **DotKernel API** happened through middleware, and it ensures that the incoming
+request and the outgoing response conform to the content types specified in the config file for all routes or for a
+specific route.
 
 It performs validation on the `Accept` and `Content-Type` headers of the request and response and returning appropriate
 errors responses when necessary.
@@ -51,7 +60,7 @@ GET /admin HTTP/1.1
 Accept: application/json
 ```
 
-This request indicates the client wants `applicaiton/json` in return. Now the server, through the config file will try
+This request indicates the client wants `application/json` in return. Now the server, through the config file will try
 to validate if that representation can be returned, basically if `application/json` is presented in the `Accept` key.
 
 If the representation cannot be returned, a status code `406 - Not Acceptable` will be returned.
@@ -94,7 +103,7 @@ to be `multipart/form-data`. The above request will fail as the client send `app
 In addition to the validation described above, a third one is happening and is the last one, the server will check if
 the request `Accept` header can really be returned by the response.
 
-Through how the DotKernel is returning a response in handler , a content type is always set, but this cannot be the case
-in any custom response but in any way the server will check what `Content-Type` the response is returning and will try
-to validate that against the `Accept` header of the request. If the validation fails, a status code
+Through how the **DotKernel API** is returning a response in handler , a content type is always set, but this cannot be
+the case in any custom response but in any way the server will check what `Content-Type` the response is returning and
+will try to validate that against the `Accept` header of the request. If the validation fails, a status code
 `406 - Not Acceptable` will be returned.
