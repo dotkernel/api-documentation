@@ -104,6 +104,6 @@ In addition to the validation described above, a third one is happening and is t
 the request `Accept` header can really be returned by the response.
 
 Through how the **DotKernel API** is returning a response in handler , a content type is always set, but this cannot be
-the case in any custom response but in any way the server will check what `Content-Type` the response is returning and 
+the case in any custom response but in any way the server will check what `Content-Type` the response is returning and
 will try to validate that against the `Accept` header of the request. If the validation fails, a status code
 `406 - Not Acceptable` will be returned.
