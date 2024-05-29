@@ -544,6 +544,10 @@
                 </li>
             
                 <li class="toc__entry">
+                    <a href="#content-type-negotiation" class="toc__link nav-link">Content-Type Negotiation</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#the-request-response-validation" class="toc__link nav-link">The Request &lt;-&gt; Response validation</a>
                 </li>
             
@@ -608,37 +612,29 @@ be in place. The <code>default</code> key is <code>mandatory</code>.</p>
 request headers will be validated against.</p>
 <h2 id="accept-negotiation">Accept Negotiation</h2>
 <p>This specifies that your server can return that representation, or at least one the representation send from the client</p>
-<p>```http request
-GET /admin HTTP/1.1
-Accept: application/json
-<pre class="highlight"><code>
-This request indicates the client wants `application/json` in return. Now the server, through the config file will try
-to validate if that representation can be returned, basically if `application/json` is presented in the `Accept` key.
-
-If the representation cannot be returned, a status code `406 - Not Acceptable` will be returned.
-
-If the representation can be returned, the server should report the media type through `Content-Type` header of the
-response.
-
-&gt; Due to how these validations are make, for a `json` media type, the server can return a more generic media type,
-&gt; for example, if the clients send `Accept: application/vnd.api+json` and you configured your `Accept` key
-&gt; as `application/json`
-&gt; the representation will be returned as is still json.
-
-&gt; If the `Accept` header of the request contains `*/*` it means that whatever the server can return is OK, so it can
-&gt; return anything
-
-## Content-Type Negotiation
-
-This aspect of content negotiation is the `Content-Type` key and determining if the server can deserialize the data.
-
-``` shell
-POST /admin/1 HTTP/1.1
+<pre class="highlight"><code class="language-shell">GET /admin HTTP/1.1
+Accept: application/json</code></pre>
+<p>This request indicates the client wants <code>application/json</code> in return. Now the server, through the config file will try
+to validate if that representation can be returned, basically if <code>application/json</code> is presented in the <code>Accept</code> key.</p>
+<p>If the representation cannot be returned, a status code <code>406 - Not Acceptable</code> will be returned.</p>
+<p>If the representation can be returned, the server should report the media type through <code>Content-Type</code> header of the
+response.</p>
+<blockquote>
+<p>Due to how these validations are make, for a <code>json</code> media type, the server can return a more generic media type,
+for example, if the clients send <code>Accept: application/vnd.api+json</code> and you configured your <code>Accept</code> key
+as <code>application/json</code>
+the representation will be returned as is still json.</p>
+<p>If the <code>Accept</code> header of the request contains <code>*/*</code> it means that whatever the server can return is OK, so it can
+return anything</p>
+</blockquote>
+<h2 id="content-type-negotiation">Content-Type Negotiation</h2>
+<p>This aspect of content negotiation is the <code>Content-Type</code> key and determining if the server can deserialize the data.</p>
+<pre class="highlight"><code class="language-shell">POST /admin/1 HTTP/1.1
 Accept: application/json
 Content-Type: application/json
 {
     "foo": "bar"
-}</code></pre></p>
+}</code></pre>
 <p>The server will try to validate this <code>Content-Type</code> against your configured <code>Content-Type</code> key from the config file,
 and if the format is not supported, a status code <code>415 - Unsupported Media Type</code> will be returned.</p>
 <p>For example, you have a route that it needs an upload file, normally you will configure the <code>Content-Type</code> of that route
