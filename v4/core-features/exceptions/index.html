@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/core-features/content-negotiation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/core-features/exceptions/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Content Negotiation - api - DotKernel Documentation</title>
+        <title>Exceptions - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -143,7 +143,7 @@
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Content Negotiation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Exceptions</li>
                 
             
         </ol>
@@ -382,14 +382,14 @@
     <ul class="subnavigation__list collapse" id="core-features">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Content Negotiation</a>
+<li class="subnavigation__list-item ">
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Exceptions</a>
 </li>
 
         
@@ -546,15 +546,9 @@
 <!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="content-negotiation">Content Negotiation</h1>
-<p><strong>Content Negotiation</strong> is performed by an application in order to :</p>
-<ul>
-<li>To match the requested representation as specified by the client via the Accept header with a representation the
-  application can deliver.</li>
-<li>To determine the <code>Content-Type</code> of incoming data and deserialize it so the application can utilize it.</li>
-</ul>
-<p>Essentially, content negotiation is the <em>client</em> telling the server what it is sending and what it wants in return, and
-the server determining if it can do what the client requests.</p>
+    <h1 id="exceptions-wip">Exceptions [WIP]</h1>
+<p>https://github.com/dotkernel/api/pull/269/files#</p>
+<p>src/App/src/Handler/ResponseTrait.php</p>
 
 
 
@@ -564,10 +558,10 @@ the server determining if it can do what the client requests.</p>
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../flow/library-flow-for-email/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../content-validation/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Library Flow for Email
+                    Content Validation
                 </a>
             
         </li>
@@ -575,9 +569,9 @@ the server determining if it can do what the client requests.</p>
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../content-validation/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
                     <small class="page-nav__label">Next</small>
-                    Content Validation
+                    Creating a book module
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

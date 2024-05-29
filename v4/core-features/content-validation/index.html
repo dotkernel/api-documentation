@@ -382,14 +382,14 @@
     <ul class="subnavigation__list collapse" id="core-features">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../content-negotiation/" class="subnavigation__link">Content Negotiation</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Content Validation</a>
+<li class="subnavigation__list-item ">
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
@@ -531,6 +531,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#configuration" class="toc__link nav-link">Configuration</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#accept-negotiation" class="toc__link nav-link">Accept Negotiation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#the-request-response-validation" class="toc__link nav-link">The Request &lt;-&gt; Response validation</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -546,8 +565,95 @@
 <!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="basic-content-validation">Basic Content Validation</h1>
-<p>https://github.com/dotkernel/api/pull/261/files</p>
+    <h1 id="content-negotiation">Content Negotiation</h1>
+<p><strong>Content Negotiation</strong> is performed by an application in order :</p>
+<ul>
+<li>To match the requested representation as specified by the client via the Accept header with a representation the
+  application can deliver.</li>
+<li>To determine the <code>Content-Type</code> of incoming data and deserialize it so the application can utilize it.</li>
+</ul>
+<p>Essentially, content negotiation is the <em>client</em> telling the server what it is sending and what it wants in return, and
+the server determining if it can do what the client requests.</p>
+<p>Content negotiation validation in <strong>DotKernel API</strong> happened through middleware, and it ensures that the incoming
+request and the outgoing response conform to the content types specified in the config file for all routes or for a
+specific route.</p>
+<p>It performs validation on the <code>Accept</code> and <code>Content-Type</code> headers of the request and response and returning appropriate
+errors responses when necessary.</p>
+<h2 id="configuration">Configuration</h2>
+<p>In DotKernel the configuration file for content negotiation is held on <code>config/autoload/content-negotiation.global.php</code>
+and the array look like this:</p>
+<pre class="highlight"><code class="language-php">return [
+    'content-negotiation' =&gt; [
+        'default'         =&gt; [
+            'Accept'       =&gt; [
+                'application/json',
+                'application/hal+json',
+            ],
+            'Content-Type' =&gt; [
+                'application/json',
+                'application/hal+json',
+            ],
+        ],
+        'your.route.name' =&gt; [
+            'Accept'       =&gt; [],
+            'Content-Type' =&gt; [],
+        ],
+    ],
+];</code></pre>
+<p>Except the <code>default</code> key, all your key must match the route name, for example in DotKernel we have the route to list all
+admins, which name is <code>admin.list</code>.</p>
+<p>If you did not specify a route name to configure you specifications about content negotiation, the <code>default</code> one will
+be in place. The <code>default</code> key is <code>mandatory</code>.</p>
+<p>Every route configuration must come with <code>Accept</code> and <code>Content-Type</code> keys, basically this will be the keys that the
+request headers will be validated against.</p>
+<h2 id="accept-negotiation">Accept Negotiation</h2>
+<p>This specifies that your server can return that representation, or at least one the representation send from the client</p>
+<p>```http request
+GET /admin HTTP/1.1
+Accept: application/json
+<pre class="highlight"><code>
+This request indicates the client wants `application/json` in return. Now the server, through the config file will try
+to validate if that representation can be returned, basically if `application/json` is presented in the `Accept` key.
+
+If the representation cannot be returned, a status code `406 - Not Acceptable` will be returned.
+
+If the representation can be returned, the server should report the media type through `Content-Type` header of the
+response.
+
+&gt; Due to how these validations are make, for a `json` media type, the server can return a more generic media type,
+&gt; for example, if the clients send `Accept: application/vnd.api+json` and you configured your `Accept` key
+&gt; as `application/json`
+&gt; the representation will be returned as is still json.
+
+&gt; If the `Accept` header of the request contains `*/*` it means that whatever the server can return is OK, so it can
+&gt; return anything
+
+## Content-Type Negotiation
+
+This aspect of content negotiation is the `Content-Type` key and determining if the server can deserialize the data.
+
+``` http request
+POST /admin/1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+{
+    "foo": "bar"
+}</code></pre></p>
+<p>The server will try to validate this <code>Content-Type</code> against your configured <code>Content-Type</code> key from the config file,
+and if the format is not supported, a status code <code>415 - Unsupported Media Type</code> will be returned.</p>
+<p>For example, you have a route that it needs an upload file, normally you will configure the <code>Content-Type</code> of that route
+to be <code>multipart/form-data</code>. The above request will fail as the client send <code>application/json</code> as <code>Content-Type</code></p>
+<blockquote>
+<p>If the request does not contain "Content-Type" header, that means that the server will try to deserialize tha data as
+he can.</p>
+</blockquote>
+<h2 id="the-request-response-validation">The <code>Request &lt;-&gt; Response</code> validation</h2>
+<p>In addition to the validation described above, a third one is happening and is the last one, the server will check if
+the request <code>Accept</code> header can really be returned by the response.</p>
+<p>Through how the <strong>DotKernel API</strong> is returning a response in handler , a content type is always set, but this cannot be
+the case in any custom response but in any way the server will check what <code>Content-Type</code> the response is returning and
+will try to validate that against the <code>Accept</code> header of the request. If the validation fails, a status code
+<code>406 - Not Acceptable</code> will be returned.</p>
 
 
 
@@ -557,10 +663,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../content-negotiation/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../flow/library-flow-for-email/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Content Negotiation
+                    Library Flow for Email
                 </a>
             
         </li>
@@ -568,9 +674,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../exceptions/">
                     <small class="page-nav__label">Next</small>
-                    Creating a book module
+                    Exceptions
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
