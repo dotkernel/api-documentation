@@ -2,48 +2,59 @@
 
 ## What are exceptions?
 
-Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
-They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.
+Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the
+execution of a script.
+They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular
+code.
 
 ## How we use exceptions?
 
-When it comes to handling exceptions, **DotKernel API** relies on the usage of easy-to-understand, problem-specific exceptions.
+When it comes to handling exceptions, **DotKernel API** relies on the usage of easy-to-understand, problem-specific
+exceptions.
 
 Out-of-the-box we provide the following custom exceptions:
 
-### `BadRequestException` thrown when:
+### `BadRequestException` thrown when
 
-* client tries to create/update resource, but the data from the request is invalid/incomplete (example: client tries to create an account, but does not send the required `identity` field)
- 
-### `ConflictException` thrown when:
+* client tries to create/update resource, but the data from the request is invalid/incomplete (example: client tries to
+  create an account, but does not send the required `identity` field)
 
-* resource cannot be created because a different resource with the same identifier already exists (example: cannot change existing user's identity because another user with the same identity already exists)
-* resource cannot change its state because it is already in the specified state (example: user cannot be activated because it is already active)
+### `ConflictException` thrown when
 
-### `ExpiredException` thrown when:
+* resource cannot be created because a different resource with the same identifier already exists (example: cannot
+  change existing user's identity because another user with the same identity already exists)
+* resource cannot change its state because it is already in the specified state (example: user cannot be activated
+  because it is already active)
+
+### `ExpiredException` thrown when
 
 * resource cannot be accessed because it expired (example: account activation link)
 * resource cannot be accessed because it has been consumed (example: one-time password)
 
-### `ForbiddenException` thrown when:
+### `ForbiddenException` thrown when
 
-* resource cannot be accessed by the authenticated client (example: client authenticated as regular user sends a `GET /admin` request)
+* resource cannot be accessed by the authenticated client (example: client authenticated as regular user sends
+  a `GET /admin` request)
 
-### `MethodNotAllowedException` thrown when:
+### `MethodNotAllowedException` thrown when
 
-* client tries to interact with a resource via an invalid HTTP request method (example: client sends a `PATCH /avatar` request)
+* client tries to interact with a resource via an invalid HTTP request method (example: client sends a `PATCH /avatar`
+  request)
 
-### `NotFoundException` thrown when:
+### `NotFoundException` thrown when
 
-* client tries to interact with a resource that does not exist on the server (example: client sends a `GET /resource-does-not-exist` request)
+* client tries to interact with a resource that does not exist on the server (example: client sends
+  a `GET /resource-does-not-exist` request)
 
-### `UnauthorizedException` thrown when:
+### `UnauthorizedException` thrown when
 
-* resource cannot be accessed because the client is not authenticated (example: unauthenticated client sends a `GET /admin` request)
+* resource cannot be accessed because the client is not authenticated (example: unauthenticated client sends
+  a `GET /admin` request)
 
 ## How it works?
 
-During a request, if there is no uncaught exception **DotKernel API** will return a JSON response with the data provided by the handler that handled the request.
+During a request, if there is no uncaught exception **DotKernel API** will return a JSON response with the data provided
+by the handler that handled the request.
 
 Else, it will build and send a response based on the exception thrown:
 
@@ -58,7 +69,9 @@ Else, it will build and send a response based on the exception thrown:
 
 ## How to extend?
 
-In this example we will create a custom exception called `CustomException`, place it next to the already existing custom exceptions (you can use your preferred location) and finally return a custom HTTP status code when `CustomException` is encountered.
+In this example we will create a custom exception called `CustomException`, place it next to the already existing custom
+exceptions (you can use your preferred location) and finally return a custom HTTP status code when `CustomException` is
+encountered.
 
 ### Step 1: Create exception file
 
@@ -93,7 +106,8 @@ Save and close the file.
 
 ### Step 3: Test for failure
 
-Access your API's home page URL and make sure it returns `500 Internal Server Error` HTTP status code and the following content:
+Access your API's home page URL and make sure it returns `500 Internal Server Error` HTTP status code and the following
+content:
 
 ```json
 {
