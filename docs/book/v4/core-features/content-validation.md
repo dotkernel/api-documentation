@@ -9,7 +9,7 @@
 Essentially, content negotiation is the *client* telling the server what it is sending and what it wants in return, and
 the server determining if it can do what the client requests.
 
-Content negotiation validation in **DotKernel API** happened through middleware, and it ensures that the incoming
+Content negotiation validation in **DotKernel API** happens through middleware, and it ensures that the incoming
 request and the outgoing response conform to the content types specified in the config file for all routes or for a
 specific route.
 
@@ -18,8 +18,9 @@ errors responses when necessary.
 
 ## Configuration
 
-In DotKernel the configuration file for content negotiation is held on `config/autoload/content-negotiation.global.php`
-and the array look like this:
+In DotKernel API the configuration file for content negotiation is held
+in `config/autoload/content-negotiation.global.php`
+and the array looks like this:
 
 ```php
 return [
@@ -42,10 +43,10 @@ return [
 ];
 ```
 
-Except the `default` key, all your key must match the route name, for example in DotKernel we have the route to list all
-admins, which name is `admin.list`.
+Except the `default` key, all your keys must match the route name, for example in DotKernel API we have the route to
+list all admins, which name is `admin.list`.
 
-If you did not specify a route name to configure you specifications about content negotiation, the `default` one will
+If you did not specify a route name to configure your specifications about content negotiation, the `default` one will
 be in place. The `default` key is `mandatory`.
 
 Every route configuration must come with `Accept` and `Content-Type` keys, basically this will be the keys that the
@@ -53,7 +54,8 @@ request headers will be validated against.
 
 ## Accept Negotiation
 
-This specifies that your server can return that representation, or at least one the representation send from the client
+This specifies that your server can return that representation, or at least one of the representation sent by the
+client.
 
 ```shell
 GET /admin HTTP/1.1
@@ -68,17 +70,16 @@ If the representation cannot be returned, a status code `406 - Not Acceptable` w
 If the representation can be returned, the server should report the media type through `Content-Type` header of the
 response.
 
-> Due to how these validations are make, for a `json` media type, the server can return a more generic media type,
+> Due to how these validations are made, for a `json` media type, the server can return a more generic media type,
 > for example, if the clients send `Accept: application/vnd.api+json` and you configured your `Accept` key
-> as `application/json`
-> the representation will be returned as is still json.
+> as `application/json` the representation will still be returned as `json`.
 
-> If the `Accept` header of the request contains `*/*` it means that whatever the server can return is OK, so it can
-> return anything
+> If the `Accept` header of the request contains `*/*` it means that whatever the server can return it is OK, so it can
+> return anything.
 
 ## Content-Type Negotiation
 
-This aspect of content negotiation is the `Content-Type` key and determining if the server can deserialize the data.
+The second aspect of content negotiation is the `Content-Type` header and determine the server can deserialize the data.
 
 ```shell
 POST /admin/1 HTTP/1.1
@@ -89,21 +90,23 @@ Content-Type: application/json
 }
 ```
 
-The server will try to validate this `Content-Type` against your configured `Content-Type` key from the config file,
-and if the format is not supported, a status code `415 - Unsupported Media Type` will be returned.
+The server will try to validate the `Content-Type` header against your configured `Content-Type` key from the config
+file, and if the format is not supported, a status code `415 - Unsupported Media Type` will be returned.
 
-For example, you have a route that it needs an upload file, normally you will configure the `Content-Type` of that route
-to be `multipart/form-data`. The above request will fail as the client send `application/json` as `Content-Type`
+For example, if you have a route that needs a file to be uploaded , normally you will configure the `Content-Type` of
+that route to be `multipart/form-data`. The above request will fail as the client send `application/json` as
+`Content-Type`.
 
-> If the request does not contain "Content-Type" header, that means that the server will try to deserialize tha data as
-> he can.
+> If the request does not contain "Content-Type" header, that means that the server will try to deserialize the data as
+> it can.
 
 ## The `Request <-> Response` validation
 
-In addition to the validation described above, a third one is happening and is the last one, the server will check if
+In addition to the validation described above, a third one is happening and is the last one: the server will check if
 the request `Accept` header can really be returned by the response.
 
-Through how the **DotKernel API** is returning a response in handler , a content type is always set, but this cannot be
-the case in any custom response but in any way the server will check what `Content-Type` the response is returning and
-will try to validate that against the `Accept` header of the request. If the validation fails, a status code
-`406 - Not Acceptable` will be returned.
+Through the way **DotKernel API** is returning a response in handler, a content type is always set.
+
+This cannot be the case in any custom response but in any case the server will check what `Content-Type` the response is
+returning and will try to validate that against the `Accept` header of the request.
+If the validation fails, a status code `406 - Not Acceptable` will be returned.
