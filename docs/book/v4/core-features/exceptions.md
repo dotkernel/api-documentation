@@ -10,28 +10,43 @@ They provide a way to manage errors in a structured and controlled manner, separ
 When it comes to handling exceptions, DotKernel API relies on the usage of easy-to-understand, problem-specific exceptions.
 
 Ou-of-the-box we provide the following custom exceptions:
+
 * `BadRequestException` thrown when:
-  * client tries to create/update resource, but the data from the request is invalid/incomplete (example: client tries to create an account, but does not send the required `identity` field)
+
+  1. client tries to create/update resource, but the data from the request is invalid/incomplete (example: client tries to create an account, but does not send the required `identity` field)
+
 * `ConflictException` thrown when:
-  * resource cannot be created because a different resource with the same identifier already exists (example: cannot change existing user's identity because another user with the same identity already exists)
-  * resource cannot change its state because it is already in the specified state (example: user cannot be activated because it is already active)
+
+  1. resource cannot be created because a different resource with the same identifier already exists (example: cannot change existing user's identity because another user with the same identity already exists)
+  2. resource cannot change its state because it is already in the specified state (example: user cannot be activated because it is already active)
+
 * `ExpiredException` thrown when:
-  * resource cannot be accessed because it expired (example: account activation link)
-  * resource cannot be accessed because it has been consumed (example: one-time password)
+
+  1. resource cannot be accessed because it expired (example: account activation link)
+  2. resource cannot be accessed because it has been consumed (example: one-time password)
+
 * `ForbiddenException` thrown when:
-  * resource cannot be accessed by the authenticated client (example: client authenticated as regular user sends a `GET /admin` request)
+
+  1. resource cannot be accessed by the authenticated client (example: client authenticated as regular user sends a `GET /admin` request)
+
 * `MethodNotAllowedException` thrown when:
-  * client tries to interact with a resource via an invalid HTTP request method (example: client sends a `PATCH /avatar` request)
+
+  1. client tries to interact with a resource via an invalid HTTP request method (example: client sends a `PATCH /avatar` request)
+
 * `NotFoundException` thrown when:
-  * client tries to interact with a resource that does not exist on the server (example: client sends a `GET /resource-does-not-exist` request)
+
+  1. client tries to interact with a resource that does not exist on the server (example: client sends a `GET /resource-does-not-exist` request)
+
 * `UnauthorizedException` thrown when:
-    * resource cannot be accessed because the client is not authenticated (example: unauthenticated client sends a `GET /admin` request)
+
+  1. resource cannot be accessed because the client is not authenticated (example: unauthenticated client sends a `GET /admin` request)
 
 ## How it works?
 
 During a request, if there is no uncaught exception DotKernel API will return a JSON response with the data provided by the handler that handled the request.
 
 Else, it will build and send a response based on the exception thrown:
+
 * `BadRequestException` will return a `400 Bad Request` response
 * `UnauthorizedException` will return a `401 Unauthorized` response
 * `ForbiddenException` will return a `403 Forbidden` response
@@ -63,6 +78,7 @@ class CustomException extends Exception
 {
 }
 ```
+
 Save and close the file.
 
 ### Step 2: Use exception file
@@ -72,6 +88,7 @@ Open the file `src/App/src/Handler/HomeHandler.php` and at the beginning of the 
 ```php
 throw new \Api\App\Exception\CustomException('some message');
 ```
+
 Save and close the file.
 
 ### Step 3: Test for failure
