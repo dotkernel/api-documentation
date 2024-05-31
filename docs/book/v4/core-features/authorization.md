@@ -7,6 +7,7 @@ DotKernel's APIs implementation of the authorization uses `Mezzio\Authorization\
 Role-Based Access Control (RBAC)
 
 ## How it works
+
 In DotKernel's API each authenticatable entity (admin and users) comes in with their roles table where you can define
 roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a resource.
 
@@ -63,8 +64,6 @@ A role can inherit the roles of their parent:
 
 - `superuser` has no parent
 - `admin` has `superuser` as a parent which means `superuser` will inherit `admin` permissions
-
-
 - `user` has no parent
 - `guest` has `user` as a parent which means `user` will inherit `guest` permissions
 
