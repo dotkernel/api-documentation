@@ -121,7 +121,7 @@ content:
 
 ### Step 4: Prepare for success
 
-Open the file `src/App/src/Handler/ResponseTrait.php` and locate the `handle` method.
+Open the file `src/App/src/Handler/HandlerTrait.php` and locate the `handle` method.
 Insert the following lines of code before the first catch statement:
 
 ```php
