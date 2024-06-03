@@ -27,6 +27,7 @@ nav:
       - Core Features:
           - "Content Validation": v4/core-features/content-validation.md
           - "Exceptions": v4/core-features/exceptions.md
+          - "CORS": v4/core-features/cors.md
       - Tutorials:
           - "Creating a book module": v4/tutorials/create-book-module.md
       - Transition from API Tools:
