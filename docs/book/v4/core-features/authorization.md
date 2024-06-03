@@ -53,8 +53,8 @@ The configuration file for the role and permission definitions is `config/autolo
 ],
 ```
 
->  See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/)
-> for more information.
+> See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/)
+for more information.
 
 ## Usage
 
