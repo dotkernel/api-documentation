@@ -25,9 +25,9 @@ nav:
           - "Default Library Flow": v4/flow/default-library-flow.md
           - "Library Flow for Email": v4/flow/library-flow-for-email.md
       - Core Features:
-          - "Content Validation": v4/core-features/content-validation.md
           - "Authentication": v4/core-features/authentication.md
           - "Authorization": v4/core-features/authorization.md
+          - "Content Validation": v4/core-features/content-validation.md
           - "Exceptions": v4/core-features/exceptions.md
           - "CORS": v4/core-features/cors.md
       - Tutorials:
