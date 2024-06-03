@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/core-features/cors/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>File Structure - api - DotKernel Documentation</title>
+        <title>CORS - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Introduction</li>
+                                <li class="breadcrumb-item">Core Features</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">File Structure</li>
+                    <li class="breadcrumb-item active" aria-current="page">CORS</li>
                 
             
         </ol>
@@ -205,25 +205,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">File Structure</a>
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../packages/" class="subnavigation__link">Packages</a>
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
         
@@ -383,31 +383,31 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">CORS</a>
 </li>
 
         
@@ -554,23 +554,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#main-directories" class="toc__link nav-link">Main directories</a>
+                    <a href="#what-is-cors" class="toc__link nav-link">What is CORS?</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
+                    <a href="#why-do-we-need-cors" class="toc__link nav-link">Why do we need CORS?</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#src-directory" class="toc__link nav-link">src directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#templates-directory" class="toc__link nav-link">templates directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#data-directory" class="toc__link nav-link">data directory</a>
+                    <a href="#how-to-fix" class="toc__link nav-link">How to fix?</a>
                 </li>
             
             </ul>
@@ -588,62 +580,71 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Introduction</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="file-structure">File structure</h1>
-<p>Dotkernel API follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.</p>
-<p>It is a good practice to standardize the file structure of projects.</p>
-<p>When using DotKernel API the following structure is installed by default:</p>
-<p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/file-structure-dk-api.png" class="img-responsive"/></p>
-<h2 id="main-directories">Main directories</h2>
-<ul>
-<li><code>bin</code> - executable files from CLI</li>
-<li><code>config</code> - various configuration files</li>
-<li><code>data</code> - should contain project-related data (AVOID storing sensitive data on VCS)</li>
-<li><code>documentation</code> - should contain project-related documentation</li>
-<li><code>log</code> - storage of log files generated by dot-error-log library</li>
-<li><code>public</code> - publicly visible files. The webserver need to have this folder as www-document root folder.</li>
-<li><code>src</code> - should contain the source code files</li>
-<li><code>test</code> - should contain the test files</li>
-</ul>
-<h2 id="special-purpose-folders">Special purpose folders</h2>
-<ul>
-<li><code>.github</code>  - containes workflow files</li>
-<li><code>.laminas-ci</code> - contains laminas-ci workflow files</li>
-</ul>
-<h2 id="src-directory"><code>src</code> directory</h2>
-<p>This directory contains all source code related to the Module. It should contain following directories, if they’re not empty:</p>
-<ul>
-<li>Handler - Action classes (similar to Controllers but can only perform one action)</li>
-<li>Entity - For database entities</li>
-<li>Service - Service classes</li>
-<li>Collection - Database entities collections</li>
-<li>Repository - Entity repository folder</li>
-</ul>
+    <h1 id="cors">CORS</h1>
+<h2 id="what-is-cors">What is CORS?</h2>
+<p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP-header based mechanism that allows a server to indicate any other
+origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
+<h2 id="why-do-we-need-cors">Why do we need CORS?</h2>
+<p>When integrating an API, most developers have encountered the following error message:</p>
 <blockquote>
-<p>The above example is just some of the directories a project may include, but these should give you an idea of how the structure should look like.</p>
+<p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy:
+No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
 </blockquote>
-<p>Other classes in the <code>src</code> directory may include <code>InputFilter</code>, <code>EventListener</code>, <code>Helper</code>, <code>Command</code>, <code>Factory</code> etc.</p>
-<p>The <code>src</code> directory should also contain 2 files:</p>
+<p>This happens because the API (<em>RESOURCE_URL</em>) is not configured to accept requests from the client (<em>RESOURCE_URL</em>).</p>
+<h2 id="how-to-fix">How to fix?</h2>
+<p>DotKernel API fixes this issue using the <a href="https://github.com/mezzio/mezzio-cors">mezzio/mezzio-cors</a> library.</p>
+<h3 id="step-1-install-library">Step 1: Install library</h3>
+<p>In order to install <code>mezzio/mezzio-cors</code>, run the following command:</p>
+<pre class="highlight"><code class="language-shell">composer require mezzio/mezzio-cors</code></pre>
+<h3 id="step-2-configure-your-api">Step 2: Configure your API</h3>
+<h4 id="register-configprovider">Register ConfigProvider</h4>
+<p>Register <code>mezzio/mezzio-cors</code> in your application by adding its ConfigProvider to your application's config aggregator.
+Open the file <code>config/config.php</code> and paste the below lines at the beginning of the array passed to <code>ConfigAggregator</code>:</p>
+<pre class="highlight"><code class="language-php">Laminas\Diactoros\ConfigProvider::class,
+Mezzio\Cors\ConfigProvider::class,</code></pre>
+<p>Save and close the file.</p>
+<h4 id="add-middleware">Add middleware</h4>
+<p>Add <code>mezzio/mezzio-cors</code> middleware to your application's pipeline.
+Open <code>config/pipeline.php</code> and paste the below line before the one with <code>RouteMiddleware::class</code>:</p>
+<pre class="highlight"><code class="language-php">$app-&gt;pipe(\Mezzio\Cors\Middleware\CorsMiddleware::class);</code></pre>
+<p>Save and close the file.</p>
+<h4 id="create-config-file">Create config file</h4>
+<p>Create and open file <code>config/autoload/cors.local.php</code> and add the following code inside it:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+use Mezzio\Cors\Configuration\ConfigurationInterface;
+
+return [
+    ConfigurationInterface::CONFIGURATION_IDENTIFIER =&gt; [
+        'allowed_origins' =&gt; [
+            ConfigurationInterface::ANY_ORIGIN,
+        ],
+        'allowed_headers' =&gt; ['Accept', 'Content-Type', 'Authorization'],
+        'allowed_max_age' =&gt; '600',
+        'credentials_allowed' =&gt; true,
+        'exposed_headers' =&gt; [],
+    ],
+];</code></pre>
+<p>See below list that explains the above configuration values:</p>
 <ul>
-<li><code>ConfigProvider.php</code> - Provides configuration data</li>
-<li><code>RoutesDelegator.php</code> - Module main routes entry file</li>
+<li><code>allowed_origins</code>: an array of domains that are allowed to interact with the API
+  (default <code>ConfigurationInterface::ANY_ORIGIN</code> which means that any domain can make requests to the API)</li>
+<li><code>allowed_headers</code>: an array of custom headers allowed</li>
+<li><code>allowed_max_age</code>: the maximum age, the preflight response may be cached by a client</li>
+<li><code>credentials_allowed</code>: if a request is allowed to pass cookies</li>
+<li><code>exposed_headers</code>: an array of headers which are being exposed by the endpoint</li>
 </ul>
-<h2 id="templates-directory"><code>templates</code> directory</h2>
-<p>This directory contains the template files, used for example to help render e-mail templates.</p>
+<p>Save and close the file.</p>
 <blockquote>
-<p>DotKernel API uses twig as Templating Engine. All template files have the extension .html.twig</p>
+<p>On the <strong>production</strong> environment, make sure you allow only specific origins by adding them to the <code>allowed_origins</code>
+array and removing the current value of <code>ConfigurationInterface::ANY_ORIGIN</code>.</p>
 </blockquote>
-<h2 id="data-directory"><code>data</code> directory</h2>
-<p>This directory contains project-related data (such as cache, file uploads)</p>
-<p>We recommend using the following directory structure:</p>
-<ul>
-<li><code>data/cache</code> - location where caches are stored</li>
-<li><code>data/oauth</code> - encryption, private and public keys needed for authentication.</li>
-<li><code>data/doctrine</code> - fixtures and migrations</li>
-<li><code>data/lock</code> - lock files generated by <code>dotkernel/dot-cli</code>  <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/">See more</a></li>
-</ul>
+<p>For more info, see <a href="https://docs.mezzio.dev/mezzio-cors/v1/middleware/#configuration">mezzio/mezzio-cors documentation</a>.</p>
 
 
 
@@ -653,10 +654,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../server-requirements/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../exceptions/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Server Requirements
+                    Exceptions
                 </a>
             
         </li>
@@ -664,9 +665,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
                     <small class="page-nav__label">Next</small>
-                    Packages
+                    Creating a book module
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

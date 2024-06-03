@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/core-features/authorization/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>File Structure - api - DotKernel Documentation</title>
+        <title>Authorization - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Introduction</li>
+                                <li class="breadcrumb-item">Core Features</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">File Structure</li>
+                    <li class="breadcrumb-item active" aria-current="page">Authorization</li>
                 
             
         </ol>
@@ -205,25 +205,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">File Structure</a>
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../packages/" class="subnavigation__link">Packages</a>
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
         
@@ -383,31 +383,31 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../authentication/" class="subnavigation__link">Authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
+    <a href="../cors/" class="subnavigation__link">CORS</a>
 </li>
 
         
@@ -554,23 +554,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#main-directories" class="toc__link nav-link">Main directories</a>
+                    <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
+                    <a href="#configuration" class="toc__link nav-link">Configuration</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#src-directory" class="toc__link nav-link">src directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#templates-directory" class="toc__link nav-link">templates directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#data-directory" class="toc__link nav-link">data directory</a>
+                    <a href="#usage" class="toc__link nav-link">Usage</a>
                 </li>
             
             </ul>
@@ -588,62 +580,73 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Introduction</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="file-structure">File structure</h1>
-<p>Dotkernel API follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.</p>
-<p>It is a good practice to standardize the file structure of projects.</p>
-<p>When using DotKernel API the following structure is installed by default:</p>
-<p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/file-structure-dk-api.png" class="img-responsive"/></p>
-<h2 id="main-directories">Main directories</h2>
-<ul>
-<li><code>bin</code> - executable files from CLI</li>
-<li><code>config</code> - various configuration files</li>
-<li><code>data</code> - should contain project-related data (AVOID storing sensitive data on VCS)</li>
-<li><code>documentation</code> - should contain project-related documentation</li>
-<li><code>log</code> - storage of log files generated by dot-error-log library</li>
-<li><code>public</code> - publicly visible files. The webserver need to have this folder as www-document root folder.</li>
-<li><code>src</code> - should contain the source code files</li>
-<li><code>test</code> - should contain the test files</li>
-</ul>
-<h2 id="special-purpose-folders">Special purpose folders</h2>
-<ul>
-<li><code>.github</code>  - containes workflow files</li>
-<li><code>.laminas-ci</code> - contains laminas-ci workflow files</li>
-</ul>
-<h2 id="src-directory"><code>src</code> directory</h2>
-<p>This directory contains all source code related to the Module. It should contain following directories, if they’re not empty:</p>
-<ul>
-<li>Handler - Action classes (similar to Controllers but can only perform one action)</li>
-<li>Entity - For database entities</li>
-<li>Service - Service classes</li>
-<li>Collection - Database entities collections</li>
-<li>Repository - Entity repository folder</li>
-</ul>
+    <h1 id="authorization">Authorization</h1>
+<p>Authorization is the process by which a system take a validated identity and checks if that identity has access to a
+given resource.</p>
+<p>DotKernel APIs implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of
+Role-Based Access Control (RBAC).</p>
+<h2 id="how-it-works">How it works</h2>
+<p>In DotKernel API each authenticatable entity (admin/user) comes with their roles table where you can define
+roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a
+resource.</p>
+<p>The authorization happens through the <code>Api\App\Middleware\AuthorizationMiddleware</code> middleware.</p>
+<h2 id="configuration">Configuration</h2>
+<p>DotKernel API makes use of <code>mezzio-authorization-rbac</code> and upon installation all the configuration is already made
+in order for the authorization to work.</p>
+<p>The configuration file for the role and permission definitions is <code>config/autoload/authorization.global.php</code>.</p>
+<pre class="highlight"><code class="language-php">'mezzio-authorization-rbac' =&gt; [
+    'roles'       =&gt; [
+        AdminRole::ROLE_SUPERUSER =&gt; [],
+        AdminRole::ROLE_ADMIN     =&gt; [
+            AdminRole::ROLE_SUPERUSER,
+        ],
+        UserRole::ROLE_GUEST      =&gt; [
+            UserRole::ROLE_USER,
+        ],
+    ],
+    'permissions' =&gt; [
+        AdminRole::ROLE_SUPERUSER =&gt; [],
+        AdminRole::ROLE_ADMIN     =&gt; [
+            'other.routes'
+            'admin.list',
+            'home'
+        ],
+        UserRole::ROLE_USER       =&gt; [
+            'other.routes',
+            'user.my-account.update',
+            'user.my-account.view',
+        ],
+        UserRole::ROLE_GUEST      =&gt; [
+            'other.routes',
+            'security.refresh-token',
+            'error.report',
+            'home',
+        ],
+    ],
+],</code></pre>
 <blockquote>
-<p>The above example is just some of the directories a project may include, but these should give you an idea of how the structure should look like.</p>
+<p>See <a href="https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/">mezzio-authorization-rbac</a>
+for more information.</p>
 </blockquote>
-<p>Other classes in the <code>src</code> directory may include <code>InputFilter</code>, <code>EventListener</code>, <code>Helper</code>, <code>Command</code>, <code>Factory</code> etc.</p>
-<p>The <code>src</code> directory should also contain 2 files:</p>
+<h2 id="usage">Usage</h2>
+<p>Based on the configuration file above, we have 2 admins roles (<code>superuser</code>, <code>admin</code>) and 2 users
+roles (<code>user</code>, <code>guest</code>).</p>
+<p>Roles inherit the permissions from their parents:</p>
 <ul>
-<li><code>ConfigProvider.php</code> - Provides configuration data</li>
-<li><code>RoutesDelegator.php</code> - Module main routes entry file</li>
+<li><code>superuser</code> has no parent</li>
+<li><code>admin</code> has <code>superuser</code> as a parent which means <code>superuser</code> will inherit <code>admin</code> permissions</li>
+<li><code>user</code> has no parent</li>
+<li><code>guest</code> has <code>user</code> as a parent which means <code>user</code> will inherit <code>guest</code> permissions</li>
 </ul>
-<h2 id="templates-directory"><code>templates</code> directory</h2>
-<p>This directory contains the template files, used for example to help render e-mail templates.</p>
-<blockquote>
-<p>DotKernel API uses twig as Templating Engine. All template files have the extension .html.twig</p>
-</blockquote>
-<h2 id="data-directory"><code>data</code> directory</h2>
-<p>This directory contains project-related data (such as cache, file uploads)</p>
-<p>We recommend using the following directory structure:</p>
-<ul>
-<li><code>data/cache</code> - location where caches are stored</li>
-<li><code>data/oauth</code> - encryption, private and public keys needed for authentication.</li>
-<li><code>data/doctrine</code> - fixtures and migrations</li>
-<li><code>data/lock</code> - lock files generated by <code>dotkernel/dot-cli</code>  <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/">See more</a></li>
-</ul>
+<p>For each role we defined an array of permissions. A permission in DotKernel API is basically a route name.</p>
+<p>As you can see, the <code>superuser</code> does not have its own permissions, because it inherits all the permissions
+from <code>admin</code>,
+no need to define permissions for it unless necessary.</p>
+<p>The <code>user</code> role, inherits all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but
+<code>guest</code> cannot access user-specific routes.</p>
 
 
 
@@ -653,10 +656,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../server-requirements/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../authentication/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Server Requirements
+                    Authentication
                 </a>
             
         </li>
@@ -664,9 +667,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../content-validation/">
                     <small class="page-nav__label">Next</small>
-                    Packages
+                    Content Validation
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

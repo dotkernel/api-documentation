@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/core-features/authentication/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>File Structure - api - DotKernel Documentation</title>
+        <title>Authentication - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Introduction</li>
+                                <li class="breadcrumb-item">Core Features</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">File Structure</li>
+                    <li class="breadcrumb-item active" aria-current="page">Authentication</li>
                 
             
         </ol>
@@ -205,25 +205,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">File Structure</a>
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../packages/" class="subnavigation__link">Packages</a>
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
         
@@ -382,32 +382,32 @@
     <ul class="subnavigation__list collapse" id="core-features">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
+    <a href="../cors/" class="subnavigation__link">CORS</a>
 </li>
 
         
@@ -554,23 +554,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#main-directories" class="toc__link nav-link">Main directories</a>
+                    <a href="#configuration" class="toc__link nav-link">Configuration</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
+                    <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#src-directory" class="toc__link nav-link">src directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#templates-directory" class="toc__link nav-link">templates directory</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#data-directory" class="toc__link nav-link">data directory</a>
+                    <a href="#database" class="toc__link nav-link">Database</a>
                 </li>
             
             </ul>
@@ -588,62 +580,95 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Introduction</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="file-structure">File structure</h1>
-<p>Dotkernel API follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.</p>
-<p>It is a good practice to standardize the file structure of projects.</p>
-<p>When using DotKernel API the following structure is installed by default:</p>
-<p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/file-structure-dk-api.png" class="img-responsive"/></p>
-<h2 id="main-directories">Main directories</h2>
-<ul>
-<li><code>bin</code> - executable files from CLI</li>
-<li><code>config</code> - various configuration files</li>
-<li><code>data</code> - should contain project-related data (AVOID storing sensitive data on VCS)</li>
-<li><code>documentation</code> - should contain project-related documentation</li>
-<li><code>log</code> - storage of log files generated by dot-error-log library</li>
-<li><code>public</code> - publicly visible files. The webserver need to have this folder as www-document root folder.</li>
-<li><code>src</code> - should contain the source code files</li>
-<li><code>test</code> - should contain the test files</li>
-</ul>
-<h2 id="special-purpose-folders">Special purpose folders</h2>
-<ul>
-<li><code>.github</code>  - containes workflow files</li>
-<li><code>.laminas-ci</code> - contains laminas-ci workflow files</li>
-</ul>
-<h2 id="src-directory"><code>src</code> directory</h2>
-<p>This directory contains all source code related to the Module. It should contain following directories, if they’re not empty:</p>
-<ul>
-<li>Handler - Action classes (similar to Controllers but can only perform one action)</li>
-<li>Entity - For database entities</li>
-<li>Service - Service classes</li>
-<li>Collection - Database entities collections</li>
-<li>Repository - Entity repository folder</li>
-</ul>
+    <h1 id="authentication">Authentication</h1>
+<p>Authentication is the process by which an identity is presented to the application. It ensures that the entity
+making the request has the proper credentials to access the API.</p>
+<p><strong>DotKernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request
+If it is present, the application tries to find and assign the identity to the application. If it is not presented,
+DotKernel API assigns a default <code>guest</code> identity, represented by an instance of the class
+<code>Mezzio\Authentication\UserInterface</code>.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Authentication in DotKernel API is built around <code>mezzio/mezzio-authentication-oauth2</code> component and is already
+configured with what is necessary in order to work. But if you want to dig more, the configuration is stored in
+<code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
 <blockquote>
-<p>The above example is just some of the directories a project may include, but these should give you an idea of how the structure should look like.</p>
+<p>You can check the
+<a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a>
+configuration part for more info.</p>
 </blockquote>
-<p>Other classes in the <code>src</code> directory may include <code>InputFilter</code>, <code>EventListener</code>, <code>Helper</code>, <code>Command</code>, <code>Factory</code> etc.</p>
-<p>The <code>src</code> directory should also contain 2 files:</p>
+<h2 id="how-it-works">How it works</h2>
+<p>DotKernels API authentication system can be used for SPAs (single-page applications), mobile applications, and
+simple, token-based APIs. It allows each user of your application to generate API tokens for their accounts.</p>
+<p>The authentication happens through the middleware in the <code>Api\App\Middleware\AuthenticationMiddleware</code>.</p>
+<h2 id="database">Database</h2>
+<p>When <strong>DotKernel API</strong> is installed for the first time, and you run the migrations and seeders, all the tables
+needed for authentication are automatically created and populated with the data needed for authentication.</p>
+<p>In DotKernel API, authenticated users come from either the <code>admin</code> or the <code>users</code> table. We choose to keep the admin
+table separated from the users to prevent users of the application from accessing sensitive data, which only the
+administrators of the application should access.</p>
+<p>Knowing this, upon migrations, the <code>oauth_clients</code> table is pre-populated with the default <code>admin</code> and <code>frontend</code>
+clients with the same password as their names (you can change those passwords).</p>
+<p>As you guessed each client serves to authenticate <code>admin</code> or <code>users</code>.</p>
+<p>Another table that is pre-populated is the <code>oauth_scopes</code> table, with the <code>api</code> scope.</p>
+<h3 id="issuing-api-tokens">Issuing API Tokens</h3>
+<p>Token generation in DotKernel API is done using the <code>password</code> <code>grand_type</code> scenario, which in this case allows
+authentication to an API using the user's credentials (generally a username and password).</p>
+<p>The client sends a POST request to the <code>/security/generate-token</code> with the following parameters:</p>
 <ul>
-<li><code>ConfigProvider.php</code> - Provides configuration data</li>
-<li><code>RoutesDelegator.php</code> - Module main routes entry file</li>
+<li><code>grant_type</code> = password.</li>
+<li><code>client_id</code> = column <code>name</code> from the <code>oauth_clients</code> table</li>
+<li><code>client_secret</code> = column <code>secret</code> from the <code>oauth_clients</code> table</li>
+<li><code>scope</code> = column <code>scope</code> from the <code>oauth_scopes</code> table</li>
+<li><code>username</code> = column <code>identity</code> from table <code>admin</code>/<code>user</code></li>
+<li><code>password</code> = column <code>password</code> from table <code>admin</code>/<code>user</code></li>
 </ul>
-<h2 id="templates-directory"><code>templates</code> directory</h2>
-<p>This directory contains the template files, used for example to help render e-mail templates.</p>
-<blockquote>
-<p>DotKernel API uses twig as Templating Engine. All template files have the extension .html.twig</p>
-</blockquote>
-<h2 id="data-directory"><code>data</code> directory</h2>
-<p>This directory contains project-related data (such as cache, file uploads)</p>
-<p>We recommend using the following directory structure:</p>
-<ul>
-<li><code>data/cache</code> - location where caches are stored</li>
-<li><code>data/oauth</code> - encryption, private and public keys needed for authentication.</li>
-<li><code>data/doctrine</code> - fixtures and migrations</li>
-<li><code>data/lock</code> - lock files generated by <code>dotkernel/dot-cli</code>  <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/">See more</a></li>
-</ul>
+<pre class="highlight"><code class="language-shell">POST /security/generate-token HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+{
+  "grant_type": "password",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "username": "test@dotkernel.com",
+  "password": "dotkernel"
+}</code></pre>
+<p>The server responds with a JSON as follows:</p>
+<pre class="highlight"><code class="language-json">{
+    "token_type": "Bearer",
+    "expires_in": 86400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+    "refresh_token": "def5020087199939a49d0f2f818..."
+}</code></pre>
+<p>Next time when you make a request to the server to an authenticated endpoint, the client should use
+the <code>Authorization</code> header request.</p>
+<pre class="highlight"><code class="language-shell">GET /users/1 HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...</code></pre>
+<h3 id="refreshing-tokens">Refreshing tokens</h3>
+<p>DotKernel API provides the ability to refresh the access token, by generating a new one using the expired access
+token's <code>refresh_token</code>.</p>
+<p>The clients need to send a <code>POST</code> request to the <code>/security/refresh-token</code> with the following request</p>
+<pre class="highlight"><code class="language-shell">POST /security/refresh-token HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+{
+  "grant_type": "refresh_token",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "refresh_token" : "def5020087199939a49d0f2f818..."
+}</code></pre>
+<p>The server responds with a JSON as follows:</p>
+<pre class="highlight"><code class="language-json">{
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+  "refresh_token": "def5020087199939a49d0f2f818..."
+}</code></pre>
 
 
 
@@ -653,10 +678,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../server-requirements/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../flow/library-flow-for-email/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Server Requirements
+                    Library Flow for Email
                 </a>
             
         </li>
@@ -664,9 +689,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../authorization/">
                     <small class="page-nav__label">Next</small>
-                    Packages
+                    Authorization
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

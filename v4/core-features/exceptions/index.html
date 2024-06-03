@@ -383,6 +383,18 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../authentication/" class="subnavigation__link">Authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
@@ -390,6 +402,12 @@
         
 <li class="subnavigation__list-item subnavigation__list-item--active">
     <a href="./" class="subnavigation__link">Exceptions</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../cors/" class="subnavigation__link">CORS</a>
 </li>
 
         
@@ -664,7 +682,7 @@ content:</p>
     }
 }</code></pre>
 <h3 id="step-4-prepare-for-success">Step 4: Prepare for success</h3>
-<p>Open the file <code>src/App/src/Handler/ResponseTrait.php</code> and locate the <code>handle</code> method.
+<p>Open the file <code>src/App/src/Handler/HandlerTrait.php</code> and locate the <code>handle</code> method.
 Insert the following lines of code before the first catch statement:</p>
 <pre class="highlight"><code class="language-php">        } catch (\Api\App\Exception\CustomException $exception) {
             return $this-&gt;errorResponse($exception-&gt;getMessage(), StatusCodeInterface::STATUS_IM_A_TEAPOT);</code></pre>
@@ -692,9 +710,9 @@ Notice that this time it returns <code>418 I'm a teapot</code> HTTP status code.
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../cors/">
                     <small class="page-nav__label">Next</small>
-                    Creating a book module
+                    CORS
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
