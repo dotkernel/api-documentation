@@ -29,6 +29,7 @@ nav:
           - "Authentication": v4/core-features/authentication.md
           - "Authorization": v4/core-features/authorization.md
           - "Exceptions": v4/core-features/exceptions.md
+          - "CORS": v4/core-features/cors.md
       - Tutorials:
           - "Creating a book module": v4/tutorials/create-book-module.md
       - Transition from API Tools:
