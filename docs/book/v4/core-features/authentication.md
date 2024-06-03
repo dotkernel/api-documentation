@@ -3,18 +3,19 @@
 Authentication is the process by which an identity is presented to the application. It ensures that the entity
 making the request has the proper credentials to access the API.
 
-DotKernel API identities are delivered to the application from the client through the `Authorization` request
+**DotKernel API** identities are delivered to the application from the client through the `Authorization` request
 If it is present, the application tries to find and assign the identity to the application. If it is not presented,
 DotKernel API assigns a default `guest` identity, represented by an instance of the class
 `Mezzio\Authentication\UserInterface`.
 
 ## Configuration
 
-Authentication in DotKernel API is built around `mezzio/mezzio-authentication-oauth2` component and is already configured
-with what is necessary in order to work. But if you want to dig more, the configuration is stored in
+Authentication in DotKernel API is built around `mezzio/mezzio-authentication-oauth2` component and is already
+configured with what is necessary in order to work. But if you want to dig more, the configuration is stored in
 `config/autoload/local.php` under the `authentication` key.
 
-> You can check the [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration)
+> You can check the
+> [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration)
 > configuration part for more info.
 
 ## How it works
@@ -26,15 +27,15 @@ The authentication happens through the middleware in the `Api\App\Middleware\Aut
 
 ## Database
 
-When DotKernel API is installed for the first time, and you run the migrations and seeders, all the tables
+When **DotKernel API** is installed for the first time, and you run the migrations and seeders, all the tables
 needed for authentication are automatically created and populated with the data needed for authentication.
 
 In DotKernel API, authenticated users come from either the `admin` or the `users` table. We choose to keep the admin
-table separated from the users to prevent users of the application from accessing sensitive data, which only the administrators
-of the application should access.
+table separated from the users to prevent users of the application from accessing sensitive data, which only the
+administrators of the application should access.
 
-Knowing this, upon migrations, the `oauth_clients` table is pre-populated with the default `admin` and `frontend` clients with
-the same password as their names (you can change those passwords).
+Knowing this, upon migrations, the `oauth_clients` table is pre-populated with the default `admin` and `frontend`
+clients with the same password as their names (you can change those passwords).
 
 As you guessed each client serves to authenticate `admin` or `users`.
 
@@ -42,8 +43,8 @@ Another table that is pre-populated is the `oauth_scopes` table, with the `api` 
 
 ### Issuing API Tokens
 
-Token generation in DotKernel API is done using the `password` `grand_type` scenario, which in this case allows authentication
-to an API using the user's credentials (generally a username and password).
+Token generation in DotKernel API is done using the `password` `grand_type` scenario, which in this case allows
+authentication to an API using the user's credentials (generally a username and password).
 
 The client sends a POST request to the `/security/generate-token` with the following parameters:
 
@@ -90,7 +91,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
 
 ### Refreshing tokens
 
-DotKernel API provides the ability to refresh the access token, by generating a new one using the expired access token's `refresh_token`.
+DotKernel API provides the ability to refresh the access token, by generating a new one using the expired access
+token's `refresh_token`.
 
 The clients need to send a `POST` request to the `/security/refresh-token` with the following request
 
