@@ -79,9 +79,9 @@ This list explains the above configuration values:
 
 - `allowed_origins`: an array of domains that are allowed to interact with the API
   (default `ConfigurationInterface::ANY_ORIGIN` which means that any domain can make requests to the API)
-- `allowed_headers`: an array of custom headers allowed
-- `allowed_max_age`: the maximum age, the preflight response may be cached by a client
-- `credentials_allowed`: if a request is allowed to pass cookies
+- `allowed_headers`: an array of allowed custom headers
+- `allowed_max_age`: the maximum duration, since the preflight response may be cached by a client
+- `credentials_allowed`: allows a request to pass cookies
 - `exposed_headers`: an array of headers which are being exposed by the endpoint
 
 Save and close the file.
