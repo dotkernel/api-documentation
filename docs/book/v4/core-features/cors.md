@@ -75,7 +75,7 @@ return [
 ];
 ```
 
-See below list that explains the above configuration values:
+This list explains the above configuration values:
 
 - `allowed_origins`: an array of domains that are allowed to interact with the API
   (default `ConfigurationInterface::ANY_ORIGIN` which means that any domain can make requests to the API)
