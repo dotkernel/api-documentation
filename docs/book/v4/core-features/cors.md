@@ -12,7 +12,7 @@ When integrating an API, most developers have encountered the following error me
 > Access to fetch at _RESOURCE_URL_ from origin _ORIGIN_URL_ has been blocked by CORS policy:
 > No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
 
-This happens because the API (_RESOURCE_URL_) is not configured to accept requests from the client (_RESOURCE_URL_).
+This happens because the API (_RESOURCE_URL_) is not configured to accept requests from the client (_ORIGIN_URL_).
 
 ## How to fix?
 
