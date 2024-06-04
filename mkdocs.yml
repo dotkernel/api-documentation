@@ -30,6 +30,11 @@ nav:
           - "Content Validation": v4/core-features/content-validation.md
           - "Exceptions": v4/core-features/exceptions.md
           - "CORS": v4/core-features/cors.md
+      - Commands:
+          - "Create admin account": v4/commands/create-admin-account.md
+          - "Generate database migrations": v4/commands/generate-database-migrations.md
+          - "Display available endpoints": v4/commands/display-available-endpoints.md
+          - "Generate tokens": v4/commands/generate-tokens.md
       - Tutorials:
           - "Creating a book module": v4/tutorials/create-book-module.md
       - Transition from API Tools:

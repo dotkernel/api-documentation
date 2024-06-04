@@ -1,9 +1,9 @@
 # Authorization
 
-Authorization is the process by which a system take a validated identity and checks if that identity has access to a
+Authorization is the process by which a system takes a validated identity and checks if that identity has access to a
 given resource.
 
-DotKernel APIs implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of
+**DotKernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of
 Role-Based Access Control (RBAC).
 
 ## How it works
@@ -16,8 +16,7 @@ The authorization happens through the `Api\App\Middleware\AuthorizationMiddlewar
 
 ## Configuration
 
-DotKernel API makes use of `mezzio-authorization-rbac` and upon installation all the configuration is already made
-in order for the authorization to work.
+DotKernel API makes use of `mezzio-authorization-rbac` and includes the full configuration.
 
 The configuration file for the role and permission definitions is `config/autoload/authorization.global.php`.
 
@@ -65,15 +64,14 @@ roles (`user`, `guest`).
 Roles inherit the permissions from their parents:
 
 - `superuser` has no parent
-- `admin` has `superuser` as a parent which means `superuser` will inherit `admin` permissions
+- `admin` has `superuser` as a parent which means `superuser` also has `admin` permissions
 - `user` has no parent
-- `guest` has `user` as a parent which means `user` will inherit `guest` permissions
+- `guest` has `user` as a parent which means `user` also has `guest` permissions
 
 For each role we defined an array of permissions. A permission in DotKernel API is basically a route name.
 
-As you can see, the `superuser` does not have its own permissions, because it inherits all the permissions
-from `admin`,
-no need to define permissions for it unless necessary.
+As you can see, the `superuser` does not have its own permissions, because it gains all the permissions
+from `admin`, no need to define explicit permissions.
 
-The `user` role, inherits all the permission from `guest` so no need to define that `user` can access `home` route, but
+The `user` role, gains all the permission from `guest` so no need to define that `user` can access `home` route, but
 `guest` cannot access user-specific routes.
