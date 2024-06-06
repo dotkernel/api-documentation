@@ -3,6 +3,7 @@
 ## Usage
 
 Run the following command in your application’s root directory:
+
 ```shell
 php ./bin/cli.php admin:create -i {IDENTITY} -p {PASSWORD} -f {FIRST_NAME} -l {LAST_NAME}
 ```
@@ -29,6 +30,7 @@ If the submitted data is valid, the outputted response is:
 ```text
 Admin account has been created.
 ```
+
 The new admin account is ready to use.
 
 You can get more help with this command by running:

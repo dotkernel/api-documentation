@@ -13,6 +13,7 @@ php ./bin/cli.php token:generate <type>
 ```
 
 Where `<type>` is one of the following:
+
 * [error-reporting](#generate-error-reporting-token)
 
 If you need help using the command, execute the following command:
@@ -25,7 +26,7 @@ php ./bin/cli.php token:generate --help
 
 You can generate an error reporting token by executing the following command:
 
-```
+```shell
 php ./bin/cli.php token:generate error-reporting
 ```
 
@@ -36,6 +37,7 @@ Error reporting token:
 
     0123456789abcdef0123456789abcdef01234567
 ```
+
 Copy the generated token.
 
 Open `config/autoload/error-handling.global.php` and paste the copied token as shown below:

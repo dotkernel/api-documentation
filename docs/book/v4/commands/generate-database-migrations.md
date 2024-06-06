@@ -1,4 +1,4 @@
-# Generate a database migration without dropping custom tables.
+# Generate a database migration without dropping custom tables
 
 ## Usage
 
