@@ -14,9 +14,12 @@ identified from the access token sent via the `Authorization` header.
 When DotKernel API receives a request, it tries to read the access token.
 
 If it does not find an access token, client has `guest` role:
+
 - if the requested endpoint needs no authentication, the requested resource is returned
 - else, a `403 Forbidden` response is returned
+
 Else, client's account is identified and client has `admin`/`user` role (the one assigned in their account)
+
 - if the requested endpoint is accessible to the client, the requested resource is returned
 - else, a `403 Forbidden` response is returned
 
