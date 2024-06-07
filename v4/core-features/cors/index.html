@@ -435,6 +435,60 @@
 
 
 
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+        <span class="subnavigation__headline">Commands</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="commands">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <li class="subnavigation__list-item">
@@ -446,6 +500,12 @@
         
 <li class="subnavigation__list-item ">
     <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
@@ -593,7 +653,7 @@ origins (domain, scheme, or port) than its own from which a browser should permi
 <p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy:
 No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
 </blockquote>
-<p>This happens because the API (<em>RESOURCE_URL</em>) is not configured to accept requests from the client (<em>RESOURCE_URL</em>).</p>
+<p>This happens because the API (<em>RESOURCE_URL</em>) is not configured to accept requests from the client (<em>ORIGIN_URL</em>).</p>
 <h2 id="how-to-fix">How to fix?</h2>
 <p>DotKernel API fixes this issue using the <a href="https://github.com/mezzio/mezzio-cors">mezzio/mezzio-cors</a> library.</p>
 <h3 id="step-1-install-library">Step 1: Install library</h3>
@@ -630,13 +690,13 @@ return [
         'exposed_headers' =&gt; [],
     ],
 ];</code></pre>
-<p>See below list that explains the above configuration values:</p>
+<p>This list explains the above configuration values:</p>
 <ul>
 <li><code>allowed_origins</code>: an array of domains that are allowed to interact with the API
   (default <code>ConfigurationInterface::ANY_ORIGIN</code> which means that any domain can make requests to the API)</li>
-<li><code>allowed_headers</code>: an array of custom headers allowed</li>
-<li><code>allowed_max_age</code>: the maximum age, the preflight response may be cached by a client</li>
-<li><code>credentials_allowed</code>: if a request is allowed to pass cookies</li>
+<li><code>allowed_headers</code>: an array of allowed custom headers</li>
+<li><code>allowed_max_age</code>: the maximum duration, since the preflight response may be cached by a client</li>
+<li><code>credentials_allowed</code>: allows a request to pass cookies</li>
 <li><code>exposed_headers</code>: an array of headers which are being exposed by the endpoint</li>
 </ul>
 <p>Save and close the file.</p>
@@ -665,9 +725,9 @@ array and removing the current value of <code>ConfigurationInterface::ANY_ORIGIN
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../commands/create-admin-account/">
                     <small class="page-nav__label">Next</small>
-                    Creating a book module
+                    Create admin account
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

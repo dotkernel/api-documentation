@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/flow/middleware-flow/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/commands/generate-tokens/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Middleware Flow - api - DotKernel Documentation</title>
+        <title>Generate tokens - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Flow</li>
+                                <li class="breadcrumb-item">Commands</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Middleware Flow</li>
+                    <li class="breadcrumb-item active" aria-current="page">Generate tokens</li>
                 
             
         </ol>
@@ -324,20 +324,20 @@
     <ul class="subnavigation__list collapse" id="flow">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Middleware Flow</a>
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
 </li>
 
         
@@ -443,25 +443,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+    <a href="../create-admin-account/" class="subnavigation__link">Create admin account</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+    <a href="../generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+    <a href="../display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Generate tokens</a>
 </li>
 
         
@@ -609,6 +609,17 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -621,12 +632,44 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Flow</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Commands</h2>-->
     
 
-    <h1 id="middleware-flow">Middleware flow</h1>
-<p>The graph below demonstrates a default flow between DotKernel's middlewares.</p>
-<p><img alt="Dotkernel API Middleware Flow!" src="https://docs.dotkernel.org/img/api/dotkernel-middleware-flow.png" class="img-responsive"/></p>
+    <h1 id="generating-tokens-in-dotkernel-api">Generating tokens in DotKernel API</h1>
+<p>This is a multipurpose command that allows creating tokens required by different parts of the API.</p>
+<h2 id="usage">Usage</h2>
+<p>Go to your application's root directory.</p>
+<p>Run the token generator command by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php token:generate &lt;type&gt;</code></pre>
+<p>Where <code>&lt;type&gt;</code> is one of the following:</p>
+<ul>
+<li><a href="#generate-error-reporting-token">error-reporting</a></li>
+</ul>
+<p>If you need help using the command, execute the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php token:generate --help</code></pre>
+<h3 id="generate-error-reporting-token">Generate error reporting token</h3>
+<p>You can generate an error reporting token by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php token:generate error-reporting</code></pre>
+<p>The output should look similar to this:</p>
+<pre class="highlight"><code class="language-text">Error reporting token:
+
+    0123456789abcdef0123456789abcdef01234567</code></pre>
+<p>Copy the generated token.</p>
+<p>Open <code>config/autoload/error-handling.global.php</code> and paste the copied token as shown below:</p>
+<pre class="highlight"><code class="language-php">return [
+    ...
+    ErrorReportServiceInterface::class =&gt; [
+        ...
+        'tokens' =&gt; [
+            '0123456789abcdef0123456789abcdef01234567',
+        ],
+        ...
+    ]
+]</code></pre>
+<p>Save and close <code>config/autoload/error-handling.global.php</code>.</p>
+<p><strong>Note</strong>:</p>
+<p>If your application is NOT in development mode, make sure you clear your config cache by executing:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/clear-config-cache.php</code></pre>
 
 
 
@@ -636,10 +679,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../installation/faq/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../display-available-endpoints/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    FAQ
+                    Display available endpoints
                 </a>
             
         </li>
@@ -647,9 +690,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../default-library-flow/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../tutorials/create-book-module/">
                     <small class="page-nav__label">Next</small>
-                    Default Library Flow
+                    Creating a book module
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

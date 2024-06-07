@@ -435,6 +435,60 @@
 
 
 
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+        <span class="subnavigation__headline">Commands</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="commands">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <li class="subnavigation__list-item">
@@ -446,6 +500,12 @@
         
 <li class="subnavigation__list-item ">
     <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
@@ -586,13 +646,13 @@
     <h1 id="authentication">Authentication</h1>
 <p>Authentication is the process by which an identity is presented to the application. It ensures that the entity
 making the request has the proper credentials to access the API.</p>
-<p><strong>DotKernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request
+<p><strong>DotKernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request.
 If it is present, the application tries to find and assign the identity to the application. If it is not presented,
 DotKernel API assigns a default <code>guest</code> identity, represented by an instance of the class
 <code>Mezzio\Authentication\UserInterface</code>.</p>
 <h2 id="configuration">Configuration</h2>
-<p>Authentication in DotKernel API is built around <code>mezzio/mezzio-authentication-oauth2</code> component and is already
-configured with what is necessary in order to work. But if you want to dig more, the configuration is stored in
+<p>Authentication in DotKernel API is built around the <code>mezzio/mezzio-authentication-oauth2</code> component and is already
+configured out of the box. But if you want to dig more, the configuration is stored in
 <code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
 <blockquote>
 <p>You can check the
@@ -604,14 +664,14 @@ configuration part for more info.</p>
 simple, token-based APIs. It allows each user of your application to generate API tokens for their accounts.</p>
 <p>The authentication happens through the middleware in the <code>Api\App\Middleware\AuthenticationMiddleware</code>.</p>
 <h2 id="database">Database</h2>
-<p>When <strong>DotKernel API</strong> is installed for the first time, and you run the migrations and seeders, all the tables
-needed for authentication are automatically created and populated with the data needed for authentication.</p>
-<p>In DotKernel API, authenticated users come from either the <code>admin</code> or the <code>users</code> table. We choose to keep the admin
+<p>When you install <strong>DotKernel API</strong> for the first time, you need to run the migrations and seeders. All the tables
+required for authentication are automatically created and populated.</p>
+<p>In DotKernel API, authenticated users come from either the <code>admin</code> or the <code>user</code> table. We choose to keep the admin
 table separated from the users to prevent users of the application from accessing sensitive data, which only the
 administrators of the application should access.</p>
-<p>Knowing this, upon migrations, the <code>oauth_clients</code> table is pre-populated with the default <code>admin</code> and <code>frontend</code>
-clients with the same password as their names (you can change those passwords).</p>
-<p>As you guessed each client serves to authenticate <code>admin</code> or <code>users</code>.</p>
+<p>The <code>oauth_clients</code> table is pre-populated with the default <code>admin</code> and <code>frontend</code> clients with the same password as
+their names (<strong>we recommend you change the default passwords</strong>).</p>
+<p>As you guessed each client serves to authenticate <code>admin</code> or <code>user</code>.</p>
 <p>Another table that is pre-populated is the <code>oauth_scopes</code> table, with the <code>api</code> scope.</p>
 <h3 id="issuing-api-tokens">Issuing API Tokens</h3>
 <p>Token generation in DotKernel API is done using the <code>password</code> <code>grand_type</code> scenario, which in this case allows
@@ -649,8 +709,7 @@ the <code>Authorization</code> header request.</p>
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...</code></pre>
 <h3 id="refreshing-tokens">Refreshing tokens</h3>
-<p>DotKernel API provides the ability to refresh the access token, by generating a new one using the expired access
-token's <code>refresh_token</code>.</p>
+<p>DotKernel API can refresh the access token, based on the expired access token's <code>refresh_token</code>.</p>
 <p>The clients need to send a <code>POST</code> request to the <code>/security/refresh-token</code> with the following request</p>
 <pre class="highlight"><code class="language-shell">POST /security/refresh-token HTTP/1.1
 Accept: application/json

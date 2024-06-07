@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/flow/middleware-flow/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/commands/create-admin-account/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Middleware Flow - api - DotKernel Documentation</title>
+        <title>Create admin account - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Flow</li>
+                                <li class="breadcrumb-item">Commands</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Middleware Flow</li>
+                    <li class="breadcrumb-item active" aria-current="page">Create admin account</li>
                 
             
         </ol>
@@ -324,20 +324,20 @@
     <ul class="subnavigation__list collapse" id="flow">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Middleware Flow</a>
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
 </li>
 
         
@@ -442,26 +442,26 @@
     <ul class="subnavigation__list collapse" id="commands">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Create admin account</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+    <a href="../generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+    <a href="../display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+    <a href="../generate-tokens/" class="subnavigation__link">Generate tokens</a>
 </li>
 
         
@@ -609,6 +609,17 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -621,12 +632,31 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Flow</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Commands</h2>-->
     
 
-    <h1 id="middleware-flow">Middleware flow</h1>
-<p>The graph below demonstrates a default flow between DotKernel's middlewares.</p>
-<p><img alt="Dotkernel API Middleware Flow!" src="https://docs.dotkernel.org/img/api/dotkernel-middleware-flow.png" class="img-responsive"/></p>
+    <h1 id="creating-admin-accounts-in-dotkernel-api">Creating admin accounts in DotKernel API</h1>
+<h2 id="usage">Usage</h2>
+<p>Run the following command in your application’s root directory:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create -i {IDENTITY} -p {PASSWORD} -f {FIRST_NAME} -l {LAST_NAME}</code></pre>
+<p>OR</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create --identity {IDENTITY} --password {PASSWORD} --firstName {FIRST_NAME} --lastName {LAST_NAME}</code></pre>
+<p>after replacing:</p>
+<ul>
+<li>{IDENTITY} with a valid username OR email address</li>
+<li>{PASSWORD} with a valid password</li>
+<li>{FIRST_NAME} and {LAST_NAME} with valid names</li>
+</ul>
+<p><strong>NOTE:</strong></p>
+<ul>
+<li>if the specified fields contain special characters, make sure you surround them with double quote signs</li>
+<li>this method does not allow specifying an admin role – newly created accounts will have role of admin</li>
+</ul>
+<p>If the submitted data is valid, the outputted response is:</p>
+<pre class="highlight"><code class="language-text">Admin account has been created.</code></pre>
+<p>The new admin account is ready to use.</p>
+<p>You can get more help with this command by running:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php help admin:create</code></pre>
 
 
 
@@ -636,10 +666,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../installation/faq/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../core-features/cors/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    FAQ
+                    CORS
                 </a>
             
         </li>
@@ -647,9 +677,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../default-library-flow/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../generate-database-migrations/">
                     <small class="page-nav__label">Next</small>
-                    Default Library Flow
+                    Generate database migrations
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

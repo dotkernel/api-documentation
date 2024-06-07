@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/flow/middleware-flow/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v4/commands/generate-database-migrations/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Middleware Flow - api - DotKernel Documentation</title>
+        <title>Generate database migrations - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -138,12 +138,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Flow</li>
+                                <li class="breadcrumb-item">Commands</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Middleware Flow</li>
+                    <li class="breadcrumb-item active" aria-current="page">Generate database migrations</li>
                 
             
         </ol>
@@ -324,20 +324,20 @@
     <ul class="subnavigation__list collapse" id="flow">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Middleware Flow</a>
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
 </li>
 
         
@@ -443,25 +443,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+    <a href="../create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Generate database migrations</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+    <a href="../display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+    <a href="../generate-tokens/" class="subnavigation__link">Generate tokens</a>
 </li>
 
         
@@ -609,6 +609,29 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#filtering-multiple-unmapped-table-patterns" class="toc__link nav-link">Filtering multiple unmapped table patterns</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#troubleshooting" class="toc__link nav-link">Troubleshooting</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#help" class="toc__link nav-link">Help</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -621,12 +644,42 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Flow</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Commands</h2>-->
     
 
-    <h1 id="middleware-flow">Middleware flow</h1>
-<p>The graph below demonstrates a default flow between DotKernel's middlewares.</p>
-<p><img alt="Dotkernel API Middleware Flow!" src="https://docs.dotkernel.org/img/api/dotkernel-middleware-flow.png" class="img-responsive"/></p>
+    <h1 id="generate-a-database-migration-without-dropping-custom-tables">Generate a database migration without dropping custom tables</h1>
+<h2 id="usage">Usage</h2>
+<p>Run the following command in your application’s root directory:</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff</code></pre>
+<p>If you have mapping modifications, this will create a new migration file under <code>data/doctrine/migrations/</code> directory.
+Opening the migration file, you will notice that it contains some queries that will drop your <code>oauth_*</code> tables because they are unmapped (there is no doctrine entity describing them).
+You should delete your latest migration with the DROP queries in it as we will create another one, without the DROP queries in it.
+In order to avoid dropping these tables, you need to add a parameter called <code>filter-expression</code>.</p>
+<p>The command to be executed without dropping these tables looks like this:</p>
+<p>On Windows (use double quotes):</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff --filter-expression="/^(?!oauth_)/"</code></pre>
+<p>On Linux/macOS (use single quotes):</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff --filter-expression='/^(?!oauth_)/'</code></pre>
+<h2 id="filtering-multiple-unmapped-table-patterns">Filtering multiple unmapped table patterns</h2>
+<p>If your database contains multiple unmapped table groups, then the pattern in <code>filter-expression</code> should hold all table prefixes concatenated by pipe character (<code>|</code>).
+For example, if you need to filter tables prefixed with <code>foo_</code> and <code>bar_</code>,  then the command should look like this:</p>
+<p>On Windows:</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff --filter-expression="/^(?!foo_|bar_)/"</code></pre>
+<p>On Linux/macOS:</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff --filter-expression='/^(?!foo_|bar_)/'</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>On Windows, running the command in PowerShell might still add the <code>DROP TABLE oauth_*</code> queries to the migration file.
+This happens because for PowerShell the caret (<code>^</code>) is a special character, so it gets dropped (<code>"/^(?!oauth_)/"</code> becomes <code>"/(?!oauth_)/"</code> when it reaches your command).
+Escaping it will not help either.
+In this case, we recommend running the command:</p>
+<ul>
+<li>directly from your IDE</li>
+<li>using <code>Linux shell</code></li>
+<li>from the <code>Command Prompt</code></li>
+</ul>
+<h2 id="help">Help</h2>
+<p>You can get more help with this command by running:</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations help diff</code></pre>
 
 
 
@@ -636,10 +689,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../installation/faq/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../create-admin-account/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    FAQ
+                    Create admin account
                 </a>
             
         </li>
@@ -647,9 +700,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../default-library-flow/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../display-available-endpoints/">
                     <small class="page-nav__label">Next</small>
-                    Default Library Flow
+                    Display available endpoints
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
