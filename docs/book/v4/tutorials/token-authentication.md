@@ -8,8 +8,8 @@ and it consists of an alphanumeric string.
 
 ## How does it work?
 
-In order to protect specific resources, clients need to be authenticated with user/admin roles. These roles are 
-identified from the access token sent via the `Authorization` header.
+In order to protect specific resources, clients need to be authenticated with user/admin roles.
+These roles are identified from the access token sent via the `Authorization` header.
 
 When DotKernel API receives a request, it tries to read the access token.
 
@@ -26,9 +26,12 @@ Else, client's account is identified and client has `admin`/`user` role (the one
 DotKernel API provides out-of-the-box both an `admin` and a `user` account.
 
 The admin account with **role** set to both `superuser` and `admin` with the following credentials:
+
 - **identity**: `admin`
 - **password**: `dotkernel`
+
 The user account with **role** set to both `user` and `guest` with the following credentials:
+
 - **identify**: `test@dotkernel.com`
 - **password**: `dotkernel`
 
