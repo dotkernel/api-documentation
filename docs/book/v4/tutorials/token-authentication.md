@@ -11,23 +11,23 @@ and it consists of an alphanumeric string.
 In order to protect specific resources, clients need to be authenticated with user/admin roles. These roles are 
 identified from the access token sent via the `Authorization` header.
 
-When DotKernel API receives a request, it tries to read the access token:
+When DotKernel API receives a request, it tries to read the access token.
 
-- if it does not find an access token, client has `guest` role:
-  - if the requested endpoint needs no authentication, the requested resource is returned
-  - else, a `403 Forbidden` response is returned
-- else, client's account is identified and client has `admin`/`user` role (the one assigned in their account)
-  - if the requested endpoint is accessible to the client, the requested resource is returned
-  - else, a `403 Forbidden` response is returned
+If it does not find an access token, client has `guest` role:
+- if the requested endpoint needs no authentication, the requested resource is returned
+- else, a `403 Forbidden` response is returned
+Else, client's account is identified and client has `admin`/`user` role (the one assigned in their account)
+- if the requested endpoint is accessible to the client, the requested resource is returned
+- else, a `403 Forbidden` response is returned
 
-DotKernel API provides out-of-the-box both:
+DotKernel API provides out-of-the-box both an `admin` and a `user` account.
 
-- an account with **role** set to both `superuser` and `admin` with the following credentials:
-  - **identity**: `admin`
-  - **password**: `dotkernel`
-- an account with **role** set to both `user` and `guest` with the following credentials:
-  - **identify**: `test@dotkernel.com`
-  - **password**: `dotkernel`
+The admin account with **role** set to both `superuser` and `admin` with the following credentials:
+- **identity**: `admin`
+- **password**: `dotkernel`
+The user account with **role** set to both `user` and `guest` with the following credentials:
+- **identify**: `test@dotkernel.com`
+- **password**: `dotkernel`
 
 ## Flow
 
@@ -44,7 +44,7 @@ DotKernel API provides out-of-the-box both:
 
 For a better overview of the flow, see the below image:
 
-![](https://docs.dotkernel.org/img/api/token-authentication.png "Token authentication flow")
+![Token authentication flow](https://docs.dotkernel.org/img/api/token-authentication.png)
 
 ## Generate admin access token
 
