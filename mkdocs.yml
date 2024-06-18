@@ -2,11 +2,47 @@ docs_dir: docs/book
 site_dir: docs/html
 extra:
   project: API
-  current_version: v4
+  current_version: v5
   versions:
     - v4
+    - v5
 nav:
   - Home: index.md
+  - v5:
+      - Introduction:
+          - "Introduction": v5/introduction/introduction.md
+          - "Server Requirements": v5/introduction/server-requirements.md
+          - "File Structure": v5/introduction/file-structure.md
+          - "Packages": v5/introduction/packages.md
+      - Installation:
+          - "Getting Started": v5/installation/getting-started.md
+          - "Composer": v5/installation/composer.md
+          - "Configuration Files": v5/installation/configuration-files.md
+          - "Doctrine ORM": v5/installation/doctrine-orm.md
+          - "Test the Installation": v5/installation/test-the-installation.md
+          - "FAQ": v5/installation/faq.md
+      - Flow:
+          - "Middleware Flow": v5/flow/middleware-flow.md
+          - "Default Library Flow": v5/flow/default-library-flow.md
+          - "Library Flow for Email": v5/flow/library-flow-for-email.md
+      - Core Features:
+          - "Authentication": v5/core-features/authentication.md
+          - "Authorization": v5/core-features/authorization.md
+          - "Content Validation": v5/core-features/content-validation.md
+          - "Exceptions": v5/core-features/exceptions.md
+          - "CORS": v5/core-features/cors.md
+      - Commands:
+          - "Create admin account": v5/commands/create-admin-account.md
+          - "Generate database migrations": v5/commands/generate-database-migrations.md
+          - "Display available endpoints": v5/commands/display-available-endpoints.md
+          - "Generate tokens": v5/commands/generate-tokens.md
+      - Tutorials:
+          - "Creating a book module": v5/tutorials/create-book-module.md
+          - "Token authentication": v5/tutorials/token-authentication.md
+      - Transition from API Tools:
+          - "Laminas API Tools vs DotKernel API": v5/transition-from-api-tools/api-tools-vs-dotkernel-api.md
+          - "Transition Approach": v5/transition-from-api-tools/transition-approach.md
+          - "Discovery Phase": v5/transition-from-api-tools/discovery-phase.md
   - v4:
       - Introduction:
           - "Introduction": v4/introduction/introduction.md
