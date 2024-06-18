@@ -13,7 +13,7 @@
         
             
         
-        <meta name="docsearch:version" content="4.0.0,latest">
+        <meta name="docsearch:version" content="5.0.0,latest">
         <meta name="docsearch:language" content="en">
         <meta name="docsearch:component" content="api">
 
@@ -112,6 +112,35 @@
                 </li>
                 <li class="nav-item">
                     
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v4
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../.." class="dropdown-item">
+                        
+                            v5 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../.." class="dropdown-item active">
+                        
+                            v4
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
                 </li>
             </ul>
         </div>
@@ -164,6 +193,14 @@
         <h5 class="subnavigation__title">Table of Contents</h5>
 
         <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                
             
 
                 
@@ -631,6 +668,14 @@
                     
                     
 
+    <div class="alert alert-danger" role="alert">
+        <h4>Caution</h4>
+        <p>
+            The documentation you are viewing is for an older version of this component.<br>
+            <a href="../../..">Switch to the latest (v5) version.</a>
+        </p>
+    </div>
+
 
 
 
@@ -648,43 +693,43 @@ The output should be similar to the following:</p>
 <pre class="highlight"><code class="language-text">+--------+---------------------------------+--------------------------------+
 | Method | Name                            | Path                           |
 +--------+---------------------------------+--------------------------------+
-| DELETE | admin.delete                    | /admin/{uuid}                  |
-| DELETE | user.my-account.delete          | /user/my-account               |
-| DELETE | user.my-avatar.delete           | /user/my-avatar                |
-| DELETE | user.delete                     | /user/{uuid}                   |
-| DELETE | user.avatar.delete              | /user/{uuid}/avatar            |
-| GET    | home                            | /                              |
-| GET    | account.reset-password.validate | /account/reset-password/{hash} |
-| GET    | admin.list                      | /admin                         |
-| GET    | admin.my-account.view           | /admin/my-account              |
-| GET    | admin.role.list                 | /admin/role                    |
-| GET    | admin.role.view                 | /admin/role/{uuid}             |
-| GET    | admin.view                      | /admin/{uuid}                  |
-| GET    | user.list                       | /user                          |
-| GET    | user.my-account.view            | /user/my-account               |
-| GET    | user.my-avatar.view             | /user/my-avatar                |
-| GET    | user.role.list                  | /user/role                     |
-| GET    | user.role.view                  | /user/role/{uuid}              |
-| GET    | user.view                       | /user/{uuid}                   |
-| GET    | user.avatar.view                | /user/{uuid}/avatar            |
+| POST   | account.activate.request        | /account/activate              |
 | PATCH  | account.activate                | /account/activate/{hash}       |
 | PATCH  | account.modify-password         | /account/reset-password/{hash} |
-| PATCH  | admin.my-account.update         | /admin/my-account              |
-| PATCH  | admin.update                    | /admin/{uuid}                  |
-| PATCH  | user.my-account.update          | /user/my-account               |
-| PATCH  | user.update                     | /user/{uuid}                   |
-| POST   | account.activate.request        | /account/activate              |
 | POST   | account.recover-identity        | /account/recover-identity      |
 | POST   | account.register                | /account/register              |
 | POST   | account.reset-password.request  | /account/reset-password        |
+| GET    | account.reset-password.validate | /account/reset-password/{hash} |
 | POST   | admin.create                    | /admin                         |
+| DELETE | admin.delete                    | /admin/{uuid}                  |
+| GET    | admin.list                      | /admin                         |
+| PATCH  | admin.my-account.update         | /admin/my-account              |
+| GET    | admin.my-account.view           | /admin/my-account              |
+| GET    | admin.role.list                 | /admin/role                    |
+| GET    | admin.role.view                 | /admin/role/{uuid}             |
+| PATCH  | admin.update                    | /admin/{uuid}                  |
+| GET    | admin.view                      | /admin/{uuid}                  |
 | POST   | error.report                    | /error-report                  |
+| GET    | home                            | /                              |
 | POST   | security.generate-token         | /security/generate-token       |
 | POST   | security.refresh-token          | /security/refresh-token        |
-| POST   | user.create                     | /user                          |
-| POST   | user.my-avatar.create           | /user/my-avatar                |
 | POST   | user.activate                   | /user/{uuid}/activate          |
 | POST   | user.avatar.create              | /user/{uuid}/avatar            |
+| DELETE | user.avatar.delete              | /user/{uuid}/avatar            |
+| GET    | user.avatar.view                | /user/{uuid}/avatar            |
+| POST   | user.create                     | /user                          |
+| DELETE | user.delete                     | /user/{uuid}                   |
+| GET    | user.list                       | /user                          |
+| DELETE | user.my-account.delete          | /user/my-account               |
+| PATCH  | user.my-account.update          | /user/my-account               |
+| GET    | user.my-account.view            | /user/my-account               |
+| POST   | user.my-avatar.create           | /user/my-avatar                |
+| DELETE | user.my-avatar.delete           | /user/my-avatar                |
+| GET    | user.my-avatar.view             | /user/my-avatar                |
+| GET    | user.role.list                  | /user/role                     |
+| GET    | user.role.view                  | /user/role/{uuid}              |
+| PATCH  | user.update                     | /user/{uuid}                   |
+| GET    | user.view                       | /user/{uuid}                   |
 +--------+---------------------------------+--------------------------------+</code></pre>
 <h2 id="filtering-results">Filtering results</h2>
 <p>The following filters can be applied when displaying the routes list:</p>

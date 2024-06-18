@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="description" content="DotKernel API">
+        
+        
+
+        
+        
+            
+        
+        <meta name="docsearch:version" content="5.0.0,latest">
+        <meta name="docsearch:language" content="en">
+        <meta name="docsearch:component" content="api">
+
+        
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/tutorials/token-authentication/">
+        
+        <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
+
+        <title>Token authentication - api - DotKernel Documentation</title>
+
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/docs.css">
+        <script src="https://docs.dotkernel.org//js/bootstrap.js" defer></script>
+        <script src="https://docs.dotkernel.org//js/docs.js" defer></script>
+        <script src="https://docs.dotkernel.org//js/scripts.js" defer></script>
+    </head>
+    <body data-bs-spy="scroll" data-bs-target=".toc" data-bs-offset="100">
+
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-light dk-nav py-3" data-bs-theme="light">
+    <div class="container justify-content-between">
+        <div class="dk-nav-icon d-flex align-items-center">
+            <a class="navbar-brand" href="https://docs.dotkernel.org/">
+                <img alt="DotKernel Logo" class="d-inline-block align-text-top" height="50"
+                     src="https://docs.dotkernel.org//img/dk_logomark_white.svg" width="45"/>
+            </a>
+
+            <div class="dk-nav-icon-items">
+                <span style="font-size: 12px; line-height: 13px">DotKernel Documentation</span>
+
+                <div class="dropdown" data-bs-theme="light">
+                    <span class="fw-bold dropdown-toggle dk-pkg-name" data-bs-toggle="dropdown" aria-expanded="false">API</span>
+                    <ul class="dropdown-menu">
+                        
+                        <li class="dropdown-item bg-light">
+                            <a href="https://docs.dotkernel.org/api-documentation/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="DotKernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">API</span>
+                                    <span>DotKernel API</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/admin/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="DotKernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Admin</span>
+                                    <span>DotKernel Admin application</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/frontend/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="DotKernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Frontend</span>
+                                    <span>DotKernel Frontend application</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/packages/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="DotKernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Packages</span>
+                                    <span>DotKernel packages</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<!--                <li class="nav-item">-->
+<!--                    <a href="#" class="nav-link fw-bold text-white" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal" title="Open search">-->
+<!--                        <i class="bi bi-search"></i> Search-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link fw-bold text-white" href="https://github.com/dotkernel/api" title="Go to api repository" target="_blank">
+                        <i class="bi bi-github"></i>
+                        GitHub
+                    </a>
+                </li>
+                <li class="nav-item">
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v5
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../.." class="dropdown-item active">
+                        
+                            v5 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../.." class="dropdown-item">
+                        
+                            v4
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        
+        <div class="container">
+    <nav aria-label="breadcrumb" class="nav_breadcrumb">
+        <ol class="breadcrumb">
+            
+                <li class="breadcrumb-item"><a href="https://docs.dotkernel.org/">Overview</a></li>
+                
+
+                
+                    <li class="breadcrumb-item"><a href="../../..">api</a></li>
+
+                    
+                        
+                            
+                            
+                        
+                    
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Tutorials</li>
+                            
+                        
+                    
+
+                    <li class="breadcrumb-item active" aria-current="page">Token authentication</li>
+                
+            
+        </ol>
+    </nav>
+</div>
+
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 right_sidebar">
+                    
+                    
+    <div class="subnavigation hidden-print">
+<!--        <h4 class="subnavigation__title">-->
+<!--            <a href="../../..">api</a>-->
+<!--        </h4>-->
+
+        <h5 class="subnavigation__title">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#introduction" role="button" aria-expanded="false" aria-controls="introduction">
+        <span class="subnavigation__headline">Introduction</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="introduction">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+        <span class="subnavigation__headline">Installation</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="installation">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+        <span class="subnavigation__headline">Flow</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="flow">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+        <span class="subnavigation__headline">Core Features</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="core-features">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+        <span class="subnavigation__headline">Commands</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="commands">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+        <span class="subnavigation__headline">Tutorials</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="tutorials">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Token authentication</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+        <span class="subnavigation__headline">Transition from API Tools</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="transition-from-api-tools">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+
+                    
+                    
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#what-is-token-authentication" class="toc__link nav-link">What is token authentication?</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#how-does-it-work" class="toc__link nav-link">How does it work?</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#flow" class="toc__link nav-link">Flow</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#generate-admin-access-token" class="toc__link nav-link">Generate admin access token</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#generate-user-access-token" class="toc__link nav-link">Generate user access token</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#refresh-admin-access-token" class="toc__link nav-link">Refresh admin access token</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#refresh-user-access-token" class="toc__link nav-link">Refresh user access token</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#test-admin-authentication-flow" class="toc__link nav-link">Test admin authentication flow</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#test-user-authentication-flow" class="toc__link nav-link">Test user authentication flow</a>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+                    
+                </div>
+                <div class="col-lg-9 main_docs">
+                    
+                    
+
+
+
+
+    
+    
+<!--        <h2 class="chapter__headline text-black-50">Tutorials</h2>-->
+    
+
+    <h1 id="token-authentication">Token authentication</h1>
+<h2 id="what-is-token-authentication">What is token authentication?</h2>
+<p>Token authentication means making a request to an API endpoint while also sending a special header that contains an
+access token. The access token was previously generated by (usually) the same API as the one you are sending requests to
+and it consists of an alphanumeric string.</p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>In order to protect specific resources, clients need to be authenticated with user/admin roles.
+These roles are identified from the access token sent via the <code>Authorization</code> header.</p>
+<p>When DotKernel API receives a request, it tries to read the access token.</p>
+<p>If it does not find an access token, client has <code>guest</code> role:</p>
+<ul>
+<li>if the requested endpoint needs no authentication, the requested resource is returned</li>
+<li>else, a <code>403 Forbidden</code> response is returned</li>
+</ul>
+<p>Else, client's account is identified and client has <code>admin</code>/<code>user</code> role (the one assigned in their account)</p>
+<ul>
+<li>if the requested endpoint is accessible to the client, the requested resource is returned</li>
+<li>else, a <code>403 Forbidden</code> response is returned</li>
+</ul>
+<p>DotKernel API provides out-of-the-box both an <code>admin</code> and a <code>user</code> account.</p>
+<p>The admin account with <strong>role</strong> set to both <code>superuser</code> and <code>admin</code> with the following credentials:</p>
+<ul>
+<li><strong>identity</strong>: <code>admin</code></li>
+<li><strong>password</strong>: <code>dotkernel</code></li>
+</ul>
+<p>The user account with <strong>role</strong> set to both <code>user</code> and <code>guest</code> with the following credentials:</p>
+<ul>
+<li><strong>identify</strong>: <code>test@dotkernel.com</code></li>
+<li><strong>password</strong>: <code>dotkernel</code></li>
+</ul>
+<h2 id="flow">Flow</h2>
+<ul>
+<li>client sends API request with credentials</li>
+<li>API returns a JSON object containing a new access and refresh token</li>
+<li>client sends API request using <code>Authentication</code> header containing the previously generated access token</li>
+<li>API returns requested resource</li>
+</ul>
+<h3 id="note">Note</h3>
+<blockquote>
+<p>The first two steps need to executed only once.
+Access token should be stored and reused for all upcoming requests.
+Refresh token should be stored and used to refresh expired access token.</p>
+</blockquote>
+<p>For a better overview of the flow, see the below image:</p>
+<p><img alt="Token authentication flow" src="https://docs.dotkernel.org/img/api/token-authentication.png" class="img-responsive"/></p>
+<h2 id="generate-admin-access-token">Generate admin access token</h2>
+<p>Send a <code>POST</code> request to the <code>/security/generate-token</code> endpoint with <code>Content-Type</code> header set to <code>application/json</code>.</p>
+<p>Set request body to:</p>
+<pre class="highlight"><code class="language-json">{
+  "grant_type": "password",
+  "client_id": "admin",
+  "client_secret": "admin",
+  "scope": "api",
+  "username": "&lt;identity&gt;",
+  "password": "&lt;password&gt;"
+}</code></pre>
+<h3 id="note_1">Note</h3>
+<blockquote>
+<p>Replace <code>&lt;identity&gt;</code> with your admin account's <code>identity</code> and <code>&lt;password&gt;</code> with your admin account's <code>password</code>.
+Both fields come from table <code>admin</code>.</p>
+</blockquote>
+<h3 id="test-using-curl">Test using curl</h3>
+<p>Execute the below command:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/generate-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "password",
+  "client_id": "admin",
+  "client_secret": "admin",
+  "scope": "api",
+  "username": "admin",
+  "password": "dotkernel"
+}'</code></pre>
+<h2 id="generate-user-access-token">Generate user access token</h2>
+<p>Send a <code>POST</code> request to the <code>/security/generate-token</code> endpoint with <code>Content-Type</code> header set to <code>application/json</code>.</p>
+<p>Set request body to:</p>
+<pre class="highlight"><code class="language-json">{
+  "grant_type": "password",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "username": "&lt;identity&gt;",
+  "password": "&lt;password&gt;"
+}</code></pre>
+<h3 id="note_2">Note</h3>
+<blockquote>
+<p>Replace <code>&lt;identity&gt;</code> with your user account's <code>identity</code> and <code>&lt;password&gt;</code> with your user account's <code>password</code>.
+Both fields come from table <code>user</code>.</p>
+</blockquote>
+<h3 id="test-using-curl_1">Test using curl</h3>
+<p>Execute the below command:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/generate-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "password",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "username": "test@dotkernel.com",
+  "password": "dotkernel"
+}'</code></pre>
+<h3 id="response-on-success">Response on success</h3>
+<p>You should see a <code>200 OK</code> response with the following JSON body:</p>
+<pre class="highlight"><code class="language-json">{
+    "token_type": "Bearer",
+    "expires_in": 86400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.e...wuE39ON1mS5mnTKfA_dSpSWxOmNQdny_AKIbc1qZjMfS24qSUV8HIoOw",
+    "refresh_token": "def502005a035c8dfe5456d27e85069813a4f8...0b844e843cd62865662a0e723165752dfd7012491502d3d819c2a61d"
+}</code></pre>
+<p>Field description:</p>
+<ul>
+<li><code>token_type</code>: token type to be set when sending the <code>Authorization</code> header (example: <code>Authorization: Bearer eyJ0e...</code>)</li>
+<li><code>expires_in</code>: access token lifetime (modify in: <code>config/autoload/local.php</code> &gt; <code>authentication</code>.<code>access_token_expire</code>)</li>
+<li><code>access_token</code>: generated access token (store it for later use)</li>
+<li><code>refresh_token</code>: generated refresh token (store it for regenerating expired access token)</li>
+</ul>
+<h3 id="response-on-failure">Response on failure</h3>
+<p>You should see a <code>400 Bad Request</code> response with the following JSON body:</p>
+<pre class="highlight"><code class="language-json">{
+    "error": "Invalid credentials.",
+    "error_description": "Invalid credentials.",
+    "message": "Invalid credentials."
+}</code></pre>
+<h2 id="refresh-admin-access-token">Refresh admin access token</h2>
+<p>Send a <code>POST</code> request to the <code>/security/refresh-token</code> endpoint with <code>Content-Type</code> header set to <code>application/json</code>.</p>
+<p>Set request body to:</p>
+<pre class="highlight"><code class="language-json">{
+  "grant_type": "refresh_token",
+  "client_id": "admin",
+  "client_secret": "admin",
+  "scope": "api",
+  "refresh_token": "&lt;refresh-token&gt;"
+}</code></pre>
+<h3 id="test-using-curl_2">Test using curl</h3>
+<p>Execute the below command:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/refresh-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "refresh_token",
+  "client_id": "admin",
+  "client_secret": "admin",
+  "scope": "api",
+  "refresh_token": "&lt;refresh-token&gt;"
+}'</code></pre>
+<h3 id="note_3">Note</h3>
+<blockquote>
+<p>Make sure you replace <code>&lt;refresh-token&gt;</code> with the refresh token generated with the access token.</p>
+</blockquote>
+<h2 id="refresh-user-access-token">Refresh user access token</h2>
+<p>Send a <code>POST</code> request to the <code>/security/refresh-token</code> endpoint with <code>Content-Type</code> header set to <code>application/json</code>.</p>
+<p>Set request body to:</p>
+<pre class="highlight"><code class="language-json">{
+  "grant_type": "refresh_token",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "refresh_token": "&lt;refresh-token&gt;"
+}</code></pre>
+<h3 id="test-using-curl_3">Test using curl</h3>
+<p>Execute the below command:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/refresh-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "refresh_token",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "refresh_token": "&lt;refresh-token&gt;"
+}'</code></pre>
+<h3 id="note_4">Note</h3>
+<blockquote>
+<p>Make sure you replace <code>&lt;refresh-token&gt;</code> with the refresh token generated with the access token.</p>
+</blockquote>
+<h3 id="response-on-success_1">Response on success</h3>
+<p>You should see a <code>200 OK</code> response with the following JSON body:</p>
+<pre class="highlight"><code class="language-json">{
+    "token_type": "Bearer",
+    "expires_in": 86400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.e...wuE39ON1mS5mnTKfA_dSpSWxOmNQdny_AKIbc1qZjMfS24qSUV8HIoOw",
+    "refresh_token": "def502005a035c8dfe5456d27e85069813a4f8...0b844e843cd62865662a0e723165752dfd7012491502d3d819c2a61d"
+}</code></pre>
+<p>Field description:</p>
+<ul>
+<li><code>token_type</code>: token type to be set when sending the <code>Authorization</code> header (example: <code>Authorization: Bearer eyJ0e...</code>)</li>
+<li><code>expires_in</code>: access token lifetime (change here: <code>config/autoload/local.php</code> <code>authentication</code>-&gt;<code>access_token_expire</code>)</li>
+<li><code>access_token</code>: generated access token (store it for later use)</li>
+<li><code>refresh_token</code>: generated refresh token (store it for regenerating expired access token)</li>
+</ul>
+<h3 id="response-on-failure_1">Response on failure</h3>
+<p>You should see a <code>401 Unauthorized</code> response with the following JSON body:</p>
+<pre class="highlight"><code class="language-json">{
+    "error": "invalid_request",
+    "error_description": "The refresh token is invalid.",
+    "hint": "Cannot decrypt the refresh token",
+    "message": "The refresh token is invalid."
+}</code></pre>
+<h2 id="test-admin-authentication-flow">Test admin authentication flow</h2>
+<h3 id="step-1-fail-to-fetch-protected-api-content">Step 1: Fail to fetch protected API content</h3>
+<p>Try to view your admin account by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/admin/my-account'</code></pre>
+<p>You should get a <code>403 Forbidden</code> JSON response.</p>
+<h3 id="step-2-generate-access-token">Step 2: Generate access token</h3>
+<p>Generate admin access token by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/generate-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "password",
+  "client_id": "admin",
+  "client_secret": "admin",
+  "scope": "api",
+  "username": "admin",
+  "password": "dotkernel"
+}'</code></pre>
+<p>You should get a <code>200 OK</code> JSON response.</p>
+<p>Store the value of <code>access_token</code> for later use.</p>
+<h3 id="step-3-successfully-fetch-protected-api-content">Step 3: Successfully fetch protected API content</h3>
+<p>Try again viewing your admin account by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/admin/my-account' \
+--header 'Authorization: Bearer &lt;access_token&gt;'</code></pre>
+<p>Replace <code>&lt;access_token&gt;</code> with the previously stored access token.</p>
+<p>You should get a <code>200 OK</code> JSON response with the requested resource in the body.</p>
+<h2 id="test-user-authentication-flow">Test user authentication flow</h2>
+<h3 id="step-1-fail-to-fetch-protected-api-content_1">Step 1: Fail to fetch protected API content</h3>
+<p>Try to view your admin account by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/user/my-account'</code></pre>
+<p>You should get a <code>403 Forbidden</code> JSON response.</p>
+<h3 id="step-2-generate-access-token_1">Step 2: Generate access token</h3>
+<p>Generate admin access token by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/security/generate-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "grant_type": "password",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "username": "test@dotkernel.com",
+  "password": "dotkernel"
+}'</code></pre>
+<p>You should get a <code>200 OK</code> JSON response.</p>
+<p>Store the value of <code>access_token</code> for later use.</p>
+<h3 id="step-3-successfully-fetch-protected-api-content_1">Step 3: Successfully fetch protected API content</h3>
+<p>Try again viewing your admin account by executing:</p>
+<pre class="highlight"><code class="language-shell">curl --location 'https://api.dotkernel.net/user/my-account' \
+--header 'Authorization: Bearer &lt;access_token&gt;'</code></pre>
+<p>Replace <code>&lt;access_token&gt;</code> with the previously stored access token.</p>
+<p>You should get a <code>200 OK</code> JSON response with the requested resource in the body.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../create-book-module/">
+                    <small class="page-nav__label">Previous</small>
+                    <i class="bi bi-chevron-left"></i>
+                    Creating a book module
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/">
+                    <small class="page-nav__label">Next</small>
+                    Laminas API Tools vs DotKernel API
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                    
+                </div>
+            </div>
+        </div>
+
+        
+        <footer class="footer">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="footer_head">
+                    <p>DotKernel</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 dk_widget">
+                        <p>DotKernel Frontend</p>
+                        <a href="https://docs.dotkernel.org/frontend/" target="_blank">
+                            <i class="bi bi-arrow-return-right"></i>
+                            DotKernel web starter project suitable for frontend applications
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 dk_widget">
+                        <p>DotKernel API</p>
+                        <a href="https://docs.dotkernel.org/api-documentation/" target="_blank">
+                            <i class="bi bi-arrow-return-right"></i>
+                            DotKernel web starter project suitable for building RESTful APIs
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 dk_widget">
+                        <p>DotKernel Admin</p>
+
+                        <a href="https://docs.dotkernel.org/admin/" target="_blank">
+                            <i class="bi bi-arrow-return-right"></i>
+                            DotKernel web starter project suitable for admin applications
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 dk_widget">
+                        <p>DotKernel Packages</p>
+                        <a href="https://docs.dotkernel.org/packages/" target="_blank">
+                            <i class="bi bi-arrow-return-right"></i>
+                            DotKernel packages offering a wide range of tools
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="footer_head">
+                    <p>Support</p>
+                </div>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://github.com/dotkernel" class="support__link" title="GitHub" target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://dotkernel.slack.com" class="support__link" title="Slack" target="_blank">
+                            <i class="bi bi-slack"></i> Slack
+                        </a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/dotkernel" class="support__link" title="X (Twitter)" target="_blank">
+                            <i class="bi bi-twitter-x"></i> Twitter
+                        </a>
+                    </li>
+
+                    <li class="support__list-item">
+                        <a href="https://www.dotkernel.com/blog/" class="support__link" title="Blog" target="_blank">
+                            <i class="bi bi-file-post"></i> Blog
+                        </a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://www.dotkernel.com/feed/" class="support__link" title="Blog feed" target="_blank">
+                            <i class="bi bi-rss-fill"></i> Feed
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer_copy">
+            &#169; 2024 by <a href="https://www.dotkernel.com/" target="_blank">DotKernel</a> a collection of PSR-7 Middleware applications and libraries
+        </div>
+    </div>
+</footer>
+
+        <script>
+            let base_url = '../../..',
+                project  = "api",
+                siteName = 'api';
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
+                        if (link.getAttribute('href') === './') {
+                            link.parentNode.parentNode.classList.add('show');
+                        }
+                    });
+                });
+        </script>
+<!--        -->
+<!--        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in api" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>-->
+    </body>
+</html>
