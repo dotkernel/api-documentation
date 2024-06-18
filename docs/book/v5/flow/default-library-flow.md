@@ -1,0 +1,5 @@
+# Default Library Flow
+
+The graph below demonstrates a default flow between DotKernel's libraries.
+
+![Dotkernel API Default Library Flow!](https://docs.dotkernel.org/img/api/dotkernel-library-flow.png)
