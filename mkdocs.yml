@@ -31,6 +31,7 @@ nav:
           - "Content Validation": v5/core-features/content-validation.md
           - "Exceptions": v5/core-features/exceptions.md
           - "CORS": v5/core-features/cors.md
+          - "Dependency Injection": v5/core-features/dependency-injection.md
       - Commands:
           - "Create admin account": v5/commands/create-admin-account.md
           - "Generate database migrations": v5/commands/generate-database-migrations.md
