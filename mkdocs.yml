@@ -9,8 +9,8 @@ extra:
 nav:
   - Home: index.md
   - v5:
-      - Introduction:
-          - "Introduction": v5/introduction/introduction.md
+      - Introduction: v5/introduction/introduction.md
+      - Overview:
           - "Server Requirements": v5/introduction/server-requirements.md
           - "File Structure": v5/introduction/file-structure.md
           - "Packages": v5/introduction/packages.md
@@ -44,8 +44,8 @@ nav:
           - "Transition Approach": v5/transition-from-api-tools/transition-approach.md
           - "Discovery Phase": v5/transition-from-api-tools/discovery-phase.md
   - v4:
-      - Introduction:
-          - "Introduction": v4/introduction/introduction.md
+      - Introduction: v4/introduction/introduction.md
+      - Overview:
           - "Server Requirements": v4/introduction/server-requirements.md
           - "File Structure": v4/introduction/file-structure.md
           - "Packages": v4/introduction/packages.md
