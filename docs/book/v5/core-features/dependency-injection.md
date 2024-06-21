@@ -58,4 +58,4 @@ That's it. By registering this, when your object will be instantiated from the c
 dependencies resolved.
 
 > Dependencies injection applies to any object within DotKernel API. For example, you could inject dependencies in a
-> service and so on, just need to register it in the `ConfigProvider`
+> service, a handler and so on, just need to register it in the `ConfigProvider`
