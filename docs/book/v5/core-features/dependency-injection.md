@@ -54,7 +54,7 @@ public function getDependencies(): array
 }
 ```
 
-That's it. By registering this, when your object will be instantiated from the container, it will automatically have
+That's it. By registering this, when your object will be instantiated from the container, it will automatically have its
 its dependencies resolved.
 
 > Dependencies injection applies to any object within DotKernel API, for example, you could inject dependencies in
