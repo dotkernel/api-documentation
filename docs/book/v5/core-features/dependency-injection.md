@@ -1,24 +1,24 @@
 # Dependency Injection
 
-Dependency injection is a design pattern used in software development to implement inversion of control or in simple
-terms is the act of providing dependencies for an object during instantiation.
+Dependency injection is a design pattern used in software development to implement inversion of control. In simpler
+terms, it's the act of providing dependencies for an object during instantiation.
 
-In PHP, dependency injection can be implemented in various ways, including through **constructor** injection, setter
-injection, and property injection.
+In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter
+injection and property injection.
 
-DotKernel API, through it's [dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection) package
+DotKernel API, through its [dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection) package
 focuses only on constructor injection.
 
 ## Usage
 
-**DotKernel API** comes out of the box with
+**DotKernel API** comes out of the box with the
 [dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection) package, which provides all we need for
-injecting dependencies in any object you want.
+injecting dependencies into any object you want.
 
 `dot-dependency-injection` determines the dependencies by looking at the `#[Inject]` attribute, added to the constructor
 of a class. Dependencies are specified as separate parameters of the `#[Inject]` attribute.
 
-For our example we will inject a `UserService` and `config` dependencies in a `UseHandler`.
+For our example we will inject `UserService` and `config` dependencies into a `UseHandler`.
 
 ```php
 use Dot\DependencyInjection\Attribute\Inject;
@@ -40,7 +40,7 @@ class UserHandler implements RequestHandlerInterface
 > If your class needs the value of a specific configuration key, you can specify the path using dot notation:
 > `config.example`
 
-After, register the class in the `ConfigProvider`, under `factories`, using
+The next step is to register the class in the `ConfigProvider` under `factories` using
 `Dot\DependencyInjection\Factory\AttributedServiceFactory::class`
 
 ```php
@@ -54,8 +54,8 @@ public function getDependencies(): array
 }
 ```
 
-That's it. By registering this, when your object will be instantiated from the container, it will automatically have its
+That's it. When your object is instantiated from the container, it will automatically have its
 dependencies resolved.
 
-> Dependencies injection applies to any object within DotKernel API. For example, you could inject dependencies in a
-> service, a handler and so on, just need to register it in the `ConfigProvider`
+> Dependencies injection is available to any object within DotKernel API. For example, you can inject dependencies in a
+> service, a handler and so on, simply by registering it in the `ConfigProvider`.
