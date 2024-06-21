@@ -16,7 +16,7 @@ DotKernel API comes out of the box with
 injecting dependencies in any object you want.
 
 `dot-dependency-injection` determines the dependencies by looking at the `#[Inject]` attribute, added to the constructor
-added to the constructor of a class. Dependencies are specified as separate parameters of the `#[Inject]` attribute.
+of a class. Dependencies are specified as separate parameters of the `#[Inject]` attribute.
 
 For our example we will inject a `UserService` and `config` dependencies in a `UseHandler`.
 
