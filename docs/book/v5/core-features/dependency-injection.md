@@ -12,7 +12,7 @@ focuses only on constructor injection.
 ## Usage
 
 DotKernel API comes out of the box with
-[dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection)package, which provide all we need for
+[dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection) package, which provide all we need for
 injecting dependencies in any object you want.
 
 `dot-dependency-injection` determines the dependencies by looking at the `#[Inject]` attribute,
