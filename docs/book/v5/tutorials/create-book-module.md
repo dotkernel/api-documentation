@@ -157,12 +157,12 @@ use Api\App\Helper\PaginationHelper;
 use Api\Book\Collection\BookCollection;
 use Api\Book\Entity\Book;
 use Doctrine\ORM\EntityRepository;
-use Dot\AnnotatedServices\Annotation\Entity;
+use Dot\DependencyInjection\Attribute\Entity;
 
 /**
- * @Entity(name="Api\Book\Entity\Book")
  * @extends EntityRepository<object>
  */
+ #[Entity(name: Book::class)]
 class BookRepository extends EntityRepository
 {
     public function saveBook(Book $book): Book
@@ -204,16 +204,12 @@ namespace Api\Book\Service;
 
 use Api\Book\Entity\Book;
 use Api\Book\Repository\BookRepository;
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\DependencyInjection\Attribute\Inject;
 use DateTimeImmutable;
 
 class BookService implements BookServiceInterface
 {
-    /**
-     * @Inject({
-     *     BookRepository::class,
-     * })
-     */
+    #[Inject(BookRepository::class)]
     public function __construct(protected BookRepository $bookRepository)
     {
     }
@@ -265,8 +261,8 @@ use Api\Book\Handler\BookHandler;
 use Api\Book\Repository\BookRepository;
 use Api\Book\Service\BookService;
 use Api\Book\Service\BookServiceInterface;
-use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
-use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Mezzio\Hal\Metadata\MetadataMap;
 use Api\App\ConfigProvider as AppConfigProvider;
 
@@ -284,9 +280,9 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                BookHandler::class        => AnnotatedServiceFactory::class,
-                BookService::class => AnnotatedServiceFactory::class,
-                BookRepository::class => AnnotatedRepositoryFactory::class,
+                BookHandler::class    => AttributedServiceFactory::class,
+                BookService::class    => AttributedServiceFactory::class,
+                BookRepository::class => AttributedRepositoryFactory::class,
             ],
             'aliases'   => [
                 BookServiceInterface::class     => BookService::class,
@@ -487,19 +483,17 @@ use Mezzio\Hal\ResourceGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\DependencyInjection\Attribute\Inject;
 
 class BookHandler implements RequestHandlerInterface
 {
-    use ResponseTrait;
+    use HandlerTrait;
 
-    /**
-     * @Inject({
-     *     HalResponseFactory::class,
-     *     ResourceGenerator::class,
-     *     BookServiceInterface::class
-     * })
-     */
+    #[Inject(
+        HalResponseFactory::class,
+        ResourceGenerator::class,
+        BookServiceInterface::class
+    )]
     public function __construct(
         protected HalResponseFactory $responseFactory,
         protected ResourceGenerator $resourceGenerator,
