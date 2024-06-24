@@ -1,6 +1,6 @@
 # Packages
 
-* `dotkernel/dot-annotated-services` - Dependency injection component using class attributes.
+* `dotkernel/dot-dependency-injection` - Dependency injection component using class attributes.
 * `dotkernel/dot-cache` - Cache component extending symfony-cache
 * `dotkernel/dot-cli` - Component for creating console applications based on laminas-cli
 * `dotkernel/dot-data-fixtures` - Provides a CLI interface for listing & executing doctrine data fixtures
