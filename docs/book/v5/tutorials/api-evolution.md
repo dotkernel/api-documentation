@@ -79,7 +79,7 @@ class HomeHandler implements RequestHandlerInterface
 
 Attaching the `MethodDeprecation` can only be done to HTTP verb methods (`GET`, `POST`, `PUT`, `PATCH` and `DELETE`).
 
-If you followed along you can run the below curl: 
+If you followed along you can run the below curl:
 
 ```shell
 curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"
@@ -109,3 +109,4 @@ Vary: Origin
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 
 > The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value was provided and are `Link` related parts.
+> 
