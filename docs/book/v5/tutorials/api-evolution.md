@@ -109,4 +109,3 @@ Vary: Origin
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 
 > The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value was provided and are `Link` related parts.
-> 
