@@ -22,7 +22,7 @@ Both mod_php and FCGI (FPM) are supported.
 
 ## RDBMS
 
-* MySQL / MariaDB >= 5.5.3
+* MariaDB >= 10.11 LTS
 
 ## Recommended extensions
 
@@ -33,3 +33,4 @@ Both mod_php and FCGI (FPM) are supported.
 * gd, exif - if working with images
 * zlib, zip, bz2 - if compessing files
 * curl (required if APIs are used)
+* sqlite3 - for tests
