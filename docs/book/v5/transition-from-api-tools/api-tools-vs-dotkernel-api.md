@@ -8,9 +8,9 @@
 | Architecture        | MVC, Event Driven                              | Middleware                                                                            |
 | OSS Lifecycle       | Archived                                       | ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/api?style=flat&label=) |
 | Style               | REST, RPC                                      | REST                                                                                  |
-| Versioning          | Yes                                            | Deprecations *                                                                        |
+| Versioning          | Yes                                            | [Deprecations *](https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/)                                                                    |
 | Documentation       | Swagger (Automated)                            | Postman (Manual) *                                                                    |
-| Content-Negotiation | Custom                                         | Custom                                            |
+| Content-Negotiation | Custom                                         | Custom                                                                                |
 | License             | BSD-3                                          | MIT                                                                                   |
 | Default DB Layer    | laminas-db                                     | doctrine-orm                                                                          |
 | Authorization       | ACL                                            | RBAC-guard                                                                            |
