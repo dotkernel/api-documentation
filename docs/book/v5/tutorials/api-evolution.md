@@ -8,8 +8,8 @@ planning and removing outdated features.
 In DotKernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
 We use response headers to inform the consumers about the future changes by using 2 new headers:
 
-1) `Link` - it's a link to the official documentation pointing out the changes that will take place.
-2) `Sunset` - this header is a date, indicating when the deprecated resource will potentially become unresponsive.
+- `Link` - it's a link to the official documentation pointing out the changes that will take place.
+- `Sunset` - this header is a date, indicating when the deprecated resource will potentially become unresponsive.
 
 **Both headers are independent, you can use them separately.**
 
@@ -48,7 +48,7 @@ HTTP/1.1 200 OK
 Host: 0.0.0.0:8080
 Date: Mon, 24 Jun 2024 10:23:11 GMT
 Connection: close
-X-Powered-By: PHP/8.2.20
+X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
@@ -95,7 +95,7 @@ HTTP/1.1 200 OK
 Host: 0.0.0.0:8080
 Date: Mon, 24 Jun 2024 10:54:57 GMT
 Connection: close
-X-Powered-By: PHP/8.2.20
+X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
