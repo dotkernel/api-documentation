@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/core-features/dependency-injection/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Dependency Injection - api - DotKernel Documentation</title>
+        <title>API Evolution - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -167,12 +167,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Core Features</li>
+                                <li class="breadcrumb-item">Tutorials</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Dependency Injection</li>
+                    <li class="breadcrumb-item active" aria-current="page">API Evolution</li>
                 
             
         </ol>
@@ -404,37 +404,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../cors/" class="subnavigation__link">CORS</a>
+    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
 </li>
 
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Dependency Injection</a>
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
         
@@ -526,19 +526,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+    <a href="../create-book-module/" class="subnavigation__link">Creating a book module</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+    <a href="../token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">API Evolution</a>
 </li>
 
         
@@ -655,7 +655,7 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#usage" class="toc__link nav-link">Usage</a>
+                    <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
             </ul>
@@ -673,56 +673,91 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Tutorials</h2>-->
     
 
-    <h1 id="dependency-injection">Dependency Injection</h1>
-<p>Dependency injection is a design pattern used in software development to implement inversion of control. In simpler
-terms, it's the act of providing dependencies for an object during instantiation.</p>
-<p>In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter
-injection and property injection.</p>
-<p>DotKernel API, through its <a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package
-focuses only on constructor injection.</p>
-<h2 id="usage">Usage</h2>
-<p><strong>DotKernel API</strong> comes out of the box with the
-<a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package, which provides all we need for
-injecting dependencies into any object you want.</p>
-<p><code>dot-dependency-injection</code> determines the dependencies by looking at the <code>#[Inject]</code> attribute, added to the constructor
-of a class. Dependencies are specified as separate parameters of the <code>#[Inject]</code> attribute.</p>
-<p>For our example we will inject <code>UserService</code> and <code>config</code> dependencies into a <code>UseHandler</code>.</p>
-<pre class="highlight"><code class="language-php">use Dot\DependencyInjection\Attribute\Inject;
-
-class UserHandler implements RequestHandlerInterface
+    <h1 id="api-evolution-pattern">API Evolution pattern</h1>
+<p>API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs,
+planning and removing outdated features.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>In DotKernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
+We use response headers to inform the consumers about the future changes by using 2 new headers:</p>
+<p>1) <code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.
+2) <code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</p>
+<p><strong>Both headers are independent, you can use them separately.</strong></p>
+<blockquote>
+<p>Make sure you have the <code>DeprecationMiddleware:class</code> piped in your <code>pipeline</code> list. In our case it's
+<code>config/pipeline.php</code>.</p>
+</blockquote>
+<h3 id="marking-an-entire-endpoint-as-deprecated">Marking an entire endpoint as deprecated</h3>
+<p>When you want to mark an entire resource as deprecated you have to use the <code>ResourceDeprecation</code> attribute.</p>
+<pre class="highlight"><code class="language-php">...
+#[ResourceDeprecation(
+    sunset: '2038-01-01',
+    link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+    deprecationReason: 'Resource deprecation example.',
+    rel: 'sunset',
+    type: 'text/html'
+)]
+class HomeHandler implements RequestHandlerInterface
 {
-    #[Inject(
-        UserService::class,
-        "config",
+...</code></pre>
+<p>In the example above, the <code>ResourceDeprecation</code> attribute is attached to the class, marking the entire <code>/</code> (home)
+endpoint as deprecated starting from <code>2038-01-01</code>.</p>
+<p>Running the following curl will print out the response headers where we can see the <strong>Sunset</strong> and <strong>Link</strong> headers.</p>
+<pre class="highlight"><code class="language-shell">curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"</code></pre>
+<pre class="highlight"><code class="language-shell">HTTP/1.1 200 OK
+Host: 0.0.0.0:8080
+Date: Mon, 24 Jun 2024 10:23:11 GMT
+Connection: close
+X-Powered-By: PHP/8.2.20
+Content-Type: application/json
+Permissions-Policy: interest-cohort=()
+Sunset: 2038-01-01
+Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Vary: Origin</code></pre>
+<h3 id="marking-a-method-as-deprecated">Marking a method as deprecated</h3>
+<p>Most of the time you want to deprecate only an endpoint, so you will need to use the <code>MethodDeprecation</code> attribute which
+has the same parameters, but it attaches to a handler method.</p>
+<pre class="highlight"><code class="language-php">...
+class HomeHandler implements RequestHandlerInterface
+{
+    ...
+    use Api\App\Attribute\MethodDeprecation;
+
+    #[MethodDeprecation(
+        sunset: '2038-01-01',
+        link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+        deprecationReason: 'Method deprecation example.',
+        rel: 'sunset',
+        type: 'text/html'
     )]
-    public function __construct(
-        protected UserServiceInterface $userService,
-        protected array $config,
-    ) {
+    public function get(): ResponseInterface
+    {
+        ...
     }
 }</code></pre>
+<p>Attaching the <code>MethodDeprecation</code> can only be done to HTTP verb methods (<code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> and <code>DELETE</code>).</p>
+<p>If you followed along you can run the below curl:</p>
+<pre class="highlight"><code class="language-shell">curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"</code></pre>
+<pre class="highlight"><code class="language-shell">HTTP/1.1 200 OK
+Host: 0.0.0.0:8080
+Date: Mon, 24 Jun 2024 10:54:57 GMT
+Connection: close
+X-Powered-By: PHP/8.2.20
+Content-Type: application/json
+Permissions-Policy: interest-cohort=()
+Sunset: 2038-01-01
+Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Vary: Origin</code></pre>
+<h3 id="notes">NOTES</h3>
 <blockquote>
-<p>If your class needs the value of a specific configuration key, you can specify the path using dot notation:
-<code>config.example</code></p>
-</blockquote>
-<p>The next step is to register the class in the <code>ConfigProvider</code> under <code>factories</code> using
-<code>Dot\DependencyInjection\Factory\AttributedServiceFactory::class</code></p>
-<pre class="highlight"><code class="language-php">public function getDependencies(): array
-{
-    return [
-        'factories' =&gt; [
-            UserHandler::class =&gt; AttributedServiceFactory::class
-        ]
-    ];
-}</code></pre>
-<p>That's it. When your object is instantiated from the container, it will automatically have its
-dependencies resolved.</p>
-<blockquote>
-<p>Dependencies injection is available to any object within DotKernel API. For example, you can inject dependencies in a
-service, a handler and so on, simply by registering it in the <code>ConfigProvider</code>.</p>
+<p>If <code>Link</code> or <code>Sunset</code> do not have a value they will not appear in the response headers.</p>
+<p><code>Sunset</code> has to be a <strong>valid</strong> date, otherwise it will throw an error.</p>
+<p>You <strong>cannot</strong> use both <code>ResourceDeprecation</code> and <code>MethodDeprecation</code> in the same handler.</p>
+<p>Deprecations can only be attached to handler classes that implement <code>RequestHandlerInterface</code>.</p>
+<p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value was provided and
+are <code>Link</code> related parts.</p>
 </blockquote>
 
 
@@ -733,10 +768,10 @@ service, a handler and so on, simply by registering it in the <code>ConfigProvid
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../cors/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../token-authentication/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    CORS
+                    Token authentication
                 </a>
             
         </li>
@@ -744,9 +779,9 @@ service, a handler and so on, simply by registering it in the <code>ConfigProvid
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../commands/create-admin-account/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/">
                     <small class="page-nav__label">Next</small>
-                    Create admin account
+                    Laminas API Tools vs DotKernel API
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
