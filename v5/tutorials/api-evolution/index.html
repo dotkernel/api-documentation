@@ -682,8 +682,10 @@ planning and removing outdated features.</p>
 <h2 id="how-it-works">How it works</h2>
 <p>In DotKernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
 We use response headers to inform the consumers about the future changes by using 2 new headers:</p>
-<p>1) <code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.
-2) <code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</p>
+<ul>
+<li><code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.</li>
+<li><code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</li>
+</ul>
 <p><strong>Both headers are independent, you can use them separately.</strong></p>
 <blockquote>
 <p>Make sure you have the <code>DeprecationMiddleware:class</code> piped in your <code>pipeline</code> list. In our case it's
@@ -710,7 +712,7 @@ endpoint as deprecated starting from <code>2038-01-01</code>.</p>
 Host: 0.0.0.0:8080
 Date: Mon, 24 Jun 2024 10:23:11 GMT
 Connection: close
-X-Powered-By: PHP/8.2.20
+X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
@@ -744,7 +746,7 @@ class HomeHandler implements RequestHandlerInterface
 Host: 0.0.0.0:8080
 Date: Mon, 24 Jun 2024 10:54:57 GMT
 Connection: close
-X-Powered-By: PHP/8.2.20
+X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
