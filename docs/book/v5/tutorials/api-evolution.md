@@ -1,6 +1,6 @@
 # API Evolution pattern
 
-API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, 
+API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs,
 planning and removing outdated features.
 
 ## How it works
@@ -34,7 +34,7 @@ class HomeHandler implements RequestHandlerInterface
 ...
 ```
 
-In the example above, the ``ResourceDeprecation`` attribute is attached to the class, marking the entire `/` (home) 
+In the example above, the ``ResourceDeprecation`` attribute is attached to the class, marking the entire `/` (home)
 endpoint as deprecated starting from `2038-01-01`.
 
 Running the following curl will print out the response headers where we can see the **Sunset** and **Link** headers.
