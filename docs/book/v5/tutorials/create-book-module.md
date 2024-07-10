@@ -40,7 +40,7 @@ The below files structure is what we will have at the end of this tutorial and i
 * `src/Book/src/InputFilter/BookInputFilter.php` - input filters and validators
 * `src/Book/src/InputFilter/Input/*` - input filters and validator configurations
 
-## Creating and configuring the module.
+## Creating and configuring the module
 
 Firstly we will need the book module, so we will implement and create the basics for a module to be registered and functional.
 
@@ -127,7 +127,7 @@ class ConfigProvider
 
 ### Registering the module
 
-* register the module config by adding the ` Api\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
+* register the module config by adding the `Api\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
 * register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"`, in composer.json under the autoload.psr-4 key
 * update Composer autoloader by running the command:
 
