@@ -45,6 +45,14 @@ nav:
           - "Laminas API Tools vs DotKernel API": v5/transition-from-api-tools/api-tools-vs-dotkernel-api.md
           - "Transition Approach": v5/transition-from-api-tools/transition-approach.md
           - "Discovery Phase": v5/transition-from-api-tools/discovery-phase.md
+      - OpenAPI:
+            - "Introduction": v5/openapi/introduction.md
+            - "Initialized Components": v5/openapi/initialized-components.md
+            - "Write Documentation": v5/openapi/write-documentation.md
+            - "Generate Documentation": v5/openapi/generate-documentation.md
+            - "Render Documentation": v5/openapi/render-documentation.md
+            - "Use Documentation": v5/openapi/use-documentation.md
+            - "Getting Help": v5/openapi/getting-help.md
   - v4:
       - Introduction: v4/introduction/introduction.md
       - Overview:

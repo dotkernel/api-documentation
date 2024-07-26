@@ -25,6 +25,8 @@ Else, client's account is identified and client has `admin`/`user` role (the one
 
 DotKernel API provides out-of-the-box both an `admin` and a `user` account.
 
+### Credentials
+
 The admin account with **role** set to both `superuser` and `admin` with the following credentials:
 
 - **identity**: `admin`
