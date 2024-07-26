@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/discovery-phase/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/openapi/use-documentation/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Discovery Phase - api - DotKernel Documentation</title>
+        <title>Use Documentation - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -177,12 +177,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Transition from API Tools</li>
+                                <li class="breadcrumb-item">OpenAPI</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Discovery Phase</li>
+                    <li class="breadcrumb-item active" aria-current="page">Use Documentation</li>
                 
             
         </ol>
@@ -618,19 +618,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-approach/" class="subnavigation__link">Transition Approach</a>
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Discovery Phase</a>
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -664,43 +664,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
+    <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
+    <a href="../write-documentation/" class="subnavigation__link">Write Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+    <a href="../generate-documentation/" class="subnavigation__link">Generate Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
+    <a href="../render-documentation/" class="subnavigation__link">Render Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Use Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
+    <a href="../getting-help/" class="subnavigation__link">Getting Help</a>
 </li>
 
         
@@ -735,19 +735,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#database" class="toc__link nav-link">Database</a>
+                    <a href="#protected-endpoints" class="toc__link nav-link">Protected endpoints</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#authentication-and-authorization" class="toc__link nav-link">Authentication and Authorization</a>
+                    <a href="#authentication" class="toc__link nav-link">Authentication</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#modules" class="toc__link nav-link">Modules</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#custom-functionalities" class="toc__link nav-link">Custom functionalities</a>
+                    <a href="#making-api-calls" class="toc__link nav-link">Making API calls</a>
                 </li>
             
             </ul>
@@ -765,46 +761,113 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">OpenAPI</h2>-->
     
 
-    <h1 id="discovery-phase-for-a-current-system-built-using-api-tools-wip">Discovery phase for a current system built using API Tools [WIP]</h1>
-<p>In order to transition a system built using api-tools to Dotkernel API , we need to analyze the core components
-of it.</p>
-<h2 id="database">Database</h2>
+    <h1 id="using-the-documentation">Using the documentation</h1>
+<p>Since Redoc is readonly, in the following section we will focus only on using Swagger UI.</p>
+<h2 id="protected-endpoints">Protected endpoints</h2>
+<p>Now that you have a UI for the documentation, you can see all the endpoints. You will see that some of them have a lock
+symbol right before the collapse/expand arrow. When you see this symbol next to an endpoint, it means that the endpoint
+is protected and can only be accessed when authenticated with an account with proper permissions.</p>
+<h2 id="authentication">Authentication</h2>
+<p>In Swagger UI, you will see an <code>Authorize</code> button. Clicking it will open a modal where you will find two sections:</p>
 <ul>
-<li>there is a database in the current API ?</li>
-<li>which is the connection to database</li>
-<li>which library is used for database interaction ( laminas-db, doctrine 2, eloquent, or else )</li>
+<li><code>AuthToken</code> - where you will have to enter a valid auth token</li>
+<li><code>ErrorReportingToken</code> - where you will have to enter a valid error reporting token</li>
 </ul>
-<h3 id="note">Note</h3>
+<p>Below, we will walk you through on how to find both tokens. For now, let's close the modal.</p>
+<h3 id="generating-authtoken">Generating AuthToken</h3>
+<p>This token is required with most of the Dotkernel API endpoints. There are two entities that generate this type of
+token: <code>(super)admin</code>s and <code>user</code>s. Depending on the endpoint description, you will know which one you need to use.
+Examples:</p>
+<ul>
+<li><code>/user</code>: the description says <code>Admin lists user accounts</code> - it means that you need an AccessToken with <code>(super)admin</code>
+  privileges</li>
+<li><code>/user/my-account</code>: the description says <code>User fetches their own account</code> - it means that you need an AccessToken with
+  <code>user</code> privileges</li>
+</ul>
+<p>In the UI, find a section called <code>AccessToken</code>, toggle the <code>/security/generate-token</code> (<code>Generate access token</code>) endpoint
+and click the <code>Try it out</code> button. Under the <code>Access token generation request</code> you will find a textarea prepopulated
+with a JSON object. You will have to change the value of <code>username</code> and <code>password</code>. See
+<a href="../../tutorials/token-authentication/#credentials">this guide</a> for the credentials.</p>
+<p>After you have filled out the credentials, click on the <code>Execute</code> button below the textarea. This will send the request
+to your instance of Dotkernel API. If everything went well, under the textarea you should see:</p>
+<ul>
+<li>the <code>curl</code> request that was made</li>
+<li>the <code>Request URL</code> the request was sent to</li>
+<li>the <code>Server response</code> with <code>200 OK</code> response code and the <code>Response body</code> with a JSON object containing <code>token_type</code>,
+  <code>expires_in</code>, <code>access_token</code> and <code>refresh_token</code>.</li>
+</ul>
 <blockquote>
-<p>Dotkernel API is tested only with MariaDB version 10.6 and 10.11 LTS</p>
+<p>Save the <code>refresh_token</code> somewhere, you will need it later</p>
 </blockquote>
-<h2 id="authentication-and-authorization">Authentication and Authorization</h2>
+<p>Now copy the value of <code>access_token</code> (make sure you copy all the characters, without the surrounding double quotes) and
+go back up to the <code>Authorize</code> button and click it to open the auth modal. Paste the copied token as the value of the
+<code>AuthToken</code> and click on the <strong>Authorize</strong> button you see under the input field. The <strong>Authorize</strong> button has now
+changed to <strong>Logout</strong>. You can close the modal.</p>
+<p>From here, Swagger UI will remember the AuthToken until you close/refresh the browser tab. Also, it will automatically
+append the <code>Authorization</code> header to each request, allowing you to make authorized API calls.</p>
+<p>If you need to switch to an account with different privileges, you go again to the <code>Authorize</code> button, click on it to
+open the auth modal, and click <strong>Logout</strong> for the <code>AuthToken</code>. Then paste the new token as the value of the <code>AuthToken</code>,
+click on the <strong>Authorize</strong> button, close the modal and continue using the UI authenticated with the new account.</p>
+<h3 id="refreshing-authtoken">Refreshing AuthToken</h3>
+<p>By default, auth tokens expire in 1 day. If you make an API call, and you receive an error telling you that your auth
+token is expired, you need to either generate a new token (as seen above) or refresh the existing one using the
+<code>refresh_token</code> received when generating the current token.</p>
+<p>In order to refresh the auth token, you find the same section called <code>AccessToken</code>, toggle the <code>/security/refresh-token</code>
+(<code>Refresh access token</code>) endpoint and click the <code>Try it out</code> button. Under the <code>Access token refresh request</code> you will
+find a textarea prepopulated with a JSON object. You will have to change the value of <code>refresh_token</code> to the refresh
+token of your current auth token.</p>
+<p>Once done, click on the <code>Execute</code> button below the textarea. This will send the request to your instance of Dotkernel
+API. If everything went well, under the textarea you should see the same details:</p>
 <ul>
-<li>how authentication is done ? (basic, digest, oauth2, etc.)</li>
-<li>how authorization is done ?  (acl, rbac)</li>
+<li>the <code>curl</code> request that was made</li>
+<li>the <code>Request URL</code> the request was sent to</li>
+<li>the <code>Server response</code> with <code>200 OK</code> response code and the <code>Response body</code> with a JSON object containing <code>token_type</code>,
+  <code>expires_in</code>, <code>access_token</code> and <code>refresh_token</code>.</li>
 </ul>
-<h2 id="modules">Modules</h2>
+<p>From here, you will follow the same steps:</p>
 <ul>
-<li>analyze configuration files of the modules (what needs to be configured in order to use a module)</li>
-<li>analyze routes (which are the routes, protection rules, which one need auth, etc.)</li>
-<li>analyze response format (content negotiation and validation, which ones are json, hal, views, etc.)</li>
-<li>analyze input field validations</li>
+<li>copy the <code>access_token</code></li>
+<li>go to the <code>Authorize</code> button to open the auth modal</li>
+<li>paste the new token and click on <strong>Authorize</strong></li>
+<li>close the modal</li>
 </ul>
-<h2 id="custom-functionalities">Custom functionalities</h2>
-<p>Analyze the custom code (code that cannot be generated through Admin UI and require manual implementation)</p>
-<p>For instance:</p>
+<h3 id="generating-errorreportingtoken">Generating ErrorReportingToken</h3>
+<p>Just like the AuthTokens, ErrorReportingTokens are used to make authorized API calls. The difference is that this token
+applies only to one specific endpoint: <code>/error-report</code> (<code>Report an error to the API</code>). This endpoint is intended to be
+used by third-party applications and frontends to report an error back to the API.</p>
+<blockquote>
+<p>This endpoint does not require <code>AuthTokens</code></p>
+</blockquote>
+<p>In order to generate this token, follow <a href="../../commands/generate-tokens/#generate-error-reporting-token">this guide</a>.</p>
+<p>Once you have the error reporting token, go again to the <code>Authorize</code> button, paste the new token as the value of the
+<code>ErrorReportingToken</code>, click on the <strong>Authorize</strong> button and close the modal. Now you're ready to report errors to your
+instance of Dotkernel API.</p>
+<h2 id="making-api-calls">Making API calls</h2>
+<blockquote>
+<p>The UI does not use confirmation messages before making an API call so double check any operation before executing it.</p>
+</blockquote>
+<p>Once authorized in the UI, you can click on any endpoint to expand it. There you will find an overview of the endpoint, including:</p>
 <ul>
-<li>caching</li>
-<li>events</li>
-<li>services</li>
-<li>extra installed packages and libraries</li>
-<li>jobs and queues</li>
-<li>third-parties</li>
-<li>tests</li>
+<li>Request method (<code>DELETE</code>, <code>GET</code>, <code>PATCH</code>, <code>POST</code>, <code>PUT</code>)</li>
+<li>request URL (example: <code>/resource</code>)</li>
+<li>Short description</li>
+<li>Long description</li>
+<li>Parameters - if this area says <code>No parameters</code>, then there are no parameters to fill out; else, make sure you fill out
+all the required parameters</li>
+<li>Request body - if present, provides a textarea prepopulated with a JSON object describing the request</li>
+<li>Responses - a list of possible HTTP status codes and their respective response bodies</li>
 </ul>
+<p>Clicking the <code>Try it out</code> button will activate any parameter input fields and the request body textarea (if any).
+Clicking <code>Cancel</code> will deactivate them.</p>
+<p>Make sure you fill out all the necessary data, then click on the <code>Execute</code> found button above <code>Responses</code>. This will
+send the request and return and display the API response. Once finished, you will see the response as the first item
+under <code>Responses</code>, including the HTTP status code and the response body.</p>
+<p>You can repeat the request by clicking again on the <code>Execute</code> button. This will first clear the previous output and
+display the new response in the same place. Additionally, between two executions, you can manually clear any previous
+output using the <code>Clear</code> button next to the <code>Execute</code> button.</p>
 
 
 
@@ -814,10 +877,10 @@ of it.</p>
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../transition-approach/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../render-documentation/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Transition Approach
+                    Render Documentation
                 </a>
             
         </li>
@@ -825,9 +888,9 @@ of it.</p>
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../openapi/introduction/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../getting-help/">
                     <small class="page-nav__label">Next</small>
-                    Introduction
+                    Getting Help
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

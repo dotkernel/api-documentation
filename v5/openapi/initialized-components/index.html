@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/discovery-phase/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/openapi/initialized-components/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Discovery Phase - api - DotKernel Documentation</title>
+        <title>Initialized Components - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -177,12 +177,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Transition from API Tools</li>
+                                <li class="breadcrumb-item">OpenAPI</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Discovery Phase</li>
+                    <li class="breadcrumb-item active" aria-current="page">Initialized Components</li>
                 
             
         </ol>
@@ -618,19 +618,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-approach/" class="subnavigation__link">Transition Approach</a>
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Discovery Phase</a>
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -664,43 +664,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Initialized Components</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
+    <a href="../write-documentation/" class="subnavigation__link">Write Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
+    <a href="../generate-documentation/" class="subnavigation__link">Generate Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+    <a href="../render-documentation/" class="subnavigation__link">Render Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
+    <a href="../use-documentation/" class="subnavigation__link">Use Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
+    <a href="../getting-help/" class="subnavigation__link">Getting Help</a>
 </li>
 
         
@@ -735,19 +735,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#database" class="toc__link nav-link">Database</a>
+                    <a href="#oainfo" class="toc__link nav-link">OA\Info</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#authentication-and-authorization" class="toc__link nav-link">Authentication and Authorization</a>
+                    <a href="#oaserver" class="toc__link nav-link">OA\Server</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#modules" class="toc__link nav-link">Modules</a>
+                    <a href="#oasecurityscheme" class="toc__link nav-link">OA\SecurityScheme</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#custom-functionalities" class="toc__link nav-link">Custom functionalities</a>
+                    <a href="#oaexternaldocumentation" class="toc__link nav-link">OA\ExternalDocumentation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#oaschema" class="toc__link nav-link">OA\Schema</a>
                 </li>
             
             </ul>
@@ -765,45 +769,202 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">OpenAPI</h2>-->
     
 
-    <h1 id="discovery-phase-for-a-current-system-built-using-api-tools-wip">Discovery phase for a current system built using API Tools [WIP]</h1>
-<p>In order to transition a system built using api-tools to Dotkernel API , we need to analyze the core components
-of it.</p>
-<h2 id="database">Database</h2>
+    <h1 id="initialized-openapi-components">Initialized OpenAPI components</h1>
+<p>Below you will find details on some prepopulated OpenAPI components we added to Dotkernel API.</p>
+<h2 id="oainfo">OA\Info</h2>
+<p>Defined in <code>src/App/src/OpenAPI.php</code>, this object provides general info about the API:</p>
 <ul>
-<li>there is a database in the current API ?</li>
-<li>which is the connection to database</li>
-<li>which library is used for database interaction ( laminas-db, doctrine 2, eloquent, or else )</li>
+<li><code>version</code>: API version (example: <code>1.0.0</code>)</li>
+<li><code>title</code>: title shown in the UI (example: <code>Dotkernel API</code>)</li>
 </ul>
-<h3 id="note">Note</h3>
+<p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#info-object">this page</a>.</p>
+<h2 id="oaserver">OA\Server</h2>
+<p>Defined in <code>src/App/src/OpenAPI.php</code>, this object provides API server entries:</p>
+<ul>
+<li><code>url</code>: API server URL (example: <code>https://api.example.com</code> - use no trailing slash!)</li>
+<li><code>description</code>: describes the purpose of the server (example: <code>Dev</code>, <code>Staging</code>, <code>Production</code> or even <code>Auth</code> if you use
+a separate authentication server)</li>
+</ul>
+<p>You can have multiple <code>Server</code> definitions, one for each of your Dotkernel API instances.</p>
+<p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#server-object">this page</a>.</p>
+<h2 id="oasecurityscheme">OA\SecurityScheme</h2>
+<p>Defined in <code>src/App/src/OpenAPI.php</code>, you will find an object for the <code>AuthToken</code> security header:</p>
+<ul>
+<li><code>securityScheme</code>: the name of the security scheme - you will provide this to indicate that an endpoint is protected</li>
+<li><code>type</code>: whether it's an API key, an authorization header etc</li>
+<li><code>in</code>: indicates where the scheme is applied (<code>query</code>/<code>header</code>/<code>cookie</code>)</li>
+<li><code>bearerFormat</code>: a hint to the client to identify how the bearer token is formatted</li>
+<li><code>scheme</code>: the name of the authorization scheme to be used</li>
+</ul>
+<p>And another object for the <code>ErrorReportingToken</code> security token:</p>
+<ul>
+<li><code>securityScheme</code>: the name of the security scheme - you will provide this to indicate that an endpoint is protected</li>
+<li><code>type</code>: whether it's an API key, an authorization header etc</li>
+<li><code>in</code>: indicates where the scheme is applied (<code>query</code>/<code>header</code>/<code>cookie</code>)</li>
+<li><code>name</code>: the name of the header</li>
+</ul>
+<p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#security-scheme-object">this page</a>.</p>
+<h2 id="oaexternaldocumentation">OA\ExternalDocumentation</h2>
+<p>Defined in <code>src/App/src/OpenAPI.php</code>, in this object we provide the following details:</p>
+<ul>
+<li><code>description</code>: describes the purpose of the document</li>
+<li><code>url</code>: external documentation URL</li>
+</ul>
+<p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#external-documentation-object">this page</a>.</p>
+<h2 id="oaschema">OA\Schema</h2>
+<p>Schemas are OpenAPI objects describing an object or collection of objects existing in your project.</p>
+<h3 id="schemas-describing-objects">Schemas describing objects</h3>
+<p>In order to describe an object (entity) you will need to transform in into a schema.</p>
+<p>Object:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\User\Entity;
+
+use Api\App\Entity\AbstractEntity;
+use Api\App\Entity\RoleInterface;
+use Api\App\Entity\TimestampsTrait;
+use Doctrine\ORM\Mapping as ORM;
+
+class UserRole extends AbstractEntity implements RoleInterface
+{
+    use TimestampsTrait;
+
+    #[ORM\Column(name: "name", type: "string", length: 20, unique: true)]
+    protected ?string $name = null;
+
+    // methods
+}</code></pre>
+<p>Schema:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\User;
+
+use Api\User\Entity\UserRole;
+use OpenApi\Attributes as OA;
+
+...
+
+/**
+ * @see UserRole
+ */
+#[OA\Schema(
+    schema: 'UserRole',
+    properties: [
+        new OA\Property(property: 'uuid', type: 'string', example: '1234abcd-abcd-4321-12ab-123456abcdef'),
+        new OA\Property(property: 'name', type: 'string', example: UserRole::ROLE_USER),
+        new OA\Property(
+            property: '_links',
+            properties: [
+                new OA\Property(
+                    property: 'self',
+                    properties: [
+                        new OA\Property(
+                            property: 'href',
+                            type: 'string',
+                            example: 'https://example.com/user/role/1234abcd-abcd-4321-12ab-123456abcdef',
+                        ),
+                    ],
+                    type: 'object',
+                ),
+            ],
+            type: 'object',
+        ),
+    ],
+    type: 'object',
+)]</code></pre>
+<p>Then, when generating the documentation file, <code>OpenAPI</code> will transform it into the specified format (<strong>json</strong>/<strong>yaml</strong>).</p>
+<pre class="highlight"><code class="language-yaml">UserRole:
+  properties:
+    uuid:
+      type: string
+      example: 1234abcd-abcd-4321-12ab-123456abcdef
+    name:
+      type: string
+      example: user
+    _links:
+      properties:
+        self:
+          properties:
+            href:
+              type: string
+              example: 'https://example.com/user/role/1234abcd-abcd-4321-12ab-123456abcdef'
+          type: object
+      type: object
+  type: object</code></pre>
+<h3 id="schemas-describing-collections-of-objects">Schemas describing collections of objects</h3>
+<p>Collections of objects are just as easy to describe in <code>OpenAPI</code> as they are in PHP.</p>
+<p>PHP collection:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\User\Collection;
+
+use Api\App\Collection\ResourceCollection;
+
+class UserRoleCollection extends ResourceCollection
+{
+}</code></pre>
+<p>Schema:</p>
+<pre class="highlight"><code class="language-php">#[OA\Schema(
+    schema: 'UserRoleCollection',
+    properties: [
+        new OA\Property(
+            property: '_embedded',
+            properties: [
+                new OA\Property(
+                    property: 'roles',
+                    type: 'array',
+                    items: new OA\Items(
+                        ref: '#/components/schemas/UserRole',
+                    ),
+                ),
+            ],
+            type: 'object',
+        ),
+    ],
+    type: 'object',
+    allOf: [
+        new OA\Schema(ref: '#/components/schemas/Collection'),
+    ],
+)]</code></pre>
+<p>Using <code>ref: '#/components/schemas/UserRole',</code> in our code, we instruct <code>OpenAPI</code> to grab the existing schema <code>UserRole</code>
+(not the entity, but the schema) that we just described earlier. This way we do not need to repeat code by describing
+again the same object and any future modifications will happen in only one place.</p>
+<p>Then, when generating the documentation file, <code>OpenAPI</code> will transform it into the specified format (<strong>json</strong>/<strong>yaml</strong>).</p>
+<pre class="highlight"><code class="language-php">UserRoleCollection:
+  type: object
+  allOf:
+    -
+      $ref: '#/components/schemas/Collection'
+    -
+      properties:
+        _embedded:
+          properties:
+            roles:
+              type: array
+              items: { $ref: '#/components/schemas/UserRole' }
+          type: object
+      type: object</code></pre>
 <blockquote>
-<p>Dotkernel API is tested only with MariaDB version 10.6 and 10.11 LTS</p>
+<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of
+your instance of <strong>Dotkernel API</strong>.</p>
+<p>You can add multiple servers (for staging, production etc) by duplicating the existing one.</p>
 </blockquote>
-<h2 id="authentication-and-authorization">Authentication and Authorization</h2>
+<p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#schema">this page</a>.</p>
+<h3 id="common-schemas">Common schemas</h3>
+<p>We provided some schemas that are reusable across the entire project. They are defined in <code>src/App/src/OpenAPI.php</code>:</p>
 <ul>
-<li>how authentication is done ? (basic, digest, oauth2, etc.)</li>
-<li>how authorization is done ?  (acl, rbac)</li>
-</ul>
-<h2 id="modules">Modules</h2>
-<ul>
-<li>analyze configuration files of the modules (what needs to be configured in order to use a module)</li>
-<li>analyze routes (which are the routes, protection rules, which one need auth, etc.)</li>
-<li>analyze response format (content negotiation and validation, which ones are json, hal, views, etc.)</li>
-<li>analyze input field validations</li>
-</ul>
-<h2 id="custom-functionalities">Custom functionalities</h2>
-<p>Analyze the custom code (code that cannot be generated through Admin UI and require manual implementation)</p>
-<p>For instance:</p>
-<ul>
-<li>caching</li>
-<li>events</li>
-<li>services</li>
-<li>extra installed packages and libraries</li>
-<li>jobs and queues</li>
-<li>third-parties</li>
-<li>tests</li>
+<li><code>#/components/schemas/Collection</code>: provides the default <strong>HAL</strong> structure to all the collections extending it</li>
+<li><code>#/components/schemas/ErrorMessage</code>: describes an operation that resulted in an error - may contain multiple messages</li>
+<li><code>#/components/schemas/InfoMessage</code>: describes an operation that completed successfully - may contain multiple messages</li>
 </ul>
 
 
@@ -814,10 +975,10 @@ of it.</p>
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../transition-approach/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../introduction/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Transition Approach
+                    Introduction
                 </a>
             
         </li>
@@ -825,9 +986,9 @@ of it.</p>
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../openapi/introduction/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../write-documentation/">
                     <small class="page-nav__label">Next</small>
-                    Introduction
+                    Write Documentation
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
