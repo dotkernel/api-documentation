@@ -35,6 +35,7 @@ with a JSON object. You will have to change the value of `username` and `passwor
 
 After you have filled out the credentials, click on the `Execute` button below the textarea. This will send the request
 to your instance of Dotkernel API. If everything went well, under the textarea you should see:
+
 - the `curl` request that was made
 - the `Request URL` the request was sent to
 - the `Server response` with `200 OK` response code and the `Response body` with a JSON object containing `token_type`,
@@ -67,12 +68,14 @@ token of your current auth token.
 
 Once done, click on the `Execute` button below the textarea. This will send the request to your instance of Dotkernel
 API. If everything went well, under the textarea you should see the same details:
+
 - the `curl` request that was made
 - the `Request URL` the request was sent to
 - the `Server response` with `200 OK` response code and the `Response body` with a JSON object containing `token_type`,
   `expires_in`, `access_token` and `refresh_token`.
 
 From here, you will follow the same steps:
+
 - copy the `access_token`
 - go to the `Authorize` button to open the auth modal
 - paste the new token and click on **Authorize**
