@@ -2,7 +2,7 @@
 
 The error reporting endpoint was designed to allows the **frontend developers** of your API to report any bugs they encounter in a secure way that is fully under your control.
 
-### Example case usage
+## Example case usage
 
 - Frontend developed in Angular.
 - Frontend developer will use try-catch in the code in order to send **frontend errors** back to the API
@@ -47,18 +47,18 @@ Behind the scenes, the API validates your configuration and lets you know if any
 Below are the requirements for an application to be able to send error messages to Dotkernel API.
 
 - **Server-side requirements** stored in in `config/autoload/error-handling.global.php`; note these can be set/overwritten in `config/autoload/local.php`:
-  - All keys (`enabled`, `path`, `tokens`, `domain_whitelist` and `ip_whitelist`) must exist under `ErrorReportServiceInterface::class`.
-  - The error reporting feature must be enabled via `ErrorReportServiceInterface::class` . `enabled` => `true`.
-  - `ErrorReportServiceInterface::class` . `path` must have a value; if the destination file does not exist, it will be created automatically.
-  - `ErrorReportServiceInterface::class` . `tokens` must contain at least one token.
-  - At least one of `ErrorReportServiceInterface::class` . `domain_whitelist`/`ip_whitelist` must have at least one value.
+    - All keys (`enabled`, `path`, `tokens`, `domain_whitelist` and `ip_whitelist`) must exist under `ErrorReportServiceInterface::class`.
+    - The error reporting feature must be enabled via `ErrorReportServiceInterface::class` . `enabled` => `true`.
+    - `ErrorReportServiceInterface::class` . `path` must have a value; if the destination file does not exist, it will be created automatically.
+    - `ErrorReportServiceInterface::class` . `tokens` must contain at least one token.
+    - At least one of `ErrorReportServiceInterface::class` . `domain_whitelist`/`ip_whitelist` must have at least one value.
 
 **Note:** The function `checkRequest()` tries to validate the request by checking matches for `domain_whitelist` with `isMatchingDomain()` and for `ip_whitelist` with `isMatchingIpAddress()`.
 If both return `false`, a `ForbiddenException` is thrown and the error message does not get stored.
 
 - **Application-side requirements**:
-  - Send the `Error-Reporting-Token` header with a valid token previously stored in `config/autoload/error-handling.global.php` in the `ErrorReportServiceInterface::class` . `tokens` array.
-  - Send the `Origin` header set to the application's URL; this is the application that send the report.
+    - Send the `Error-Reporting-Token` header with a valid token previously stored in `config/autoload/error-handling.global.php` in the `ErrorReportServiceInterface::class` . `tokens` array.
+    - Send the `Origin` header set to the application's URL; this is the application that send the report.
 
 **Note:**
 
