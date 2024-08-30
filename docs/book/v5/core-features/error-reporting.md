@@ -58,7 +58,7 @@ If both return `false`, a `ForbiddenException` is thrown and the error message d
 
 - **Application-side requirements**:
     - Send the `Error-Reporting-Token` header with a valid token previously stored in `config/autoload/error-handling.global.php` in the `ErrorReportServiceInterface::class` . `tokens` array.
-    - Send the `Origin` header set to the application's URL; this is the application that send the report.
+    - Send the `Origin` header set to the application's URL; this is the application that sends the error message.
 
 **Note:**
 
