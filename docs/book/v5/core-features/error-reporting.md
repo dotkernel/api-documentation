@@ -53,7 +53,7 @@ Below are the requirements for an application to be able to send error messages 
     - `ErrorReportServiceInterface::class` . `tokens` must contain at least one token.
     - At least one of `ErrorReportServiceInterface::class` . `domain_whitelist`/`ip_whitelist` must have at least one value.
 
-**Note:** The function `checkRequest()` tries to validate the request by checking matches for `domain_whitelist` with `isMatchingDomain()` and for `ip_whitelist` with `isMatchingIpAddress()`.
+**Note:** In `src/App/src/Service/ErrorReportService.php`, the method `checkRequest()` tries to validate the request by checking matches for `domain_whitelist` with `isMatchingDomain()` and for `ip_whitelist` with `isMatchingIpAddress()`.
 If both return `false`, a `ForbiddenException` is thrown and the error message does not get stored.
 
 - **Application-side requirements**:
