@@ -107,7 +107,7 @@ From then on, it's the frontend developer's job to set up an error reporting fun
 ```javascript
 postError(body: object): Promise<any> {
      return new Promise((resolve, reject) => {
-      return this.http.post(API_ENDPOINT + 'error-report', body , {headers: new HttpHeaders({'X-Workspace': 'TOKEN', 'Access-Control-Allow-Origin': '*'})})).subscribe({
+      return this.http.post(API_ENDPOINT + 'error-report', body , {headers: new HttpHeaders({'Error-Reporting-Token': 'TOKEN', 'Origin': 'https://example.com'})})).subscribe({
         next: (response: any) => {
           resolve(response);
         },
