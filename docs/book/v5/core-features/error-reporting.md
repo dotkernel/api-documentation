@@ -70,7 +70,7 @@ If your request passes all the checks, the message is saved in the log file spec
 #### Tips and tricks
 
 If there are multiple applications that report errors to your API, you can **assign a different error reporting token** for each.
-The tokens support key-value pairs where
+The tokens support key-value pairs where:
 
 - The **key** is an alias relevant to the assigned application that uses it.
 - The **value** is the token itself.
