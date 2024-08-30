@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/openapi/use-documentation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/core-features/error-reporting/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Use Documentation - api - DotKernel Documentation</title>
+        <title>Error reporting - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -177,12 +177,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">OpenAPI</li>
+                                <li class="breadcrumb-item">Core Features</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Use Documentation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Error reporting</li>
                 
             
         </ol>
@@ -414,43 +414,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/cors/" class="subnavigation__link">CORS</a>
+    <a href="../cors/" class="subnavigation__link">CORS</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+    <a href="../dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Error reporting</a>
 </li>
 
         
@@ -670,43 +670,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
+    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../write-documentation/" class="subnavigation__link">Write Documentation</a>
+    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../render-documentation/" class="subnavigation__link">Render Documentation</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Use Documentation</a>
+    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../getting-help/" class="subnavigation__link">Getting Help</a>
+    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
 </li>
 
         
@@ -741,15 +741,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#protected-endpoints" class="toc__link nav-link">Protected endpoints</a>
+                    <a href="#example-case-usage" class="toc__link nav-link">Example case usage</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#authentication" class="toc__link nav-link">Authentication</a>
+                    <a href="#how-to-use-it-on-the-api-side" class="toc__link nav-link">How to use it on the API side</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#making-api-calls" class="toc__link nav-link">Making API calls</a>
+                    <a href="#how-to-use-it-on-the-frontend-side-angular-example" class="toc__link nav-link">How to use it on the Frontend side (Angular example)</a>
                 </li>
             
             </ul>
@@ -767,113 +767,108 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">OpenAPI</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="using-the-documentation">Using the documentation</h1>
-<p>Since Redoc is readonly, in the following section we will focus only on using Swagger UI.</p>
-<h2 id="protected-endpoints">Protected endpoints</h2>
-<p>Now that you have a UI for the documentation, you can see all the endpoints. You will see that some of them have a lock
-symbol right before the collapse/expand arrow. When you see this symbol next to an endpoint, it means that the endpoint
-is protected and can only be accessed when authenticated with an account with proper permissions.</p>
-<h2 id="authentication">Authentication</h2>
-<p>In Swagger UI, you will see an <code>Authorize</code> button. Clicking it will open a modal where you will find two sections:</p>
+    <h1 id="error-reporting-endpoint">Error reporting endpoint</h1>
+<p>The error reporting endpoint was designed to allow the <strong>frontend developers</strong> of your API to report any bugs they encounter in a secure way that is fully under your control.</p>
+<h2 id="example-case-usage">Example case usage</h2>
 <ul>
-<li><code>AuthToken</code> - where you will have to enter a valid auth token</li>
-<li><code>ErrorReportingToken</code> - where you will have to enter a valid error reporting token</li>
+<li>Frontend developed in Angular.</li>
+<li>Frontend developer will use try-catch in the code in order to send <strong>frontend errors</strong> back to the API.</li>
 </ul>
-<p>Below, we will walk you through on how to find both tokens. For now, let's close the modal.</p>
-<h3 id="generating-authtoken">Generating AuthToken</h3>
-<p>This token is required with most of the Dotkernel API endpoints. There are two entities that generate this type of
-token: <code>(super)admin</code>s and <code>user</code>s. Depending on the endpoint description, you will know which one you need to use.
-Examples:</p>
+<h2 id="how-to-use-it-on-the-api-side">How to use it on the API side</h2>
+<p>Error reporting is done by sending a <strong>POST</strong> request to the <code>/error-report</code> endpoint, together with a <strong>token</strong> in the header.
+In the sections below we will detail how to configure error reporting in your API and how the endpoint is used by the frontend developers.</p>
+<h3 id="generating-a-token-and-adding-it-to-your-api-config">Generating a token and adding it to your API config</h3>
+<p>First you need to generate a token for your request.
+This is done by using the command</p>
+<pre class="highlight"><code class="language-bash">php ./bin/cli.php token:generate error-reporting</code></pre>
+<p>The resulting token has this format <code>0123456789abcdef0123456789abcdef01234567</code>.
+<strong>Note:</strong> this example is not a valid token, it just lets you know what to look for.</p>
+<p>Copy the generated token in your <code>config/autoload/error-handling.global.php</code> file.
+It should look similar to the example below.
+Your API can have multiple tokens, if needed.</p>
+<pre class="highlight"><code class="language-php">return [
+    ...
+    ErrorReportServiceInterface::class =&gt; [
+        ...
+        'tokens' =&gt; [
+            '0123456789abcdef0123456789abcdef01234567',
+        ],
+        ...
+    ]
+]</code></pre>
+<h3 id="validation-mechanism">Validation mechanism</h3>
+<p>Behind the scenes, the API validates your configuration and lets you know if any config items prevent the submission of the error report.
+Below are the requirements for an application to be able to send error messages to Dotkernel API.</p>
 <ul>
-<li><code>/user</code>: the description says <code>Admin lists user accounts</code> - it means that you need an AccessToken with <code>(super)admin</code>
-  privileges</li>
-<li><code>/user/my-account</code>: the description says <code>User fetches their own account</code> - it means that you need an AccessToken with
-  <code>user</code> privileges</li>
+<li><strong>Server-side requirements</strong> stored in <code>config/autoload/error-handling.global.php</code> (these can be set/overwritten in <code>config/autoload/local.php</code>):<ul>
+<li>All keys (<code>enabled</code>, <code>path</code>, <code>tokens</code>, <code>domain_whitelist</code> and <code>ip_whitelist</code>) must exist under <code>ErrorReportServiceInterface::class</code>.</li>
+<li>The error reporting feature must be enabled by setting <code>ErrorReportServiceInterface::class</code> . <code>enabled</code> to <code>true</code>.</li>
+<li><code>ErrorReportServiceInterface::class</code> . <code>path</code> must have a value; if the destination file does not exist, it will be created automatically.</li>
+<li><code>ErrorReportServiceInterface::class</code> . <code>tokens</code> must contain at least one token.</li>
+<li>At least one of <code>ErrorReportServiceInterface::class</code> . <code>domain_whitelist</code>/<code>ip_whitelist</code> must have at least one value.</li>
 </ul>
-<p>In the UI, find a section called <code>AccessToken</code>, toggle the <code>/security/generate-token</code> (<code>Generate access token</code>) endpoint
-and click the <code>Try it out</code> button. Under the <code>Access token generation request</code> you will find a textarea prepopulated
-with a JSON object. You will have to change the value of <code>username</code> and <code>password</code>. See
-<a href="../../tutorials/token-authentication/#credentials">this guide</a> for the credentials.</p>
-<p>After you have filled out the credentials, click on the <code>Execute</code> button below the textarea. This will send the request
-to your instance of Dotkernel API. If everything went well, under the textarea you should see:</p>
+</li>
+</ul>
+<p><strong>Note:</strong> In <code>src/App/src/Service/ErrorReportService.php</code>, the method <code>checkRequest()</code> tries to validate the request by checking matches for <code>domain_whitelist</code> with <code>isMatchingDomain()</code> and for <code>ip_whitelist</code> with <code>isMatchingIpAddress()</code>.
+If both return <code>false</code>, a <code>ForbiddenException</code> is thrown and the error message does not get stored.</p>
 <ul>
-<li>the <code>curl</code> request that was made</li>
-<li>the <code>Request URL</code> the request was sent to</li>
-<li>the <code>Server response</code> with <code>200 OK</code> response code and the <code>Response body</code> with a JSON object containing <code>token_type</code>,
-  <code>expires_in</code>, <code>access_token</code> and <code>refresh_token</code>.</li>
+<li><strong>Application-side requirements</strong>:<ul>
+<li>Send the <code>Error-Reporting-Token</code> header with a valid token previously stored in <code>config/autoload/error-handling.global.php</code> in the <code>ErrorReportServiceInterface::class</code> . <code>tokens</code> array.</li>
+<li>Send the <code>Origin</code> header set to the application's URL; this is the application that sends the error message.</li>
 </ul>
+</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>The tokens under <code>ErrorReportServiceInterface::class</code> . <code>tokens</code> do not expire.</li>
+<li>The log file stores the token value too, making it easy to identify which application sent the error message.</li>
+</ul>
+<p>If your request passes all the checks, the message is saved in the log file specified in <code>ErrorReportServiceInterface::class</code> . <code>path</code>.</p>
+<h4 id="tips-and-tricks">Tips and tricks</h4>
+<p>If there are multiple applications that report errors to your API, you can <strong>assign a different error reporting token</strong> for each.
+The tokens support key-value pairs where:</p>
+<ul>
+<li>The <strong>key</strong> is an alias relevant to the assigned application that uses it.</li>
+<li>The <strong>value</strong> is the token itself.</li>
+</ul>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">// ...
+return [
+    ...
+    ErrorReportServiceInterface::class =&gt; [
+        // ...
+        'tokens' =&gt; [
+            'frontend' =&gt; '0123456789abcdef0123456789abcdef01234567',
+            'admin' =&gt; '9876543210abcdef0123456789abcdef7654321',
+            // other tokens
+        ],
+    ],
+];</code></pre>
+<p>The log file will have entries similar to the below:</p>
 <blockquote>
-<p>Save the <code>refresh_token</code> somewhere, you will need it later</p>
+<p>[2024-08-29 12:47:00] [0123456789abcdef0123456789abcdef01234567] Demo error message</p>
 </blockquote>
-<p>Now copy the value of <code>access_token</code> (make sure you copy all the characters, without the surrounding double quotes) and
-go back up to the <code>Authorize</code> button and click it to open the auth modal. Paste the copied token as the value of the
-<code>AuthToken</code> and click on the <strong>Authorize</strong> button you see under the input field. The <strong>Authorize</strong> button has now
-changed to <strong>Logout</strong>. You can close the modal.</p>
-<p>From here, Swagger UI will remember the AuthToken until you close/refresh the browser tab. Also, it will automatically
-append the <code>Authorization</code> header to each request, allowing you to make authorized API calls.</p>
-<p>If you need to switch to an account with different privileges, you go again to the <code>Authorize</code> button, click on it to
-open the auth modal, and click <strong>Logout</strong> for the <code>AuthToken</code>. Then paste the new token as the value of the <code>AuthToken</code>,
-click on the <strong>Authorize</strong> button, close the modal and continue using the UI authenticated with the new account.</p>
-<h3 id="refreshing-authtoken">Refreshing AuthToken</h3>
-<p>By default, auth tokens expire in 1 day. If you make an API call, and you receive an error telling you that your auth
-token is expired, you need to either generate a new token (as seen above) or refresh the existing one using the
-<code>refresh_token</code> received when generating the current token.</p>
-<p>In order to refresh the auth token, you find the same section called <code>AccessToken</code>, toggle the <code>/security/refresh-token</code>
-(<code>Refresh access token</code>) endpoint and click the <code>Try it out</code> button. Under the <code>Access token refresh request</code> you will
-find a textarea prepopulated with a JSON object. You will have to change the value of <code>refresh_token</code> to the refresh
-token of your current auth token.</p>
-<p>Once done, click on the <code>Execute</code> button below the textarea. This will send the request to your instance of Dotkernel
-API. If everything went well, under the textarea you should see the same details:</p>
-<ul>
-<li>the <code>curl</code> request that was made</li>
-<li>the <code>Request URL</code> the request was sent to</li>
-<li>the <code>Server response</code> with <code>200 OK</code> response code and the <code>Response body</code> with a JSON object containing <code>token_type</code>,
-  <code>expires_in</code>, <code>access_token</code> and <code>refresh_token</code>.</li>
-</ul>
-<p>From here, you will follow the same steps:</p>
-<ul>
-<li>copy the <code>access_token</code></li>
-<li>go to the <code>Authorize</code> button to open the auth modal</li>
-<li>paste the new token and click on <strong>Authorize</strong></li>
-<li>close the modal</li>
-</ul>
-<h3 id="generating-errorreportingtoken">Generating ErrorReportingToken</h3>
-<p>Just like the AuthTokens, ErrorReportingTokens are used to make authorized API calls. The difference is that this token
-applies only to one specific endpoint: <code>/error-report</code> (<code>Report an error to the API</code>). This endpoint is intended to be
-used by third-party applications and frontends to report an error back to the API.</p>
-<blockquote>
-<p>This endpoint does not require <code>AuthTokens</code></p>
-</blockquote>
-<p>In order to generate this token, follow <a href="../../commands/generate-tokens/#generate-error-reporting-token">this guide</a>.</p>
-<p>Once you have the error reporting token, go again to the <code>Authorize</code> button, paste the new token as the value of the
-<code>ErrorReportingToken</code>, click on the <strong>Authorize</strong> button and close the modal. Now you're ready to report errors to your
-instance of Dotkernel API.</p>
-<h2 id="making-api-calls">Making API calls</h2>
-<blockquote>
-<p>The UI does not use confirmation messages before making an API call so double check any operation before executing it.</p>
-</blockquote>
-<p>Once authorized in the UI, you can click on any endpoint to expand it. There you will find an overview of the endpoint, including:</p>
-<ul>
-<li>Request method (<code>DELETE</code>, <code>GET</code>, <code>PATCH</code>, <code>POST</code>, <code>PUT</code>)</li>
-<li>request URL (example: <code>/resource</code>)</li>
-<li>Short description</li>
-<li>Long description</li>
-<li>Parameters - if this area says <code>No parameters</code>, then there are no parameters to fill out; else, make sure you fill out
-all the required parameters</li>
-<li>Request body - if present, provides a textarea prepopulated with a JSON object describing the request</li>
-<li>Responses - a list of possible HTTP status codes and their respective response bodies</li>
-</ul>
-<p>Clicking the <code>Try it out</code> button will activate any parameter input fields and the request body textarea (if any).
-Clicking <code>Cancel</code> will deactivate them.</p>
-<p>Make sure you fill out all the necessary data, then click on the <code>Execute</code> found button above <code>Responses</code>. This will
-send the request and return and display the API response. Once finished, you will see the response as the first item
-under <code>Responses</code>, including the HTTP status code and the response body.</p>
-<p>You can repeat the request by clicking again on the <code>Execute</code> button. This will first clear the previous output and
-display the new response in the same place. Additionally, between two executions, you can manually clear any previous
-output using the <code>Clear</code> button next to the <code>Execute</code> button.</p>
+<p>The inclusion of the token helps you identify the source of the error message.
+In our example, it's the application that uses the <code>0123456789abcdef0123456789abcdef01234567</code> token, which is assigned to the application <code>frontend</code>.</p>
+<h2 id="how-to-use-it-on-the-frontend-side-angular-example">How to use it on the Frontend side (Angular example)</h2>
+<p>The API developer sends a generated token to the frontend developer who will save it in their <code>environment.staging.ts</code> and/or <code>environment.prod.ts</code>.
+From then on, it's the frontend developer's job to set up an error reporting function similar to the one below.</p>
+<pre class="highlight"><code class="language-javascript">postError(body: object): Promise&lt;any&gt; {
+     return new Promise((resolve, reject) =&gt; {
+      return this.http.post(API_ENDPOINT + 'error-report', body , {headers: new HttpHeaders({'Error-Reporting-Token': 'TOKEN', 'Origin': 'https://example.com'})})).subscribe({
+        next: (response: any) =&gt; {
+          resolve(response);
+        },
+        error: (e: HttpErrorResponse) =&gt; reject(e),
+        complete: () =&gt; console.info('Error on sending error'),
+      });
+    });
+  }</code></pre>
+<p>Whenever an error is found, the frontend will call <code>postError()</code> with a relevant description under <code>message</code>.</p>
+<pre class="highlight"><code class="language-javascript">apiService.postError({message: 'ERROR MESSAGE'})</code></pre>
 
 
 
@@ -883,10 +878,10 @@ output using the <code>Clear</code> button next to the <code>Execute</code> butt
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../render-documentation/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../dependency-injection/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Render Documentation
+                    Dependency Injection
                 </a>
             
         </li>
@@ -894,9 +889,9 @@ output using the <code>Clear</code> button next to the <code>Execute</code> butt
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../getting-help/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../commands/create-admin-account/">
                     <small class="page-nav__label">Next</small>
-                    Getting Help
+                    Create admin account
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
