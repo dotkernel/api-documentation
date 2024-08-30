@@ -48,7 +48,7 @@ Below are the requirements for an application to be able to send error messages 
 
 - **Server-side requirements** stored in `config/autoload/error-handling.global.php` (these can be set/overwritten in `config/autoload/local.php`):
     - All keys (`enabled`, `path`, `tokens`, `domain_whitelist` and `ip_whitelist`) must exist under `ErrorReportServiceInterface::class`.
-    - The error reporting feature must be enabled via `ErrorReportServiceInterface::class` . `enabled` => `true`.
+    - The error reporting feature must be enabled by setting `ErrorReportServiceInterface::class` . `enabled` to `true`.
     - `ErrorReportServiceInterface::class` . `path` must have a value; if the destination file does not exist, it will be created automatically.
     - `ErrorReportServiceInterface::class` . `tokens` must contain at least one token.
     - At least one of `ErrorReportServiceInterface::class` . `domain_whitelist`/`ip_whitelist` must have at least one value.
