@@ -65,7 +65,7 @@ If both return `false`, a `ForbiddenException` is thrown and the error message d
 - The tokens under `ErrorReportServiceInterface::class` . `tokens` do not expire.
 - The log file stores the token value too, making it easy to identify which application sent the error message.
 
-If your post passes all the checks, the message is saved for the developers.
+If your request passes all the checks, the message is saved in the log file specified in `ErrorReportServiceInterface::class` . `path`.
 
 #### Tips and tricks
 
