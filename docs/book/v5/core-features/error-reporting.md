@@ -5,7 +5,7 @@ The error reporting endpoint was designed to allow the **frontend developers** o
 ## Example case usage
 
 - Frontend developed in Angular.
-- Frontend developer will use try-catch in the code in order to send **frontend errors** back to the API
+- Frontend developer will use try-catch in the code in order to send **frontend errors** back to the API.
 
 ## How to use it on the API side
 
