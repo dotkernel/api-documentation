@@ -30,6 +30,7 @@ The below file structure is just an example, you can have multiple components su
             └── RoutesDelegator.php
 ```
 
+
 * `src/Book/src/Collection/BookCollection.php` - a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database
 * `src/Book/src/Entity/Book.php` - an entity refers to a PHP class that represents a persistent object or data structure
 * `src/Book/src/Handler/BookHandler.php` - handlers are middleware that can handle requests based on an action
