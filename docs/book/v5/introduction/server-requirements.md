@@ -4,9 +4,16 @@ For production, we highly recommend a *nix based system.
 
 ## Webserver
 
-* Apache >= 2.2 **or** Nginx
+### Apache >= 2.2
+
 * mod_rewrite
 * .htaccess support `(AllowOverride All)`
+
+> The repository includes a default `.htaccess` file in the `public` folder.
+
+### Nginx
+
+You need to convert the provided Apache related `.htaccess` file into Nginx configuration instructions.
 
 ## PHP >= 8.2
 
