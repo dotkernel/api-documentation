@@ -1,8 +1,8 @@
-# Find user by identity - A practical example
+# A practical example: Find user by identity
 
 ## Our goal
 
-Create a new endpoint that fetches a user based on its identity.
+Create a new endpoint that fetches a user record by its identity column.
 
 We already have an endpoint that retrieves a user based on their UUID, so we can review it and create something similar.
 
@@ -37,12 +37,12 @@ This command will list all available endpoints, which looks like this:
 ### Note
 
 > **The above output is just an example.**
-> 
-> More info about listing available endpoints can be found [here](../commands/display-available-endpoints).
+>
+> More info about listing available endpoints can be found in `../commands/display-available-endpoints.md`.
 
 The endpoint we're focusing on is the last one, `user.view`, so let's take a closer look at its functionality.
 
-If we search for the route name `user.view` we will find its definition in the `src/User/src/RoutesDelegator.php` class, here live all user related endpoints.
+If we search for the route name `user.view` we will find its definition in the `src/User/src/RoutesDelegator.php` class, where all user related endpoints are found.
 
 ```php
 $app->get('/user/' . $uuid, UserHandler::class, 'user.view');
@@ -133,11 +133,11 @@ Our handler is very similar to the existing one, with some extra steps:
 * We store the identity from the request in the `$identity` variable for later use.
 * If the identity is empty we throw a `BadRequestException` with an appropriate message.
 * If we can't find the user in the database we throw an `NotFoundException`.
-* We generate and return the response.
+* If the record is found, we generate and return the response.
 
-The next step is to register the new handler,
-to do this go to `src/User/src/ConfigProvider.php`
-and in the `getDependencies()` method under the `factories` key add `IdentityHandler::class => AttributedServiceFactory::class,`
+The next step is to register the new handler.
+To do this go to `src/User/src/ConfigProvider.php`.
+In the `getDependencies()` method under the `factories` key add `IdentityHandler::class => AttributedServiceFactory::class,`
 
 Next, create the route in `src/User/src/RoutesDelegator.php`:
 
@@ -157,7 +157,6 @@ The last step is to set permissions on the newly created route.
 
 Go to `config/autoload/authorization.global.php` and add our route name (`user.view.identity`) under the `UserRole::ROLE_GUEST` key
 This will give access to every user, including guests to view other accounts. (for the sake of simplicity)
-
 
 ### Writing tests
 
