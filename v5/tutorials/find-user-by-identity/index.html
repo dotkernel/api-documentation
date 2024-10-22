@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/installation/test-the-installation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/tutorials/find-user-by-identity/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Test the Installation - api - DotKernel Documentation</title>
+        <title>Find user by identity - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -187,12 +187,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Installation</li>
+                                <li class="breadcrumb-item">Tutorials</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Test the Installation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Find user by identity</li>
                 
             
         </ol>
@@ -308,37 +308,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../getting-started/" class="subnavigation__link">Getting Started</a>
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -558,25 +558,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+    <a href="../create-book-module/" class="subnavigation__link">Creating a book module</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+    <a href="../token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
+    <a href="../api-evolution/" class="subnavigation__link">API Evolution</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Find user by identity</a>
 </li>
 
         
@@ -763,19 +763,11 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#old-way-of-doing-things-using-php-built-in-server" class="toc__link nav-link">Old way of doing things, using PHP built-in server</a>
+                    <a href="#our-goal" class="toc__link nav-link">Our goal</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#running-tests" class="toc__link nav-link">Running tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-unit-tests" class="toc__link nav-link">Running unit tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-functional-tests" class="toc__link nav-link">Running functional tests</a>
+                    <a href="#what-we-have" class="toc__link nav-link">What we have</a>
                 </li>
             
             </ul>
@@ -793,24 +785,177 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Tutorials</h2>-->
     
 
-    <h1 id="test-the-installation">Test the installation</h1>
-<p>Sending a GET request to the <a href="http://0.0.0.0:8080/">home page</a> should output the following message:</p>
+    <h1 id="a-practical-example-find-user-by-identity">A practical example: Find user by identity</h1>
+<h2 id="our-goal">Our goal</h2>
+<p>Create a new endpoint that fetches a user record by its identity column.</p>
+<p>We already have an endpoint that retrieves a user based on their UUID, so we can review it and create something similar.</p>
+<h2 id="what-we-have">What we have</h2>
+<p>Let's print out all available endpoints using :</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php route:list</code></pre>
+<p>This command will list all available endpoints, which looks like this:</p>
+<pre class="highlight"><code class="language-text">+--------+---------------------------------+--------------------------------+
+| Method | Name                            | Path                           |
++--------+---------------------------------+--------------------------------+
+| POST   | account.activate.request        | /account/activate              |
+| PATCH  | account.activate                | /account/activate/{hash}       |
+| PATCH  | account.modify-password         | /account/reset-password/{hash} |
+.............................................................................
+.............................................................................
+.............................................................................
+| GET    | user.my-avatar.view             | /user/my-avatar                |
+| GET    | user.role.list                  | /user/role                     |
+| GET    | user.role.view                  | /user/role/{uuid}              |
+| PATCH  | user.update                     | /user/{uuid}                   |
+| GET    | user.view                       | /user/{uuid}                   |
++--------+---------------------------------+--------------------------------+</code></pre>
+<h3 id="note">Note</h3>
 <blockquote>
-<p>{"message": "DotKernel API version 5"}</p>
+<p><strong>The above output is just an example.</strong></p>
+<p>More info about listing available endpoints can be found in <code>../commands/display-available-endpoints.md</code>.</p>
 </blockquote>
-<h2 id="old-way-of-doing-things-using-php-built-in-server">Old way of doing things, using PHP built-in server</h2>
-<pre class="highlight"><code class="language-shell">php -S 0.0.0.0:8080 -t public</code></pre>
-<h2 id="running-tests">Running tests</h2>
-<p>The project has 2 types of tests: functional and unit tests, you can run both types at the same type by executing this
-command:</p>
-<pre class="highlight"><code class="language-shell">php vendor/bin/phpunit</code></pre>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always</code></pre>
-<h2 id="running-functional-tests">Running functional tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
+<p>The endpoint we're focusing on is the last one, <code>user.view</code>, so let's take a closer look at its functionality.</p>
+<p>If we search for the route name <code>user.view</code> we will find its definition in the <code>src/User/src/RoutesDelegator.php</code> class, where all user related endpoints are found.</p>
+<pre class="highlight"><code class="language-php">$app-&gt;get('/user/' . $uuid, UserHandler::class, 'user.view');</code></pre>
+<p>Our route points to <code>get</code> method from <code>UserHandler</code> so let's navigate to that method.</p>
+<pre class="highlight"><code class="language-php">public function get(ServerRequestInterface $request): ResponseInterface
+{
+    $user = $this-&gt;userService-&gt;findOneBy(['uuid' =&gt; $request-&gt;getAttribute('uuid')]);
+
+    return $this-&gt;createResponse($request, $user);
+}</code></pre>
+<p>As we can see, the method will query the database for the user based on its uuid taken from the endpoint.</p>
+<p>We now have an understanding of how things work and we can start to implement our own endpoint.</p>
+<h3 id="implementation">Implementation</h3>
+<p>We need to create a new handler that will process our request, we can call it <code>IdentityHandler</code>.</p>
+<p>Create a new PHP class called <code>IdentityHandler.php</code> in <code>src/User/src/Handler</code> folder.</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\User\Handler;
+
+use Api\App\Exception\BadRequestException;
+use Api\App\Exception\NotFoundException;
+use Api\App\Handler\HandlerTrait;
+use Api\App\Message;
+use Api\User\Entity\User;
+use Api\User\Service\UserServiceInterface;
+use Dot\DependencyInjection\Attribute\Inject;
+use Mezzio\Hal\HalResponseFactory;
+use Mezzio\Hal\ResourceGenerator;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+
+use function sprintf;
+
+class IdentityHandler implements RequestHandlerInterface
+{
+    use HandlerTrait;
+
+    #[Inject(
+        HalResponseFactory::class,
+        ResourceGenerator::class,
+        UserServiceInterface::class,
+    )]
+    public function __construct(
+        protected HalResponseFactory $responseFactory,
+        protected ResourceGenerator $resourceGenerator,
+        protected UserServiceInterface $userService,
+    ) {
+    }
+
+    /**
+     * @throws NotFoundException
+     * @throws BadRequestException
+     */
+    public function get(ServerRequestInterface $request): ResponseInterface
+    {
+        $identity = $request-&gt;getAttribute('identity');
+        if (empty($identity)) {
+            throw (new BadRequestException())-&gt;setMessages([sprintf(Message::INVALID_VALUE, 'identity')]);
+        }
+
+        $user = $this-&gt;userService-&gt;findByIdentity($identity);
+        if (! $user instanceof User) {
+            throw new NotFoundException(Message::USER_NOT_FOUND);
+        }
+
+        return $this-&gt;createResponse($request, $user);
+    }
+}</code></pre>
+<p>Our handler is very similar to the existing one, with some extra steps:</p>
+<ul>
+<li>We store the identity from the request in the <code>$identity</code> variable for later use.</li>
+<li>If the identity is empty we throw a <code>BadRequestException</code> with an appropriate message.</li>
+<li>If we can't find the user in the database we throw an <code>NotFoundException</code>.</li>
+<li>If the record is found, we generate and return the response.</li>
+</ul>
+<p>The next step is to register the new handler.
+To do this go to <code>src/User/src/ConfigProvider.php</code>.
+In the <code>getDependencies()</code> method under the <code>factories</code> key add <code>IdentityHandler::class =&gt; AttributedServiceFactory::class,</code></p>
+<p>Next, create the route in <code>src/User/src/RoutesDelegator.php</code>:</p>
+<pre class="highlight"><code class="language-php">    $app-&gt;get(
+        '/user/{identity}',
+        IdentityHandler::class,
+        'user.view.identity'
+    );</code></pre>
+<h3 id="note_1">Note</h3>
+<blockquote>
+<p>Make sure to register the endpoint as the last one to not shadow existing endpoints.</p>
+</blockquote>
+<p>The last step is to set permissions on the newly created route.</p>
+<p>Go to <code>config/autoload/authorization.global.php</code> and add our route name (<code>user.view.identity</code>) under the <code>UserRole::ROLE_GUEST</code> key
+This will give access to every user, including guests to view other accounts. (for the sake of simplicity)</p>
+<h3 id="writing-tests">Writing tests</h3>
+<p>Because every new piece of code should be tested we will write some tests for this endpoint also.</p>
+<p>In the <code>test/Functional</code> folder create a new php class <code>IdentityTest.php</code>:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+namespace ApiTest\Functional;
+
+use Api\App\Message;
+
+class IdentityTest extends AbstractFunctionalTest
+{
+    public function testEmptyIdentityReturnsNotFound(): void
+    {
+        $response = $this-&gt;get('/user/');
+
+        $this-&gt;assertResponseNotFound($response);
+    }
+
+    public function testInvalidIdentityReturnsNotFound(): void
+    {
+        $response = $this-&gt;get('/user/invalid_identity');
+        $messages = json_decode($response-&gt;getBody()-&gt;getContents(), true);
+
+        $this-&gt;assertResponseNotFound($response);
+        $this-&gt;assertNotEmpty($messages);
+        $this-&gt;assertIsArray($messages);
+        $this-&gt;assertNotEmpty($messages['error']['messages'][0]);
+        $this-&gt;assertIsString($messages['error']['messages'][0]);
+        $this-&gt;assertSame(Message::USER_NOT_FOUND, $messages['error']['messages'][0]);
+    }
+
+    public function testValidIdentityReturnsUser(): void
+    {
+        $this-&gt;createUser([
+            'identity' =&gt; 'valid_user',
+        ]);
+
+        $response = $this-&gt;get('/user/valid_user');
+
+        $this-&gt;assertResponseOk($response);
+        $user = json_decode($response-&gt;getBody()-&gt;getContents(), true);
+
+        $this-&gt;assertSame('valid_user', $user['identity']);
+    }
+}</code></pre>
+<p>Planning and coding a new feature can be challenging at times, but reviewing our existing code or tutorials can serve as a source of inspiration.</p>
 
 
 
@@ -820,10 +965,10 @@ command:</p>
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../doctrine-orm/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../api-evolution/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Doctrine ORM
+                    API Evolution
                 </a>
             
         </li>
@@ -831,9 +976,9 @@ command:</p>
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../faq/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/">
                     <small class="page-nav__label">Next</small>
-                    FAQ
+                    Laminas API Tools vs DotKernel API
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
