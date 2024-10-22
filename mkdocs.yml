@@ -43,6 +43,7 @@ nav:
           - "Creating a book module": v5/tutorials/create-book-module.md
           - "Token authentication": v5/tutorials/token-authentication.md
           - "API Evolution": v5/tutorials/api-evolution.md
+          - "Find user by identity": v5/tutorials/find-user-by-identity.md
       - Transition from API Tools:
           - "Laminas API Tools vs DotKernel API": v5/transition-from-api-tools/api-tools-vs-dotkernel-api.md
           - "Transition Approach": v5/transition-from-api-tools/transition-approach.md
