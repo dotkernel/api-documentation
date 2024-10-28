@@ -44,4 +44,4 @@ To execute a specific fixture, run:
 php bin/doctrine fixtures:execute --class=FixtureClassName
 ```
 
-More details on how fixtures work can be found here: https://github.com/dotkernel/dot-data-fixtures#creating-fixtures
+More details on how fixtures work can be found on [dot-data-fixture documentation](https://github.com/dotkernel/dot-data-fixtures#creating-fixtures)
