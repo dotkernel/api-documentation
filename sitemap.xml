@@ -2,270 +2,270 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/commands/create-admin-account/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/commands/display-available-endpoints/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/commands/generate-database-migrations/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/commands/generate-tokens/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/core-features/authentication/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/core-features/authorization/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/core-features/content-validation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/core-features/cors/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/core-features/exceptions/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/flow/default-library-flow/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/flow/library-flow-for-email/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/flow/middleware-flow/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/composer/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/configuration-files/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/doctrine-orm/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/faq/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/getting-started/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/installation/test-the-installation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/file-structure/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/introduction/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/packages/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/introduction/server-requirements/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/discovery-phase/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/transition-approach/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/tutorials/create-book-module/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v4/tutorials/token-authentication/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/upgrading/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/commands/create-admin-account/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/commands/display-available-endpoints/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/commands/generate-database-migrations/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/commands/generate-tokens/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/authentication/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/authorization/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/content-validation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/cors/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/dependency-injection/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/error-reporting/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/core-features/exceptions/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/flow/default-library-flow/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/flow/library-flow-for-email/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/flow/middleware-flow/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/composer/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/configuration-files/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/doctrine-orm/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/faq/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/getting-started/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/installation/test-the-installation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/introduction/file-structure/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/introduction/introduction/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/introduction/packages/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/introduction/server-requirements/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/generate-documentation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/getting-help/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/initialized-components/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/introduction/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/render-documentation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/use-documentation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/openapi/write-documentation/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/api-tools-vs-dotkernel-api/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/discovery-phase/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/transition-approach/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/tutorials/create-book-module/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/tutorials/find-user-by-identity/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
     <url>
          <loc>https://docs.dotkernel.org/api-documentation/v5/tutorials/token-authentication/</loc>
-         <lastmod>2024-10-22</lastmod>
+         <lastmod>2024-10-28</lastmod>
     </url>
 </urlset>
