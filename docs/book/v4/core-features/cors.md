@@ -16,7 +16,7 @@ This happens because the API (_RESOURCE_URL_) is not configured to accept reques
 
 ## How to fix?
 
-DotKernel API fixes this issue using the [mezzio/mezzio-cors](https://github.com/mezzio/mezzio-cors) library.
+Dotkernel API fixes this issue using the [mezzio/mezzio-cors](https://github.com/mezzio/mezzio-cors) library.
 
 ### Step 1: Install library
 

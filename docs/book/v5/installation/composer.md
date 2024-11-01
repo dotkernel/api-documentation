@@ -1,6 +1,6 @@
 # Composer Installation of Packages
 
-Composer is required to install DotKernel `frontend`. You can install Composer from the [official site](https://getcomposer.org/).
+Composer is required to install Dotkernel `api`. You can install Composer from the [official site](https://getcomposer.org/).
 
 > First make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.
 
@@ -40,10 +40,10 @@ Please select which config file you wish to inject 'Laminas\Diactoros\ConfigProv
   Make your selection (default is 1):
 ```
 
-Type `0` to select `[0] Do not inject` because DotKernel includes its own ConfigProvider which already contains the prompted configurations.
+Type `0` to select `[0] Do not inject`.
 
+> We choose `0` because Dotkernel includes its own ConfigProvider which already contains the prompted configurations.
 > If you choose `[1] config/config.php`, an extra `ConfigProvider` will be injected.
-> This is not required for the default installation, so make sure to select `[0] Do not inject`.
 
 The next question is:
 

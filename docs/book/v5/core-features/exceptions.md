@@ -9,7 +9,7 @@ code.
 
 ## How we use exceptions?
 
-When it comes to handling exceptions, **DotKernel API** relies on the usage of easy-to-understand, problem-specific
+When it comes to handling exceptions, **Dotkernel API** relies on the usage of easy-to-understand, problem-specific
 exceptions.
 
 Out-of-the-box we provide the following custom exceptions:
@@ -53,7 +53,7 @@ Out-of-the-box we provide the following custom exceptions:
 
 ## How it works?
 
-During a request, if there is no uncaught exception **DotKernel API** will return a JSON response with the data provided
+During a request, if there is no uncaught exception **Dotkernel API** will return a JSON response with the data provided
 by the handler that handled the request.
 
 Else, it will build and send a response based on the exception thrown:

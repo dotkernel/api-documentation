@@ -1,4 +1,4 @@
-# Implementing a book module in DotKernel API
+# Implementing a book module in Dotkernel API
 
 ## File structure
 

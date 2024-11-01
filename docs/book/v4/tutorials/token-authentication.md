@@ -11,7 +11,7 @@ and it consists of an alphanumeric string.
 In order to protect specific resources, clients need to be authenticated with user/admin roles.
 These roles are identified from the access token sent via the `Authorization` header.
 
-When DotKernel API receives a request, it tries to read the access token.
+When Dotkernel API receives a request, it tries to read the access token.
 
 If it does not find an access token, client has `guest` role:
 
@@ -23,7 +23,7 @@ Else, client's account is identified and client has `admin`/`user` role (the one
 - if the requested endpoint is accessible to the client, the requested resource is returned
 - else, a `403 Forbidden` response is returned
 
-DotKernel API provides out-of-the-box both an `admin` and a `user` account.
+Dotkernel API provides out-of-the-box both an `admin` and a `user` account.
 
 The admin account with **role** set to both `superuser` and `admin` with the following credentials:
 

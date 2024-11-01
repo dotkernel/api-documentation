@@ -1,6 +1,6 @@
-# Laminas API Tools compared to DotKernel API
+# Laminas API Tools compared to Dotkernel API
 
-|                     | API Tools (formerly Apigility)                 | DotKernel API                                                                         |
+|                     | API Tools (formerly Apigility)                 | Dotkernel API                                                                         |
 |---------------------|------------------------------------------------|---------------------------------------------------------------------------------------|
 | URL                 | [api-tools](https://api-tools.getlaminas.org/) | [Dotkernel API](https://www.dotkernel.org)                                            |
 | First Release       | 2012                                           | 2018                                                                                  |

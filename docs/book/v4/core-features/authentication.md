@@ -3,14 +3,14 @@
 Authentication is the process by which an identity is presented to the application. It ensures that the entity
 making the request has the proper credentials to access the API.
 
-**DotKernel API** identities are delivered to the application from the client through the `Authorization` request.
+**Dotkernel API** identities are delivered to the application from the client through the `Authorization` request.
 If it is present, the application tries to find and assign the identity to the application. If it is not presented,
-DotKernel API assigns a default `guest` identity, represented by an instance of the class
+Dotkernel API assigns a default `guest` identity, represented by an instance of the class
 `Mezzio\Authentication\UserInterface`.
 
 ## Configuration
 
-Authentication in DotKernel API is built around the `mezzio/mezzio-authentication-oauth2` component and is already
+Authentication in Dotkernel API is built around the `mezzio/mezzio-authentication-oauth2` component and is already
 configured out of the box. But if you want to dig more, the configuration is stored in
 `config/autoload/local.php` under the `authentication` key.
 
@@ -20,17 +20,17 @@ configured out of the box. But if you want to dig more, the configuration is sto
 
 ## How it works
 
-DotKernels API authentication system can be used for SPAs (single-page applications), mobile applications, and
+Dotkernels API authentication system can be used for SPAs (single-page applications), mobile applications, and
 simple, token-based APIs. It allows each user of your application to generate API tokens for their accounts.
 
 The authentication happens through the middleware in the `Api\App\Middleware\AuthenticationMiddleware`.
 
 ## Database
 
-When you install **DotKernel API** for the first time, you need to run the migrations and seeders. All the tables
+When you install **Dotkernel API** for the first time, you need to run the migrations and seeders. All the tables
 required for authentication are automatically created and populated.
 
-In DotKernel API, authenticated users come from either the `admin` or the `user` table. We choose to keep the admin
+In Dotkernel API, authenticated users come from either the `admin` or the `user` table. We choose to keep the admin
 table separated from the users to prevent users of the application from accessing sensitive data, which only the
 administrators of the application should access.
 
@@ -43,7 +43,7 @@ Another table that is pre-populated is the `oauth_scopes` table, with the `api` 
 
 ### Issuing API Tokens
 
-Token generation in DotKernel API is done using the `password` `grand_type` scenario, which in this case allows
+Token generation in Dotkernel API is done using the `password` `grand_type` scenario, which in this case allows
 authentication to an API using the user's credentials (generally a username and password).
 
 The client sends a POST request to the `/security/generate-token` with the following parameters:
@@ -91,7 +91,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
 
 ### Refreshing tokens
 
-DotKernel API can refresh the access token, based on the expired access token's `refresh_token`.
+Dotkernel API can refresh the access token, based on the expired access token's `refresh_token`.
 
 The clients need to send a `POST` request to the `/security/refresh-token` with the following request
 

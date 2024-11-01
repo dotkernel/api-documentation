@@ -4,7 +4,7 @@ Dotkernel API follows the [PSR-4](https://www.php-fig.org/psr/psr-4/) standards.
 
 It is a good practice to standardize the file structure of projects.
 
-When using DotKernel API the following structure is installed by default:
+When using Dotkernel API the following structure is installed by default:
 
 ![Dotkernel API File Structure!](https://docs.dotkernel.org/img/api/file-structure-dk-api.png)
 
@@ -47,7 +47,7 @@ The `src` directory should also contain 2 files:
 
 This directory contains the template files, used for example to help render e-mail templates.
 
-> DotKernel API uses twig as Templating Engine. All template files have the extension .html.twig
+> Dotkernel API uses twig as Templating Engine. All template files have the extension .html.twig
 
 ## `data` directory
 

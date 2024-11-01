@@ -1,6 +1,6 @@
 # Introduction
 
-Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, DotKernel API runs on Laminas and Mezzio components and implements standards like PSR-3, PSR-4, PSR-7, PSR-11 and PSR-15.
+Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, Dotkernel API runs on Laminas and Mezzio components and implements standards like PSR-3, PSR-4, PSR-7, PSR-11 and PSR-15.
 
 Here is a list of the core components:
 
@@ -34,8 +34,8 @@ The benefit of Doctrine for the programmer is the ability to focus on the object
 
 Our documentation is Postman based. We use the following files in which we store information about every available endpoint ready to be tested:
 
-* documentation/DotKernel_API.postman_collection.json
-* documentation/DotKernel_API.postman_environment.json
+* documentation/Dotkernel_API.postman_collection.json
+* documentation/Dotkernel_API.postman_environment.json
 
 ## Hypertext Application Language
 
@@ -47,11 +47,11 @@ By using `MezzioCorsMiddlewareCorsMiddleware`, the CORS preflight will be recogn
 
 ## OAuth 2.0
 
-OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your DotKernel API. We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using league/oauth2-server package.
+OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your Dotkernel API. We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using league/oauth2-server package.
 
 ## Email
 
-It is not unlikely for an API to send emails depending on the use case. Here is another area where DotKernel API shines. Using `DotMailServiceMailService` provided by dotkernel/dot-mail you can easily send custom email templates.
+It is not unlikely for an API to send emails depending on the use case. Here is another area where Dotkernel API shines. Using `DotMailServiceMailService` provided by dotkernel/dot-mail you can easily send custom email templates.
 
 ## Configuration
 

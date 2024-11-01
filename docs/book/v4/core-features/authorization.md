@@ -3,12 +3,12 @@
 Authorization is the process by which a system takes a validated identity and checks if that identity has access to a
 given resource.
 
-**DotKernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of
+**Dotkernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of
 Role-Based Access Control (RBAC).
 
 ## How it works
 
-In DotKernel API each authenticatable entity (admin/user) comes with their roles table where you can define
+In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define
 roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a
 resource.
 
@@ -16,7 +16,7 @@ The authorization happens through the `Api\App\Middleware\AuthorizationMiddlewar
 
 ## Configuration
 
-DotKernel API makes use of `mezzio-authorization-rbac` and includes the full configuration.
+Dotkernel API makes use of `mezzio-authorization-rbac` and includes the full configuration.
 
 The configuration file for the role and permission definitions is `config/autoload/authorization.global.php`.
 
@@ -68,7 +68,7 @@ Roles inherit the permissions from their parents:
 - `user` has no parent
 - `guest` has `user` as a parent which means `user` also has `guest` permissions
 
-For each role we defined an array of permissions. A permission in DotKernel API is basically a route name.
+For each role we defined an array of permissions. A permission in Dotkernel API is basically a route name.
 
 As you can see, the `superuser` does not have its own permissions, because it gains all the permissions
 from `admin`, no need to define explicit permissions.

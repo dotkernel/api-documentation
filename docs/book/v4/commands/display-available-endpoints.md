@@ -1,4 +1,4 @@
-# Displaying DotKernel API endpoints using dot-cli
+# Displaying Dotkernel API endpoints using dot-cli
 
 ## Usage
 
