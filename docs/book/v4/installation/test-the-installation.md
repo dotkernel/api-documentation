@@ -2,7 +2,7 @@
 
 Sending a GET request to the [home page](http://0.0.0.0:8080/) should output the following message:
 
-> {"message": "DotKernel API version 4"}
+> {"message": "Dotkernel API version 4"}
 
 ## Old way of doing things, using PHP built-in server
 

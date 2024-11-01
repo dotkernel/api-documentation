@@ -1,4 +1,4 @@
-# Generating tokens in DotKernel API
+# Generating tokens in Dotkernel API
 
 This is a multipurpose command that allows creating tokens required by different parts of the API.
 

@@ -45,7 +45,7 @@ nav:
           - "API Evolution": v5/tutorials/api-evolution.md
           - "Find user by identity": v5/tutorials/find-user-by-identity.md
       - Transition from API Tools:
-          - "Laminas API Tools vs DotKernel API": v5/transition-from-api-tools/api-tools-vs-dotkernel-api.md
+          - "Laminas API Tools vs Dotkernel API": v5/transition-from-api-tools/api-tools-vs-dotkernel-api.md
           - "Transition Approach": v5/transition-from-api-tools/transition-approach.md
           - "Discovery Phase": v5/transition-from-api-tools/discovery-phase.md
       - OpenAPI:
@@ -88,11 +88,11 @@ nav:
           - "Creating a book module": v4/tutorials/create-book-module.md
           - "Token authentication": v4/tutorials/token-authentication.md
       - Transition from API Tools:
-          - "Laminas API Tools vs DotKernel API": v4/transition-from-api-tools/api-tools-vs-dotkernel-api.md
+          - "Laminas API Tools vs Dotkernel API": v4/transition-from-api-tools/api-tools-vs-dotkernel-api.md
           - "Transition Approach": v4/transition-from-api-tools/transition-approach.md
           - "Discovery Phase": v4/transition-from-api-tools/discovery-phase.md
 site_name: api
-site_description: "DotKernel API"
+site_description: "Dotkernel API"
 repo_url: "https://github.com/dotkernel/api"
 plugins:
   - search

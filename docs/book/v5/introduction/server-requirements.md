@@ -29,7 +29,7 @@ Both mod_php and FCGI (FPM) are supported.
 
 ## RDBMS
 
-* MariaDB >= 10.11 LTS
+* Tested with MariaDB 10.11 LTS and MariaDB 11.4 LTS
 
 ## Recommended extensions
 

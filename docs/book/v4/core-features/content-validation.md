@@ -9,7 +9,7 @@
 Essentially, content negotiation is the *client* telling the server what it is sending and what it wants in return, and
 the server determining if it can do what the client requests.
 
-Content negotiation validation in **DotKernel API** happens through middleware, and it ensures that the incoming
+Content negotiation validation in **Dotkernel API** happens through middleware, and it ensures that the incoming
 request and the outgoing response conform to the content types specified in the config file for all routes or for a
 specific route.
 
@@ -18,7 +18,7 @@ errors responses when necessary.
 
 ## Configuration
 
-In DotKernel API the configuration file for content negotiation is held
+In Dotkernel API the configuration file for content negotiation is held
 in `config/autoload/content-negotiation.global.php`
 and the array looks like this:
 
@@ -43,7 +43,7 @@ return [
 ];
 ```
 
-Except the `default` key, all your keys must match the route name, for example in DotKernel API we have the route to
+Except the `default` key, all your keys must match the route name, for example in Dotkernel API we have the route to
 list all admins, which name is `admin.list`.
 
 If you did not specify a route name to configure your specifications about content negotiation, the `default` one will
@@ -105,7 +105,7 @@ that route to be `multipart/form-data`. The above request will fail as the clien
 In addition to the validation described above, a third one is happening and is the last one: the server will check if
 the request `Accept` header can really be returned by the response.
 
-Through the way **DotKernel API** is returning a response in handler, a content type is always set.
+Through the way **Dotkernel API** is returning a response in handler, a content type is always set.
 
 This cannot be the case in any custom response but in any case the server will check what `Content-Type` the response is
 returning and will try to validate that against the `Accept` header of the request.

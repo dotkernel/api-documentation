@@ -5,7 +5,7 @@ planning and removing outdated features.
 
 ## How it works
 
-In DotKernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
+In Dotkernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
 We use response headers to inform the consumers about the future changes by using 2 new headers:
 
 - `Link` - it's a link to the official documentation pointing out the changes that will take place.

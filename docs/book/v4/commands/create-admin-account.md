@@ -1,4 +1,4 @@
-# Creating admin accounts in DotKernel API
+# Creating admin accounts in Dotkernel API
 
 ## Usage
 
