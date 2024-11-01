@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <meta name="description" content="DotKernel API">
+        <meta name="description" content="Dotkernel API">
         
         
 
@@ -646,7 +646,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
@@ -824,7 +824,7 @@ and it consists of an alphanumeric string.</p>
 <h2 id="how-does-it-work">How does it work?</h2>
 <p>In order to protect specific resources, clients need to be authenticated with user/admin roles.
 These roles are identified from the access token sent via the <code>Authorization</code> header.</p>
-<p>When DotKernel API receives a request, it tries to read the access token.</p>
+<p>When Dotkernel API receives a request, it tries to read the access token.</p>
 <p>If it does not find an access token, client has <code>guest</code> role:</p>
 <ul>
 <li>if the requested endpoint needs no authentication, the requested resource is returned</li>
@@ -835,7 +835,7 @@ These roles are identified from the access token sent via the <code>Authorizatio
 <li>if the requested endpoint is accessible to the client, the requested resource is returned</li>
 <li>else, a <code>403 Forbidden</code> response is returned</li>
 </ul>
-<p>DotKernel API provides out-of-the-box both an <code>admin</code> and a <code>user</code> account.</p>
+<p>Dotkernel API provides out-of-the-box both an <code>admin</code> and a <code>user</code> account.</p>
 <h3 id="credentials">Credentials</h3>
 <p>The admin account with <strong>role</strong> set to both <code>superuser</code> and <code>admin</code> with the following credentials:</p>
 <ul>

@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <meta name="description" content="DotKernel API">
+        <meta name="description" content="Dotkernel API">
         
         
 
@@ -646,7 +646,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
@@ -789,8 +789,42 @@
     
 
     <h1 id="composer-installation-of-packages">Composer Installation of Packages</h1>
+<p>Composer is required to install Dotkernel <code>api</code>. You can install Composer from the <a href="https://getcomposer.org/">official site</a>.</p>
+<blockquote>
+<p>First make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.</p>
+</blockquote>
 <h2 id="install-dependencies">Install dependencies</h2>
+<p>Run this command in the command prompt.</p>
+<blockquote>
+<p>Use the <strong>CLI</strong> in order to ensure interactivity for proper configuration.</p>
+</blockquote>
 <pre class="highlight"><code class="language-shell">composer install</code></pre>
+<p>You should see this text below, along with a long list of packages to be installed instead of the <code>[...]</code>.
+In this example there are 164 packages, though the number can change in future updates.
+You will find the packages in the <code>vendor</code> folder.</p>
+<pre class="highlight"><code class="language-shell">No composer.lock file present. Updating dependencies to latest instead of installing from lock file. See https://getcomposer.org/install for more information.
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 164 installs, 0 updates, 0 removals
+[...]
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 164 installs, 0 updates, 0 removals
+[...]</code></pre>
+<p>The setup script may prompt for some configuration settings, for example the lines below.
+If you don't see them, you can skip to the next section.</p>
+<pre class="highlight"><code class="language-shell">Please select which config file you wish to inject 'Laminas\Diactoros\ConfigProvider' into:
+  [0] Do not inject
+  [1] config/config.php
+  Make your selection (default is 1):</code></pre>
+<p>Type <code>0</code> to select <code>[0] Do not inject</code>.</p>
+<blockquote>
+<p>We choose <code>0</code> because Dotkernel includes its own ConfigProvider which already contains the prompted configurations.
+If you choose <code>[1] config/config.php</code>, an extra <code>ConfigProvider</code> will be injected.</p>
+</blockquote>
+<p>The next question is:</p>
+<p><code>Remember this option for other packages of the same type? (y/N)</code></p>
+<p>Type <code>y</code> here, and hit <code>enter</code> to complete this stage.</p>
 <h2 id="development-mode">Development mode</h2>
 <p>If you're installing the project for development, make sure you have development mode enabled, by running:</p>
 <pre class="highlight"><code class="language-shell">composer development-enable</code></pre>

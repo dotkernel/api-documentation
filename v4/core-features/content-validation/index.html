@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <meta name="description" content="DotKernel API">
+        <meta name="description" content="Dotkernel API">
         
         
 
@@ -624,7 +624,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
@@ -713,13 +713,13 @@
 </ul>
 <p>Essentially, content negotiation is the <em>client</em> telling the server what it is sending and what it wants in return, and
 the server determining if it can do what the client requests.</p>
-<p>Content negotiation validation in <strong>DotKernel API</strong> happens through middleware, and it ensures that the incoming
+<p>Content negotiation validation in <strong>Dotkernel API</strong> happens through middleware, and it ensures that the incoming
 request and the outgoing response conform to the content types specified in the config file for all routes or for a
 specific route.</p>
 <p>It performs validation on the <code>Accept</code> and <code>Content-Type</code> headers of the request and response and returning appropriate
 errors responses when necessary.</p>
 <h2 id="configuration">Configuration</h2>
-<p>In DotKernel API the configuration file for content negotiation is held
+<p>In Dotkernel API the configuration file for content negotiation is held
 in <code>config/autoload/content-negotiation.global.php</code>
 and the array looks like this:</p>
 <pre class="highlight"><code class="language-php">return [
@@ -740,7 +740,7 @@ and the array looks like this:</p>
         ],
     ],
 ];</code></pre>
-<p>Except the <code>default</code> key, all your keys must match the route name, for example in DotKernel API we have the route to
+<p>Except the <code>default</code> key, all your keys must match the route name, for example in Dotkernel API we have the route to
 list all admins, which name is <code>admin.list</code>.</p>
 <p>If you did not specify a route name to configure your specifications about content negotiation, the <code>default</code> one will
 be in place. The <code>default</code> key is <code>mandatory</code>.</p>
@@ -783,7 +783,7 @@ it can.</p>
 <h2 id="the-request-response-validation">The <code>Request &lt;-&gt; Response</code> validation</h2>
 <p>In addition to the validation described above, a third one is happening and is the last one: the server will check if
 the request <code>Accept</code> header can really be returned by the response.</p>
-<p>Through the way <strong>DotKernel API</strong> is returning a response in handler, a content type is always set.</p>
+<p>Through the way <strong>Dotkernel API</strong> is returning a response in handler, a content type is always set.</p>
 <p>This cannot be the case in any custom response but in any case the server will check what <code>Content-Type</code> the response is
 returning and will try to validate that against the <code>Accept</code> header of the request.
 If the validation fails, a status code <code>406 - Not Acceptable</code> will be returned.</p>

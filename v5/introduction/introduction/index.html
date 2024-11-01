@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <meta name="description" content="DotKernel API">
+        <meta name="description" content="Dotkernel API">
         
         
 
@@ -639,7 +639,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
@@ -828,7 +828,7 @@
     
 
     <h1 id="introduction">Introduction</h1>
-<p>Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, DotKernel API runs on Laminas and Mezzio components and
+<p>Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, Dotkernel API runs on Laminas and Mezzio components and
 implements standards like PSR-3, PSR-4, PSR-7, PSR-11 and PSR-15.</p>
 <p>Here is a list of the core components:</p>
 <ul>
@@ -860,8 +860,8 @@ persistence only as a secondary priority.</p>
 <p>Our documentation is Postman based. We use the following files in which we store information about every available
 endpoint ready to be tested:</p>
 <ul>
-<li>documentation/DotKernel_API.postman_collection.json</li>
-<li>documentation/DotKernel_API.postman_environment.json</li>
+<li>documentation/Dotkernel_API.postman_collection.json</li>
+<li>documentation/Dotkernel_API.postman_environment.json</li>
 </ul>
 <h2 id="hypertext-application-language">Hypertext Application Language</h2>
 <p>For our API payloads (a value object for describing the API resource, its relational links and any embedded/child
@@ -872,10 +872,10 @@ detect the proper CORS configuration. The Router is used to detect every allowed
 match with all possible request methods. Therefore, for every preflight request, there is at least one Router request.</p>
 <h2 id="oauth-20">OAuth 2.0</h2>
 <p>OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your
-DotKernel API. We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and
+Dotkernel API. We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and
 PSR-7/PSR-15 applications by using league/oauth2-server package.</p>
 <h2 id="email">Email</h2>
-<p>It is not unlikely for an API to send emails depending on the use case. Here is another area where DotKernel API shines.
+<p>It is not unlikely for an API to send emails depending on the use case. Here is another area where Dotkernel API shines.
 Using <code>DotMailServiceMailService</code> provided by dotkernel/dot-mail you can easily send custom email templates.</p>
 <h2 id="configuration">Configuration</h2>
 <p>From authorization at request route level to API keys for your application, you can find every configuration variable in

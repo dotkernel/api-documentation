@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <meta name="description" content="DotKernel API">
+        <meta name="description" content="Dotkernel API">
         
         
 
@@ -624,7 +624,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs DotKernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
@@ -703,15 +703,15 @@
     <h1 id="authorization">Authorization</h1>
 <p>Authorization is the process by which a system takes a validated identity and checks if that identity has access to a
 given resource.</p>
-<p><strong>DotKernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of
+<p><strong>Dotkernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of
 Role-Based Access Control (RBAC).</p>
 <h2 id="how-it-works">How it works</h2>
-<p>In DotKernel API each authenticatable entity (admin/user) comes with their roles table where you can define
+<p>In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define
 roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a
 resource.</p>
 <p>The authorization happens through the <code>Api\App\Middleware\AuthorizationMiddleware</code> middleware.</p>
 <h2 id="configuration">Configuration</h2>
-<p>DotKernel API makes use of <code>mezzio-authorization-rbac</code> and includes the full configuration.</p>
+<p>Dotkernel API makes use of <code>mezzio-authorization-rbac</code> and includes the full configuration.</p>
 <p>The configuration file for the role and permission definitions is <code>config/autoload/authorization.global.php</code>.</p>
 <pre class="highlight"><code class="language-php">'mezzio-authorization-rbac' =&gt; [
     'roles'       =&gt; [
@@ -757,7 +757,7 @@ roles (<code>user</code>, <code>guest</code>).</p>
 <li><code>user</code> has no parent</li>
 <li><code>guest</code> has <code>user</code> as a parent which means <code>user</code> also has <code>guest</code> permissions</li>
 </ul>
-<p>For each role we defined an array of permissions. A permission in DotKernel API is basically a route name.</p>
+<p>For each role we defined an array of permissions. A permission in Dotkernel API is basically a route name.</p>
 <p>As you can see, the <code>superuser</code> does not have its own permissions, because it gains all the permissions
 from <code>admin</code>, no need to define explicit permissions.</p>
 <p>The <code>user</code> role, gains all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but
