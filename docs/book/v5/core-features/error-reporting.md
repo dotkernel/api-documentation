@@ -1,6 +1,7 @@
 # Error reporting endpoint
 
 The error reporting endpoint was designed to allow the **frontend developers** of your API to report any bugs they encounter in a secure way that is fully under your control.
+To prevent unauthorized usage, the endpoint is protected by a token in the request's header.
 
 ## Example case usage
 
