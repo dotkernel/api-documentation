@@ -1,6 +1,7 @@
 # Packages
 
 > Version 5.1.1 had these packages removed or moved where noted:
+>
 > * `laminas/laminas-http` was moved to `require-dev`
 > * `laminas/laminas-paginator`
 > * `laminas/laminas-text`
