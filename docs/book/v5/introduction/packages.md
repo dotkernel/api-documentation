@@ -1,9 +1,9 @@
 # Packages
 
 > Version 5.1.1 had these packages removed or moved where noted:
-> - `laminas/laminas-http` was moved to `require-dev`
-> - `laminas/laminas-paginator`
-> - `laminas/laminas-text`
+> * `laminas/laminas-http` was moved to `require-dev`
+> * `laminas/laminas-paginator`
+> * `laminas/laminas-text`
 
 * `dotkernel/dot-dependency-injection` - Dependency injection component using class attributes.
 * `dotkernel/dot-cache` - Cache component extending symfony-cache
