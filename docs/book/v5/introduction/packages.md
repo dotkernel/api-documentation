@@ -1,5 +1,11 @@
 # Packages
 
+> Version 5.1.1 had these packages removed or moved where noted:
+>
+> * `laminas/laminas-http` was moved to `require-dev`
+> * `laminas/laminas-paginator`
+> * `laminas/laminas-text`
+
 * `dotkernel/dot-dependency-injection` - Dependency injection component using class attributes.
 * `dotkernel/dot-cache` - Cache component extending symfony-cache
 * `dotkernel/dot-cli` - Component for creating console applications based on laminas-cli
@@ -10,12 +16,9 @@
 * `laminas/laminas-component-installer` - Composer plugin for injecting modules and configuration providers into application configuration
 * `laminas/laminas-config` - Provides a nested object property based user interface for accessing this configuration data within application code
 * `laminas/laminas-config-aggregator` - Lightweight library for collecting and merging configuration from different sources
-* `laminas/laminas-http` - Provides an easy interface for performing Hyper-Text Transfer Protocol (HTTP) requests
 * `laminas/laminas-hydrator` - Serialize objects to arrays, and vice versa
 * `laminas/laminas-inputfilter` - Normalize and validate input sets from the web, APIs, the CLI, and more, including files
-* `laminas/laminas-paginator` - Paginate collections of data from arbitrary sources
 * `laminas/laminas-stdlib` - SPL extensions, array utilities, error handlers, and more
-* `laminas/laminas-text` - Create FIGlets and text-based tables
 * `mezzio/mezzio` - PSR-15 Middleware Microframework
 * `mezzio/mezzio-authentication-oauth2` - OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications
 * `mezzio/mezzio-authorization-acl` - laminas-permissions-acl adapter for mezzio-authorization
