@@ -1,7 +1,6 @@
 # API Evolution pattern
 
-API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs,
-planning and removing outdated features.
+API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.
 
 ## How it works
 
@@ -13,10 +12,10 @@ We use response headers to inform the consumers about the future changes by usin
 
 **Both headers are independent, you can use them separately.**
 
-> Make sure you have the `DeprecationMiddleware:class` piped in your `pipeline` list. In our case it's
-> `config/pipeline.php`.
+> Make sure you have the `DeprecationMiddleware:class` piped in your `pipeline` list.
+> In our case it's `config/pipeline.php`.
 
-### Marking an entire endpoint as deprecated
+## Marking an entire endpoint as deprecated
 
 When you want to mark an entire resource as deprecated you have to use the `ResourceDeprecation` attribute.
 
@@ -34,8 +33,7 @@ class HomeHandler implements RequestHandlerInterface
 ...
 ```
 
-In the example above, the ``ResourceDeprecation`` attribute is attached to the class, marking the entire `/` (home)
-endpoint as deprecated starting from `2038-01-01`.
+In the example above, the `ResourceDeprecation` attribute is attached to the class, marking the entire `/` (home) endpoint as deprecated starting from `2038-01-01`.
 
 Running the following curl will print out the response headers where we can see the **Sunset** and **Link** headers.
 
@@ -56,10 +54,9 @@ Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;r
 Vary: Origin
 ```
 
-### Marking a method as deprecated
+## Marking a method as deprecated
 
-Most of the time you want to deprecate only an endpoint, so you will need to use the `MethodDeprecation` attribute which
-has the same parameters, but it attaches to a handler method.
+Most of the time you want to deprecate only an endpoint, so you will need to use the `MethodDeprecation` attribute which has the same parameters, but it attaches to a handler method.
 
 ```php
 ...
@@ -90,6 +87,8 @@ If you followed along you can run the below curl:
 curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"
 ```
 
+The response lists the **Sunset** and **Link** headers.
+
 ```shell
 HTTP/1.1 200 OK
 Host: 0.0.0.0:8080
@@ -103,7 +102,7 @@ Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;r
 Vary: Origin
 ```
 
-### NOTES
+## NOTES
 
 > If `Link` or `Sunset` do not have a value they will not appear in the response headers.
 
@@ -113,5 +112,4 @@ Vary: Origin
 
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 
-> The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value was provided and
-> are `Link` related parts.
+> The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value was provided and are `Link` related parts.

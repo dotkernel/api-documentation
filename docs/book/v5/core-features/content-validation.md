@@ -1,5 +1,7 @@
 # Content Negotiation
 
+> Introduced in Dotkernel API 4.5.0
+
 **Content Negotiation** is performed by an application in order :
 
 - To match the requested representation as specified by the client via the Accept header with a representation the
