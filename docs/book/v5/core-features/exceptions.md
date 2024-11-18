@@ -22,8 +22,8 @@ Below we will list the available custom exceptions.
 ### `ExpiredException` thrown when
 
 * The **resource cannot be accessed**
-  * because it has **expired** (example: account activation link)
-  * because it has been **consumed** (example: one-time password)
+    * because it has **expired** (example: account activation link)
+    * because it has been **consumed** (example: one-time password)
 
 ### `ForbiddenException` thrown when
 
@@ -59,6 +59,7 @@ Otherwise, it will build and send a response based on the exception thrown:
 ## How to extend
 
 In this example we will
+
 * Create a custom exception called `CustomException`
 * Place it next to the already existing custom exceptions (you can use your preferred location)
 * Return a custom HTTP status code when `CustomException` is encountered.
