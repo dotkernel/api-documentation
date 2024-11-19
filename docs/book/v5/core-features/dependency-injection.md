@@ -1,11 +1,11 @@
 # Dependency Injection
 
-> Introduced in Dotkernel API 5.0.0
-
 Dependency injection is a design pattern used in software development to implement inversion of control.
 In simpler terms, it's the act of providing dependencies for an object during instantiation.
 
 In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter injection and property injection.
+
+> Introduced in Dotkernel API 5.0.0
 
 Dotkernel API, through its [dot-dependency-injection](https://github.com/dotkernel/dot-dependency-injection) package focuses only on constructor injection.
 

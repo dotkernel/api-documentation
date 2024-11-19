@@ -1,6 +1,6 @@
 # Content Negotiation
 
-> Introduced in Dotkernel API 4.5.0
+> Introduced in Dotkernel API 5.0.0
 
 **Content Negotiation** is performed by an application in order :
 
