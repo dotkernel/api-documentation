@@ -39,8 +39,8 @@ This directory contains all application-related config files:
 * `cli-config.php`: command line interface configuration used by migrations, fixtures, crons
 * `config.php`: registers ConfigProviders for installing packages
 * `container.php`: main service container that provides access to all registered services
-* `development.config.php.dist`: activates debug mode; gets symlinked as `development.config.php` when enabling development mode 
-* `migrations.php`: configuration for database migration, like migration file location and table to save the migration log 
+* `development.config.php.dist`: activates debug mode; gets symlinked as `development.config.php` when enabling development mode
+* `migrations.php`: configuration for database migration, like migration file location and table to save the migration log
 * `pipeline.php`: contains a list of middlewares, in the order of their execution
 * `twig-cs-fixer.php`: configuration file for Twig code style checker/fixer
 
