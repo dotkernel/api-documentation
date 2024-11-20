@@ -268,6 +268,12 @@
 </li>
 
         
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
+</li>
+
+        
     </ul>
 </li>
 
@@ -453,12 +459,6 @@
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../cors/" class="subnavigation__link">CORS</a>
-</li>
-
-        
-        
 <li class="subnavigation__list-item subnavigation__list-item--active">
     <a href="./" class="subnavigation__link">Dependency Injection</a>
 </li>
@@ -555,6 +555,12 @@
         <span class="subnavigation__headline">Tutorials</span>
     </a>
     <ul class="subnavigation__list collapse" id="tutorials">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+</li>
+
         
         
 <li class="subnavigation__list-item ">
@@ -785,18 +791,17 @@
     
 
     <h1 id="dependency-injection">Dependency Injection</h1>
-<p>Dependency injection is a design pattern used in software development to implement inversion of control. In simpler
-terms, it's the act of providing dependencies for an object during instantiation.</p>
-<p>In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter
-injection and property injection.</p>
-<p>Dotkernel API, through its <a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package
-focuses only on constructor injection.</p>
+<p>Dependency injection is a design pattern used in software development to implement inversion of control.
+In simpler terms, it's the act of providing dependencies for an object during instantiation.</p>
+<p>In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter injection and property injection.</p>
+<blockquote>
+<p>Introduced in Dotkernel API 5.0.0</p>
+</blockquote>
+<p>Dotkernel API, through its <a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package focuses only on constructor injection.</p>
 <h2 id="usage">Usage</h2>
-<p><strong>Dotkernel API</strong> comes out of the box with the
-<a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package, which provides all we need for
-injecting dependencies into any object you want.</p>
-<p><code>dot-dependency-injection</code> determines the dependencies by looking at the <code>#[Inject]</code> attribute, added to the constructor
-of a class. Dependencies are specified as separate parameters of the <code>#[Inject]</code> attribute.</p>
+<p><strong>Dotkernel API</strong> comes out of the box with the <a href="https://github.com/dotkernel/dot-dependency-injection">dot-dependency-injection</a> package, which provides all we need for injecting dependencies into any object you want.</p>
+<p><code>dot-dependency-injection</code> determines the dependencies by looking at the <code>#[Inject]</code> attribute, added to the constructor of a class.
+Dependencies are specified as separate parameters of the <code>#[Inject]</code> attribute.</p>
 <p>For our example we will inject <code>UserService</code> and <code>config</code> dependencies into a <code>UseHandler</code>.</p>
 <pre class="highlight"><code class="language-php">use Dot\DependencyInjection\Attribute\Inject;
 
@@ -813,11 +818,9 @@ class UserHandler implements RequestHandlerInterface
     }
 }</code></pre>
 <blockquote>
-<p>If your class needs the value of a specific configuration key, you can specify the path using dot notation:
-<code>config.example</code></p>
+<p>If your class needs the value of a specific configuration key, you can specify the path using dot notation <code>config.example</code>.</p>
 </blockquote>
-<p>The next step is to register the class in the <code>ConfigProvider</code> under <code>factories</code> using
-<code>Dot\DependencyInjection\Factory\AttributedServiceFactory::class</code></p>
+<p>The next step is to register the class in the <code>ConfigProvider</code> under <code>factories</code> using <code>Dot\DependencyInjection\Factory\AttributedServiceFactory::class</code></p>
 <pre class="highlight"><code class="language-php">public function getDependencies(): array
 {
     return [
@@ -826,11 +829,11 @@ class UserHandler implements RequestHandlerInterface
         ]
     ];
 }</code></pre>
-<p>That's it. When your object is instantiated from the container, it will automatically have its
-dependencies resolved.</p>
+<p>That's it.
+When your object is instantiated from the container, it will automatically have its dependencies resolved.</p>
 <blockquote>
-<p>Dependencies injection is available to any object within Dotkernel API. For example, you can inject dependencies in a
-service, a handler and so on, simply by registering it in the <code>ConfigProvider</code>.</p>
+<p>Dependencies injection is available to any object within Dotkernel API.
+For example, you can inject dependencies in a service, a handler and so on, simply by registering it in the <code>ConfigProvider</code>.</p>
 </blockquote>
 
 
@@ -841,10 +844,10 @@ service, a handler and so on, simply by registering it in the <code>ConfigProvid
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../cors/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../exceptions/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    CORS
+                    Exceptions
                 </a>
             
         </li>

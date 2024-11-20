@@ -268,6 +268,12 @@
 </li>
 
         
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
+</li>
+
+        
     </ul>
 </li>
 
@@ -454,12 +460,6 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../cors/" class="subnavigation__link">CORS</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
     <a href="../dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
@@ -555,6 +555,12 @@
         <span class="subnavigation__headline">Tutorials</span>
     </a>
     <ul class="subnavigation__list collapse" id="tutorials">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+</li>
+
         
         
 <li class="subnavigation__list-item ">
@@ -767,15 +773,15 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#how-we-use-exceptions" class="toc__link nav-link">How we use exceptions?</a>
+                    <a href="#how-we-use-exceptions" class="toc__link nav-link">How we use exceptions</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#how-it-works" class="toc__link nav-link">How it works?</a>
+                    <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#how-to-extend" class="toc__link nav-link">How to extend?</a>
+                    <a href="#how-to-extend" class="toc__link nav-link">How to extend</a>
                 </li>
             
             </ul>
@@ -798,55 +804,47 @@
 
     <h1 id="exceptions">Exceptions</h1>
 <h2 id="what-are-exceptions">What are exceptions?</h2>
-<p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the
-execution of a script.
-They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular
-code.</p>
-<h2 id="how-we-use-exceptions">How we use exceptions?</h2>
-<p>When it comes to handling exceptions, <strong>Dotkernel API</strong> relies on the usage of easy-to-understand, problem-specific
-exceptions.</p>
-<p>Out-of-the-box we provide the following custom exceptions:</p>
+<p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
+They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.</p>
+<h2 id="how-we-use-exceptions">How we use exceptions</h2>
+<p>When it comes to handling exceptions, <strong>Dotkernel API</strong> relies on the usage of easy-to-understand, problem-specific exceptions.
+Below we will list the available custom exceptions.</p>
 <h3 id="badrequestexception-thrown-when"><code>BadRequestException</code> thrown when</h3>
 <ul>
-<li>client tries to create/update resource, but the data from the request is invalid/incomplete (example: client tries to
-  create an account, but does not send the required <code>identity</code> field)</li>
+<li>The Client tries to <strong>create/update resource</strong>, but the <strong>request data is invalid/incomplete</strong> (example: client tries to create an account, but does not send the required <code>identity</code> field)</li>
 </ul>
 <h3 id="conflictexception-thrown-when"><code>ConflictException</code> thrown when</h3>
 <ul>
-<li>resource cannot be created because a different resource with the same identifier already exists (example: cannot
-  change existing user's identity because another user with the same identity already exists)</li>
-<li>resource cannot change its state because it is already in the specified state (example: user cannot be activated
-  because it is already active)</li>
+<li>The <strong>resource cannot be created</strong> because a different resource with the same identifier <strong>already exists</strong> (example: cannot change existing user's identity because another user with the same identity already exists)</li>
+<li>The <strong>resource cannot change its state</strong> because it is <strong>already in the specified state</strong> (example: user cannot be activated because it is already active)</li>
 </ul>
 <h3 id="expiredexception-thrown-when"><code>ExpiredException</code> thrown when</h3>
 <ul>
-<li>resource cannot be accessed because it expired (example: account activation link)</li>
-<li>resource cannot be accessed because it has been consumed (example: one-time password)</li>
+<li>The <strong>resource cannot be accessed</strong><ul>
+<li>because it has <strong>expired</strong> (example: account activation link)</li>
+<li>because it has been <strong>consumed</strong> (example: one-time password)</li>
+</ul>
+</li>
 </ul>
 <h3 id="forbiddenexception-thrown-when"><code>ForbiddenException</code> thrown when</h3>
 <ul>
-<li>resource cannot be accessed by the authenticated client (example: client authenticated as regular user sends
-  a <code>GET /admin</code> request)</li>
+<li>The <strong>resource cannot be accessed</strong> by the authenticated client's <strong>role</strong> (example: client authenticated as regular user sends a <code>GET /admin</code> request)</li>
 </ul>
 <h3 id="methodnotallowedexception-thrown-when"><code>MethodNotAllowedException</code> thrown when</h3>
 <ul>
-<li>client tries to interact with a resource via an invalid HTTP request method (example: client sends a <code>PATCH /avatar</code>
-  request)</li>
+<li>The client tries to interact with a resource via an <strong>invalid HTTP request method</strong> (example: client sends a <code>PATCH /avatar</code> request)</li>
 </ul>
 <h3 id="notfoundexception-thrown-when"><code>NotFoundException</code> thrown when</h3>
 <ul>
-<li>client tries to interact with a resource that does not exist on the server (example: client sends
-  a <code>GET /resource-does-not-exist</code> request)</li>
+<li>The client tries to interact with a <strong>resource that does not exist</strong> on the server (example: client sends a <code>GET /resource-does-not-exist</code> request)</li>
 </ul>
 <h3 id="unauthorizedexception-thrown-when"><code>UnauthorizedException</code> thrown when</h3>
 <ul>
-<li>resource cannot be accessed because the client is not authenticated (example: unauthenticated client sends
-  a <code>GET /admin</code> request)</li>
+<li>The <strong>resource cannot be accessed</strong> because the <strong>client is not authenticated</strong> (example: unauthenticated client sends a <code>GET /admin</code> request)</li>
 </ul>
-<h2 id="how-it-works">How it works?</h2>
-<p>During a request, if there is no uncaught exception <strong>Dotkernel API</strong> will return a JSON response with the data provided
-by the handler that handled the request.</p>
-<p>Else, it will build and send a response based on the exception thrown:</p>
+<h2 id="how-it-works">How it works</h2>
+<p>During a request, if there is no uncaught exception, <strong>Dotkernel API</strong> will return a JSON response with the data provided by the handler that processed the request.</p>
+<p>Otherwise, it will build and send a response based on the exception thrown:</p>
 <ul>
 <li><code>BadRequestException</code> will return a <code>400 Bad Request</code> response</li>
 <li><code>UnauthorizedException</code> will return a <code>401 Unauthorized</code> response</li>
@@ -857,10 +855,13 @@ by the handler that handled the request.</p>
 <li><code>ExpiredException</code> will return a <code>410 Gone</code> response</li>
 <li><code>MailException</code>, <code>RuntimeException</code> and the generic <code>Exception</code> will return a <code>500 Internal Server Error</code> response</li>
 </ul>
-<h2 id="how-to-extend">How to extend?</h2>
-<p>In this example we will create a custom exception called <code>CustomException</code>, place it next to the already existing custom
-exceptions (you can use your preferred location) and finally return a custom HTTP status code when <code>CustomException</code> is
-encountered.</p>
+<h2 id="how-to-extend">How to extend</h2>
+<p>In this example we will</p>
+<ul>
+<li>Create a custom exception called <code>CustomException</code></li>
+<li>Place it next to the already existing custom exceptions (you can use your preferred location)</li>
+<li>Return a custom HTTP status code when <code>CustomException</code> is encountered.</li>
+</ul>
 <h3 id="step-1-create-exception-file">Step 1: Create exception file</h3>
 <p>Navigate to the directory <code>src/App/src/Handler/Exception</code> and create a PHP class called <code>CustomException.php</code>.
 Open <code>CustomException.php</code> and add the following content:</p>
@@ -881,8 +882,7 @@ class CustomException extends Exception
 <pre class="highlight"><code class="language-php">throw new \Api\App\Exception\CustomException('some message');</code></pre>
 <p>Save and close the file.</p>
 <h3 id="step-3-test-for-failure">Step 3: Test for failure</h3>
-<p>Access your API's home page URL and make sure it returns <code>500 Internal Server Error</code> HTTP status code and the following
-content:</p>
+<p>Access your API's home page URL and make sure it returns <code>500 Internal Server Error</code> HTTP status code and the following content:</p>
 <pre class="highlight"><code class="language-json">{
     "error": {
         "messages": [
@@ -897,7 +897,7 @@ Insert the following lines of code before the first catch statement:</p>
             return $this-&gt;errorResponse($exception-&gt;getMessage(), StatusCodeInterface::STATUS_IM_A_TEAPOT);</code></pre>
 <p>Save and close the file.</p>
 <h3 id="step-5-test-for-success">Step 5: Test for success</h3>
-<p>Again, access your API's home page URL, which should return the same content.
+<p>Access your API's home page URL, which should return the same content.
 Notice that this time it returns <code>418 I'm a teapot</code> HTTP status code.</p>
 
 
@@ -919,9 +919,9 @@ Notice that this time it returns <code>418 I'm a teapot</code> HTTP status code.
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../cors/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../dependency-injection/">
                     <small class="page-nav__label">Next</small>
-                    CORS
+                    Dependency Injection
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
