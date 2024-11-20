@@ -14,6 +14,7 @@ nav:
           - "Server Requirements": v5/introduction/server-requirements.md
           - "File Structure": v5/introduction/file-structure.md
           - "Packages": v5/introduction/packages.md
+          - "PSRs": v5/introduction/psr.md
       - Installation:
           - "Getting Started": v5/installation/getting-started.md
           - "Composer": v5/installation/composer.md
@@ -31,7 +32,6 @@ nav:
           - "Authorization": v5/core-features/authorization.md
           - "Content Validation": v5/core-features/content-validation.md
           - "Exceptions": v5/core-features/exceptions.md
-          - "CORS": v5/core-features/cors.md
           - "Dependency Injection": v5/core-features/dependency-injection.md
           - "Error reporting": v5/core-features/error-reporting.md
       - Commands:
@@ -40,6 +40,7 @@ nav:
           - "Display available endpoints": v5/commands/display-available-endpoints.md
           - "Generate tokens": v5/commands/generate-tokens.md
       - Tutorials:
+          - "Setting up CORS": v5/tutorials/cors.md
           - "Creating a book module": v5/tutorials/create-book-module.md
           - "Token authentication": v5/tutorials/token-authentication.md
           - "API Evolution": v5/tutorials/api-evolution.md
