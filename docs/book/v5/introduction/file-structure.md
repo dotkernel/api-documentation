@@ -8,7 +8,7 @@ When using Dotkernel API the following structure is installed by default:
 
 ![Dotkernel API File Structure!](https://docs.dotkernel.org/img/api/file-structure-dk-api.png)
 
-# Special purpose folders
+## Special purpose folders
 
 * `.github`  - containes workflow files
 * `.laminas-ci` - contains laminas-ci workflow files
