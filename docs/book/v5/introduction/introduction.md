@@ -1,28 +1,6 @@
 # Introduction
 
-Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, Dotkernel API runs on Laminas and Mezzio components and implements standards like PSR-3, PSR-4, PSR-7, PSR-11 and PSR-15.
-
-Here is a list of the core components:
-
-* Middleware Microframework (mezzio/mezzio)
-* Error Handler (dotkernel/dot-errorhandler)
-* Problem Details (mezzio/mezzio-problem-details)
-* CORS (mezzio/mezzio-cors)
-* Routing (mezzio/mezzio-fastroute)
-* Authentication (mezzio/mezzio-authentication)
-* Authorization (mezzio/mezzio-authorization)
-* Config Aggregator (laminas/laminas-config-aggregator)
-* Container (roave/psr-container-doctrine)
-* Dependency Injection (dotkernel/dot-dependency-injection)
-* Input Filter (laminas/laminas-inputfilter)
-* Doctrine 3 ORM (doctrine/orm)
-* Serializer/Deserializer (laminas/laminas-hydrator)
-* Paginator (laminas/laminas-paginator)
-* HAL (mezzio/mezzio-hal)
-* CLI (dotkernel/dot-cli)
-* TwigRenderer (mezzio/mezzio-twigrenderer)
-* Fixtures (dotkernel/dot-data-fixtures)
-* UUID (ramsey/uuid-doctrine)
+Below is a quick overview of features in Dotkernel API.
 
 ## Doctrine 3 ORM
 
@@ -40,7 +18,7 @@ We use the following files in which we store information about every available e
 
 ## Hypertext Application Language
 
-For our API payloads (a value object for describing the API resource, its relational links and any embedded/child resources related to it) we chose mezzio-hal.
+For our API payloads (a value object for describing the API resource, its relational links and any embedded/child resources related to it) we use [mezzio/mezzio-hal](https://github.com/mezzio/mezzio-hal).
 
 ## CORS
 
@@ -51,23 +29,23 @@ Therefore, for every preflight request, there is at least one Router request.
 ## OAuth 2.0
 
 OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your Dotkernel API.
-We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using league/oauth2-server package.
+We use [mezzio/mezzio-authentication-oauth2](https://github.com/mezzio/mezzio-authentication-oauth2) which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using the [thephpleague/oauth2-server]https://github.com/thephpleague/oauth2-server package.
 
 ## Email
 
 It is not unlikely for an API to send emails depending on the use case.
 Here is another area where Dotkernel API shines.
-Using `DotMailServiceMailService` provided by dotkernel/dot-mail you can easily send custom email templates.
+Using `DotMailServiceMailService` provided by [dotkernel/dot-mail](https://github.com/dotkernel/dot-mail) you can easily send custom email templates.
 
 ## Configuration
 
-From authorization at request route level to API keys for your application, you can find every configuration variable in the config directory.
+From authorization at request route level to API keys for your application, you can find every configuration variable in the `config` directory.
 
-Registering a new module can be done by including its ConfigProvider.php in config.php.
+Registering a new module can be done by including its `ConfigProvider.php` in `config.php`.
 
-Brand new middlewares should go into pipeline.php. Here you can edit the order in which they run and find more info about the currently included ones.
+Brand new middlewares should go into `pipeline.php`. Here you can edit the order in which they run and find more info about the currently included ones.
 
-You can further customize your api within the autoload directory where each configuration category has its own file.
+You can further customize your api within the `autoload` directory that holds configuration files for each category.
 
 ## Routing
 
@@ -83,37 +61,25 @@ Then you can enable it by registering it in `config/autoload/cli.global.php`.
 
 ## File locker
 
-Here you will also find our brand-new file locker configuration, so you can easily turn it on or off (by default: `'enabled' => true`).
+Here you will also find our file locker configuration, so you can easily enable and disable it (by default: `'enabled' => true`).
 
 Note: The File Locker System will create a `command-{command-default-name}.lock` file which will not let another instance of the same command to run until the previous one has finished.
-
-## PSR Standards
-
-* [PSR-3](https://www.php-fig.org/psr/psr-3/): Logger Interface – the application uses `LoggerInterface` for error logging
-* [PSR-4](https://www.php-fig.org/psr/psr-4): Autoloader – the application locates classes using an autoloader
-* [PSR-7](https://www.php-fig.org/psr/psr-7): HTTP message interfaces – the handlers return `ResponseInterface`
-* [PSR-11](https://www.php-fig.org/psr/psr-11): Container interface – the application is container-based
-* [PSR-15](https://www.php-fig.org/psr/psr-15): HTTP Server Request Handlers – the handlers implement `RequestHandlerInterface`
 
 ## Tests
 
 One of the best ways to ensure the quality of your product is to create and run functional and unit tests.
-You can find factory-made tests in the `tests/AppTest/` folder, and you can also register your own.
+You can find factory-made tests in the `test` folder, and you can also register your own.
 
-We have 2 types of tests: functional and unit tests, you can run both types at the same type by executing this command:
+We have 2 types of tests: functional and unit tests.
+You can run both types at the same type by executing this command:
 
 ```shell
 php vendor/bin/phpunit
 ```
 
-## Running unit tests
+Alternatively, you can run each test category separately with these commands:
 
 ```shell
 vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
-```
-
-## Running functional tests
-
-```shell
 vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 ```
