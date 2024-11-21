@@ -802,19 +802,7 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#psr-standards" class="toc__link nav-link">PSR Standards</a>
-                </li>
-            
-                <li class="toc__entry">
                     <a href="#tests" class="toc__link nav-link">Tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-unit-tests" class="toc__link nav-link">Running unit tests</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#running-functional-tests" class="toc__link nav-link">Running functional tests</a>
                 </li>
             
             </ul>
@@ -834,29 +822,7 @@
     
 
     <h1 id="introduction">Introduction</h1>
-<p>Based on Enrico Zimuel’s Zend Expressive API – Skeleton example, Dotkernel API runs on Laminas and Mezzio components and implements standards like PSR-3, PSR-4, PSR-7, PSR-11 and PSR-15.</p>
-<p>Here is a list of the core components:</p>
-<ul>
-<li>Middleware Microframework (mezzio/mezzio)</li>
-<li>Error Handler (dotkernel/dot-errorhandler)</li>
-<li>Problem Details (mezzio/mezzio-problem-details)</li>
-<li>CORS (mezzio/mezzio-cors)</li>
-<li>Routing (mezzio/mezzio-fastroute)</li>
-<li>Authentication (mezzio/mezzio-authentication)</li>
-<li>Authorization (mezzio/mezzio-authorization)</li>
-<li>Config Aggregator (laminas/laminas-config-aggregator)</li>
-<li>Container (roave/psr-container-doctrine)</li>
-<li>Dependency Injection (dotkernel/dot-dependency-injection)</li>
-<li>Input Filter (laminas/laminas-inputfilter)</li>
-<li>Doctrine 3 ORM (doctrine/orm)</li>
-<li>Serializer/Deserializer (laminas/laminas-hydrator)</li>
-<li>Paginator (laminas/laminas-paginator)</li>
-<li>HAL (mezzio/mezzio-hal)</li>
-<li>CLI (dotkernel/dot-cli)</li>
-<li>TwigRenderer (mezzio/mezzio-twigrenderer)</li>
-<li>Fixtures (dotkernel/dot-data-fixtures)</li>
-<li>UUID (ramsey/uuid-doctrine)</li>
-</ul>
+<p>Below is a quick overview of features in Dotkernel API.</p>
 <h2 id="doctrine-3-orm">Doctrine 3 ORM</h2>
 <p>For the persistence in a relational database management system we chose Doctrine ORM (object-relational mapper).</p>
 <p>The benefit of Doctrine for the programmer is the ability to focus on the object-oriented business logic and worry about persistence only as a secondary priority.</p>
@@ -868,23 +834,23 @@ We use the following files in which we store information about every available e
 <li>documentation/Dotkernel_API.postman_environment.json</li>
 </ul>
 <h2 id="hypertext-application-language">Hypertext Application Language</h2>
-<p>For our API payloads (a value object for describing the API resource, its relational links and any embedded/child resources related to it) we chose mezzio-hal.</p>
+<p>For our API payloads (a value object for describing the API resource, its relational links and any embedded/child resources related to it) we use <a href="https://github.com/mezzio/mezzio-hal">mezzio/mezzio-hal</a>.</p>
 <h2 id="cors">CORS</h2>
 <p>By using <code>MezzioCorsMiddlewareCorsMiddleware</code>, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
 The Router is used to detect every allowed request method by executing a route match with all possible request methods.
 Therefore, for every preflight request, there is at least one Router request.</p>
 <h2 id="oauth-20">OAuth 2.0</h2>
 <p>OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your Dotkernel API.
-We are using mezzio/mezzio-authentication-oauth2 which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using league/oauth2-server package.</p>
+We use <a href="https://github.com/mezzio/mezzio-authentication-oauth2">mezzio/mezzio-authentication-oauth2</a> which provides OAuth 2.0 authentication for Mezzio and PSR-7/PSR-15 applications by using the [thephpleague/oauth2-server]https://github.com/thephpleague/oauth2-server package.</p>
 <h2 id="email">Email</h2>
 <p>It is not unlikely for an API to send emails depending on the use case.
 Here is another area where Dotkernel API shines.
-Using <code>DotMailServiceMailService</code> provided by dotkernel/dot-mail you can easily send custom email templates.</p>
+Using <code>DotMailServiceMailService</code> provided by <a href="https://github.com/dotkernel/dot-mail">dotkernel/dot-mail</a> you can easily send custom email templates.</p>
 <h2 id="configuration">Configuration</h2>
-<p>From authorization at request route level to API keys for your application, you can find every configuration variable in the config directory.</p>
-<p>Registering a new module can be done by including its ConfigProvider.php in config.php.</p>
-<p>Brand new middlewares should go into pipeline.php. Here you can edit the order in which they run and find more info about the currently included ones.</p>
-<p>You can further customize your api within the autoload directory where each configuration category has its own file.</p>
+<p>From authorization at request route level to API keys for your application, you can find every configuration variable in the <code>config</code> directory.</p>
+<p>Registering a new module can be done by including its <code>ConfigProvider.php</code> in <code>config.php</code>.</p>
+<p>Brand new middlewares should go into <code>pipeline.php</code>. Here you can edit the order in which they run and find more info about the currently included ones.</p>
+<p>You can further customize your api within the <code>autoload</code> directory that holds configuration files for each category.</p>
 <h2 id="routing">Routing</h2>
 <p>Each module has a <code>RoutesDelegator.php</code> file for managing existing routes inside that specific module.
 It also allows a quick way of adding new routes by providing the route path, Middlewares that the route will use and the route name.</p>
@@ -893,25 +859,17 @@ It also allows a quick way of adding new routes by providing the route path, Mid
 <p>For registering new commands first make sure your command class extends <code>Symfony\Component\Console\Command\Command</code>.
 Then you can enable it by registering it in <code>config/autoload/cli.global.php</code>.</p>
 <h2 id="file-locker">File locker</h2>
-<p>Here you will also find our brand-new file locker configuration, so you can easily turn it on or off (by default: <code>'enabled' =&gt; true</code>).</p>
+<p>Here you will also find our file locker configuration, so you can easily enable and disable it (by default: <code>'enabled' =&gt; true</code>).</p>
 <p>Note: The File Locker System will create a <code>command-{command-default-name}.lock</code> file which will not let another instance of the same command to run until the previous one has finished.</p>
-<h2 id="psr-standards">PSR Standards</h2>
-<ul>
-<li><a href="https://www.php-fig.org/psr/psr-3/">PSR-3</a>: Logger Interface – the application uses <code>LoggerInterface</code> for error logging</li>
-<li><a href="https://www.php-fig.org/psr/psr-4">PSR-4</a>: Autoloader – the application locates classes using an autoloader</li>
-<li><a href="https://www.php-fig.org/psr/psr-7">PSR-7</a>: HTTP message interfaces – the handlers return <code>ResponseInterface</code></li>
-<li><a href="https://www.php-fig.org/psr/psr-11">PSR-11</a>: Container interface – the application is container-based</li>
-<li><a href="https://www.php-fig.org/psr/psr-15">PSR-15</a>: HTTP Server Request Handlers – the handlers implement <code>RequestHandlerInterface</code></li>
-</ul>
 <h2 id="tests">Tests</h2>
 <p>One of the best ways to ensure the quality of your product is to create and run functional and unit tests.
-You can find factory-made tests in the <code>tests/AppTest/</code> folder, and you can also register your own.</p>
-<p>We have 2 types of tests: functional and unit tests, you can run both types at the same type by executing this command:</p>
+You can find factory-made tests in the <code>test</code> folder, and you can also register your own.</p>
+<p>We have 2 types of tests: functional and unit tests.
+You can run both types at the same type by executing this command:</p>
 <pre class="highlight"><code class="language-shell">php vendor/bin/phpunit</code></pre>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always</code></pre>
-<h2 id="running-functional-tests">Running functional tests</h2>
-<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
+<p>Alternatively, you can run each test category separately with these commands:</p>
+<pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
+vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
 
 
 
