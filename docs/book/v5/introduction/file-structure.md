@@ -10,58 +10,58 @@ When using Dotkernel API the following structure is installed by default:
 
 ## Special purpose folders
 
-* `.github`  - contains GitHub workflow files
-* `.laminas-ci` - contains laminas-ci workflow files
+* `.github` - Contains GitHub workflow files
+* `.laminas-ci` - Contains laminas-ci workflow files
 
 ## `bin` folder
 
 This folder contents are
 
-* `clear-config-cache.php` - removes the config cache file (`data/cache/config-cache.php` - available only when development mode is enabled).
-* `cli.php` used to build console applications based on [laminas-cli](https://github.com/laminas/laminas-cli)
-* `doctrine` - used by the doctrine fixtures to populate the database tables
+* `clear-config-cache.php` - Removes the config cache file `data/cache/config-cache.php`; available only when development mode is enabled
+* `cli.php` - Used to build console applications based on [laminas-cli](https://github.com/laminas/laminas-cli)
+* `doctrine` - Used by the doctrine fixtures to populate the database tables
 
 ## `config` folder
 
 This folder contains all application-related config files:
 
-* `cli-config.php`: command line interface configuration used by migrations, fixtures, crons
-* `config.php`: registers ConfigProviders for installing packages
-* `container.php`: main service container that provides access to all registered services
-* `development.config.php.dist`: activates debug mode; gets symlinked as `development.config.php` when enabling development mode
-* `migrations.php`: configuration for database migration, like migration file location and table to save the migration log
-* `pipeline.php`: contains a list of middlewares, in the order of their execution
-* `twig-cs-fixer.php`: configuration file for Twig code style checker/fixer
+* `cli-config.php` - Command line interface configuration used by migrations, fixtures, crons
+* `config.php` - Registers ConfigProviders for installing packages
+* `container.php` - Main service container that provides access to all registered services
+* `development.config.php.dist` - Activates debug mode; gets symlinked as `development.config.php` when enabling development mode
+* `migrations.php` - Configuration for database migration, like migration file location and table to save the migration log
+* `pipeline.php` - Contains a list of middlewares, in the order of their execution
+* `twig-cs-fixer.php` - Configuration file for Twig code style checker/fixer
 
 ### `config/autoload` folder
 
 This folder contains all service-related local and global config files:
 
-* `authorization.global.php`: configures access per route for user roles
-* `cli.global.php`: configures cli
-* `content-negotiation.global.php`: configures request and response formats
-* `cors.local.php.dist`: configures Cross-Origin Resource Sharing, like call origin, headers, cookies
-* `dependencies.global.php`: config file to set global dependencies that should be accessible by all modules
-* `development.local.php.dist`: gets symlinked as `development.local.php` when enabling development mode - activates error handlers
-* `doctrine.global.php`: configuration used by Object–relational mapping
-* `error-handling.global.php`: configures and activates error logs
-* `local.php.dist`: local config file where you can overwrite application name and URL
-* `local.test.php.dist`: local configuration for functional tests
-* `mail.local.php.dist`: mail configuration; e.g. sendmail vs smtp, message configuration, mail logging
-* `mezzio.global.php`: Mezzio core config file
-* `mezzio-tooling-factories.global.php`: add or remove factory definitions
-* `response-header.global.php`: defines headers per route
-* `templates.global.php`: dotkernel/dot-twigrenderer config file
+* `authorization.global.php` - Configures access per route for user roles
+* `cli.global.php` - Configures cli
+* `content-negotiation.global.php` - Configures request and response formats
+* `cors.local.php.dist` - Configures Cross-Origin Resource Sharing, like call origin, headers, cookies
+* `dependencies.global.php` - Sets global dependencies that should be accessible by all modules
+* `development.local.php.dist` - Gets symlinked as `development.local.php` when enabling development mode; activates error handlers
+* `doctrine.global.php` - Configuration used by Object–relational mapping
+* `error-handling.global.php` - Configures and activates error logs
+* `local.php.dist` - Local configuration file where you can overwrite application name and URL
+* `local.test.php.dist` - Local configuration for functional tests
+* `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging
+* `mezzio.global.php` - Mezzio core config file
+* `mezzio-tooling-factories.global.php`  Add or remove factory definitions
+* `response-header.global.php` - Defines headers per route
+* `templates.global.php` - dotkernel/dot-twigrenderer config file
 
 ## `data` folder
 
 This folder is a storage for project data files and service caches.
 It contains these folders:
 
-* `cache`: cache for e.g. Twig files
-* `doctrine`: database migrations and fixtures
-* `oauth`: encryption, private and public keys needed for authentication
-* `data/lock` - lock files generated by [`dotkernel/dot-cli`](https://docs.dotkernel.org/dot-cli/v3/lock-files/)
+* `cache` - Cache for e.g. Twig files
+* `doctrine` - Database migrations and fixtures
+* `oauth` - Encryption, private and public keys needed for authentication
+* `lock` - Contains lock files generated by [`dotkernel/dot-cli`](https://docs.dotkernel.org/dot-cli/v3/lock-files/)
 
 > AVOID storing sensitive data on the repository!
 
@@ -74,10 +74,10 @@ When you access the application from the browser, (if not already created) a new
 
 This folder contains all publicly available assets and serves as the entry point of the application:
 
-* `uploads`: a folder that normally contains files uploaded via the application
-* `.htaccess`: server configuration file used by Apache web server; it enables the URL rewrite functionality
-* `index.php`: the application's main entry point
-* `robots.txt.dist`: a sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as `robots.txt` and comment out the lines that don't match your environment
+* `uploads` - Normally contains files uploaded via the application
+* `.htaccess` - Server configuration file used by Apache web server; it enables the URL rewrite functionality
+* `index.php` - The application's main entry point
+* `robots.txt.dist` - A sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as `robots.txt` and comment out the lines that don't match your environment
 
 ## `src` folder
 
@@ -85,9 +85,9 @@ This folder contains a separate folder for each Module.
 
 These are the modules included by default:
 
-* `Admin` - contains functionality for managing users with `admin` role; note these are users save in the `admin` database table
-* `App` - contains core functionality, from authentication, to rendering, to error reporting
-* `User` - contains functionality for managing regular users
+* `Admin` - Contains functionality for managing users with `admin` role; note these are users save in the `admin` database table
+* `App` - Contains core functionality, from authentication, to rendering, to error reporting
+* `User` - Contains functionality for managing regular users
 
 ### Module contents
 
@@ -96,7 +96,6 @@ Each Module folder, in turn, should contain the following folders, unless they a
 * `src/Handler` - Action classes (similar to Controllers but can only perform one action)
 * `src/Entity` - Used by database entities
 * `src/Service` - Service classes
-* `src/Collection` - Database entities collections
 * `src/Repository` - Entity repository folder
 
 The above example is just some of the folders a project may include, but they should give you an idea about the recommended structure.
@@ -112,4 +111,5 @@ The `src` folder in each Module folder normally also contains these files:
 
 This folder contains the template files, used for example to help render e-mail templates.
 
-> Dotkernel API uses twig as Templating Engine. All template files have the extension `.html.twig`
+> `twig` is used as Templating Engine.
+> All template files have the extension `.html.twig`
