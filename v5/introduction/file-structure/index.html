@@ -821,54 +821,54 @@
 <p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/file-structure-dk-api.png" class="img-responsive"/></p>
 <h2 id="special-purpose-folders">Special purpose folders</h2>
 <ul>
-<li><code>.github</code>  - contains GitHub workflow files</li>
-<li><code>.laminas-ci</code> - contains laminas-ci workflow files</li>
+<li><code>.github</code> - Contains GitHub workflow files</li>
+<li><code>.laminas-ci</code> - Contains laminas-ci workflow files</li>
 </ul>
 <h2 id="bin-folder"><code>bin</code> folder</h2>
 <p>This folder contents are</p>
 <ul>
-<li><code>clear-config-cache.php</code> - removes the config cache file (<code>data/cache/config-cache.php</code> - available only when development mode is enabled).</li>
-<li><code>cli.php</code> used to build console applications based on <a href="https://github.com/laminas/laminas-cli">laminas-cli</a></li>
-<li><code>doctrine</code> - used by the doctrine fixtures to populate the database tables</li>
+<li><code>clear-config-cache.php</code> - Removes the config cache file <code>data/cache/config-cache.php</code>; available only when development mode is enabled</li>
+<li><code>cli.php</code> - Used to build console applications based on <a href="https://github.com/laminas/laminas-cli">laminas-cli</a></li>
+<li><code>doctrine</code> - Used by the doctrine fixtures to populate the database tables</li>
 </ul>
 <h2 id="config-folder"><code>config</code> folder</h2>
 <p>This folder contains all application-related config files:</p>
 <ul>
-<li><code>cli-config.php</code>: command line interface configuration used by migrations, fixtures, crons</li>
-<li><code>config.php</code>: registers ConfigProviders for installing packages</li>
-<li><code>container.php</code>: main service container that provides access to all registered services</li>
-<li><code>development.config.php.dist</code>: activates debug mode; gets symlinked as <code>development.config.php</code> when enabling development mode</li>
-<li><code>migrations.php</code>: configuration for database migration, like migration file location and table to save the migration log</li>
-<li><code>pipeline.php</code>: contains a list of middlewares, in the order of their execution</li>
-<li><code>twig-cs-fixer.php</code>: configuration file for Twig code style checker/fixer</li>
+<li><code>cli-config.php</code> - Command line interface configuration used by migrations, fixtures, crons</li>
+<li><code>config.php</code> - Registers ConfigProviders for installing packages</li>
+<li><code>container.php</code> - Main service container that provides access to all registered services</li>
+<li><code>development.config.php.dist</code> - Activates debug mode; gets symlinked as <code>development.config.php</code> when enabling development mode</li>
+<li><code>migrations.php</code> - Configuration for database migration, like migration file location and table to save the migration log</li>
+<li><code>pipeline.php</code> - Contains a list of middlewares, in the order of their execution</li>
+<li><code>twig-cs-fixer.php</code> - Configuration file for Twig code style checker/fixer</li>
 </ul>
 <h3 id="configautoload-folder"><code>config/autoload</code> folder</h3>
 <p>This folder contains all service-related local and global config files:</p>
 <ul>
-<li><code>authorization.global.php</code>: configures access per route for user roles</li>
-<li><code>cli.global.php</code>: configures cli</li>
-<li><code>content-negotiation.global.php</code>: configures request and response formats</li>
-<li><code>cors.local.php.dist</code>: configures Cross-Origin Resource Sharing, like call origin, headers, cookies</li>
-<li><code>dependencies.global.php</code>: config file to set global dependencies that should be accessible by all modules</li>
-<li><code>development.local.php.dist</code>: gets symlinked as <code>development.local.php</code> when enabling development mode - activates error handlers</li>
-<li><code>doctrine.global.php</code>: configuration used by Object–relational mapping</li>
-<li><code>error-handling.global.php</code>: configures and activates error logs</li>
-<li><code>local.php.dist</code>: local config file where you can overwrite application name and URL</li>
-<li><code>local.test.php.dist</code>: local configuration for functional tests</li>
-<li><code>mail.local.php.dist</code>: mail configuration; e.g. sendmail vs smtp, message configuration, mail logging</li>
-<li><code>mezzio.global.php</code>: Mezzio core config file</li>
-<li><code>mezzio-tooling-factories.global.php</code>: add or remove factory definitions</li>
-<li><code>response-header.global.php</code>: defines headers per route</li>
-<li><code>templates.global.php</code>: dotkernel/dot-twigrenderer config file</li>
+<li><code>authorization.global.php</code> - Configures access per route for user roles</li>
+<li><code>cli.global.php</code> - Configures cli</li>
+<li><code>content-negotiation.global.php</code> - Configures request and response formats</li>
+<li><code>cors.local.php.dist</code> - Configures Cross-Origin Resource Sharing, like call origin, headers, cookies</li>
+<li><code>dependencies.global.php</code> - Sets global dependencies that should be accessible by all modules</li>
+<li><code>development.local.php.dist</code> - Gets symlinked as <code>development.local.php</code> when enabling development mode; activates error handlers</li>
+<li><code>doctrine.global.php</code> - Configuration used by Object–relational mapping</li>
+<li><code>error-handling.global.php</code> - Configures and activates error logs</li>
+<li><code>local.php.dist</code> - Local configuration file where you can overwrite application name and URL</li>
+<li><code>local.test.php.dist</code> - Local configuration for functional tests</li>
+<li><code>mail.local.php.dist</code> - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging</li>
+<li><code>mezzio.global.php</code> - Mezzio core config file</li>
+<li><code>mezzio-tooling-factories.global.php</code>  Add or remove factory definitions</li>
+<li><code>response-header.global.php</code> - Defines headers per route</li>
+<li><code>templates.global.php</code> - dotkernel/dot-twigrenderer config file</li>
 </ul>
 <h2 id="data-folder"><code>data</code> folder</h2>
 <p>This folder is a storage for project data files and service caches.
 It contains these folders:</p>
 <ul>
-<li><code>cache</code>: cache for e.g. Twig files</li>
-<li><code>doctrine</code>: database migrations and fixtures</li>
-<li><code>oauth</code>: encryption, private and public keys needed for authentication</li>
-<li><code>data/lock</code> - lock files generated by <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/"><code>dotkernel/dot-cli</code></a></li>
+<li><code>cache</code> - Cache for e.g. Twig files</li>
+<li><code>doctrine</code> - Database migrations and fixtures</li>
+<li><code>oauth</code> - Encryption, private and public keys needed for authentication</li>
+<li><code>lock</code> - Contains lock files generated by <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/"><code>dotkernel/dot-cli</code></a></li>
 </ul>
 <blockquote>
 <p>AVOID storing sensitive data on the repository!</p>
@@ -879,18 +879,18 @@ When you access the application from the browser, (if not already created) a new
 <h2 id="public-folder"><code>public</code> folder</h2>
 <p>This folder contains all publicly available assets and serves as the entry point of the application:</p>
 <ul>
-<li><code>uploads</code>: a folder that normally contains files uploaded via the application</li>
-<li><code>.htaccess</code>: server configuration file used by Apache web server; it enables the URL rewrite functionality</li>
-<li><code>index.php</code>: the application's main entry point</li>
-<li><code>robots.txt.dist</code>: a sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as <code>robots.txt</code> and comment out the lines that don't match your environment</li>
+<li><code>uploads</code> - Normally contains files uploaded via the application</li>
+<li><code>.htaccess</code> - Server configuration file used by Apache web server; it enables the URL rewrite functionality</li>
+<li><code>index.php</code> - The application's main entry point</li>
+<li><code>robots.txt.dist</code> - A sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as <code>robots.txt</code> and comment out the lines that don't match your environment</li>
 </ul>
 <h2 id="src-folder"><code>src</code> folder</h2>
 <p>This folder contains a separate folder for each Module.</p>
 <p>These are the modules included by default:</p>
 <ul>
-<li><code>Admin</code> - contains functionality for managing users with <code>admin</code> role; note these are users save in the <code>admin</code> database table</li>
-<li><code>App</code> - contains core functionality, from authentication, to rendering, to error reporting</li>
-<li><code>User</code> - contains functionality for managing regular users</li>
+<li><code>Admin</code> - Contains functionality for managing users with <code>admin</code> role; note these are users save in the <code>admin</code> database table</li>
+<li><code>App</code> - Contains core functionality, from authentication, to rendering, to error reporting</li>
+<li><code>User</code> - Contains functionality for managing regular users</li>
 </ul>
 <h3 id="module-contents">Module contents</h3>
 <p>Each Module folder, in turn, should contain the following folders, unless they are empty:</p>
@@ -898,7 +898,6 @@ When you access the application from the browser, (if not already created) a new
 <li><code>src/Handler</code> - Action classes (similar to Controllers but can only perform one action)</li>
 <li><code>src/Entity</code> - Used by database entities</li>
 <li><code>src/Service</code> - Service classes</li>
-<li><code>src/Collection</code> - Database entities collections</li>
 <li><code>src/Repository</code> - Entity repository folder</li>
 </ul>
 <p>The above example is just some of the folders a project may include, but they should give you an idea about the recommended structure.
@@ -912,7 +911,8 @@ Other classes the <code>src</code> folder may include are <code>InputFilter</cod
 <h3 id="templates-folder-in-modules"><code>templates</code> folder in Modules</h3>
 <p>This folder contains the template files, used for example to help render e-mail templates.</p>
 <blockquote>
-<p>Dotkernel API uses twig as Templating Engine. All template files have the extension <code>.html.twig</code></p>
+<p><code>twig</code> is used as Templating Engine.
+All template files have the extension <code>.html.twig</code></p>
 </blockquote>
 
 
