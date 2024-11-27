@@ -15,7 +15,7 @@ When using Dotkernel API the following structure is installed by default:
 
 ## `bin` folder
 
-This folder contents are
+This folder contains:
 
 * `clear-config-cache.php` - Removes the config cache file `data/cache/config-cache.php`; available only when development mode is enabled
 * `cli.php` - Used to build console applications based on [laminas-cli](https://github.com/laminas/laminas-cli)
