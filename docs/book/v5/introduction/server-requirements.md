@@ -33,9 +33,10 @@ Both mod_php and FCGI (FPM) are supported.
 * Tested with MySQL 8
 
 > For MySQL 8 be sure you have the below line in my.cnf
-> ```text
-> mysql_native_password=ON
-> ```
+
+```text
+mysql_native_password=ON
+```
 
 ## Recommended extensions
 
