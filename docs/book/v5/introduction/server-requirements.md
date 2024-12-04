@@ -30,6 +30,13 @@ Both mod_php and FCGI (FPM) are supported.
 ## RDBMS
 
 * Tested with MariaDB 10.11 LTS and MariaDB 11.4 LTS
+* Tested with MySQL 8.4 LTS
+
+> :exclamation: For MySQL 8.4 LTS be sure you have the below line in my.cnf
+
+```text
+mysql_native_password=ON
+```
 
 ## Recommended extensions
 
