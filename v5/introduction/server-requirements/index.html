@@ -832,7 +832,12 @@
 <h2 id="rdbms">RDBMS</h2>
 <ul>
 <li>Tested with MariaDB 10.11 LTS and MariaDB 11.4 LTS</li>
+<li>Tested with MySQL 8.4 LTS</li>
 </ul>
+<blockquote>
+<p>:exclamation: For MySQL 8.4 LTS be sure you have the below line in my.cnf</p>
+</blockquote>
+<pre class="highlight"><code class="language-text">mysql_native_password=ON</code></pre>
 <h2 id="recommended-extensions">Recommended extensions</h2>
 <ul>
 <li>opcache</li>
