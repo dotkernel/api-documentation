@@ -57,6 +57,8 @@ nav:
             - "Render Documentation": v5/openapi/render-documentation.md
             - "Use Documentation": v5/openapi/use-documentation.md
             - "Getting Help": v5/openapi/getting-help.md
+      - Reference:
+            - "Anonymize Accounts": v5/reference/account-anonymization.md
   - v4:
       - Introduction: v4/introduction/introduction.md
       - Overview:
