@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/transition-from-api-tools/transition-approach/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/reference/account-anonymization/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Transition Approach - api - DotKernel Documentation</title>
+        <title>Anonymize Accounts - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -187,12 +187,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Transition from API Tools</li>
+                                <li class="breadcrumb-item">Reference</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Transition Approach</li>
+                    <li class="breadcrumb-item active" aria-current="page">Anonymize Accounts</li>
                 
             
         </ol>
@@ -652,19 +652,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Transition Approach</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -771,8 +771,8 @@
     <ul class="subnavigation__list collapse" id="reference">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Anonymize Accounts</a>
 </li>
 
         
@@ -807,7 +807,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#business-cases" class="toc__link nav-link">Business cases</a>
+                    <a href="#premise" class="toc__link nav-link">Premise</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#definition" class="toc__link nav-link">Definition</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#process" class="toc__link nav-link">Process</a>
                 </li>
             
             </ul>
@@ -825,21 +833,42 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Reference</h2>-->
     
 
-    <h1 id="transition-approach-wip">Transition approach  [WIP]</h1>
-<p>Dotkernel API is not a one-to-one replacement of api-tools ( former Apigility), but is only a potential solution to
-migrate to.</p>
-<p>Functionalities, components and architecture are different.</p>
-<p>See
-the <a href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/">Comparison between Dotkernel APi and api-tools</a></p>
-<h2 id="business-cases">Business cases</h2>
-<p>There are at least 2 approaches for this transition:</p>
-<h3 id="clone-11">Clone 1:1</h3>
-<p>and recreate all endpoints and entities</p>
-<h3 id="build-a-new-version-of-the-current-api-using-dotkernel-api">Build a new version of the current API using Dotkernel API</h3>
-<p>and keep it running as separate platforms until the sunset of the current version of api-tools</p>
+    <h1 id="account-anonymization">Account anonymization</h1>
+<h2 id="premise">Premise</h2>
+<p>According to the GDPR, companies that record personal data from EU citizens must delete said data if its owner requests its deletion.
+An alternative is to anonymize the data, according to <a href="https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations/dealing-citizens/do-we-always-have-delete-personal-data-if-person-asks_en">this article</a>.</p>
+<h2 id="definition">Definition</h2>
+<h3 id="what-is-personally-identifiable-information">What is Personally identifiable information?</h3>
+<p>According to <a href="https://commission.europa.eu/law/law-topic/data-protection/reform/what-personal-data_en">this article</a>, Personally identifiable information (PII) is:</p>
+<ul>
+<li>A name and surname.</li>
+<li>A home address.</li>
+<li>An email address such as name.surname@company.com.</li>
+<li>An identification card number.</li>
+<li>Location data (for example the location data function on a mobile phone).</li>
+<li>An Internet Protocol (IP) address.</li>
+<li>A cookie ID.</li>
+<li>The advertising identifier of your phone.</li>
+<li>A phone number.</li>
+<li>Data held by a hospital or doctor, which could be a symbol that uniquely identifies a person.</li>
+</ul>
+<p>Out of the box, Dotkernel API saves the user's name (firstname and lastname) and email (identity).
+This personal data is used for emails related to password reset and account activation.</p>
+<h2 id="process">Process</h2>
+<h3 id="anonymization">Anonymization</h3>
+<p>The anonymization process makes these replacements:</p>
+<ul>
+<li>The firstname and lastname are replaced with <code>anonymous</code> concatenated with the current UNIX timestamp, e.g. <code>anonymous1725980747</code>.</li>
+<li>The email is replaced with <code>anonymous</code> concatenated with the current UNIX timestamp and the value in <code>userAnonymizeAppend</code>, e.g. <code>anonymous1725980747@example.com</code>.</li>
+<li>The avatar image and its database record are deleted.</li>
+</ul>
+<p>The <code>userAnonymizeAppend</code> key can be set in <code>config/autoload/local.php</code> or left empty.</p>
+<blockquote>
+<p>Using an email domain for <code>userAnonymizeAppend</code> would work as a catch-all email, if your email service provider has this option enabled.</p>
+</blockquote>
 
 
 
@@ -849,10 +878,10 @@ the <a href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../api-tools-vs-dotkernel-api/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../openapi/getting-help/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Laminas API Tools vs Dotkernel API
+                    Getting Help
                 </a>
             
         </li>
@@ -860,9 +889,9 @@ the <a href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../discovery-phase/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../../v4/introduction/introduction/">
                     <small class="page-nav__label">Next</small>
-                    Discovery Phase
+                    Introduction
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
