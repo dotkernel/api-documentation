@@ -13,3 +13,5 @@ You can use this file to track the version of your copy of Dotkernel API.
 For each new release you need implement the modifications from its pull requests in your project.
 It is recommended to copy the release info into your project's CHANGELOG.md file.
 This allows you to track your API's version and keep your project up-to-date with future releases.
+
+Starting from [version 5.3](upgrading/UPGRADE-5.3.md) the upgrading procedure is detailed version to version.
