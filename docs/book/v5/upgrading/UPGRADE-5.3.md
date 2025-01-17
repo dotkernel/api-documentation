@@ -4,7 +4,6 @@
 
 Dotkernel API 5.3 is a minor release. As such, no significant backward compatibility breaks are expected,
 with minor backward compatibility breaks being prefixed in this document with `[BC BREAK]`.
-
 This document only covers upgrading from version 5.2.
 
 ## Table of Contents
@@ -34,9 +33,7 @@ Following PHPStan's introduction in version 5.2 for the reasons described on the
 ### Update anonymization
 
 By default, Dotkernel API uses "soft delete" for it's `User` entities in order to preserve the database entries.
-
 Anonymization is used to make sure any sensitive information is scrubbed from the system, with the `User`'s `identity`, `email`, `firstName` and `lastName` properties being overwritten by a unique placeholder.
-
 Version 5.3 is adding an optional suffix from a configuration file, from where it can be used anywhere in the application.
 
 * Add the `userAnonymizeAppend` key to the returned array in `config/autoload/local.php`, as well as to the distributed`config/autoload/local.php.dist`
@@ -64,14 +61,12 @@ $user->setIdentity($placeholder . $this->config['userAnonymizeAppend']) //...
 ### Update User status and remove isDeleted properties
 
 Up to and including version 5.2, the `User` entity made use of the `UserStatusEnum` to mark the account status (`active` or `inactive`) and marked deleted accounts with the `isDeleted` property.
-
 Starting from version 5.3 the `isDeleted` property has been removed because, by default, there is no use in having both it and the status property.
-
 As such, a new `Deleted` case for `UserStatusEnum` is now used to mark a deleted account and remove the redundancy.
 
 * [BC Break] Remove the `isDeleted` property from the `User` class, alongside all usages, as seen in the [pull request](https://github.com/dotkernel/api/pull/359/files)
 * Add a new "deleted" case to `UserStatusEnum`, which is to be used instead of the previous `isDeleted` property
-* Update the database and it's migrations to reflect the new structure
+* Update the database and its migrations to reflect the new structure
   > The use of "isDeleted" was redundant in the default application, and as such was removed
   >
   > All default methods are updated, but any custom functionality using "isDeleted" will require refactoring
@@ -79,11 +74,8 @@ As such, a new `Deleted` case for `UserStatusEnum` is now used to mark a deleted
 ### Update `dotkernel/dot-mail` to version 5.0
 
 Dotkernel API uses `dotkernel/dot-mail` to handle the mailing service, which in versions older than 5.0 was based on `laminas/laminas-mail`.
-
 Due to the deprecation of `laminas/laminas-mail`, a decision was made to switch `dot-mail` to using `symfony/mailer` starting from version 5.0.
-
 To make the API more future-proof, the upgrade to the new version of `dot-mail` was necessary.
-
 The default usage of the mailer remains unchanged, with the only required updates being to configuration, as described below:
 
 * Bump `dotkernel/dot-mail` to "^5.0" in `composer.json`
@@ -109,7 +101,6 @@ Installing the API via `composer create-project` is not recommended, and because
 ### Add post install script
 
 To make installing the API less of a hassle, a new post installation script was added.
-
 This script generates all the configuration files required by default, leaving the user to simply complete the relevant data.
 
 > Note that the script will not overwrite existing configuration files, preserving any user data
@@ -168,7 +159,6 @@ cp config/autoload/mail.global.php.dist config/autoload/mail.global.php
 ### Update security.txt
 
 Updated the `security.txt` file to define the preferred language of the security team.
-
 It is recommended that the `Expires` tag is also updated if necessary.
 
 * Add the `Preferred-Languages` key to `public/.well-known/security.txt`
@@ -177,7 +167,6 @@ It is recommended that the `Expires` tag is also updated if necessary.
 ### Update coding standards
 
 Dotkernel API uses `laminas/laminas-coding-standard` as its baseline ruleset to ensure adherence to PSR-1 and PSR-12.
-
 As this package had a major release, the minimum version the API uses was also bumped.
 
 * Bump `laminas/laminas-coding-standard` to `^3.0` in `composer.json`
@@ -193,7 +182,6 @@ As this package had a major release, the minimum version the API uses was also b
 ### Update Qodana configuration
 
 The Qodana code quality workflow has changed its default PHP version to 8.4, which is unsupported by Dotkernel API, resulting in errors.
-
 The issue was fixed by restricting Qodana to the supported PHP versions.
 
 * Update `.github/workflows/qodana_code_quality.yml`, specifying the supported PHP versions by adding the `strategy` key:
@@ -223,7 +211,6 @@ with:
 ### Remove laminas/laminas-http
 
 Prior to version 5.3, `laminas/laminas-http` was only used in 2 test files to assert if correct status codes were returned.
-
 This dependency was removed, as the usage in tests was replaced with the existing `StatusCodeInterface`.
 
 * Remove `laminas/laminas-http` from `composer.json`
