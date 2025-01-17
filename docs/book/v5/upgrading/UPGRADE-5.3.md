@@ -32,7 +32,7 @@ Following PHPStan's introduction in version 5.2 for the reasons described on the
 
 ### Update anonymization
 
-By default, Dotkernel API uses "soft delete" for it's `User` entities in order to preserve the database entries.
+By default, Dotkernel API uses "soft delete" for its `User` entities in order to preserve the database entries.
 Anonymization is used to make sure any sensitive information is scrubbed from the system, with the `User`'s `identity`, `email`, `firstName` and `lastName` properties being overwritten by a unique placeholder.
 Version 5.3 is adding an optional suffix from a configuration file, from where it can be used anywhere in the application.
 
