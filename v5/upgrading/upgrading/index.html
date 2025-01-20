@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/core-features/error-reporting/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/upgrading/upgrading/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Error reporting - api - DotKernel Documentation</title>
+        <title>Upgrade procedure - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -187,12 +187,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Core Features</li>
+                                <li class="breadcrumb-item">Upgrading</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Error reporting</li>
+                    <li class="breadcrumb-item active" aria-current="page">Upgrade procedure</li>
                 
             
         </ol>
@@ -381,14 +381,14 @@
     <ul class="subnavigation__list collapse" id="upgrading">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../upgrading/upgrading/" class="subnavigation__link">Upgrade procedure</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Upgrade procedure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../upgrading/UPGRADE-5.3/" class="subnavigation__link">Upgrading 5.2 to 5.3</a>
+    <a href="../UPGRADE-5.3/" class="subnavigation__link">Upgrading 5.2 to 5.3</a>
 </li>
 
         
@@ -474,37 +474,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Error reporting</a>
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
 </li>
 
         
@@ -845,15 +845,11 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#example-case-usage" class="toc__link nav-link">Example case usage</a>
+                    <a href="#upgrade-procedure" class="toc__link nav-link">Upgrade procedure</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#how-to-use-it-on-the-api-side" class="toc__link nav-link">How to use it on the API side</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#how-to-use-it-on-the-frontend-side-angular-example" class="toc__link nav-link">How to use it on the Frontend side (Angular example)</a>
+                    <a href="#version-to-version-upgrading" class="toc__link nav-link">Version to version upgrading</a>
                 </li>
             
             </ul>
@@ -871,109 +867,22 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Upgrading</h2>-->
     
 
-    <h1 id="error-reporting-endpoint">Error reporting endpoint</h1>
-<p>The error reporting endpoint was designed to allow the <strong>frontend developers</strong> of your API to report any bugs they encounter in a secure way that is fully under your control.
-To prevent unauthorized usage, the endpoint is protected by a token in the request's header.</p>
-<h2 id="example-case-usage">Example case usage</h2>
-<ul>
-<li>Frontend developed in Angular.</li>
-<li>Frontend developer will use try-catch in the code in order to send <strong>frontend errors</strong> back to the API.</li>
-</ul>
-<h2 id="how-to-use-it-on-the-api-side">How to use it on the API side</h2>
-<p>Error reporting is done by sending a <strong>POST</strong> request to the <code>/error-report</code> endpoint, together with a <strong>token</strong> in the header.
-In the sections below we will detail how to configure error reporting in your API and how the endpoint is used by the frontend developers.</p>
-<h3 id="generating-a-token-and-adding-it-to-your-api-config">Generating a token and adding it to your API config</h3>
-<p>First you need to generate a token for your request.
-This is done by using the command</p>
-<pre class="highlight"><code class="language-bash">php ./bin/cli.php token:generate error-reporting</code></pre>
-<p>The resulting token has this format <code>0123456789abcdef0123456789abcdef01234567</code>.
-<strong>Note:</strong> this example is not a valid token, it just lets you know what to look for.</p>
-<p>Copy the generated token in your <code>config/autoload/error-handling.global.php</code> file.
-It should look similar to the example below.
-Your API can have multiple tokens, if needed.</p>
-<pre class="highlight"><code class="language-php">return [
-    ...
-    ErrorReportServiceInterface::class =&gt; [
-        ...
-        'tokens' =&gt; [
-            '0123456789abcdef0123456789abcdef01234567',
-        ],
-        ...
-    ]
-]</code></pre>
-<h3 id="validation-mechanism">Validation mechanism</h3>
-<p>Behind the scenes, the API validates your configuration and lets you know if any config items prevent the submission of the error report.
-Below are the requirements for an application to be able to send error messages to Dotkernel API.</p>
-<ul>
-<li><strong>Server-side requirements</strong> stored in <code>config/autoload/error-handling.global.php</code> (these can be set/overwritten in <code>config/autoload/local.php</code>):<ul>
-<li>All keys (<code>enabled</code>, <code>path</code>, <code>tokens</code>, <code>domain_whitelist</code> and <code>ip_whitelist</code>) must exist under <code>ErrorReportServiceInterface::class</code>.</li>
-<li>The error reporting feature must be enabled by setting <code>ErrorReportServiceInterface::class</code> . <code>enabled</code> to <code>true</code>.</li>
-<li><code>ErrorReportServiceInterface::class</code> . <code>path</code> must have a value; if the destination file does not exist, it will be created automatically.</li>
-<li><code>ErrorReportServiceInterface::class</code> . <code>tokens</code> must contain at least one token.</li>
-<li>At least one of <code>ErrorReportServiceInterface::class</code> . <code>domain_whitelist</code>/<code>ip_whitelist</code> must have at least one value.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Note:</strong> In <code>src/App/src/Service/ErrorReportService.php</code>, the method <code>checkRequest()</code> tries to validate the request by checking matches for <code>domain_whitelist</code> with <code>isMatchingDomain()</code> and for <code>ip_whitelist</code> with <code>isMatchingIpAddress()</code>.
-If both return <code>false</code>, a <code>ForbiddenException</code> is thrown and the error message does not get stored.</p>
-<ul>
-<li><strong>Application-side requirements</strong>:<ul>
-<li>Send the <code>Error-Reporting-Token</code> header with a valid token previously stored in <code>config/autoload/error-handling.global.php</code> in the <code>ErrorReportServiceInterface::class</code> . <code>tokens</code> array.</li>
-<li>Send the <code>Origin</code> header set to the application's URL; this is the application that sends the error message.</li>
-</ul>
-</li>
-</ul>
-<p><strong>Note:</strong></p>
-<ul>
-<li>The tokens under <code>ErrorReportServiceInterface::class</code> . <code>tokens</code> do not expire.</li>
-<li>The log file stores the token value too, making it easy to identify which application sent the error message.</li>
-</ul>
-<p>If your request passes all the checks, the message is saved in the log file specified in <code>ErrorReportServiceInterface::class</code> . <code>path</code>.</p>
-<h4 id="tips-and-tricks">Tips and tricks</h4>
-<p>If there are multiple applications that report errors to your API, you can <strong>assign a different error reporting token</strong> for each.
-The tokens support key-value pairs where:</p>
-<ul>
-<li>The <strong>key</strong> is an alias relevant to the assigned application that uses it.</li>
-<li>The <strong>value</strong> is the token itself.</li>
-</ul>
-<p>Example:</p>
-<pre class="highlight"><code class="language-php">// ...
-return [
-    ...
-    ErrorReportServiceInterface::class =&gt; [
-        // ...
-        'tokens' =&gt; [
-            'frontend' =&gt; '0123456789abcdef0123456789abcdef01234567',
-            'admin' =&gt; '9876543210abcdef0123456789abcdef7654321',
-            // other tokens
-        ],
-    ],
-];</code></pre>
-<p>The log file will have entries similar to the below:</p>
-<blockquote>
-<p>[2024-08-29 12:47:00] [0123456789abcdef0123456789abcdef01234567] Demo error message</p>
-</blockquote>
-<p>The inclusion of the token helps you identify the source of the error message.
-In our example, it's the application that uses the <code>0123456789abcdef0123456789abcdef01234567</code> token, which is assigned to the application <code>frontend</code>.</p>
-<h2 id="how-to-use-it-on-the-frontend-side-angular-example">How to use it on the Frontend side (Angular example)</h2>
-<p>The API developer sends a generated token to the frontend developer who will save it in their <code>environment.staging.ts</code> and/or <code>environment.prod.ts</code>.
-From then on, it's the frontend developer's job to set up an error reporting function similar to the one below.</p>
-<pre class="highlight"><code class="language-javascript">postError(body: object): Promise&lt;any&gt; {
-     return new Promise((resolve, reject) =&gt; {
-      return this.http.post(API_ENDPOINT + 'error-report', body , {headers: new HttpHeaders({'Error-Reporting-Token': 'TOKEN', 'Origin': 'https://example.com'})})).subscribe({
-        next: (response: any) =&gt; {
-          resolve(response);
-        },
-        error: (e: HttpErrorResponse) =&gt; reject(e),
-        complete: () =&gt; console.info('Error on sending error'),
-      });
-    });
-  }</code></pre>
-<p>Whenever an error is found, the frontend will call <code>postError()</code> with a relevant description under <code>message</code>.</p>
-<pre class="highlight"><code class="language-javascript">apiService.postError({message: 'ERROR MESSAGE'})</code></pre>
+    <h1 id="upgrades">Upgrades</h1>
+<p>Dotkernel API does not provide an automatic upgrade path.
+Instead, the recommended procedure is to manually implement each modification listed in <a href="https://github.com/dotkernel/api/releases">releases</a>.
+Additionally, release info can also be accessed as an <a href="https://github.com/dotkernel/api/releases.atom">RSS</a> feed.</p>
+<h2 id="upgrade-procedure">Upgrade procedure</h2>
+<p>Once you clone Dotkernel API, you will find a <a href="https://github.com/dotkernel/api/blob/5.0/CHANGELOG.md">CHANGELOG.md</a> file in the root of the project.
+This file contains a list of already implemented features in reverse chronological order.
+You can use this file to track the version of your copy of Dotkernel API.</p>
+<p>For each new release you need implement the modifications from its pull requests in your project.
+It is recommended to copy the release info into your project's CHANGELOG.md file.
+This allows you to track your API's version and keep your project up-to-date with future releases.</p>
+<h2 id="version-to-version-upgrading">Version to version upgrading</h2>
+<p>Starting from <a href="../UPGRADE-5.3/">version 5.3</a> the upgrading procedure is detailed version to version.</p>
 
 
 
@@ -983,9 +892,9 @@ From then on, it's the frontend developer's job to set up an error reporting fun
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../dependency-injection/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../installation/faq/">
                     <i class="bi bi-chevron-left"></i>
-                    Dependency Injection
+                    FAQ
                 </a>
             
         </li>
@@ -993,8 +902,8 @@ From then on, it's the frontend developer's job to set up an error reporting fun
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../commands/create-admin-account/">
-                    Create admin account
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../UPGRADE-5.3/">
+                    Upgrading 5.2 to 5.3
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

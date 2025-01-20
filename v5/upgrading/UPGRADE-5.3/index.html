@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/upgrading/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v5/upgrading/UPGRADE-5.3/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Upgrading - api - DotKernel Documentation</title>
+        <title>Upgrading 5.2 to 5.3 - api - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -142,7 +142,7 @@
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="../introduction/introduction/" class="dropdown-item active">
+                    <a href="../../introduction/introduction/" class="dropdown-item active">
                         
                             v5 (latest)
                         
@@ -150,7 +150,7 @@
                 
             
                 
-                    <a href="../../v4/introduction/introduction/" class="dropdown-item">
+                    <a href="../../../v4/introduction/introduction/" class="dropdown-item">
                         
                             v4
                         
@@ -176,7 +176,7 @@
                 
 
                 
-                    <li class="breadcrumb-item"><a href="../..">api</a></li>
+                    <li class="breadcrumb-item"><a href="../../..">api</a></li>
 
                     
                         
@@ -184,8 +184,15 @@
                             
                         
                     
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Upgrading</li>
+                            
+                        
+                    
 
-                    <li class="breadcrumb-item active" aria-current="page">Upgrading</li>
+                    <li class="breadcrumb-item active" aria-current="page">Upgrading 5.2 to 5.3</li>
                 
             
         </ol>
@@ -200,7 +207,7 @@
                     
     <div class="subnavigation hidden-print">
 <!--        <h4 class="subnavigation__title">-->
-<!--            <a href="../..">api</a>-->
+<!--            <a href="../../..">api</a>-->
 <!--        </h4>-->
 
         <h5 class="subnavigation__title">Table of Contents</h5>
@@ -213,7 +220,7 @@
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
                     
@@ -245,25 +252,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/packages/" class="subnavigation__link">Packages</a>
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/psr/" class="subnavigation__link">PSRs</a>
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
 </li>
 
         
@@ -307,37 +314,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/getting-started/" class="subnavigation__link">Getting Started</a>
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../installation/faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -346,8 +353,46 @@
 
                     
                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#upgrading" role="button" aria-expanded="false" aria-controls="upgrading">
+        <span class="subnavigation__headline">Upgrading</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="upgrading">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../upgrading/" class="subnavigation__link">Upgrade procedure</a>
+</li>
+
+        
+        
 <li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Upgrading</a>
+    <a href="./" class="subnavigation__link">Upgrading 5.2 to 5.3</a>
+</li>
+
+        
+    </ul>
 </li>
 
                     
@@ -371,19 +416,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
 </li>
 
         
@@ -429,37 +474,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
+    <a href="../../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
 </li>
 
         
@@ -495,25 +540,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
 </li>
 
         
@@ -551,31 +596,31 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
+    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
+    <a href="../../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
 </li>
 
         
@@ -645,19 +690,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -691,43 +736,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
+    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
+    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
+    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
+    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
+    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
 </li>
 
         
@@ -765,7 +810,7 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
+    <a href="../../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
 </li>
 
         
@@ -800,7 +845,7 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#upgrade-procedure" class="toc__link nav-link">Upgrade procedure</a>
+                    <a href="#table-of-contents" class="toc__link nav-link">Table of Contents</a>
                 </li>
             
             </ul>
@@ -818,18 +863,179 @@
 
     
     
+<!--        <h2 class="chapter__headline text-black-50">Upgrading</h2>-->
+    
 
-    <h1 id="upgrades">Upgrades</h1>
-<p>Dotkernel API does not provide an automatic upgrade path.
-Instead, the recommended procedure is to manually implement each modification listed in <a href="https://github.com/dotkernel/api/releases">releases</a>.
-Additionally, release info can also be accessed as an <a href="https://github.com/dotkernel/api/releases.atom">RSS</a> feed.</p>
-<h2 id="upgrade-procedure">Upgrade procedure</h2>
-<p>Once you clone Dotkernel API, you will find a <a href="https://github.com/dotkernel/api/blob/5.0/CHANGELOG.md">CHANGELOG.md</a> file in the root of the project.
-This file contains a list of already implemented features in reverse chronological order.
-You can use this file to track the version of your copy of Dotkernel API.</p>
-<p>For each new release you need implement the modifications from its pull requests in your project.
-It is recommended to copy the release info into your project's CHANGELOG.md file.
-This allows you to track your API's version and keep your project up-to-date with future releases.</p>
+    <h1 id="upgrade-from-52-to-53">UPGRADE FROM 5.2 TO 5.3</h1>
+<hr />
+<p>Dotkernel API 5.3 is a minor release. As such, no significant backward compatibility breaks are expected,
+with minor backward compatibility breaks being prefixed in this document with <code>[BC BREAK]</code>.
+This document only covers upgrading from version 5.2.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<hr />
+<ul>
+<li><a href="#update-phpstan-memory-limit">Update PHPStan memory limit</a></li>
+<li><a href="#update-anonymization">Update anonymization</a></li>
+<li><a href="#update-user-status-and-remove-isdeleted-properties">Update User status and remove isDeleted properties</a></li>
+<li><a href="#update-dotkerneldot-mail-to-version-50">Update dotkernel/dot-mail to version 5.0</a></li>
+<li><a href="#add-post-install-script">Add post install script</a></li>
+<li><a href="#remove-post-create-project-cmd">Remove post-create-project-cmd</a></li>
+<li><a href="#ignore-development-files-on-production-env">Ignore development files on production env</a></li>
+<li><a href="#update-securitytxt">Update security.txt</a></li>
+<li><a href="#update-coding-standards">Update coding standards</a></li>
+<li><a href="#update-qodana-configuration">Update Qodana configuration</a></li>
+<li><a href="#remove-laminaslaminas-http">Remove laminas/laminas-http</a></li>
+</ul>
+<h3 id="update-phpstan-memory-limit">Update PHPStan memory limit</h3>
+<p>Following PHPStan's introduction in version 5.2 for the reasons described on the <a href="https://www.dotkernel.com/php-development/static-analysis-replacing-psalm-with-phpstan/">Dotkernel blog</a> a minor issue has cropped up:
+ with the default <code>memory_limit=128M</code> on our WSL containers, PHPStan runs out of memory</p>
+<ul>
+<li>Add the <code>--memory-limit 1G</code> option to the <code>static-analysis</code> script found in <code>composer.json</code><blockquote>
+<p>Note that you can set the memory limit to a value of your choosing, with a recommended minimum of 256M</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="update-anonymization">Update anonymization</h3>
+<p>By default, Dotkernel API uses "soft delete" for its <code>User</code> entities in order to preserve the database entries.
+Anonymization is used to make sure any sensitive information is scrubbed from the system, with the <code>User</code>'s <code>identity</code>, <code>email</code>, <code>firstName</code> and <code>lastName</code> properties being overwritten by a unique placeholder.
+Version 5.3 is adding an optional suffix from a configuration file, from where it can be used anywhere in the application.</p>
+<ul>
+<li>Add the <code>userAnonymizeAppend</code> key to the returned array in <code>config/autoload/local.php</code>, as well as to the distributed<code>config/autoload/local.php.dist</code></li>
+</ul>
+<pre class="highlight"><code class="language-php">'userAnonymizeAppend' =&gt; '',</code></pre>
+<ul>
+<li>Update the <code>anonymizeUser</code> function in <code>src/User/src/Service/UserService.php</code> to use the new key</li>
+</ul>
+<p>Before:</p>
+<pre class="highlight"><code class="language-php">$user-&gt;setIdentity($placeholder) //...</code></pre>
+<p>After:</p>
+<pre class="highlight"><code class="language-php">$user-&gt;setIdentity($placeholder . $this-&gt;config['userAnonymizeAppend']) //...</code></pre>
+<blockquote>
+<p>Note that any custom functionality using the old format will require updates</p>
+</blockquote>
+<h3 id="update-user-status-and-remove-isdeleted-properties">Update User status and remove isDeleted properties</h3>
+<p>Up to and including version 5.2, the <code>User</code> entity made use of the <code>UserStatusEnum</code> to mark the account status (<code>active</code> or <code>inactive</code>) and marked deleted accounts with the <code>isDeleted</code> property.
+Starting from version 5.3 the <code>isDeleted</code> property has been removed because, by default, there is no use in having both it and the status property.
+As such, a new <code>Deleted</code> case for <code>UserStatusEnum</code> is now used to mark a deleted account and remove the redundancy.</p>
+<ul>
+<li>[BC Break] Remove the <code>isDeleted</code> property from the <code>User</code> class, alongside all usages, as seen in the <a href="https://github.com/dotkernel/api/pull/359/files">pull request</a></li>
+<li>Add a new "deleted" case to <code>UserStatusEnum</code>, which is to be used instead of the previous <code>isDeleted</code> property</li>
+<li>Update the database and its migrations to reflect the new structure<blockquote>
+<p>The use of "isDeleted" was redundant in the default application, and as such was removed</p>
+<p>All default methods are updated, but any custom functionality using "isDeleted" will require refactoring</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="update-dotkerneldot-mail-to-version-50">Update <code>dotkernel/dot-mail</code> to version 5.0</h3>
+<p>Dotkernel API uses <code>dotkernel/dot-mail</code> to handle the mailing service, which in versions older than 5.0 was based on <code>laminas/laminas-mail</code>.
+Due to the deprecation of <code>laminas/laminas-mail</code>, a decision was made to switch <code>dot-mail</code> to using <code>symfony/mailer</code> starting from version 5.0.
+To make the API more future-proof, the upgrade to the new version of <code>dot-mail</code> was necessary.
+The default usage of the mailer remains unchanged, with the only required updates being to configuration, as described below:</p>
+<ul>
+<li>Bump <code>dotkernel/dot-mail</code> to "^5.0" in <code>composer.json</code></li>
+<li>As the mail configuration file is now directly copied from the vendor via <a href="#add-post-install-script">script</a>, remove the existing <code>config/autoload/mail.global.php[.dist]</code> file(s)</li>
+<li>Update the content for each of these configuration files to reflect the new structure from <a href="https://github.com/dotkernel/dot-mail/blob/5.0/config/mail.global.php.dist">dotkernel/dot-mail</a></li>
+<li>Remove <code>Laminas\Mail\ConfigProvider::class</code> from <code>config/config.php</code><blockquote>
+<p>The list of changes can be seen in the <a href="https://github.com/dotkernel/api/pull/368/files">pull request</a></p>
+<p>You can read more about the reasons for this change on the <a href="https://www.dotkernel.com/dotkernel/replacing-laminas-mail-with-symfony-mailer-in-dot-mail/">Dotkernel blog</a>.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="remove-post-create-project-cmd">Remove <code>post-create-project-cmd</code></h3>
+<p>Installing the API via <code>composer create-project</code> is not recommended, and because of this the <code>post-create-project-cmd</code> has been removed.</p>
+<ul>
+<li>Remove the <code>post-create-project-cmd</code> key found under <code>scripts</code> in <code>composer.json</code></li>
+</ul>
+<pre class="highlight"><code class="language-json">"post-create-project-cmd": [
+    "@development-enable"
+],</code></pre>
+<h3 id="add-post-install-script">Add post install script</h3>
+<p>To make installing the API less of a hassle, a new post installation script was added.
+This script generates all the configuration files required by default, leaving the user to simply complete the relevant data.</p>
+<blockquote>
+<p>Note that the script will not overwrite existing configuration files, preserving any user data</p>
+<p>In case the structure of a configuration file needs updating (such as <a href="#update-dotkerneldot-mail-to-version-50">mail.local.php</a> in this update), simply running the script <em>will not</em> make the changes</p>
+</blockquote>
+<ul>
+<li>Add <code>bin/composer-post-install-script.php</code> to automate the post installation copying of distributed configuration files</li>
+<li>Add the following under the <code>scripts</code> key in <code>composer.json</code>:</li>
+</ul>
+<pre class="highlight"><code class="language-json">"post-update-cmd": [
+    "php bin/composer-post-install-script.php"
+],</code></pre>
+<ul>
+<li>Remove the following section from <code>.github/workflows/codecov.yml</code> and <code>.github/workflows/static-analysis.yml</code></li>
+</ul>
+<pre class="highlight"><code class="language-yaml">- name: Setup project
+  run: |
+      mv config/autoload/local.php.dist config/autoload/local.php
+      mv config/autoload/mail.global.php.dist config/autoload/mail.global.php
+      mv config/autoload/local.test.php.dist config/autoload/local.test.php</code></pre>
+<blockquote>
+<p>The command can be manually run via <code>php bin/composer-post-install-script.php</code></p>
+</blockquote>
+<h3 id="ignore-development-files-on-production-env">Ignore development files on production env</h3>
+<p>These tweaks were added to make sure development files remain untouched on production environments.</p>
+<ul>
+<li>Restrict codecov to development mode by changing the following section from <code>.github/workflows/codecov.yml</code>:</li>
+</ul>
+<p>Before:</p>
+<pre class="highlight"><code class="language-yaml">- name: Install dependencies with composer
+  run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi</code></pre>
+<p>After:</p>
+<pre class="highlight"><code class="language-yaml">- name: Install dependencies with composer
+  env:
+    COMPOSER_DEV_MODE: 1
+  run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi</code></pre>
+<ul>
+<li>Edit <code>.laminas-ci/pre-run.sh</code> script by changing <code>echo "Running $COMMAND"</code> to <code>echo "Running pre-run $COMMAND"</code> and delete the following line:</li>
+</ul>
+<pre class="highlight"><code class="language-shell">cp config/autoload/mail.global.php.dist config/autoload/mail.global.php</code></pre>
+<h3 id="update-securitytxt">Update security.txt</h3>
+<p>Updated the <code>security.txt</code> file to define the preferred language of the security team.
+It is recommended that the <code>Expires</code> tag is also updated if necessary.</p>
+<ul>
+<li>Add the <code>Preferred-Languages</code> key to <code>public/.well-known/security.txt</code><blockquote>
+<p>You may include more than one language as comma separated language tags</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="update-coding-standards">Update coding standards</h3>
+<p>Dotkernel API uses <code>laminas/laminas-coding-standard</code> as its baseline ruleset to ensure adherence to PSR-1 and PSR-12.
+As this package had a major release, the minimum version the API uses was also bumped.</p>
+<ul>
+<li>Bump <code>laminas/laminas-coding-standard</code> to <code>^3.0</code> in <code>composer.json</code></li>
+<li>Add the following to <code>phpcs.xml</code> to prevent issues with the fully qualified names from <code>config/config.php</code>:</li>
+</ul>
+<pre class="highlight"><code class="language-xml">&lt;rule ref="LaminasCodingStandard"&gt;
+    &lt;!-- Exclude rule --&gt;
+    &lt;exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName" /&gt;
+&lt;/rule&gt;</code></pre>
+<h3 id="update-qodana-configuration">Update Qodana configuration</h3>
+<p>The Qodana code quality workflow has changed its default PHP version to 8.4, which is unsupported by Dotkernel API, resulting in errors.
+The issue was fixed by restricting Qodana to the supported PHP versions.</p>
+<ul>
+<li>Update <code>.github/workflows/qodana_code_quality.yml</code>, specifying the supported PHP versions by adding the <code>strategy</code> key:</li>
+</ul>
+<pre class="highlight"><code class="language-yaml">strategy:
+    matrix:
+        php-versions: [ '8.2', '8.3' ]</code></pre>
+<ul>
+<li>Update the <code>php-version</code> key to restrict Qodana to the newly added <code>php-versions</code></li>
+</ul>
+<p>Before:</p>
+<pre class="highlight"><code class="language-yaml">with:
+    php-version: "${{ matrix.php }}"</code></pre>
+<p>After:</p>
+<pre class="highlight"><code class="language-yaml">with:
+    php-version: ${{ matrix.php-versions }}</code></pre>
+<h3 id="remove-laminaslaminas-http">Remove laminas/laminas-http</h3>
+<p>Prior to version 5.3, <code>laminas/laminas-http</code> was only used in 2 test files to assert if correct status codes were returned.
+This dependency was removed, as the usage in tests was replaced with the existing <code>StatusCodeInterface</code>.</p>
+<ul>
+<li>Remove <code>laminas/laminas-http</code> from <code>composer.json</code></li>
+<li>Replace all uses of <code>Laminas\Http\Response</code> with <code>Fig\Http\Message\StatusCodeInterface</code> in <code>AuthorizationMiddlewareTest.php</code> and <code>ContentNegotiationMiddlewareTest.php</code></li>
+</ul>
 
 
 
@@ -839,9 +1045,9 @@ This allows you to track your API's version and keep your project up-to-date wit
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../installation/faq/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../upgrading/">
                     <i class="bi bi-chevron-left"></i>
-                    FAQ
+                    Upgrade procedure
                 </a>
             
         </li>
@@ -849,7 +1055,7 @@ This allows you to track your API's version and keep your project up-to-date wit
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../flow/middleware-flow/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../flow/middleware-flow/">
                     Middleware Flow
                     <i class="bi bi-chevron-right"></i>
                 </a>
@@ -973,7 +1179,7 @@ This allows you to track your API's version and keep your project up-to-date wit
 </footer>
 
         <script>
-            let base_url = '../..',
+            let base_url = '../../..',
                 project  = "api",
                 siteName = 'api';
 
