@@ -22,7 +22,9 @@ nav:
           - "Doctrine ORM": v5/installation/doctrine-orm.md
           - "Test the Installation": v5/installation/test-the-installation.md
           - "FAQ": v5/installation/faq.md
-      - Upgrading: v5/upgrading.md
+      - Upgrading:
+          - "Upgrade procedure": v5/upgrading/upgrading.md
+          - "Upgrading 5.2 to 5.3": v5/upgrading/UPGRADE-5.3.md
       - Flow:
           - "Middleware Flow": v5/flow/middleware-flow.md
           - "Default Library Flow": v5/flow/default-library-flow.md
