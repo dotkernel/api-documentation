@@ -522,7 +522,7 @@ declare(strict_types=1);
 
 namespace Api\Book\Handler;
 
-use Api\App\Handler\HandlerTrait;
+use Api\App\Handler\AbstractHandler;
 use Api\Book\InputFilter\BookInputFilter;
 use Api\Book\Service\BookServiceInterface;
 use Fig\Http\Message\StatusCodeInterface;
@@ -533,10 +533,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Dot\DependencyInjection\Attribute\Inject;
 
-class BookHandler implements RequestHandlerInterface
+class BookHandler extends AbstractHandler implements RequestHandlerInterface
 {
-    use HandlerTrait;
-
     #[Inject(
         HalResponseFactory::class,
         ResourceGenerator::class,
