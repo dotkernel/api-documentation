@@ -536,16 +536,16 @@ use Dot\DependencyInjection\Attribute\Inject;
 class BookHandler extends AbstractHandler implements RequestHandlerInterface
 {
     #[Inject(
-        HalResponseFactory::class,
-        ResourceGenerator::class,
         BookServiceInterface::class,
         "config"
+        HalResponseFactory::class,
+        ResourceGenerator::class,
     )]
     public function __construct(
-        protected HalResponseFactory $responseFactory,
-        protected ResourceGenerator $resourceGenerator,
         protected BookServiceInterface $bookService,
         protected array $config
+        protected ?HalResponseFactory $responseFactory = null,
+        protected ?ResourceGenerator $resourceGenerator = null,
     ) {
     }
 
