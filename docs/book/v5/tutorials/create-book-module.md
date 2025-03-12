@@ -525,6 +525,7 @@ namespace Api\Book\Handler;
 use Api\App\Handler\AbstractHandler;
 use Api\Book\InputFilter\BookInputFilter;
 use Api\Book\Service\BookServiceInterface;
+use Dot\DependencyInjection\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use Mezzio\Hal\HalResponseFactory;
 use Mezzio\Hal\ResourceGenerator;
