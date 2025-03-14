@@ -525,6 +525,7 @@ namespace Api\Book\Handler;
 use Api\App\Handler\AbstractHandler;
 use Api\Book\InputFilter\BookInputFilter;
 use Api\Book\Service\BookServiceInterface;
+use Dot\DependencyInjection\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use Mezzio\Hal\HalResponseFactory;
 use Mezzio\Hal\ResourceGenerator;
@@ -562,7 +563,7 @@ class BookHandler extends AbstractHandler implements RequestHandlerInterface
 
     public function getCollection(ServerRequestInterface $request): ResponseInterface
     {
-        $books = $this->bookService->getBooks($request->getQueryParams());
+        $books = $this->bookService->getRepository()->getBooks($request->getQueryParams());
 
         return $this->createResponse($request, $books);
     }
