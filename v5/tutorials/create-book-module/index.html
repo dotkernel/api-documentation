@@ -1364,6 +1364,7 @@ namespace Api\Book\Handler;
 use Api\App\Handler\AbstractHandler;
 use Api\Book\InputFilter\BookInputFilter;
 use Api\Book\Service\BookServiceInterface;
+use Dot\DependencyInjection\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use Mezzio\Hal\HalResponseFactory;
 use Mezzio\Hal\ResourceGenerator;
@@ -1375,16 +1376,16 @@ use Dot\DependencyInjection\Attribute\Inject;
 class BookHandler extends AbstractHandler implements RequestHandlerInterface
 {
     #[Inject(
-        HalResponseFactory::class,
-        ResourceGenerator::class,
         BookServiceInterface::class,
         "config"
+        HalResponseFactory::class,
+        ResourceGenerator::class,
     )]
     public function __construct(
-        protected HalResponseFactory $responseFactory,
-        protected ResourceGenerator $resourceGenerator,
         protected BookServiceInterface $bookService,
         protected array $config
+        protected ?HalResponseFactory $responseFactory = null,
+        protected ?ResourceGenerator $resourceGenerator = null,
     ) {
     }
 
@@ -1401,7 +1402,7 @@ class BookHandler extends AbstractHandler implements RequestHandlerInterface
 
     public function getCollection(ServerRequestInterface $request): ResponseInterface
     {
-        $books = $this-&gt;bookService-&gt;getBooks($request-&gt;getQueryParams());
+        $books = $this-&gt;bookService-&gt;getRepository()-&gt;getBooks($request-&gt;getQueryParams());
 
         return $this-&gt;createResponse($request, $books);
     }
