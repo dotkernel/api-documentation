@@ -1,36 +1,43 @@
 # The new handler structure
 
-The new Dotkernel 6.0 version contains some new architectural changes compared to it's older version that used controllers.
-Current changes are in the form of:
-* Handlers (replacing controllers)
-* Mapping
-* Patterns
+The new Dotkernel 6.0 version contains some new architectural changes compared to it's older version that uses controllers.
+The goal of this update is to implement PSR-15 handlers into Dotkernel API.
 
 ## What is a handler?
 
 In DotKernel 6.0, a "handler" is the piece of code that reacts when a user makes a specific request (like visiting a webpage or submitting a form).
 It's basically the "controller" that decides what happens next.
 
-## What is the Map?
+HTTP request handlers are at the core of any web application.
+They receive a request, process it and return a response.
 
-Instead of manually linking every URL to a controller, DotKernel 6.0 introduces a "map and pattern" system.
-This system can automatically find the correct handler based on the request's path.
+Controllers with several actions are fine, but handlers split the code into manageable chunks that make your life a lot easier in the long run.
+This follows the first of the [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) principles.
 
-```php
-$routeCollector->group('/user/' . $uuid)
-    ->delete('', DeleteUserResourceHandler::class, 'user::delete-user')
-    ->get('', GetUserResourceHandler::class, 'user::view-user')
-    ->patch('', PatchUserResourceHandler::class, 'user::update-user');
-```
+## What is a naming pattern?
 
-## What is a Pattern?
+A naming pattern helps you organize and quickly identify your files by using relevant strings in file names like:
 
-A pattern is an automatic way of guessing the handler from the URL structure.
+* What a file refers to.
+* The action a file performs.
+* How a file relates to other files.
+* The author of the file’s contents.
+* The creation date or the event the file refers to.
 
-Example:
+### The naming pattern for Dotkernel Handlers
 
-* User accesses /about-us
-* First, DotKernel looks in the map: is there a key 'about-us'?
-* If not found, it tries a pattern:
-  * Transform about-us into AboutUsHandler
-  * Looks for \App\Handler\AboutUsHandler
+The naming pattern for our Handlers contains:
+
+* The **method** or verb used by the handler (e.g. GET, POST).
+* The **resource** name (e.g. Admin, Account).
+* The performed **action** (e.g. CreateForm, List).
+* An optional **Form** if the handler returns a form that will perform another action when submitted.
+* The string **Handler**.
+
+In this way, the developer can easily figure out the functionality of each handler by looking at its name.
+
+## Mapping of the handlers
+
+In the picture below you can see the mapping of our current handlers with their respective paths and actions:
+
+![Dotkernel API Mapping!](https://docs.dotkernel.org/img/api/naming-convention.png)
