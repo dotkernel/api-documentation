@@ -20,7 +20,7 @@
 * `laminas/laminas-inputfilter` - Normalize and validate input sets from the web, APIs, the CLI, and more, including files
 * `laminas/laminas-stdlib` - SPL extensions, array utilities, error handlers, and more
 * `mezzio/mezzio` - PSR-15 Middleware Microframework
-* `mezzio/mezzio-authentication-oauth2` - OAuth2 (server) authentication middleware for Mezzio and PSR-7 applications
+* `mezzio/mezzio-authentication-oauth2` - OAuth2 (server) authentication middleware for Mezzio and PSR-15 applications
 * `mezzio/mezzio-authorization-acl` - laminas-permissions-acl adapter for mezzio-authorization
 * `mezzio/mezzio-authorization-rbac` - mezzio authorization rbac adapter for laminas/laminas-permissions-rbac
 * `mezzio/mezzio-cors` - CORS component for Mezzio and other PSR-15 middleware runners
