@@ -15,9 +15,9 @@ The **Core** like the backbone of the application.
 It's where the core logic lives.
 
 - It handles things like:
-  - Authentication
-  - Database setup
-  - Middleware
+    - Authentication
+    - Database setup
+    - Middleware
 
 You usually don’t touch this unless you’re updating how the system works "behind the scenes."
 
@@ -26,9 +26,9 @@ You usually don’t touch this unless you’re updating how the system works "be
 The **App** is where you build your actual project — the "body" of your application.
 
 - This is where you:
-  - Define your routes
-  - Write your handlers
-  - Add your custom logic
-  - Error reporting
+    - Define your routes
+    - Write your handlers
+    - Add your custom logic
+    - Error reporting
 
 If you're building features for the project, you're mostly working here.
