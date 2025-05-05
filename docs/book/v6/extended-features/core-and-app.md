@@ -2,17 +2,20 @@
 
 In the 6.0 version, the project is split into two main parts: **App** and **Core**.
 
-The purpose is to reach a headless CMS format for easier scalability.
-Headless CMS is a back-end-only content management system that acts primarily as a content repository.
+When you start a new project, there are chances that the requirements are not defined well. 
+Because of that, your platform needs to be flexible and allow growth in the long term.
+
+Our purpose is to reach a headless CMS architecture for easier scalability.
+Headless CMS is a backend-only content management system that acts primarily as a content repository.
 Compared to traditional CMS platforms (e.g WordPress) that tightly couple the front end and back end, a headless CMS decouples the content management from the presentation layer.
-The content is delivered through APIs allowing any front-end to fetch and display it, making front-end and back-end development easier to work in parallel.
+The content is delivered through APIs allowing any frontend to fetch and display it, which also enables working in parallel on the backend and potentially multiple frontends.
 
 ## What is "App" and what is "Core"?
 
 ### Core
 
-The **Core** like the backbone of the application.
-It's where the core logic lives.
+The **Core** the backbone of the application.
+It contains the core logic, the lowest-level features.
 
 - It handles things like:
     - Authentication
