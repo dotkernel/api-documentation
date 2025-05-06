@@ -2,65 +2,69 @@ docs_dir: docs/book
 site_dir: docs/html
 extra:
   project: API
-  current_version: v5
+  current_version: v6
   versions:
     - v4
     - v5
+    - v6
 nav:
   - Home: index.md
   - v6:
       - Introduction: v6/introduction/introduction.md
       - Overview:
-            - "Server Requirements": v6/introduction/server-requirements.md
-            - "File Structure": v6/introduction/file-structure.md
-            - "Packages": v6/introduction/packages.md
-            - "PSRs": v6/introduction/psr.md
+          - "Server Requirements": v6/introduction/server-requirements.md
+          - "File Structure": v6/introduction/file-structure.md
+          - "Packages": v6/introduction/packages.md
+          - "PSRs": v6/introduction/psr.md
       - Installation:
-            - "Getting Started": v6/installation/getting-started.md
-            - "Composer": v6/installation/composer.md
-            - "Configuration Files": v6/installation/configuration-files.md
-            - "Doctrine ORM": v6/installation/doctrine-orm.md
-            - "Test the Installation": v6/installation/test-the-installation.md
-            - "FAQ": v6/installation/faq.md
+          - "Getting Started": v6/installation/getting-started.md
+          - "Composer": v6/installation/composer.md
+          - "Configuration Files": v6/installation/configuration-files.md
+          - "Doctrine ORM": v6/installation/doctrine-orm.md
+          - "Test the Installation": v6/installation/test-the-installation.md
+          - "FAQ": v6/installation/faq.md
       - Upgrading:
-            - "Upgrade procedure": v6/upgrading/upgrading.md
-            - "Upgrading 5.* to 6.0": v6/upgrading/UPGRADE-6.0.md
+          - "Upgrade procedure": v6/upgrading/upgrading.md
+          - "Upgrading 5.* to 6.0": v6/upgrading/UPGRADE-6.0.md
       - Flow:
-            - "Middleware Flow": v6/flow/middleware-flow.md
-            - "Default Library Flow": v6/flow/default-library-flow.md
-            - "Library Flow for Email": v6/flow/library-flow-for-email.md
+          - "Middleware Flow": v6/flow/middleware-flow.md
+          - "Default Library Flow": v6/flow/default-library-flow.md
+          - "Library Flow for Email": v6/flow/library-flow-for-email.md
       - Core Features:
-            - "Authentication": v6/core-features/authentication.md
-            - "Authorization": v6/core-features/authorization.md
-            - "Content Validation": v6/core-features/content-validation.md
-            - "Exceptions": v6/core-features/exceptions.md
-            - "Dependency Injection": v6/core-features/dependency-injection.md
-            - "Error reporting": v6/core-features/error-reporting.md
+          - "Authentication": v6/core-features/authentication.md
+          - "Authorization": v6/core-features/authorization.md
+          - "Content Validation": v6/core-features/content-validation.md
+          - "Exceptions": v6/core-features/exceptions.md
+          - "Dependency Injection": v6/core-features/dependency-injection.md
+          - "Error reporting": v6/core-features/error-reporting.md
+      - Extended features:
+          - "Core and App": v6/extended-features/core-and-app.md
+          - "New Handler Structure": v6/extended-features/handler-structure.md
       - Commands:
-            - "Create admin account": v6/commands/create-admin-account.md
-            - "Generate database migrations": v6/commands/generate-database-migrations.md
-            - "Display available endpoints": v6/commands/display-available-endpoints.md
-            - "Generate tokens": v6/commands/generate-tokens.md
+          - "Create admin account": v6/commands/create-admin-account.md
+          - "Generate database migrations": v6/commands/generate-database-migrations.md
+          - "Display available endpoints": v6/commands/display-available-endpoints.md
+          - "Generate tokens": v6/commands/generate-tokens.md
       - Tutorials:
-            - "Setting up CORS": v6/tutorials/cors.md
-            - "Creating a book module": v6/tutorials/create-book-module.md
-            - "Token authentication": v6/tutorials/token-authentication.md
-            - "API Evolution": v6/tutorials/api-evolution.md
-            - "Find user by identity": v6/tutorials/find-user-by-identity.md
+          - "Setting up CORS": v6/tutorials/cors.md
+          - "Creating a book module": v6/tutorials/create-book-module.md
+          - "Token authentication": v6/tutorials/token-authentication.md
+          - "API Evolution": v6/tutorials/api-evolution.md
+          - "Find user by identity": v6/tutorials/find-user-by-identity.md
       - Transition from API Tools:
-            - "Laminas API Tools vs Dotkernel API": v6/transition-from-api-tools/api-tools-vs-dotkernel-api.md
-            - "Transition Approach": v6/transition-from-api-tools/transition-approach.md
-            - "Discovery Phase": v6/transition-from-api-tools/discovery-phase.md
+          - "Laminas API Tools vs Dotkernel API": v6/transition-from-api-tools/api-tools-vs-dotkernel-api.md
+          - "Transition Approach": v6/transition-from-api-tools/transition-approach.md
+          - "Discovery Phase": v6/transition-from-api-tools/discovery-phase.md
       - OpenAPI:
-            - "Introduction": v6/openapi/introduction.md
-            - "Initialized Components": v6/openapi/initialized-components.md
-            - "Write Documentation": v6/openapi/write-documentation.md
-            - "Generate Documentation": v6/openapi/generate-documentation.md
-            - "Render Documentation": v6/openapi/render-documentation.md
-            - "Use Documentation": v6/openapi/use-documentation.md
-            - "Getting Help": v6/openapi/getting-help.md
+          - "Introduction": v6/openapi/introduction.md
+          - "Initialized Components": v6/openapi/initialized-components.md
+          - "Write Documentation": v6/openapi/write-documentation.md
+          - "Generate Documentation": v6/openapi/generate-documentation.md
+          - "Render Documentation": v6/openapi/render-documentation.md
+          - "Use Documentation": v6/openapi/use-documentation.md
+          - "Getting Help": v6/openapi/getting-help.md
       - Reference:
-            - "Anonymize Accounts": v6/reference/account-anonymization.md
+          - "Anonymize Accounts": v6/reference/account-anonymization.md
   - v5:
       - Introduction: v5/introduction/introduction.md
       - Overview:
