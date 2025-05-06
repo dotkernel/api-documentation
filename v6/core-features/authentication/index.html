@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="description" content="Dotkernel API">
+        
+        
+
+        
+        
+            
+        
+        <meta name="docsearch:version" content="6.0.0,latest">
+        <meta name="docsearch:language" content="en">
+        <meta name="docsearch:component" content="api">
+
+        
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/core-features/authentication/">
+        
+        <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
+
+        <title>Authentication - api - Dotkernel Documentation</title>
+
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/docs.css">
+        <script src="https://docs.dotkernel.org//js/bootstrap.js" defer></script>
+        <script src="https://docs.dotkernel.org//js/docs.js" defer></script>
+        <script src="https://docs.dotkernel.org//js/scripts.js" defer></script>
+    </head>
+    <body data-bs-spy="scroll" data-bs-target=".toc" data-bs-offset="100">
+
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-light dk-nav py-3" data-bs-theme="light">
+    <div class="container justify-content-between">
+        <div class="dk-nav-icon d-flex align-items-center">
+            <a class="navbar-brand" href="https://docs.dotkernel.org/">
+                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50"
+                     src="https://docs.dotkernel.org//img/dk_logomark_white.svg" width="45"/>
+            </a>
+
+            <div class="dk-nav-icon-items">
+                <span style="font-size: 12px; line-height: 13px">Dotkernel Documentation</span>
+
+                <div class="dropdown" data-bs-theme="light">
+                    <span class="fw-bold dropdown-toggle dk-pkg-name" data-bs-toggle="dropdown" aria-expanded="false">API</span>
+                    <ul class="dropdown-menu">
+                        
+                        <li class="dropdown-item bg-light">
+                            <a href="https://docs.dotkernel.org/api-documentation/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">API</span>
+                                    <span>Dotkernel API</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/admin-documentation/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Admin</span>
+                                    <span>Dotkernel Admin</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/frontend-documentation/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Frontend</span>
+                                    <span>Dotkernel Frontend</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/light-documentation/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Light</span>
+                                    <span>Dotkernel Light</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/packages/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Packages</span>
+                                    <span>Dotkernel packages</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-item ">
+                            <a href="https://docs.dotkernel.org/development/" class="nav-link d-flex gap-4 align-items-center">
+                                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50" src="https://docs.dotkernel.org/img/dk_logomark.svg" width="45" />
+                                <div>
+                                    <span class="fw-bold d-block">Development</span>
+                                    <span>WSL2 Development Environment</span>
+                                </div>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<!--                <li class="nav-item">-->
+<!--                    <a href="#" class="nav-link fw-bold text-white" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal" title="Open search">-->
+<!--                        <i class="bi bi-search"></i> Search-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link fw-bold text-white" href="https://github.com/dotkernel/api" title="Go to api repository" target="_blank">
+                        <i class="bi bi-github"></i>
+                        GitHub
+                    </a>
+                </li>
+                <li class="nav-item">
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v6
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../introduction/introduction/" class="dropdown-item active">
+                        
+                            v6 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../../v5/introduction/introduction/" class="dropdown-item">
+                        
+                            v5
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../../v4/introduction/introduction/" class="dropdown-item">
+                        
+                            v4
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        
+        <div class="container">
+    <nav aria-label="breadcrumb" class="nav_breadcrumb">
+        <ol class="breadcrumb">
+            
+                <li class="breadcrumb-item"><a href="https://docs.dotkernel.org/">Overview</a></li>
+                
+
+                
+                    <li class="breadcrumb-item"><a href="../../..">api</a></li>
+
+                    
+                        
+                            
+                            
+                        
+                    
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Core Features</li>
+                            
+                        
+                    
+
+                    <li class="breadcrumb-item active" aria-current="page">Authentication</li>
+                
+            
+        </ol>
+    </nav>
+</div>
+
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 right_sidebar">
+                    
+                    
+    <div class="subnavigation hidden-print">
+<!--        <h4 class="subnavigation__title">-->
+<!--            <a href="../../..">api</a>-->
+<!--        </h4>-->
+
+        <h5 class="subnavigation__title">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#overview" role="button" aria-expanded="false" aria-controls="overview">
+        <span class="subnavigation__headline">Overview</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="overview">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+        <span class="subnavigation__headline">Installation</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="installation">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#upgrading" role="button" aria-expanded="false" aria-controls="upgrading">
+        <span class="subnavigation__headline">Upgrading</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="upgrading">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../upgrading/upgrading/" class="subnavigation__link">Upgrade procedure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-6.0/" class="subnavigation__link">Upgrading 5.* to 6.0</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+        <span class="subnavigation__headline">Flow</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="flow">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+        <span class="subnavigation__headline">Core Features</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="core-features">
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../error-reporting/" class="subnavigation__link">Error reporting</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#extended-features" role="button" aria-expanded="false" aria-controls="extended-features">
+        <span class="subnavigation__headline">Extended features</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="extended-features">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/core-and-app/" class="subnavigation__link">Core and App</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/handler-structure/" class="subnavigation__link">New Handler Structure</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+        <span class="subnavigation__headline">Commands</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="commands">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+        <span class="subnavigation__headline">Tutorials</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="tutorials">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+        <span class="subnavigation__headline">Transition from API Tools</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="transition-from-api-tools">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#openapi" role="button" aria-expanded="false" aria-controls="openapi">
+        <span class="subnavigation__headline">OpenAPI</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="openapi">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#reference" role="button" aria-expanded="false" aria-controls="reference">
+        <span class="subnavigation__headline">Reference</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="reference">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+
+                    
+                    
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#configuration" class="toc__link nav-link">Configuration</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#how-it-works" class="toc__link nav-link">How it works</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#database" class="toc__link nav-link">Database</a>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+                    
+                </div>
+                <div class="col-lg-9 main_docs">
+                    
+                    
+
+
+
+
+    
+    
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
+    
+
+    <h1 id="authentication">Authentication</h1>
+<p>Authentication is the process by which an identity is presented to the application. It ensures that the entity
+making the request has the proper credentials to access the API.</p>
+<p><strong>Dotkernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request.
+If it is present, the application tries to find and assign the identity to the application. If it is not presented,
+Dotkernel API assigns a default <code>guest</code> identity, represented by an instance of the class
+<code>Mezzio\Authentication\UserInterface</code>.</p>
+<h2 id="configuration">Configuration</h2>
+<p>Authentication in Dotkernel API is built around the <code>mezzio/mezzio-authentication-oauth2</code> component and is already
+configured out of the box. But if you want to dig more, the configuration is stored in
+<code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
+<blockquote>
+<p>You can check the
+<a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a>
+configuration part for more info.</p>
+</blockquote>
+<h2 id="how-it-works">How it works</h2>
+<p>Dotkernels API authentication system can be used for SPAs (single-page applications), mobile applications, and
+simple, token-based APIs. It allows each user of your application to generate API tokens for their accounts.</p>
+<p>The authentication happens through the middleware in the <code>Api\App\Middleware\AuthenticationMiddleware</code>.</p>
+<h2 id="database">Database</h2>
+<p>When you install <strong>Dotkernel API</strong> for the first time, you need to run the migrations and seeders. All the tables
+required for authentication are automatically created and populated.</p>
+<p>In Dotkernel API, authenticated users come from either the <code>admin</code> or the <code>user</code> table. We choose to keep the admin
+table separated from the users to prevent users of the application from accessing sensitive data, which only the
+administrators of the application should access.</p>
+<p>The <code>oauth_clients</code> table is pre-populated with the default <code>admin</code> and <code>frontend</code> clients with the same password as
+their names (<strong>we recommend you change the default passwords</strong>).</p>
+<p>As you guessed each client serves to authenticate <code>admin</code> or <code>user</code>.</p>
+<p>Another table that is pre-populated is the <code>oauth_scopes</code> table, with the <code>api</code> scope.</p>
+<h3 id="issuing-api-tokens">Issuing API Tokens</h3>
+<p>Token generation in Dotkernel API is done using the <code>password</code> <code>grand_type</code> scenario, which in this case allows
+authentication to an API using the user's credentials (generally a username and password).</p>
+<p>The client sends a POST request to the <code>/security/generate-token</code> with the following parameters:</p>
+<ul>
+<li><code>grant_type</code> = password.</li>
+<li><code>client_id</code> = column <code>name</code> from the <code>oauth_clients</code> table</li>
+<li><code>client_secret</code> = column <code>secret</code> from the <code>oauth_clients</code> table</li>
+<li><code>scope</code> = column <code>scope</code> from the <code>oauth_scopes</code> table</li>
+<li><code>username</code> = column <code>identity</code> from table <code>admin</code>/<code>user</code></li>
+<li><code>password</code> = column <code>password</code> from table <code>admin</code>/<code>user</code></li>
+</ul>
+<pre class="highlight"><code class="language-shell">POST /security/generate-token HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+{
+  "grant_type": "password",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "username": "test@dotkernel.com",
+  "password": "dotkernel"
+}</code></pre>
+<p>The server responds with a JSON as follows:</p>
+<pre class="highlight"><code class="language-json">{
+    "token_type": "Bearer",
+    "expires_in": 86400,
+    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+    "refresh_token": "def5020087199939a49d0f2f818..."
+}</code></pre>
+<p>Next time when you make a request to the server to an authenticated endpoint, the client should use
+the <code>Authorization</code> header request.</p>
+<pre class="highlight"><code class="language-shell">GET /users/1 HTTP/1.1
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...</code></pre>
+<h3 id="refreshing-tokens">Refreshing tokens</h3>
+<p>Dotkernel API can refresh the access token, based on the expired access token's <code>refresh_token</code>.</p>
+<p>The clients need to send a <code>POST</code> request to the <code>/security/refresh-token</code> with the following request</p>
+<pre class="highlight"><code class="language-shell">POST /security/refresh-token HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+{
+  "grant_type": "refresh_token",
+  "client_id": "frontend",
+  "client_secret": "frontend",
+  "scope": "api",
+  "refresh_token" : "def5020087199939a49d0f2f818..."
+}</code></pre>
+<p>The server responds with a JSON as follows:</p>
+<pre class="highlight"><code class="language-json">{
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+  "refresh_token": "def5020087199939a49d0f2f818..."
+}</code></pre>
+
+
+
+
+    <nav>
+    <ul class="list-unstyled page-nav row w-100 mt-5 mb-3 pt-5 pb-3">
+        
+        <li class="col text-nowrap text-md-start">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../flow/library-flow-for-email/">
+                    <i class="bi bi-chevron-left"></i>
+                    Library Flow for Email
+                </a>
+            
+        </li>
+
+        
+        <li class="col text-nowrap text-md-end pe-0">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../authorization/">
+                    Authorization
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                    
+                </div>
+            </div>
+        </div>
+
+        
+        <footer class="footer">
+    <div class="container">
+        <hr class="mb-5" />
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">API</p>
+
+                        <a href="https://docs.dotkernel.org/api-documentation/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Dotkernel web starter project suitable for building RESTful APIs
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">Admin</p>
+
+                        <a href="https://docs.dotkernel.org/admin-documentation/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Dotkernel web starter project suitable for admin applications
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">Frontend</p>
+
+                        <a href="https://docs.dotkernel.org/frontend-documentation/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Dotkernel web starter project suitable for frontend applications
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">Light</p>
+
+                        <a href="https://docs.dotkernel.org/light-documentation/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Dotkernel web starter project suitable for generating a simple website
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">Dotkernel Packages</p>
+
+                        <a href="https://docs.dotkernel.org/packages/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Dotkernel packages offering a wide range of tools
+                        </a>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 dk_widget">
+                        <p class="ms-0">Development environment</p>
+
+                        <a href="https://docs.dotkernel.org/development/">
+                            <i class="bi bi-arrow-return-right"></i>
+                            Install PHP, Apache, MariaDB, Composer, PhpMyAdmin, Node.js and Git on WSL2
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 pt-3 mt-1">
+                <ul class="support__list row">
+                    <li class="support__list-item col-lg-6 mb-md-3">
+                        <a href="https://github.com/dotkernel" class="support__link" title="GitHub" target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    </li>
+                    <li class="support__list-item col-lg-6 mb-md-3">
+                        <a href="https://dotkernel.slack.com" class="support__link" title="Chat" target="_blank">
+                            <i class="bi bi-slack"></i> Slack
+                        </a>
+                    </li>
+                    <li class="support__list-item col-lg-6 mb-md-3">
+                        <a href="https://twitter.com/dotkernel" class="support__link" title="X (Twitter)" target="_blank">
+                            <i class="bi bi-twitter-x"></i> Twitter
+                        </a>
+                    </li>
+                    <li class="support__list-item col-lg-6 mb-md-3">
+                        <a href="https://www.dotkernel.com/blog/" class="support__link" title="Blog" target="_blank">
+                            <i class="bi bi-file-post"></i> Blog
+                        </a>
+                    </li>
+                    <li class="support__list-item col-lg-6 mb-md-3">
+                        <a href="https://www.dotkernel.com/feed/" class="support__link" title="Blog feed" target="_blank">
+                            <i class="bi bi-rss-fill"></i> Feed
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="mt-5" />
+
+        <div class="footer_copy">
+            &#169; Copyright Dotkernel 2024. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+        <script>
+            let base_url = '../../..',
+                project  = "api",
+                siteName = 'api';
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
+                        if (link.getAttribute('href') === './') {
+                            link.parentNode.parentNode.classList.add('show');
+                        }
+                    });
+                });
+        </script>
+<!--        -->
+<!--        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in api" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>-->
+    </body>
+</html>
