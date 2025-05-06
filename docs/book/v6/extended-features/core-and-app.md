@@ -2,7 +2,7 @@
 
 In the 6.0 version, the project is split into two main parts: **App** and **Core**.
 
-When you start a new project, there are chances that the requirements are not defined well. 
+When you start a new project, there are chances that the requirements are not defined well.
 Because of that, your platform needs to be flexible and allow growth in the long term.
 
 Our purpose is to reach a headless CMS architecture for easier scalability.
