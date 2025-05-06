@@ -29,7 +29,7 @@ Therefore, for every preflight request, there is at least one Router request.
 ## OAuth 2.0
 
 OAuth 2.0 is an authorization framework that enables applications to obtain limited access to user accounts on your Dotkernel API.
-We use [mezzio/mezzio-authentication-oauth2](https://github.com/mezzio/mezzio-authentication-oauth2) which provides OAuth 2.0 authentication for Mezzio and PSR-7 applications by using the [thephpleague/oauth2-server]https://github.com/thephpleague/oauth2-server package.
+We use [mezzio/mezzio-authentication-oauth2](https://github.com/mezzio/mezzio-authentication-oauth2) which provides OAuth 2.0 authentication for Mezzio and PSR-15 applications by using the [thephpleague/oauth2-server]https://github.com/thephpleague/oauth2-server package.
 
 ## Email
 

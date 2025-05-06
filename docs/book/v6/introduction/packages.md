@@ -1,11 +1,5 @@
 # Packages
 
-> Version 5.1.1 had these packages removed or moved where noted:
->
-> * `laminas/laminas-http` was moved to `require-dev`
-> * `laminas/laminas-paginator`
-> * `laminas/laminas-text`
-
 * `dotkernel/dot-dependency-injection` - Dependency injection component using class attributes.
 * `dotkernel/dot-cache` - Cache component extending symfony-cache
 * `dotkernel/dot-cli` - Component for creating console applications based on laminas-cli
@@ -13,6 +7,8 @@
 * `dotkernel/dot-errorhandler` - Logging Error Handler for Middleware Applications
 * `dotkernel/dot-mail` - Mail component based on laminas-mail
 * `dotkernel/dot-response-header` - Middleware for setting custom response headers.
+* `dotkernel/dot-router` - Dotkernel component to build complex routes, based on `mezzio/mezzio-fastroute`
+* `laminas/laminas-authentication` - API for authentication and includes concrete authentication adapters for common use case scenarios
 * `laminas/laminas-component-installer` - Composer plugin for injecting modules and configuration providers into application configuration
 * `laminas/laminas-config` - Provides a nested object property based user interface for accessing this configuration data within application code
 * `laminas/laminas-config-aggregator` - Lightweight library for collecting and merging configuration from different sources

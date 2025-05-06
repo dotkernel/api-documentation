@@ -1,5 +1,4 @@
-
-# UPGRADE FROM 5.2 TO 5.3
+# UPGRADE FROM 5.* TO 6.0 (WORK IN PROGRESS)
 
 -------------------------
 
