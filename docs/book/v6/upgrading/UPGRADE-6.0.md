@@ -1,4 +1,4 @@
-# UPGRADE FROM 5.* TO 6.0 (WORK IN PROGRESS)
+# UPGRADE FROM 5.x TO 6.0 (WORK IN PROGRESS)
 
 -------------------------
 
