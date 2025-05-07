@@ -582,6 +582,12 @@
 </li>
 
         
+        
+<li class="subnavigation__list-item ">
+    <a href="../problem-details/" class="subnavigation__link">Problem Details</a>
+</li>
+
+        
     </ul>
 </li>
 
@@ -952,10 +958,10 @@ $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</c
     -&gt;patch('', PatchUserResourceHandler::class, 'user::update-user');</code></pre>
 <p>The advantages of this new implementation:</p>
 <ul>
-<li>DRY - no need for repeating common route parts</li>
-<li>encapsulation - similar routes are grouped in a single block of code (vs each route a separate statement)</li>
-<li>easy path refactoring - modify all routes at once by changing only the prefix</li>
-<li>easy copying/moving - copying/moving an entire group makes sure that you don't accidentally omit a route</li>
+<li><strong>DRY</strong>- no need for repeating common route parts</li>
+<li><strong>encapsulation</strong> - similar routes are grouped in a single block of code (vs each route a separate statement)</li>
+<li><strong>easy path refactoring</strong> - modify all routes at once by changing only the prefix</li>
+<li><strong>easy copying/moving</strong> - copying/moving an entire group makes sure that you don't accidentally omit a route</li>
 </ul>
 
 
@@ -976,8 +982,8 @@ $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</c
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../commands/create-admin-account/">
-                    Create admin account
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../problem-details/">
+                    Problem Details
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
