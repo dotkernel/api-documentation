@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/introduction/file-structure/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/extended-features/problem-details/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>File Structure - api - Dotkernel Documentation</title>
+        <title>Problem details - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -142,7 +142,7 @@
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="../introduction/" class="dropdown-item active">
+                    <a href="../../introduction/introduction/" class="dropdown-item active">
                         
                             v6 (latest)
                         
@@ -187,20 +187,8 @@
                     <li class="breadcrumb-item"><a href="../../..">api</a></li>
 
                     
-                        
-                            
-                            
-                        
-                    
-                        
-                            
-                            
-                                <li class="breadcrumb-item">Overview</li>
-                            
-                        
-                    
 
-                    <li class="breadcrumb-item active" aria-current="page">File Structure</li>
+                    <li class="breadcrumb-item active" aria-current="page">Problem details</li>
                 
             
         </ol>
@@ -228,7 +216,7 @@
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
                     
@@ -260,25 +248,25 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">File Structure</a>
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../packages/" class="subnavigation__link">Packages</a>
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../psr/" class="subnavigation__link">PSRs</a>
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
 </li>
 
         
@@ -566,19 +554,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../extended-features/core-and-app/" class="subnavigation__link">Core and App</a>
+    <a href="../core-and-app/" class="subnavigation__link">Core and App</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../extended-features/handler-structure/" class="subnavigation__link">New Handler Structure</a>
+    <a href="../handler-structure/" class="subnavigation__link">New Handler Structure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../extended-features/route-grouping/" class="subnavigation__link">Route Grouping</a>
+    <a href="../route-grouping/" class="subnavigation__link">Route Grouping</a>
 </li>
 
         
@@ -927,31 +915,7 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#bin-folder" class="toc__link nav-link">bin folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#config-folder" class="toc__link nav-link">config folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#data-folder" class="toc__link nav-link">data folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#log-folder" class="toc__link nav-link">log folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#public-folder" class="toc__link nav-link">public folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#src-folder" class="toc__link nav-link">src folder</a>
+                    <a href="#our-changes" class="toc__link nav-link">Our changes</a>
                 </li>
             
             </ul>
@@ -969,137 +933,74 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Overview</h2>-->
+<!--        <h2 class="chapter__headline text-black-50"></h2>-->
     
 
-    <h1 id="file-structure">File structure</h1>
-<p>Dotkernel API follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.</p>
-<p>It is a good practice to standardize the file structure of projects.</p>
-<p>When using Dotkernel API the following structure is installed by default:</p>
-<p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/file-structure-dk-api.png" class="img-responsive"/></p>
-<h2 id="special-purpose-folders">Special purpose folders</h2>
+    <h1 id="problem-details">Problem details</h1>
+<p>With the usage of <code>mezzio/mezzio-problem-details</code> we have implemented a way to help the developers understand better the errors that they are getting from their APIs based on the <a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457</a> standards.</p>
+<p>Example of a response with details:</p>
+<pre class="highlight"><code class="language-json">{
+    "title": "Unauthorized",
+    "type": "https://docs.dotkernel.org/api-documentation/v5/core-features/error-reporting/",
+    "status": 401,
+    "detail": "You are not allowed to report errors."
+}</code></pre>
+<p>Usually the response includes:</p>
 <ul>
-<li><code>.github</code> - Contains GitHub workflow files</li>
-<li><code>.laminas-ci</code> - Contains laminas-ci workflow files</li>
+<li>A title related to the error</li>
+<li>The type of error</li>
+<li>The status of the request (e.g <code>404</code>)</li>
+<li>Different error messages</li>
 </ul>
-<h2 id="bin-folder"><code>bin</code> folder</h2>
-<p>This folder contains:</p>
-<ul>
-<li><code>clear-config-cache.php</code> - Removes the config cache file <code>data/cache/config-cache.php</code>; available only when development mode is enabled</li>
-<li><code>cli.php</code> - Used to build console applications based on <a href="https://github.com/laminas/laminas-cli">laminas-cli</a></li>
-<li><code>doctrine</code> - Used by the doctrine fixtures to populate the database tables</li>
-</ul>
-<h2 id="config-folder"><code>config</code> folder</h2>
-<p>This folder contains all application-related config files:</p>
-<ul>
-<li><code>cli-config.php</code> - Command line interface configuration used by migrations, fixtures, crons</li>
-<li><code>config.php</code> - Registers ConfigProviders for installing packages</li>
-<li><code>container.php</code> - Main service container that provides access to all registered services</li>
-<li><code>development.config.php.dist</code> - Activates debug mode; gets symlinked as <code>development.config.php</code> when enabling development mode</li>
-<li><code>migrations.php</code> - Configuration for database migration, like migration file location and table to save the migration log</li>
-<li><code>pipeline.php</code> - Contains a list of middlewares, in the order of their execution</li>
-<li><code>twig-cs-fixer.php</code> - Configuration file for Twig code style checker/fixer</li>
-</ul>
-<h3 id="configautoload-folder"><code>config/autoload</code> folder</h3>
-<p>This folder contains all service-related local and global config files:</p>
-<ul>
-<li><code>authorization.global.php</code> - Configures access per route for user roles</li>
-<li><code>cli.global.php</code> - Configures cli</li>
-<li><code>content-negotiation.global.php</code> - Configures request and response formats</li>
-<li><code>cors.local.php.dist</code> - Configures Cross-Origin Resource Sharing, like call origin, headers, cookies</li>
-<li><code>dependencies.global.php</code> - Sets global dependencies that should be accessible by all modules</li>
-<li><code>development.local.php.dist</code> - Gets symlinked as <code>development.local.php</code> when enabling development mode; activates error handlers</li>
-<li><code>doctrine.global.php</code> - Configuration used by Object–relational mapping</li>
-<li><code>error-handling.global.php</code> - Configures and activates error logs</li>
-<li><code>local.php.dist</code> - Local configuration file where you can overwrite application name and URL</li>
-<li><code>local.test.php.dist</code> - Local configuration for functional tests</li>
-<li><code>mail.local.php.dist</code> - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging</li>
-<li><code>mezzio.global.php</code> - Mezzio core config file</li>
-<li><code>mezzio-tooling-factories.global.php</code>  Add or remove factory definitions</li>
-<li><code>response-header.global.php</code> - Defines headers per route</li>
-<li><code>templates.global.php</code> - dotkernel/dot-twigrenderer config file</li>
-</ul>
-<h2 id="data-folder"><code>data</code> folder</h2>
-<p>This folder is a storage for project data files and service caches.
-It contains these folders:</p>
-<ul>
-<li><code>cache</code> - Cache for e.g. Twig files</li>
-<li><code>doctrine</code> - Database migrations and fixtures</li>
-<li><code>oauth</code> - Encryption, private and public keys needed for authentication</li>
-<li><code>lock</code> - Contains lock files generated by <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/"><code>dotkernel/dot-cli</code></a></li>
-</ul>
-<blockquote>
-<p>AVOID storing sensitive data on the repository!</p>
-</blockquote>
-<h2 id="log-folder"><code>log</code> folder</h2>
-<p>This folder stores daily log files.
-When you access the application from the browser, (if not already created) a new log file gets created in the format specified in the <code>config/autoload/error-handling.global.php</code> config file under the <code>stream</code> array key.</p>
-<h2 id="public-folder"><code>public</code> folder</h2>
-<p>This folder contains all publicly available assets and serves as the entry point of the application:</p>
-<ul>
-<li><code>uploads</code> - Normally contains files uploaded via the application</li>
-<li><code>.htaccess</code> - Server configuration file used by Apache web server; it enables the URL rewrite functionality</li>
-<li><code>index.php</code> - The application's main entry point</li>
-<li><code>robots.txt.dist</code> - A sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as <code>robots.txt</code> and comment out the lines that don't match your environment</li>
-</ul>
-<h2 id="src-folder"><code>src</code> folder</h2>
-<p>This folder contains a separate folder for each Module.</p>
-<p>These are the modules included by default:</p>
-<ul>
-<li><code>Admin</code> - Contains functionality for managing users with <code>admin</code> role; note these are users save in the <code>admin</code> database table</li>
-<li><code>App</code> - Contains functionality such as error reporting</li>
-<li><code>Core</code> - Contains core functionality, from authentication, to rendering</li>
-<li><code>User</code> - Contains functionality for managing regular users</li>
-</ul>
-<h3 id="module-contents">Module contents</h3>
-<p>Each Module folder, in turn, should contain the following folders, unless they are empty:</p>
-<ul>
-<li><code>src/Handler</code> - Action classes (similar to Controllers but can only perform one action)</li>
-<li><code>src/Entity</code> - Used by database entities</li>
-<li><code>src/Service</code> - Service classes</li>
-<li><code>src/Repository</code> - Entity repository folder</li>
-</ul>
-<p>The above example is just some of the folders a project may include, but they should give you an idea about the recommended structure.
-Other classes the <code>src</code> folder may include are <code>InputFilter</code>, <code>EventListener</code>, <code>Helper</code>, <code>Command</code>, <code>Factory</code> etc.</p>
-<p>The <code>src</code> folder in each Module folder normally also contains these files:</p>
-<ul>
-<li><code>ConfigProvider.php</code> - Configuration data for the module</li>
-<li><code>OpenAPI.php</code> - Detailed descriptions for each endpoint in the OpenAPI format</li>
-<li><code>RoutesDelegator.php</code> - Module specific route registrations</li>
-</ul>
-<h3 id="templates-folder-in-modules"><code>templates</code> folder in Modules</h3>
-<p>This folder contains the template files, used for example to help render e-mail templates.</p>
-<blockquote>
-<p><code>twig</code> is used as Templating Engine.
-All template files have the extension <code>.html.twig</code></p>
-</blockquote>
+<p>More fields can be added based on the preference of the developer.</p>
+<h2 id="our-changes">Our changes</h2>
+<p>In order for us to implement this new feature, a new middleware component was required.
+We have created <code>ProblemDetailsMiddleware</code> along with <code>ProblemDetailsNotFoundHandler</code> which is being called in the <code>config/pipeline.php</code> file.
+Our exceptions have also been modified in order to be slimmed around the requirement for the <code>problem-details</code> package.</p>
+<p>Example from <code>src/App/src/Exception/BadRequestException.php</code>:</p>
+<pre class="highlight"><code class="language-php">public static function create(string $detail, string $type = '', string $title = '', array $additional = []): self
+    {
+        $exception = new self();
+
+        $exception-&gt;type       = $type;
+        $exception-&gt;detail     = $detail;
+        $exception-&gt;status     = StatusCodeInterface::STATUS_BAD_REQUEST;
+        $exception-&gt;title      = $title;
+        $exception-&gt;additional = $additional;
+
+        return $exception;
+    }</code></pre>
+<p>An example configuration file for setting custom links has also been created in <code>config/autoload/problem-details.global.php</code>.
+Here the statuses of the API calls are being attributed to a link.</p>
+<pre class="highlight"><code class="language-php">return [
+    'problem-details' =&gt; [
+        'default_types_map' =&gt; [
+            StatusCodeInterface::STATUS_BAD_REQUEST
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-400-bad-request',
+            StatusCodeInterface::STATUS_UNAUTHORIZED
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-401-unauthorized',
+            StatusCodeInterface::STATUS_FORBIDDEN
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-403-forbidden',
+            StatusCodeInterface::STATUS_NOT_FOUND
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-404-not-found',
+            StatusCodeInterface::STATUS_METHOD_NOT_ALLOWED
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-405-method-not-allowed',
+            StatusCodeInterface::STATUS_NOT_ACCEPTABLE
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-406-not-acceptable',
+            StatusCodeInterface::STATUS_CONFLICT
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-409-conflict',
+            StatusCodeInterface::STATUS_GONE
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-410-gone',
+            StatusCodeInterface::STATUS_UNSUPPORTED_MEDIA_TYPE
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-415-unsupported-media-type',
+            StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR
+                =&gt; 'https://datatracker.ietf.org/doc/html/rfc9110#name-500-internal-server-error',
+        ],
+    ],
+];</code></pre>
 
 
 
-
-    <nav>
-    <ul class="list-unstyled page-nav row w-100 mt-5 mb-3 pt-5 pb-3">
-        
-        <li class="col text-nowrap text-md-start">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../server-requirements/">
-                    <i class="bi bi-chevron-left"></i>
-                    Server Requirements
-                </a>
-            
-        </li>
-
-        
-        <li class="col text-nowrap text-md-end pe-0">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
-                    Packages
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-            
-        </li>
-    </ul>
-</nav>
 
 
 
