@@ -23,7 +23,7 @@ $routeCollector->group('/user/' . $uuid)
 
 The advantages of this new implementation:
 
-- DRY - no need for repeating common route parts
-- encapsulation - similar routes are grouped in a single block of code (vs each route a separate statement)
-- easy path refactoring - modify all routes at once by changing only the prefix
-- easy copying/moving - copying/moving an entire group makes sure that you don't accidentally omit a route
+- **DRY**- no need for repeating common route parts
+- **encapsulation** - similar routes are grouped in a single block of code (vs each route a separate statement)
+- **easy path refactoring** - modify all routes at once by changing only the prefix
+- **easy copying/moving** - copying/moving an entire group makes sure that you don't accidentally omit a route
