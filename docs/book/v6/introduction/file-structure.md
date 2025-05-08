@@ -31,7 +31,6 @@ This folder contains all application-related config files:
 * `development.config.php.dist` - Activates debug mode; gets symlinked as `development.config.php` when enabling development mode
 * `migrations.php` - Configuration for database migration, like migration file location and table to save the migration log
 * `pipeline.php` - Contains a list of middlewares, in the order of their execution
-* `twig-cs-fixer.php` - Configuration file for Twig code style checker/fixer
 
 ### `config/autoload` folder
 
