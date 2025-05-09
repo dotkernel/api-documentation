@@ -511,7 +511,7 @@ $nameInput->getValidatorChain()
 $this->add($nameInput);
 ```
 
-Now it's time to create the handlers for the books and book collection.
+Now it's time to create the handlers for the book entity and book collection.
 
 * `src/Book/src/Handler/BookHandler.php`
 
