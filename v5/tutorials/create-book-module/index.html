@@ -1374,7 +1374,7 @@ $nameInput-&gt;getValidatorChain()
     ], true);
 
 $this-&gt;add($nameInput);</code></pre>
-<p>Now it's time to create the handler.</p>
+<p>Now it's time to create the handlers for the book entity and book collection.</p>
 <ul>
 <li><code>src/Book/src/Handler/BookHandler.php</code></li>
 </ul>
@@ -1394,19 +1394,18 @@ use Mezzio\Hal\ResourceGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Dot\DependencyInjection\Attribute\Inject;
 
 class BookHandler extends AbstractHandler implements RequestHandlerInterface
 {
     #[Inject(
         BookServiceInterface::class,
-        "config"
+        "config",
         HalResponseFactory::class,
         ResourceGenerator::class,
     )]
     public function __construct(
         protected BookServiceInterface $bookService,
-        protected array $config
+        protected array $config,
         protected ?HalResponseFactory $responseFactory = null,
         protected ?ResourceGenerator $resourceGenerator = null,
     ) {
@@ -1441,16 +1440,63 @@ class BookHandler extends AbstractHandler implements RequestHandlerInterface
 
         return $this-&gt;createResponse($request, $book);
     }
-}
-</code></pre>
+}</code></pre>
+<ul>
+<li><code>src/Book/src/Handler/BookCollectionHandler.php</code></li>
+</ul>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\Book\Handler;
+
+use Api\App\Exception\BadRequestException;
+use Api\App\Handler\AbstractHandler;
+use Api\Book\Service\BookServiceInterface;
+use Dot\DependencyInjection\Attribute\Inject;
+use Mezzio\Hal\HalResponseFactory;
+use Mezzio\Hal\ResourceGenerator;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+class BookCollectionHandler extends AbstractHandler
+{
+    #[Inject(
+        BookServiceInterface::class,
+        "config",
+        HalResponseFactory::class,
+        ResourceGenerator::class,
+    )]
+    public function __construct(
+        protected BookServiceInterface $bookService,
+        protected array $config,
+        protected ?HalResponseFactory $responseFactory = null,
+        protected ?ResourceGenerator $resourceGenerator = null,
+    ) {
+    }
+
+    /**
+     * @throws BadRequestException
+     */
+    public function get(ServerRequestInterface $request): ResponseInterface
+    {
+        return $this-&gt;createResponse($request, $this-&gt;bookService-&gt;getBooks(
+            $request-&gt;getQueryParams()
+        ));
+    }
+}</code></pre>
 <p>After we have the handler, we need to register some routes in the <code>RoutesDelegator</code>, the same we created when  we registered the module.</p>
 <ul>
 <li><code>src/Book/src/RoutesDelegator.php</code></li>
 </ul>
 <pre class="highlight"><code class="language-php">&lt;?php
 
+declare(strict_types=1);
+
 namespace Api\Book;
 
+use Api\Book\Collection\BookCollection;
+use Api\Book\Handler\BookCollectionHandler;
 use Api\Book\Handler\BookHandler;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
@@ -1466,13 +1512,13 @@ class RoutesDelegator
 
         $app-&gt;get(
             '/books',
-            BookHandler::class,
+            BookCollectionHandler::class,
             'books.list'
         );
 
         $app-&gt;get(
-            '/book/'.$uuid,
-            BookHandler::class,
+            '/book/' . $uuid,
+            BookCollection::class,
             'book.show'
         );
 
@@ -1535,6 +1581,7 @@ class ConfigProvider
                 BookHandler::class    =&gt; AttributedServiceFactory::class,
                 BookService::class    =&gt; AttributedServiceFactory::class,
                 BookRepository::class =&gt; AttributedRepositoryFactory::class,
+                BookCollectionHandler::class =&gt; AttributedServiceFactory::class,
             ],
             'aliases'   =&gt; [
                 BookServiceInterface::class     =&gt; BookService::class,
