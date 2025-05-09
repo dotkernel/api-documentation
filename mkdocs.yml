@@ -42,6 +42,7 @@ nav:
           - "New Handler Structure": v6/extended-features/handler-structure.md
           - "Route Grouping": v6/extended-features/route-grouping.md
           - "Problem Details": v6/extended-features/problem-details.md
+          - "Injectable Input Filters": v6/extended-features/injectable-input-filters.md
       - Commands:
           - "Create admin account": v6/commands/create-admin-account.md
           - "Generate database migrations": v6/commands/generate-database-migrations.md

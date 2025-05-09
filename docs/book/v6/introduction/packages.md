@@ -23,7 +23,6 @@
 * `mezzio/mezzio-fastroute` - FastRoute integration for Mezzio
 * `mezzio/mezzio-hal` - Hypertext Application Language implementation for PHP and PSR-15
 * `mezzio/mezzio-problem-details` - Problem Details for PSR-15 HTTP APIs addressing the RFC 7807 standard
-* `mezzio/mezzio-twigrenderer` - Twig integration for Mezzio
 * `ramsey/uuid-doctrine` - Use ramsey/uuid as a Doctrine field type
 * `roave/psr-container-doctrine` - Doctrine Factories for PSR-11 Containers
 * `symfony/filesystem` - Provides basic utilities for the filesystem
