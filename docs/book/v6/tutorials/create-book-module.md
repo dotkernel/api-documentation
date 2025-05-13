@@ -18,28 +18,26 @@ The below files structure is what we will have at the end of this tutorial and i
     │       │   ├── GetBookHandler.php
     │       │   └── PostBookHandler.php
     │       ├── InputFilter/
+    │       │   ├── Input/
+    │       │   │   ├── AuthorInput.php
+    │       │   │   ├── NameInput.php
+    │       │   │   └── ReleaseDateInput.php
     │       │   └── CreateBookInputFilter.php
     │       ├── Service/
     │       │   ├── BookService.php
     │       │   └── BookServiceInterface.php
     │       ├── ConfigProvider.php
     │       └── RoutesDelegator.php
-    ├── Core/
-    │   └── src/
-    │       └── Book/
-    │           └── src/
-    │               ├──Entity/
-    │               │   └──Book.php
-    │               ├──Repository/
-    │               │   └──BookRepository.php
-    │               └── ConfigProvider.php
-    └── App/
-        └──src/
-           └── InputFilter/
-               └── Input/
-                   ├── AuthorInput.php
-                   ├── NameInput.php
-                   └── ReleaseDateInput.php
+    └── Core/
+        └── src/
+            └── Book/
+                └── src/
+                    ├──Entity/
+                    │   └──Book.php
+                    ├──Repository/
+                    │   └──BookRepository.php
+                    └── ConfigProvider.php
+    
 ```
 
 * `src/Book/src/Collection/BookCollection.php` - a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database
@@ -52,7 +50,7 @@ The below files structure is what we will have at the end of this tutorial and i
 * `src/Book/src/ConfigProvider.php` -  is a class that provides configuration for various aspects of the framework or application
 * `src/Book/src/RoutesDelegator.php` - a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application
 * `src/Book/src/InputFilter/CreateBookInputFilter.php` - input filters and validators
-* `src/Core/src/App/src/InputFilter/Input/*` - input filters and validator configurations
+* `src/Book/src/InputFilter/Input/*` - input filters and validator configurations
 
 ## Creating and configuring the module
 
@@ -180,20 +178,11 @@ In `src/Core/src/Book/src` we will create 1 PHP file: `ConfigProvider.php`. This
 
 declare(strict_types=1);
 
-namespace Api\Book;
+namespace Core\Book;
 
-use Api\App\ConfigProvider as AppConfigProvider;
-use Api\App\Factory\HandlerDelegatorFactory;
-use Api\Book\Collection\BookCollection;
-use Api\Book\Handler\GetBookCollectionHandler;
-use Api\Book\Handler\GetBookHandler;
-use Api\Book\Handler\PostBookHandler;
-use Api\Book\Service\BookService;
-use Api\Book\Service\BookServiceInterface;
-use Core\Book\Entity\Book;
-use Dot\DependencyInjection\Factory\AttributedServiceFactory;
-use Mezzio\Application;
-use Mezzio\Hal\Metadata\MetadataMap;
+use Core\Book\Repository\BookRepository;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
 
 class ConfigProvider
 {
@@ -201,36 +190,34 @@ class ConfigProvider
     {
         return [
             'dependencies'     => $this->getDependencies(),
-            MetadataMap::class => $this->getHalConfig(),
+            'doctrine'         => $this->getDoctrineConfig(),
         ];
     }
 
     private function getDependencies(): array
     {
         return [
-            'delegators' => [
-                Application::class              => [RoutesDelegator::class],
-                PostBookHandler::class          => [HandlerDelegatorFactory::class],
-                GetBookHandler::class           => [HandlerDelegatorFactory::class],
-                GetBookCollectionHandler::class => [HandlerDelegatorFactory::class],
-            ],
-            'factories'  => [
-                PostBookHandler::class          => AttributedServiceFactory::class,
-                GetBookHandler::class           => AttributedServiceFactory::class,
-                GetBookCollectionHandler::class => AttributedServiceFactory::class,
-                BookService::class              => AttributedServiceFactory::class,
-            ],
-            'aliases'    => [
-                BookServiceInterface::class => BookService::class,
+            'factories' => [
+                BookRepository::class => AttributedRepositoryFactory::class,
             ],
         ];
     }
 
-    private function getHalConfig(): array
+    private function getDoctrineConfig(): array
     {
         return [
-            AppConfigProvider::getResource(Book::class, 'book::view-book'),
-            AppConfigProvider::getCollection(BookCollection::class, 'book::list-books', 'books'),
+            'driver' => [
+                'orm_default'  => [
+                    'drivers' => [
+                        'Core\Book\Entity' => 'BookEntities',
+                    ],
+                ],
+                'BookEntities' => [
+                    'class' => AttributeDriver::class,
+                    'cache' => 'array',
+                    'paths' => [__DIR__ . '/Entity'],
+                ],
+            ],
         ];
     }
 }
@@ -468,14 +455,14 @@ class BookService implements BookServiceInterface
 
 When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request
 
-* `src/App/src/InputFilter/Input/AuthorInput.php`
+* `src/Book/src/InputFilter/Input/AuthorInput.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Api\App\InputFilter\Input;
+namespace Api\Book\InputFilter\Input;
 
 use Core\App\Message;
 use Laminas\Filter\StringTrim;
@@ -505,14 +492,14 @@ class AuthorInput extends Input
 }
 ```
 
-* `src/App/src/InputFilter/Input/NameInput.php`
+* `src/Book/src/InputFilter/Input/NameInput.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Api\App\InputFilter\Input;
+namespace Api\Book\InputFilter\Input;
 
 use Core\App\Message;
 use Laminas\Filter\StringTrim;
@@ -542,14 +529,14 @@ class NameInput extends Input
 }
 ```
 
-* `src/App/src/InputFilter/Input/ReleaseDateInput.php`
+* `src/Book/src/InputFilter/Input/ReleaseDateInput.php`
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Api\App\InputFilter\Input;
+namespace Api\Book\InputFilter\Input;
 
 use Core\App\Message;
 use Laminas\Filter\StringTrim;
@@ -590,10 +577,10 @@ declare(strict_types=1);
 
 namespace Api\Book\InputFilter;
 
-use Api\App\InputFilter\Input\AuthorInput;
-use Api\App\InputFilter\Input\NameInput;
-use Api\App\InputFilter\Input\ReleaseDateInput;
-use Core\App\InputFilter\AbstractInputFilter;
+use Api\Book\InputFilter\Input\AuthorInput;
+use Api\Book\InputFilter\Input\NameInput;
+use Api\Book\InputFilter\Input\ReleaseDateInput;
+use Core\Book\InputFilter\AbstractInputFilter;
 
 class CreateBookInputFilter extends AbstractInputFilter
 {
