@@ -257,7 +257,7 @@ class BookCollection extends ResourceCollection
 
 * `src/Core/src/Book/src/Entity/Book.php`
 
-To keep things simple in this tutorial our book will have 3 properties: `name`, `author` and `release date`.
+To keep things simple in this tutorial, our book will have 3 properties: `name`, `author` and `release date`.
 
 ```php
 <?php
@@ -675,7 +675,7 @@ class GetBookHandler extends AbstractHandler
 }
 ```
 
-* `src/Book/src/Handler/PostBookCollectionHandler.php`
+* `src/Book/src/Handler/PostBookHandler.php`
 
 ```php
 <?php
