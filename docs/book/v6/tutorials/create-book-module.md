@@ -810,7 +810,7 @@ Doctrine can handle the table creation, run the following command:
 php ./vendor/bin/doctrine-migrations diff
 ```
 
-This will check for differences between your entities and database structure and create migration files if necessary, in `data/doctrine/migrations`.
+This will check for differences between your entities and database structure and create migration files if necessary, in `src/Core/src/App/src/Migration`.
 
 To execute the migrations run:
 
@@ -820,7 +820,7 @@ php ./vendor/bin/doctrine-migrations
 
 ## Checking endpoints
 
-If we did everything as planned we can call the `http://0.0.0.0:8080/book` endpoint and create a new book:
+If we did everything as planned, we can call the `http://0.0.0.0:8080/book` endpoint and create a new book:
 
 ```shell
 curl -X POST http://0.0.0.0:8080/book
