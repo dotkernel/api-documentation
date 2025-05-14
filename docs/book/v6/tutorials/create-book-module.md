@@ -53,7 +53,6 @@ The below files structure is what we will have at the end of this tutorial and i
 * `src/Core/src/Book/src/Entity/Book.php` – an entity refers to a PHP class that represents a persistent object or data structure
 * `src/Core/src/Book/src/Repository/BookRepository.php` – a repository is a class responsible for querying and retrieving entities from the database
 
-
 ## Creating and configuring the module
 
 Firstly we will need the book module, so we will implement and create the basics for a module to be registered and functional.
