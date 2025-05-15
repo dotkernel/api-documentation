@@ -11,8 +11,6 @@ The below files structure is what we will have at the end of this tutorial and i
     │   └── src/
     │       ├── Collection/
     │       │   └── BookCollection.php
-    │       ├── Entity/
-    │       │   └── Book.php
     │       ├── Handler/
     │       │   ├── GetBookCollectionHandler.php
     │       │   ├── GetBookResourceHandler.php
@@ -37,206 +35,26 @@ The below files structure is what we will have at the end of this tutorial and i
                     ├──Repository/
                     │   └──BookRepository.php
                     └── ConfigProvider.php
-    
 ```
 
 * `src/Book/src/Collection/BookCollection.php` – a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database
-* `src/Book/src/ConfigProvider.php` – is a class that provides configuration for various aspects of the framework or application
 * `src/Book/src/Handler/GetBookCollectionHandler.php` – handler that reflects the GET action for the BookCollection class
 * `src/Book/src/Handler/GetBookResourceHandler.php` – handler that reflects the GET action for the Book entity
 * `src/Book/src/Handler/PostBookResourceHandler.php` – handler that reflects the POST action for the Book entity
-* `src/Book/src/InputFilter/CreateBookInputFilter.php` – input filters and validators
 * `src/Book/src/InputFilter/Input/*` – input filters and validator configurations
-* `src/Book/src/RoutesDelegator.php` – a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application
+* `src/Book/src/InputFilter/CreateBookInputFilter.php` – input filters and validators
 * `src/Book/src/Service/BookService.php` – is a class or component responsible for performing a specific task or providing functionality to other parts of the application
-* `src/Core/src/Book/src/ConfigProvider.php` – is a class that provides configuration for Doctrine ORM
+* `src/Book/src/Service/BookServiceInterface.php` – interface that reflects the publicly available methods in `BookService`
+* `src/Book/src/ConfigProvider.php` – is a class that provides configuration for various aspects of the framework or application
+* `src/Book/src/RoutesDelegator.php` – a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application
 * `src/Core/src/Book/src/Entity/Book.php` – an entity refers to a PHP class that represents a persistent object or data structure
 * `src/Core/src/Book/src/Repository/BookRepository.php` – a repository is a class responsible for querying and retrieving entities from the database
-
-## Creating and configuring the module
-
-Firstly we will need the book module, so we will implement and create the basics for a module to be registered and functional.
-
-In `src` and `src/Core/src` folders we will create one `Book` folder and in those we will create the `src` folder. So the final structure will be like this: `src/Book/src` and `src/Core/src/Book/src`.
-
-In `src/Book/src` we will create 2 PHP files: `RoutesDelegator.php` and `ConfigProvider.php`. These files contain the necessary configurations.
-
-* `src/Book/src/RoutesDelegator.php`
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Api\Book;
-
-use Api\Book\Handler\GetBookCollectionHandler;
-use Api\Book\Handler\GetBookResourceHandler;
-use Api\Book\Handler\PostBookResourceHandler;
-use Core\App\ConfigProvider;
-use Dot\Router\RouteCollectorInterface;
-use Mezzio\Application;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
-
-class RoutesDelegator
-{
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
-    {
-        $uuid = ConfigProvider::REGEXP_UUID;
-
-        /** @var RouteCollectorInterface $routeCollector */
-        $routeCollector = $container->get(RouteCollectorInterface::class);
-
-        $routeCollector->group('/book')
-            ->post('', PostBookResourceHandler::class, 'book::create-book');
-
-        $routeCollector->group('/book/' . $uuid)
-            ->get('', GetBookResourceHandler::class, 'book::view-book');
-
-        $routeCollector->group('/books')
-            ->get('', GetBookCollectionHandler::class, 'book::list-books');
-
-        return $callback();
-    }
-}
-```
-
-* `src/Book/src/ConfigProvider.php`
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Api\Book;
-
-use Api\App\ConfigProvider as AppConfigProvider;
-use Api\App\Factory\HandlerDelegatorFactory;
-use Api\Book\Collection\BookCollection;
-use Api\Book\Handler\GetBookCollectionHandler;
-use Api\Book\Handler\GetBookResourceHandler;
-use Api\Book\Handler\PostBookResourceHandler;
-use Api\Book\Service\BookService;
-use Api\Book\Service\BookServiceInterface;
-use Core\Book\Entity\Book;
-use Dot\DependencyInjection\Factory\AttributedServiceFactory;
-use Mezzio\Application;
-use Mezzio\Hal\Metadata\MetadataMap;
-
-class ConfigProvider
-{
-    public function __invoke(): array
-    {
-        return [
-            'dependencies'     => $this->getDependencies(),
-            MetadataMap::class => $this->getHalConfig(),
-        ];
-    }
-
-    private function getDependencies(): array
-    {
-        return [
-            'delegators' => [
-                Application::class              => [RoutesDelegator::class],
-                PostBookResourceHandler::class          => [HandlerDelegatorFactory::class],
-                GetBookResourceHandler::class           => [HandlerDelegatorFactory::class],
-                GetBookCollectionHandler::class => [HandlerDelegatorFactory::class],
-            ],
-            'factories'  => [
-                PostBookResourceHandler::class          => AttributedServiceFactory::class,
-                GetBookResourceHandler::class           => AttributedServiceFactory::class,
-                GetBookCollectionHandler::class => AttributedServiceFactory::class,
-                BookService::class              => AttributedServiceFactory::class,
-            ],
-            'aliases'    => [
-                BookServiceInterface::class => BookService::class,
-            ],
-        ];
-    }
-
-    private function getHalConfig(): array
-    {
-        return [
-            AppConfigProvider::getResource(Book::class, 'book::view-book'),
-            AppConfigProvider::getCollection(BookCollection::class, 'book::list-books', 'books'),
-        ];
-    }
-}
-```
-
-* `src/Core/src/Book/src/ConfigProvider.php`
-
-In `src/Core/src/Book/src` we will create 1 PHP file: `ConfigProvider.php`. This file contains the necessary configuration for Doctrine ORM.
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Core\Book;
-
-use Core\Book\Repository\BookRepository;
-use Doctrine\ORM\Mapping\Driver\AttributeDriver;
-use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
-
-class ConfigProvider
-{
-    public function __invoke(): array
-    {
-        return [
-            'dependencies'     => $this->getDependencies(),
-            'doctrine'         => $this->getDoctrineConfig(),
-        ];
-    }
-
-    private function getDependencies(): array
-    {
-        return [
-            'factories' => [
-                BookRepository::class => AttributedRepositoryFactory::class,
-            ],
-        ];
-    }
-
-    private function getDoctrineConfig(): array
-    {
-        return [
-            'driver' => [
-                'orm_default'  => [
-                    'drivers' => [
-                        'Core\Book\Entity' => 'BookEntities',
-                    ],
-                ],
-                'BookEntities' => [
-                    'class' => AttributeDriver::class,
-                    'cache' => 'array',
-                    'paths' => [__DIR__ . '/Entity'],
-                ],
-            ],
-        ];
-    }
-}
-```
-
-### Registering the module
-
-* register the module config by adding `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
-* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"`, in composer.json under the autoload.psr-4 key
-* update Composer autoloader by running the command:
-
-```shell
-composer dump-autoload
-```
-
-That's it. The module is now registered and, we can continue creating Handlers, Services, Repositories and whatever is needed for out tutorial.
+* `src/Core/src/Book/src/ConfigProvider.php` – is a class that provides configuration for Doctrine ORM
 
 ## File creation and contents
+
+In `src` and `src/Core/src` folders we will create one `Book` folder and in those we will create the `src` folder.
+So the final structure will be like this: `src/Book/src` and `src/Core/src/Book/src`.
 
 Each file below have a summary description above of what that file does.
 
@@ -258,7 +76,7 @@ class BookCollection extends ResourceCollection
 
 * `src/Core/src/Book/src/Entity/Book.php`
 
-To keep things simple in this tutorial, our book will have 3 properties: `name`, `author` and `release date`.
+To keep things simple in this tutorial, our book will have 3 properties: `name`, `author` and `releaseDate`.
 
 ```php
 <?php
@@ -555,7 +373,7 @@ class ReleaseDateInput extends Input
 
         $this->getValidatorChain()
             ->attachByName(Date::class, [
-                'message' => Message::INVALID_VALUE,
+                'message' => Message::invalidValue('releaseDate'),
             ], true);
     }
 }
@@ -747,7 +565,72 @@ class PostBookResourceHandler extends AbstractHandler implements RequestHandlerI
 }
 ```
 
-After we have the handler, we need to register some routes in the `RoutesDelegator` using our new grouping method, the same we created when we registered the module.
+In `src/Book/src` we now create the 2 PHP files: `RoutesDelegator.php` and `ConfigProvider.php`.
+
+`RoutesDelegator.php` contains all of our routes while `ConfigProvider` contains all the necessary configuration needed, so the above files work properly like dependency injection, aliases and so on.
+
+* `src/Book/src/ConfigProvider.php`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Api\Book;
+
+use Api\App\ConfigProvider as AppConfigProvider;
+use Api\App\Factory\HandlerDelegatorFactory;
+use Api\Book\Collection\BookCollection;
+use Api\Book\Handler\GetBookCollectionHandler;
+use Api\Book\Handler\GetBookResourceHandler;
+use Api\Book\Handler\PostBookResourceHandler;
+use Api\Book\Service\BookService;
+use Api\Book\Service\BookServiceInterface;
+use Core\Book\Entity\Book;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
+use Mezzio\Application;
+use Mezzio\Hal\Metadata\MetadataMap;
+
+class ConfigProvider
+{
+    public function __invoke(): array
+    {
+        return [
+            'dependencies'     => $this->getDependencies(),
+            MetadataMap::class => $this->getHalConfig(),
+        ];
+    }
+
+    private function getDependencies(): array
+    {
+        return [
+            'delegators' => [
+                Application::class              => [RoutesDelegator::class],
+                PostBookResourceHandler::class          => [HandlerDelegatorFactory::class],
+                GetBookResourceHandler::class           => [HandlerDelegatorFactory::class],
+                GetBookCollectionHandler::class => [HandlerDelegatorFactory::class],
+            ],
+            'factories'  => [
+                PostBookResourceHandler::class          => AttributedServiceFactory::class,
+                GetBookResourceHandler::class           => AttributedServiceFactory::class,
+                GetBookCollectionHandler::class => AttributedServiceFactory::class,
+                BookService::class              => AttributedServiceFactory::class,
+            ],
+            'aliases'    => [
+                BookServiceInterface::class => BookService::class,
+            ],
+        ];
+    }
+
+    private function getHalConfig(): array
+    {
+        return [
+            AppConfigProvider::getResource(Book::class, 'book::view-book'),
+            AppConfigProvider::getCollection(BookCollection::class, 'book::list-books', 'books'),
+        ];
+    }
+}
+```
 
 * `src/Book/src/RoutesDelegator.php`
 
@@ -759,8 +642,8 @@ declare(strict_types=1);
 namespace Api\Book;
 
 use Api\Book\Handler\GetBookCollectionHandler;
-use Api\Book\Handler\GetBookResourceHandler;
-use Api\Book\Handler\PostBookResourceHandler;
+use Api\Book\Handler\GetBookHandler;
+use Api\Book\Handler\PostBookHandler;
 use Core\App\ConfigProvider;
 use Dot\Router\RouteCollectorInterface;
 use Mezzio\Application;
@@ -781,14 +664,80 @@ class RoutesDelegator
         /** @var RouteCollectorInterface $routeCollector */
         $routeCollector = $container->get(RouteCollectorInterface::class);
 
-        $routeCollector->post('/book', PostBookHandler::class, 'book::create-book');
-        $routeCollector->get('/book/' . $uuid, GetBookHandler::class, 'book::view-book');
+        $routeCollector->post('/book', PostBookResourceHandler::class, 'book::create-book');
+        $routeCollector->get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
         $routeCollector->get('/books', GetBookCollectionHandler::class, 'book::list-books');
 
         return $callback();
     }
 }
 ```
+
+In `src/Core/src/Book/src` we will create `ConfigProvider.php` where we configure Doctrine ORM.
+
+* `src/Core/src/Book/src/ConfigProvider.php`.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Core\Book;
+
+use Core\Book\Repository\BookRepository;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+
+class ConfigProvider
+{
+    public function __invoke(): array
+    {
+        return [
+            'dependencies'     => $this->getDependencies(),
+            'doctrine'         => $this->getDoctrineConfig(),
+        ];
+    }
+
+    private function getDependencies(): array
+    {
+        return [
+            'factories' => [
+                BookRepository::class => AttributedRepositoryFactory::class,
+            ],
+        ];
+    }
+
+    private function getDoctrineConfig(): array
+    {
+        return [
+            'driver' => [
+                'orm_default'  => [
+                    'drivers' => [
+                        'Core\Book\Entity' => 'BookEntities',
+                    ],
+                ],
+                'BookEntities' => [
+                    'class' => AttributeDriver::class,
+                    'cache' => 'array',
+                    'paths' => [__DIR__ . '/Entity'],
+                ],
+            ],
+        ];
+    }
+}
+```
+
+### Registering the module
+
+* register the module config by adding `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
+* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"`, in composer.json under the autoload.psr-4 key
+* update Composer autoloader by running the command:
+
+```shell
+composer dump-autoload
+```
+
+That's it. The module is now registered.
 
 We need to configure access to the newly created endpoints, add `books::list-books`, `book::view-book` and `book::create-book` to the authorization rbac array, under the `UserRole::ROLE_GUEST` key.
 > Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
@@ -814,7 +763,7 @@ This will check for differences between your entities and database structure and
 To execute the migrations run:
 
 ```shell
-php ./vendor/bin/doctrine-migrations 
+php ./vendor/bin/doctrine-migrations migrate
 ```
 
 ## Checking endpoints
