@@ -56,8 +56,6 @@ The below files structure is what we will have at the end of this tutorial and i
 In `src` and `src/Core/src` folders we will create one `Book` folder and in those we will create the `src` folder.
 So the final structure will be like this: `src/Book/src` and `src/Core/src/Book/src`.
 
-Each file below have a summary description above of what that file does.
-
 * `src/Book/src/Collection/BookCollection.php`
 
 ```php
@@ -176,30 +174,21 @@ namespace Core\Book\Repository;
 
 use Core\App\Repository\AbstractRepository;
 use Core\Book\Entity\Book;
-use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Dot\DependencyInjection\Attribute\Entity;
 
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
-    public function saveBook(Book $book): Book
-    {
-        $this->getEntityManager()->persist($book);
-        $this->getEntityManager()->flush();
-
-        return $book;
-    }
-
-    public function getBooks(array $params = [], array $filters = []): Query
+    public function getBooks(array $params = [], array $filters = []): QueryBuilder
     {
         return $this
             ->getQueryBuilder()
             ->select('book')
             ->from(Book::class, 'book')
             ->orderBy($filters['order'] ?? 'book.created', $filters['dir'] ?? 'desc')
-            ->setMaxResults($params['limit'])
-            ->getQuery()
-            ->useQueryCache(true);
+            ->setFirstResult($params['offset'])
+            ->setMaxResults($params['limit']);
     }
 }
 ```
@@ -213,11 +202,14 @@ declare(strict_types=1);
 
 namespace Api\Book\Service;
 
-use Core\Book\Repository\BookRepository;
+use Core\Book\Entity\Book;
+use Doctrine\ORM\QueryBuilder;
 
 interface BookServiceInterface
 {
-    public function getRepository(): BookRepository;
+    public function saveBook(array $data): Book;
+
+    public function getBooks(array $filters = []): QueryBuilder;
 }
 ```
 
@@ -234,6 +226,7 @@ use Core\App\Helper\Paginator;
 use Core\Book\Entity\Book;
 use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
+use Doctrine\ORM\QueryBuilder;
 use Dot\DependencyInjection\Attribute\Inject;
 use Exception;
 
@@ -244,15 +237,10 @@ class BookService implements BookServiceInterface
     {
     }
 
-    public function getRepository(): BookRepository
-    {
-        return $this->bookRepository;
-    }
-
     /**
      * @throws Exception
      */
-    public function createBook(array $data): Book
+    public function saveBook(array $data): Book
     {
         $book = new Book(
             $data['name'],
@@ -260,13 +248,15 @@ class BookService implements BookServiceInterface
             new DateTimeImmutable($data['releaseDate'])
         );
 
-        return $this->bookRepository->saveBook($book);
+        $this->bookRepository->saveResource($book);
+
+        return $book;
     }
 
-    public function getBooks(array $filters = [])
+    public function getBooks(array $filters = []): QueryBuilder
     {
-        $params  = Paginator::getParams($filters, 'book.created');
-        
+        $params = Paginator::getParams($filters, 'book.created');
+
         return $this->bookRepository->getBooks($params, $filters);
     }
 }
@@ -560,7 +550,7 @@ class PostBookResourceHandler extends AbstractHandler implements RequestHandlerI
         /** @var non-empty-array<non-empty-string, mixed> $data */
         $data = (array) $this->inputFilter->getValues();
 
-        return $this->createdResponse($request, $this->bookService->createBook($data));
+        return $this->createdResponse($request, $this->bookService->saveBook($data));
     }
 }
 ```
@@ -642,8 +632,8 @@ declare(strict_types=1);
 namespace Api\Book;
 
 use Api\Book\Handler\GetBookCollectionHandler;
-use Api\Book\Handler\GetBookHandler;
-use Api\Book\Handler\PostBookHandler;
+use Api\Book\Handler\GetBookResourceHandler;
+use Api\Book\Handler\PostBookResourceHandler;
 use Core\App\ConfigProvider;
 use Dot\Router\RouteCollectorInterface;
 use Mezzio\Application;
@@ -739,7 +729,13 @@ composer dump-autoload
 
 That's it. The module is now registered.
 
-We need to configure access to the newly created endpoints, add `books::list-books`, `book::view-book` and `book::create-book` to the authorization rbac array, under the `UserRole::ROLE_GUEST` key.
+We need to configure access to the newly created endpoints.
+Open `config/autoload/authorization.global.php` and append the below route names to the `UserRoleEnum::Guest->value` key:
+
+- `books::list-books`
+- `book::view-book`
+- `book::create-book`
+ 
 > Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
 
 ## Migrations
@@ -748,8 +744,8 @@ We created the `Book` entity, but we didn't create the associated table for it.
 
 > You can check the mapping files by running:
 
-```shel
-php bin/doctrine orm:validate-schema
+```shell
+php ./bin/doctrine orm:validate-schema
 ```
 
 Doctrine can handle the table creation, run the following command:
