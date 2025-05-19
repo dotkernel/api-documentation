@@ -396,7 +396,7 @@ class CreateBookInputFilter extends AbstractInputFilter
 }
 ```
 
-We split all the inputs just for the purpose of this tutorial and to demonstrate a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
+We create separate `Input` files to demonstrate their reusability and obtain a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
 
 ```php
 $nameInput = new Input();
@@ -732,10 +732,10 @@ That's it. The module is now registered.
 We need to configure access to the newly created endpoints.
 Open `config/autoload/authorization.global.php` and append the below route names to the `UserRoleEnum::Guest->value` key:
 
-- `books::list-books`
-- `book::view-book`
-- `book::create-book`
- 
+* `books::list-books`
+* `book::view-book`
+* `book::create-book`
+
 > Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
 
 ## Migrations
