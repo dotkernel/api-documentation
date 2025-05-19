@@ -203,10 +203,13 @@ declare(strict_types=1);
 namespace Api\Book\Service;
 
 use Core\Book\Entity\Book;
+use Core\Book\Repository\BookRepository;
 use Doctrine\ORM\QueryBuilder;
 
 interface BookServiceInterface
 {
+    public function getBookRepository(): BookRepository;
+
     public function saveBook(array $data): Book;
 
     public function getBooks(array $filters = []): QueryBuilder;
@@ -233,8 +236,14 @@ use Exception;
 class BookService implements BookServiceInterface
 {
     #[Inject(BookRepository::class)]
-    public function __construct(protected BookRepository $bookRepository)
+    public function __construct(
+        protected BookRepository $bookRepository
+    ) {
+    }
+
+    public function getBookRepository(): BookRepository
     {
+        return $this->bookRepository;
     }
 
     /**
