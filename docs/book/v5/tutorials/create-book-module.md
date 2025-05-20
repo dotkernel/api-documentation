@@ -654,7 +654,7 @@ class RoutesDelegator
 
         $app->get(
             '/book/' . $uuid,
-            BookHandler::class,
+            BookCollection::class,
             'book.show'
         );
 
