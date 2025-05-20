@@ -3,7 +3,6 @@
 In the previous versions of Dotkernel API we have been composing email bodies using Twig from the mezzio/mezzio-twigrenderer package.\
 In the current version of Dotkernel API, we introduced the core mail service Core/src/App/src/Service/MailService which is responsible for sending all emails.
 
-
 Being a core service, MailService is used across all projects implementing the Core architecture.\
 To compose and send an email, a solid implementation of TemplateRendererInterface was required to be injected into MailService, because each method rendered and parsed their respective templates in place before sending an email.
 This is acceptable with other Dotkernel applications which in most cases return a rendered template, but being that Dotkernel API mostly returns JSON objects, rendered with a different renderer, Twig had to be replaced with a lighter solution.
