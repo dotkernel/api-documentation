@@ -559,6 +559,13 @@ class BookHandler extends AbstractHandler implements RequestHandlerInterface
 
         return $this->createResponse($request, $book);
     }
+    
+    public function getCollection(ServerRequestInterface $request): ResponseInterface
+    {
+        $books = $this->bookService->getRepository()->getBooks($request->getQueryParams());
+
+        return $this->createResponse($request, $books);
+    }
 
     public function post(ServerRequestInterface $request): ResponseInterface
     {
