@@ -180,13 +180,13 @@ use Dot\DependencyInjection\Attribute\Entity;
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
-    public function getBooks(array $params = [], array $filters = []): QueryBuilder
+    public function getBooks(array $params = []): QueryBuilder
     {
         return $this
             ->getQueryBuilder()
             ->select('book')
             ->from(Book::class, 'book')
-            ->orderBy($filters['order'] ?? 'book.created', $filters['dir'] ?? 'desc')
+            ->orderBy($params['sort'], $params['dir'])
             ->setFirstResult($params['offset'])
             ->setMaxResults($params['limit']);
     }
@@ -212,7 +212,7 @@ interface BookServiceInterface
 
     public function saveBook(array $data): Book;
 
-    public function getBooks(array $filters = []): QueryBuilder;
+    public function getBooks(array $params): QueryBuilder;
 }
 ```
 
@@ -232,6 +232,8 @@ use DateTimeImmutable;
 use Doctrine\ORM\QueryBuilder;
 use Dot\DependencyInjection\Attribute\Inject;
 use Exception;
+
+use function in_array;
 
 class BookService implements BookServiceInterface
 {
@@ -262,11 +264,23 @@ class BookService implements BookServiceInterface
         return $book;
     }
 
-    public function getBooks(array $filters = []): QueryBuilder
+    public function getBooks(array $params = []): QueryBuilder
     {
-        $params = Paginator::getParams($filters, 'book.created');
+        $filters = $params['filters'] ?? [];
+        $params  = Paginator::getParams($filters, 'book.created');
 
-        return $this->bookRepository->getBooks($params, $filters);
+        $sortableColumns = [
+            'book.name',
+            'book.author',
+            'book.releaseDate',
+            'book.created',
+        ];
+
+        if (! in_array($params['sort'], $sortableColumns, true)) {
+            $params['sort'] = 'book.created';
+        }
+
+        return $this->bookRepository->getBooks($params);
     }
 }
 ```
@@ -605,13 +619,13 @@ class ConfigProvider
         return [
             'delegators' => [
                 Application::class              => [RoutesDelegator::class],
-                PostBookResourceHandler::class          => [HandlerDelegatorFactory::class],
-                GetBookResourceHandler::class           => [HandlerDelegatorFactory::class],
+                PostBookResourceHandler::class  => [HandlerDelegatorFactory::class],
+                GetBookResourceHandler::class   => [HandlerDelegatorFactory::class],
                 GetBookCollectionHandler::class => [HandlerDelegatorFactory::class],
             ],
             'factories'  => [
-                PostBookResourceHandler::class          => AttributedServiceFactory::class,
-                GetBookResourceHandler::class           => AttributedServiceFactory::class,
+                PostBookResourceHandler::class  => AttributedServiceFactory::class,
+                GetBookResourceHandler::class   => AttributedServiceFactory::class,
                 GetBookCollectionHandler::class => AttributedServiceFactory::class,
                 BookService::class              => AttributedServiceFactory::class,
             ],
