@@ -37,13 +37,13 @@ nav:
           - "Exceptions": v6/core-features/exceptions.md
           - "Dependency Injection": v6/core-features/dependency-injection.md
           - "Error reporting": v6/core-features/error-reporting.md
+          - "Rendering and Sending emails": v6/core-features/rendering-and-sending-emails.md
       - Extended features:
           - "Core and App": v6/extended-features/core-and-app.md
           - "New Handler Structure": v6/extended-features/handler-structure.md
           - "Route Grouping": v6/extended-features/route-grouping.md
           - "Problem Details": v6/extended-features/problem-details.md
           - "Injectable Input Filters": v6/extended-features/injectable-input-filters.md
-          - "Email Sending and Parsing": v6/extended-features/email.md
       - Commands:
           - "Create admin account": v6/commands/create-admin-account.md
           - "Generate database migrations": v6/commands/generate-database-migrations.md
