@@ -154,9 +154,9 @@ class Book extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getName(),
-            'author' => $this->getAuthor(),
+            'uuid'        => $this->getUuid()->toString(),
+            'name'        => $this->getName(),
+            'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
         ];
     }
@@ -181,7 +181,7 @@ use Dot\DependencyInjection\Attribute\Entity;
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
-    public function getBooks(array $params = []): QueryBuilder
+    public function getBooks(array $params): QueryBuilder
     {
         return $this
             ->getQueryBuilder()
@@ -825,7 +825,9 @@ To list the books use:
 curl http://0.0.0.0:8080/books
 ```
 
-To retrieve a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`
+To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
+
+The link should have the following format:
 
 ```shell
 curl http://0.0.0.0:8080/book/{uuid}
