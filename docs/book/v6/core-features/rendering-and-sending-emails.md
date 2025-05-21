@@ -8,7 +8,7 @@ To compose and send an email, a solid implementation of `TemplateRendererInterfa
 This is acceptable with other Dotkernel applications which in most cases return a rendered template, but being that Dotkernel API mostly returns JSON objects, rendered with a different renderer, **Twig** had to be replaced with a lighter solution.
 
 The solution is a custom [`Api\App\Template\Renderer`](https://github.com/dotkernel/api/blob/6.0/src/App/src/Template/Renderer.php) implementing [`Api\App\Template\RendererInterface`](https://github.com/dotkernel/api/blob/6.0/src/App/src/Template/RendererInterface.php).\
-This is a lightweight renderer, aimed at rendering a combination of **PHP** and **HTML** files with phtml extension.
+This is a lightweight renderer, aimed at rendering a combination of **PHP** and **HTML** files with `phtml` extension.
 
 With the new solution, `MailService` requires no implementation of any renderer because it no longer has to render templates internally.\
 Instead, an implementation of `Api\App\Template\RendererInterface` is first injected in the handler:
