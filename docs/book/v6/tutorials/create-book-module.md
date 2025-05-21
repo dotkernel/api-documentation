@@ -723,8 +723,8 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies'     => $this->getDependencies(),
-            'doctrine'         => $this->getDoctrineConfig(),
+            'dependencies' => $this->getDependencies(),
+            'doctrine'     => $this->getDoctrineConfig(),
         ];
     }
 
