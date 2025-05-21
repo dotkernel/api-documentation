@@ -37,6 +37,7 @@ nav:
           - "Exceptions": v6/core-features/exceptions.md
           - "Dependency Injection": v6/core-features/dependency-injection.md
           - "Error reporting": v6/core-features/error-reporting.md
+          - "Rendering and Sending emails": v6/core-features/rendering-and-sending-emails.md
       - Extended features:
           - "Core and App": v6/extended-features/core-and-app.md
           - "New Handler Structure": v6/extended-features/handler-structure.md
