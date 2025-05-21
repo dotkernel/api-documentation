@@ -70,6 +70,7 @@ use Api\App\Collection\ResourceCollection;
 class BookCollection extends ResourceCollection
 {
 }
+
 ```
 
 * `src/Core/src/Book/src/Entity/Book.php`
@@ -191,6 +192,7 @@ class BookRepository extends AbstractRepository
             ->setMaxResults($params['limit']);
     }
 }
+
 ```
 
 * `src/Book/src/Service/BookServiceInterface.php`
@@ -214,6 +216,7 @@ interface BookServiceInterface
 
     public function getBooks(array $params): QueryBuilder;
 }
+
 ```
 
 * `src/Book/src/Service/BookService.php`
@@ -283,6 +286,7 @@ class BookService implements BookServiceInterface
         return $this->bookRepository->getBooks($params);
     }
 }
+
 ```
 
 When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request
@@ -320,6 +324,7 @@ class AuthorInput extends Input
             ], true);
     }
 }
+
 ```
 
 * `src/Book/src/InputFilter/Input/NameInput.php`
@@ -355,6 +360,7 @@ class NameInput extends Input
             ], true);
     }
 }
+
 ```
 
 * `src/Book/src/InputFilter/Input/ReleaseDateInput.php`
@@ -390,6 +396,7 @@ class ReleaseDateInput extends Input
             ], true);
     }
 }
+
 ```
 
 Now we add all the inputs together in a parent input filter.
@@ -406,7 +413,7 @@ namespace Api\Book\InputFilter;
 use Api\Book\InputFilter\Input\AuthorInput;
 use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
-use Core\Book\InputFilter\AbstractInputFilter;
+use Core\App\InputFilter\AbstractInputFilter;
 
 class CreateBookInputFilter extends AbstractInputFilter
 {
@@ -417,6 +424,7 @@ class CreateBookInputFilter extends AbstractInputFilter
         $this->add(new ReleaseDateInput('releaseDate'));
     }
 }
+
 ```
 
 We create separate `Input` files to demonstrate their reusability and obtain a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
@@ -501,12 +509,15 @@ class GetBookCollectionHandler extends AbstractHandler
         );
     }
 }
+
 ```
 
 * `src/Book/src/Handler/GetBookResourceHandler.php`
 
 ```php
 <?php
+
+declare(strict_types=1);
 
 namespace Api\Book\Handler;
 
@@ -527,6 +538,7 @@ class GetBookResourceHandler extends AbstractHandler
         );
     }
 }
+
 ```
 
 * `src/Book/src/Handler/PostBookResourceHandler.php`
@@ -546,9 +558,8 @@ use Core\App\Message;
 use Dot\DependencyInjection\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-class PostBookResourceHandler extends AbstractHandler implements RequestHandlerInterface
+class PostBookResourceHandler extends AbstractHandler
 {
     #[Inject(
         CreateBookInputFilter::class,
@@ -560,6 +571,9 @@ class PostBookResourceHandler extends AbstractHandler implements RequestHandlerI
     ) {
     }
 
+    /**
+     * @throws BadRequestException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->inputFilter->setData((array) $request->getParsedBody());
@@ -576,6 +590,7 @@ class PostBookResourceHandler extends AbstractHandler implements RequestHandlerI
         return $this->createdResponse($request, $this->bookService->saveBook($data));
     }
 }
+
 ```
 
 In `src/Book/src` we now create the 2 PHP files: `RoutesDelegator.php` and `ConfigProvider.php`.
@@ -643,6 +658,7 @@ class ConfigProvider
         ];
     }
 }
+
 ```
 
 * `src/Book/src/RoutesDelegator.php`
@@ -684,6 +700,7 @@ class RoutesDelegator
         return $callback();
     }
 }
+
 ```
 
 In `src/Core/src/Book/src` we will create `ConfigProvider.php` where we configure Doctrine ORM.
@@ -738,12 +755,13 @@ class ConfigProvider
         ];
     }
 }
+
 ```
 
 ### Registering the module
 
-* register the module config by adding `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
-* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"`, in composer.json under the autoload.psr-4 key
+* register the module config by adding `Api\Book\ConfigProvider::class,` and `Core\Book\ConfigProvider::class,` in `config/config.php` under the `Api\User\ConfigProvider::class,`
+* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"`, in `composer.json` under the `autoload`.`psr-4` key
 * update Composer autoloader by running the command:
 
 ```shell
@@ -755,7 +773,7 @@ That's it. The module is now registered.
 We need to configure access to the newly created endpoints.
 Open `config/autoload/authorization.global.php` and append the below route names to the `UserRoleEnum::Guest->value` key:
 
-* `books::list-books`
+* `book::list-books`
 * `book::view-book`
 * `book::create-book`
 
@@ -787,7 +805,13 @@ php ./vendor/bin/doctrine-migrations migrate
 
 ## Checking endpoints
 
-If we did everything as planned, we can call the `http://0.0.0.0:8080/book` endpoint and create a new book:
+First, we start a local server by executing:
+
+```shell
+composer serve
+```
+
+If we did everything as planned, we should be able to create a new book by executing the below command:
 
 ```shell
 curl -X POST http://0.0.0.0:8080/book
@@ -801,7 +825,7 @@ To list the books use:
 curl http://0.0.0.0:8080/books
 ```
 
-To retrieve a book use:
+To retrieve a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`
 
 ```shell
 curl http://0.0.0.0:8080/book/{uuid}
