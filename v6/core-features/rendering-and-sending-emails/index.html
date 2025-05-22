@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/transition-from-api-tools/api-tools-vs-dotkernel-api/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/core-features/rendering-and-sending-emails/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Laminas API Tools vs Dotkernel API - api - Dotkernel Documentation</title>
+        <title>Rendering and Sending emails - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -195,12 +195,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Transition from API Tools</li>
+                                <li class="breadcrumb-item">Core Features</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Laminas API Tools vs Dotkernel API</li>
+                    <li class="breadcrumb-item active" aria-current="page">Rendering and Sending emails</li>
                 
             
         </ol>
@@ -482,43 +482,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+    <a href="../authentication/" class="subnavigation__link">Authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+    <a href="../authorization/" class="subnavigation__link">Authorization</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+    <a href="../content-validation/" class="subnavigation__link">Content Validation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+    <a href="../exceptions/" class="subnavigation__link">Exceptions</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+    <a href="../dependency-injection/" class="subnavigation__link">Dependency Injection</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
+    <a href="../error-reporting/" class="subnavigation__link">Error reporting</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../core-features/rendering-and-sending-emails/" class="subnavigation__link">Rendering and Sending emails</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Rendering and Sending emails</a>
 </li>
 
         
@@ -781,20 +781,20 @@
     <ul class="subnavigation__list collapse" id="transition-from-api-tools">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../transition-approach/" class="subnavigation__link">Transition Approach</a>
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
 </li>
 
         
@@ -940,17 +940,6 @@
 
     
     
-        <div class="toc">
-            <h6 class="toc__headline">On this page</h6>
-            <ul class="toc__list">
-            
-                <li class="toc__entry">
-                    <a href="#note" class="toc__link nav-link">Note</a>
-                </li>
-            
-            </ul>
-        </div>
-    
 
                     
                 </div>
@@ -963,112 +952,38 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Transition from API Tools</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Core Features</h2>-->
     
 
-    <h1 id="laminas-api-tools-compared-to-dotkernel-api">Laminas API Tools compared to Dotkernel API</h1>
-<div class="table-responsive"><table>
-<thead>
-<tr>
-<th></th>
-<th>API Tools (formerly Apigility)</th>
-<th>Dotkernel API</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>URL</td>
-<td><a href="https://api-tools.getlaminas.org/">api-tools</a></td>
-<td><a href="https://www.dotkernel.org">Dotkernel API</a></td>
-</tr>
-<tr>
-<td>First Release</td>
-<td>2012</td>
-<td>2018</td>
-</tr>
-<tr>
-<td>PHP Version</td>
-<td>&lt;= 8.2</td>
-<td>&gt;= 8.1</td>
-</tr>
-<tr>
-<td>Architecture</td>
-<td>MVC, Event Driven</td>
-<td>Middleware</td>
-</tr>
-<tr>
-<td>OSS Lifecycle</td>
-<td>Archived</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/api?style=flat&amp;label=" /></td>
-</tr>
-<tr>
-<td>Style</td>
-<td>REST, RPC</td>
-<td>REST</td>
-</tr>
-<tr>
-<td>Versioning</td>
-<td>Yes</td>
-<td><a href="https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/">Deprecations *</a></td>
-</tr>
-<tr>
-<td>Documentation</td>
-<td>Swagger (Automated)</td>
-<td>Postman (Manual) *</td>
-</tr>
-<tr>
-<td>Content-Negotiation</td>
-<td>Custom</td>
-<td>Custom</td>
-</tr>
-<tr>
-<td>License</td>
-<td>BSD-3</td>
-<td>MIT</td>
-</tr>
-<tr>
-<td>Default DB Layer</td>
-<td>laminas-db</td>
-<td>doctrine-orm</td>
-</tr>
-<tr>
-<td>Authorization</td>
-<td>ACL</td>
-<td>RBAC-guard</td>
-</tr>
-<tr>
-<td>Authentication</td>
-<td>HTTP Basic/Digest   OAuth2.0</td>
-<td>OAuth2.0</td>
-</tr>
-<tr>
-<td>CI/CD</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Unit Tests</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Endpoint Generator</td>
-<td>Yes</td>
-<td>Under development</td>
-</tr>
-<tr>
-<td>PSR</td>
-<td>PSR-7</td>
-<td>PSR-7, PSR-15</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="note">Note</h2>
+    <h1 id="rendering-and-sending-emails">Rendering and sending emails</h1>
+<p>In the previous versions of Dotkernel API we have been composing email bodies using <strong>Twig</strong> from the <code>mezzio/mezzio-twigrenderer</code> package.
+In the current version of Dotkernel API, we introduced the core mail service <code>Core/src/App/src/Service/MailService</code> which is responsible for sending all emails.</p>
+<p>Being a core service, <code>MailService</code> is used across all projects implementing the Core architecture.
+To compose and send an email, a solid implementation of <code>TemplateRendererInterface</code> was required to be injected into <code>MailService</code>, because each method rendered and parsed their respective templates in place before sending an email.
+This is acceptable with other Dotkernel applications which in most cases return a rendered template, but being that Dotkernel API mostly returns JSON objects, rendered with a different renderer, <strong>Twig</strong> had to be replaced with a lighter solution.</p>
+<p>The solution is a custom <a href="https://github.com/dotkernel/api/blob/6.0/src/App/src/Template/Renderer.php"><code>Api\App\Template\Renderer</code></a> implementing <a href="https://github.com/dotkernel/api/blob/6.0/src/App/src/Template/RendererInterface.php"><code>Api\App\Template\RendererInterface</code></a>.
+This is a lightweight renderer, aimed at rendering a combination of <strong>PHP</strong> and <strong>HTML</strong> files with <code>phtml</code> extension.</p>
+<p>With the new solution, <code>MailService</code> requires no implementation of any renderer because it no longer has to render templates internally.
+Instead, an implementation of <code>Api\App\Template\RendererInterface</code> is first injected in the handler:</p>
+<pre class="highlight"><code class="language-php">class ExampleHandler extends AbstractHandler
+{
+    #[Inject(
+        MailService::class,
+        RendererInterface::class,
+    )]
+    public function __construct(
+        protected MailService $mailService,
+        protected RendererInterface $renderer,
+    ) {
+}</code></pre>
+<p>Then, the handler calls the renderer and saves the rendered template in a variable:</p>
+<pre class="highlight"><code class="language-php">$body = $this-&gt;renderer-&gt;render('user::welcome', ['user' =&gt; $user]);</code></pre>
+<p>And finally, the handler calls the mail service with the composed $body being passed as a parameter to the method which sends the email:</p>
+<pre class="highlight"><code class="language-php">// $user object contains email, firstname and lastname
+
+$this-&gt;mailService-&gt;sendWelcomeMail($user, $body);</code></pre>
 <blockquote>
-<ul>
-<li>Versioning is replaced by Deprecations, using evolution strategy</li>
-<li>Version 5 (<a href="https://github.com/orgs/dotkernel/projects/15/views/1">Roadmap</a>) will implement OpenAPi 3.0</li>
-</ul>
+<p>Other Dotkernel applications implementing the Core architecture do the same in the handlers, but keep using Twig as the template renderer.</p>
 </blockquote>
 
 
@@ -1079,9 +994,9 @@
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../tutorials/find-user-by-identity/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../error-reporting/">
                     <i class="bi bi-chevron-left"></i>
-                    Find user by identity
+                    Error reporting
                 </a>
             
         </li>
@@ -1089,8 +1004,8 @@
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../transition-approach/">
-                    Transition Approach
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../extended-features/core-and-app/">
+                    Core and App
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
