@@ -7,139 +7,54 @@ The below files structure is what we will have at the end of this tutorial and i
 ```markdown
 .
 └── src/
-    └── Book/
+    ├── Book/
+    │   └── src/
+    │       ├── Collection/
+    │       │   └── BookCollection.php
+    │       ├── Handler/
+    │       │   ├── GetBookCollectionHandler.php
+    │       │   ├── GetBookResourceHandler.php
+    │       │   └── PostBookResourceHandler.php
+    │       ├── InputFilter/
+    │       │   ├── Input/
+    │       │   │   ├── AuthorInput.php
+    │       │   │   ├── NameInput.php
+    │       │   │   └── ReleaseDateInput.php
+    │       │   └── CreateBookInputFilter.php
+    │       ├── Service/
+    │       │   ├── BookService.php
+    │       │   └── BookServiceInterface.php
+    │       ├── ConfigProvider.php
+    │       └── RoutesDelegator.php
+    └── Core/
         └── src/
-            ├── Collection/
-            │   └── BookCollection.php
-            ├── Entity/
-            │   └── Book.php
-            ├── Handler/
-            │   └── BookHandler.php
-            ├── InputFilter/
-            │   ├── Input/
-            │   │   ├── AuthorInput.php
-            │   │   ├── NameInput.php
-            │   │   └── ReleaseDateInput.php
-            │   └── BookInputFilter.php
-            ├── Repository/
-            │   └── BookRepository.php
-            ├── Service/
-            │   ├── BookService.php
-            │   └── BookServiceInterface.php
-            ├── ConfigProvider.php
-            └── RoutesDelegator.php
+            └── Book/
+                └── src/
+                    ├──Entity/
+                    │   └──Book.php
+                    ├──Repository/
+                    │   └──BookRepository.php
+                    └── ConfigProvider.php
 ```
 
-* `src/Book/src/Collection/BookCollection.php` - a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database
-* `src/Book/src/Entity/Book.php` - an entity refers to a PHP class that represents a persistent object or data structure
-* `src/Book/src/Handler/BookHandler.php` - handlers are middleware that can handle requests based on an action
-* `src/Book/src/Repository/BookRepository.php` - a repository is a class responsible for querying and retrieving entities from the database
-* `src/Book/src/Service/BookService.php` - is a class or component responsible for performing a specific task or providing functionality to other parts of the application
-* `src/Book/src/ConfigProvider.php` -  is a class that provides configuration for various aspects of the framework or application
-* `src/Book/src/RoutesDelegator.php` - a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application
-* `src/Book/src/InputFilter/BookInputFilter.php` - input filters and validators
-* `src/Book/src/InputFilter/Input/*` - input filters and validator configurations
-
-## Creating and configuring the module
-
-Firstly we will need the book module, so we will implement and create the basics for a module to be registered and functional.
-
-In `src` folder we will create the `Book` folder and in this we will create the `src` folder. So the final structure will be like this: `src/Book/src`.
-
-In `src/Book/src` we will create 2 php files: `RoutesDelegator.php` and `ConfigProvider.php`. This files will be updated later with all needed configuration.
-
-* `src/Book/src/RoutesDelegator.php`
-
-```php
-<?php
-
-namespace Api\Book;
-
-use Mezzio\Application;
-use Psr\Container\ContainerInterface;
-
-class RoutesDelegator
-{
-    public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
-    {
-        /** @var Application $app */
-        $app = $callback();
-        
-        return $app;
-    }
-}
-```
-
-* `src/Book/src/ConfigProvider.php`
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace Api\Book;
-
-use Mezzio\Application;
-use Mezzio\Hal\Metadata\MetadataMap;
-
-class ConfigProvider
-{
-    public function __invoke(): array
-    {
-        return [
-            'dependencies'     => $this->getDependencies(),
-            'doctrine'     => $this->getDoctrineConfig(),
-             MetadataMap::class => $this->getHalConfig(),
-        ];
-    }
-
-    private function getDependencies(): array
-    {
-        return [
-            'delegators' => [
-                Application::class => [
-                    RoutesDelegator::class
-                ]
-            ],
-            'factories' => [
-            ],
-            'aliases'   => [
-            ],
-        ];
-    }
-
-    private function getDoctrineConfig(): array
-    {
-        return [
-            
-        ];
-    }
-
-    private function getHalConfig(): array
-    {
-        return [
-           
-        ];
-    }
-
-}
-```
-
-### Registering the module
-
-* register the module config by adding the `Api\Book\ConfigProvider::class` in `config/config.php` under the `Api\User\ConfigProvider::class`
-* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"`, in composer.json under the autoload.psr-4 key
-* update Composer autoloader by running the command:
-
-```shell
-composer dump-autoload
-```
-
-That's it. The module is now registered and, we can continue creating Handlers, Services, Repositories and whatever is needed for out tutorial.
+* `src/Book/src/Collection/BookCollection.php` – a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database
+* `src/Book/src/Handler/GetBookCollectionHandler.php` – handler that reflects the GET action for the BookCollection class
+* `src/Book/src/Handler/GetBookResourceHandler.php` – handler that reflects the GET action for the Book entity
+* `src/Book/src/Handler/PostBookResourceHandler.php` – handler that reflects the POST action for the Book entity
+* `src/Book/src/InputFilter/Input/*` – input filters and validator configurations
+* `src/Book/src/InputFilter/CreateBookInputFilter.php` – input filters and validators
+* `src/Book/src/Service/BookService.php` – is a class or component responsible for performing a specific task or providing functionality to other parts of the application
+* `src/Book/src/Service/BookServiceInterface.php` – interface that reflects the publicly available methods in `BookService`
+* `src/Book/src/ConfigProvider.php` – is a class that provides configuration for various aspects of the framework or application
+* `src/Book/src/RoutesDelegator.php` – a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application
+* `src/Core/src/Book/src/Entity/Book.php` – an entity refers to a PHP class that represents a persistent object or data structure
+* `src/Core/src/Book/src/Repository/BookRepository.php` – a repository is a class responsible for querying and retrieving entities from the database
+* `src/Core/src/Book/src/ConfigProvider.php` – is a class that provides configuration for Doctrine ORM
 
 ## File creation and contents
 
-Each file below have a summary description above of what that file does.
+In `src` and `src/Core/src` folders we will create one `Book` folder and in those we will create the `src` folder.
+So the final structure will be like this: `src/Book/src` and `src/Core/src/Book/src`.
 
 * `src/Book/src/Collection/BookCollection.php`
 
@@ -155,22 +70,23 @@ use Api\App\Collection\ResourceCollection;
 class BookCollection extends ResourceCollection
 {
 }
+
 ```
 
-* `src/Book/src/Entity/Book.php`
+* `src/Core/src/Book/src/Entity/Book.php`
 
-To keep things simple in this tutorial our book will have 3 properties: `name`, `author` and `release date`.
+To keep things simple in this tutorial, our book will have 3 properties: `name`, `author` and `releaseDate`.
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-namespace Api\Book\Entity;
+namespace Core\Book\Entity;
 
-use Api\App\Entity\AbstractEntity;
-use Api\App\Entity\TimestampsTrait;
-use Api\Book\Repository\BookRepository;
+use Core\App\Entity\AbstractEntity;
+use Core\App\Entity\TimestampsTrait;
+use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -238,9 +154,9 @@ class Book extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getName(),
-            'author' => $this->getAuthor(),
+            'uuid'        => $this->getUuid()->toString(),
+            'name'        => $this->getName(),
+            'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
         ];
     }
@@ -248,53 +164,35 @@ class Book extends AbstractEntity
 
 ```
 
-* `src/Book/src/Repository/BookRepository.php`
+* `src/Core/src/Book/src/Repository/BookRepository.php`
 
 ```php
 <?php
-      
+
 declare(strict_types=1);
 
-namespace Api\Book\Repository;
+namespace Core\Book\Repository;
 
-use Api\App\Helper\PaginationHelper;
-use Api\Book\Collection\BookCollection;
-use Api\Book\Entity\Book;
-use Doctrine\ORM\EntityRepository;
+use Core\App\Repository\AbstractRepository;
+use Core\Book\Entity\Book;
+use Doctrine\ORM\QueryBuilder;
 use Dot\DependencyInjection\Attribute\Entity;
 
-/**
- * @extends EntityRepository<object>
- */
- #[Entity(name: Book::class)]
-class BookRepository extends EntityRepository
+#[Entity(name: Book::class)]
+class BookRepository extends AbstractRepository
 {
-    public function saveBook(Book $book): Book
+    public function getBooks(array $params, array $filters = []): QueryBuilder
     {
-        $this->getEntityManager()->persist($book);
-        $this->getEntityManager()->flush();
-
-        return $book;
-    }
-
-    public function getBooks(array $filters = []): BookCollection
-    {
-        $page = PaginationHelper::getOffsetAndLimit($filters);
-
-        $qb = $this
-            ->getEntityManager()
-            ->createQueryBuilder()
+        return $this
+            ->getQueryBuilder()
             ->select('book')
             ->from(Book::class, 'book')
-            ->orderBy($filters['order'] ?? 'book.created', $filters['dir'] ?? 'desc')
-            ->setFirstResult($page['offset'])
-            ->setMaxResults($page['limit']);
-
-        $qb->getQuery()->useQueryCache(true);
-
-        return new BookCollection($qb, false);
+            ->orderBy($params['sort'], $params['dir'])
+            ->setFirstResult($params['offset'])
+            ->setMaxResults($params['limit']);
     }
 }
+
 ```
 
 * `src/Book/src/Service/BookServiceInterface.php`
@@ -306,12 +204,19 @@ declare(strict_types=1);
 
 namespace Api\Book\Service;
 
-use Api\Book\Repository\BookRepository;
+use Core\Book\Entity\Book;
+use Core\Book\Repository\BookRepository;
+use Doctrine\ORM\QueryBuilder;
 
 interface BookServiceInterface
 {
-    public function getRepository(): BookRepository;
+    public function getBookRepository(): BookRepository;
+
+    public function saveBook(array $data): Book;
+
+    public function getBooks(array $params = []): QueryBuilder;
 }
+
 ```
 
 * `src/Book/src/Service/BookService.php`
@@ -323,24 +228,33 @@ declare(strict_types=1);
 
 namespace Api\Book\Service;
 
-use Api\Book\Entity\Book;
-use Api\Book\Repository\BookRepository;
-use Dot\DependencyInjection\Attribute\Inject;
+use Core\App\Helper\Paginator;
+use Core\Book\Entity\Book;
+use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
+use Doctrine\ORM\QueryBuilder;
+use Dot\DependencyInjection\Attribute\Inject;
+use Exception;
+
+use function in_array;
 
 class BookService implements BookServiceInterface
 {
     #[Inject(BookRepository::class)]
-    public function __construct(protected BookRepository $bookRepository)
-    {
+    public function __construct(
+        protected BookRepository $bookRepository
+    ) {
     }
 
-    public function getRepository(): BookRepository
+    public function getBookRepository(): BookRepository
     {
         return $this->bookRepository;
     }
 
-    public function createBook(array $data): Book
+    /**
+     * @throws Exception
+     */
+    public function saveBook(array $data): Book
     {
         $book = new Book(
             $data['name'],
@@ -348,14 +262,31 @@ class BookService implements BookServiceInterface
             new DateTimeImmutable($data['releaseDate'])
         );
 
-        return $this->bookRepository->saveBook($book);
+        $this->bookRepository->saveResource($book);
+
+        return $book;
     }
 
-    public function getBooks(array $filters = [])
+    public function getBooks(array $params = []): QueryBuilder
     {
-        return $this->bookRepository->getBooks($filters);
+        $filters = $params['filters'] ?? [];
+        $params  = Paginator::getParams($filters, 'book.created');
+
+        $sortableColumns = [
+            'book.name',
+            'book.author',
+            'book.releaseDate',
+            'book.created',
+        ];
+
+        if (! in_array($params['sort'], $sortableColumns, true)) {
+            $params['sort'] = 'book.created';
+        }
+
+        return $this->bookRepository->getBooks($params, $filters);
     }
 }
+
 ```
 
 When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request
@@ -364,12 +295,12 @@ When creating or updating a book, we will need some validators, so we will creat
 
 ```php
 <?php
-      
+
 declare(strict_types=1);
 
 namespace Api\Book\InputFilter\Input;
 
-use Api\App\Message;
+use Core\App\Message;
 use Laminas\Filter\StringTrim;
 use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
@@ -389,22 +320,23 @@ class AuthorInput extends Input
 
         $this->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => sprintf(Message::VALIDATOR_REQUIRED_FIELD_BY_NAME, 'author'),
+                'message' => Message::VALIDATOR_REQUIRED_FIELD,
             ], true);
     }
 }
+
 ```
 
 * `src/Book/src/InputFilter/Input/NameInput.php`
 
 ```php
 <?php
-      
+
 declare(strict_types=1);
 
 namespace Api\Book\InputFilter\Input;
 
-use Api\App\Message;
+use Core\App\Message;
 use Laminas\Filter\StringTrim;
 use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
@@ -424,27 +356,27 @@ class NameInput extends Input
 
         $this->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => sprintf(Message::VALIDATOR_REQUIRED_FIELD_BY_NAME, 'name'),
+                'message' => Message::VALIDATOR_REQUIRED_FIELD,
             ], true);
     }
 }
+
 ```
 
 * `src/Book/src/InputFilter/Input/ReleaseDateInput.php`
 
 ```php
 <?php
-      
+
 declare(strict_types=1);
 
 namespace Api\Book\InputFilter\Input;
 
-use Api\App\Message;
+use Core\App\Message;
 use Laminas\Filter\StringTrim;
 use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
 use Laminas\Validator\Date;
-use Laminas\Validator\NotEmpty;
 
 class ReleaseDateInput extends Input
 {
@@ -460,19 +392,20 @@ class ReleaseDateInput extends Input
 
         $this->getValidatorChain()
             ->attachByName(Date::class, [
-                'message' => sprintf(Message::INVALID_VALUE, 'releaseDate'),
+                'message' => Message::invalidValue('releaseDate'),
             ], true);
     }
 }
+
 ```
 
 Now we add all the inputs together in a parent input filter.
 
-* `src/Book/src/InputFilter/BookInputFilter.php`
+* `src/Book/src/InputFilter/CreateBookInputFilter.php`
 
 ```php
 <?php
-      
+
 declare(strict_types=1);
 
 namespace Api\Book\InputFilter;
@@ -480,9 +413,9 @@ namespace Api\Book\InputFilter;
 use Api\Book\InputFilter\Input\AuthorInput;
 use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
-use Laminas\InputFilter\InputFilter;
+use Core\App\InputFilter\AbstractInputFilter;
 
-class BookInputFilter extends InputFilter
+class CreateBookInputFilter extends AbstractInputFilter
 {
     public function __construct()
     {
@@ -491,9 +424,10 @@ class BookInputFilter extends InputFilter
         $this->add(new ReleaseDateInput('releaseDate'));
     }
 }
+
 ```
 
-We split all the inputs just for the purpose of this tutorial and to demonstrate a clean `BookInputFiler` but you could have all the inputs created directly in the `BookInputFilter` like this:
+We create separate `Input` files to demonstrate their reusability and obtain a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
 
 ```php
 $nameInput = new Input();
@@ -505,15 +439,43 @@ $nameInput->getFilterChain()
 
 $nameInput->getValidatorChain()
     ->attachByName(NotEmpty::class, [
-        'message' => sprintf(Message::VALIDATOR_REQUIRED_FIELD_BY_NAME, 'name'),
+        'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
 $this->add($nameInput);
+
+$authorInput = new Input();
+$authorInput->setRequired(true);
+
+$authorInput->getFilterChain()
+    ->attachByName(StringTrim::class)
+    ->attachByName(StripTags::class);
+
+$authorInput->getValidatorChain()
+    ->attachByName(NotEmpty::class, [
+        'message' => Message::VALIDATOR_REQUIRED_FIELD,
+    ], true);
+
+$this->add($authorInput);
+
+$releaseDateInput = new Input();
+$releaseDateInput->setRequired(true);
+
+$releaseDateInput->getFilterChain()
+    ->attachByName(StringTrim::class)
+    ->attachByName(StripTags::class);
+
+$releaseDateInput->getValidatorChain()
+    ->attachByName(NotEmpty::class, [
+        'message' => Message::VALIDATOR_REQUIRED_FIELD,
+    ], true);
+
+$this->add($releaseDateInput);
 ```
 
-Now it's time to create the handler.
+Now it's time to create the handlers.
 
-* `src/Book/src/Handler/BookHandler.php`
+* `src/Book/src/Handler/GetBookCollectionHandler.php`
 
 ```php
 <?php
@@ -523,115 +485,117 @@ declare(strict_types=1);
 namespace Api\Book\Handler;
 
 use Api\App\Handler\AbstractHandler;
-use Api\Book\InputFilter\BookInputFilter;
+use Api\Book\Collection\BookCollection;
 use Api\Book\Service\BookServiceInterface;
 use Dot\DependencyInjection\Attribute\Inject;
-use Fig\Http\Message\StatusCodeInterface;
-use Mezzio\Hal\HalResponseFactory;
-use Mezzio\Hal\ResourceGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Dot\DependencyInjection\Attribute\Inject;
 
-class BookHandler extends AbstractHandler implements RequestHandlerInterface
+class GetBookCollectionHandler extends AbstractHandler
 {
     #[Inject(
         BookServiceInterface::class,
-        "config"
-        HalResponseFactory::class,
-        ResourceGenerator::class,
     )]
     public function __construct(
         protected BookServiceInterface $bookService,
-        protected array $config
-        protected ?HalResponseFactory $responseFactory = null,
-        protected ?ResourceGenerator $resourceGenerator = null,
     ) {
     }
 
-    public function get(ServerRequestInterface $request): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $book = $this->bookService->getRepository()->findOneBy(['uuid' => $request->getAttribute('uuid')]);
-
-        if (! $book instanceof Book){
-            return $this->notFoundResponse();
-        }
-
-        return $this->createResponse($request, $book);
-    }
-
-    public function getCollection(ServerRequestInterface $request): ResponseInterface
-    {
-        $books = $this->bookService->getRepository()->getBooks($request->getQueryParams());
-
-        return $this->createResponse($request, $books);
-    }
-
-    public function post(ServerRequestInterface $request): ResponseInterface
-    {
-        $inputFilter = (new BookInputFilter())->setData($request->getParsedBody());
-        if (! $inputFilter->isValid()) {
-            return $this->errorResponse($inputFilter->getMessages(), StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY);
-        }
-
-        $book = $this->bookService->createBook($inputFilter->getValues());
-
-        return $this->createResponse($request, $book);
+        return $this->createResponse(
+            $request,
+            new BookCollection($this->bookService->getBooks($request->getQueryParams()))
+        );
     }
 }
 
 ```
 
-After we have the handler, we need to register some routes in the `RoutesDelegator`, the same we created when  we registered the module.
-
-* `src/Book/src/RoutesDelegator.php`
+* `src/Book/src/Handler/GetBookResourceHandler.php`
 
 ```php
 <?php
 
-namespace Api\Book;
+declare(strict_types=1);
 
-use Api\Book\Handler\BookHandler;
-use Mezzio\Application;
-use Psr\Container\ContainerInterface;
+namespace Api\Book\Handler;
 
-class RoutesDelegator
+use Api\App\Attribute\Resource;
+use Api\App\Handler\AbstractHandler;
+use Core\Book\Entity\Book;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+class GetBookResourceHandler extends AbstractHandler
 {
-    public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
+    #[Resource(entity: Book::class)]
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        /** @var Application $app */
-        $app = $callback();
-
-        $uuid = \Api\App\RoutesDelegator::REGEXP_UUID;
-
-        $app->get(
-            '/books',
-            BookHandler::class,
-            'books.list'
+        return $this->createResponse(
+            $request,
+            $request->getAttribute(Book::class)
         );
-
-        $app->get(
-            '/book/'.$uuid,
-            BookHandler::class,
-            'book.show'
-        );
-
-        $app->post(
-            '/book',
-            BookHandler::class,
-            'book.create'
-        );
-
-        return $app;
     }
 }
+
 ```
 
-We need to configure access to the newly created endpoints, add `books.list`, `book.show` and `book.create` to the authorization rbac array, under the `UserRole::ROLE_GUEST` key.
-> Make sure you read and understand the rbac documentation.
+* `src/Book/src/Handler/PostBookResourceHandler.php`
 
-It's time to update the `ConfigProvider` with all the necessary configuration needed, so the above files to work properly like dependency injection, aliases, doctrine mapping and so on.
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Api\Book\Handler;
+
+use Api\App\Exception\BadRequestException;
+use Api\App\Handler\AbstractHandler;
+use Api\Book\InputFilter\CreateBookInputFilter;
+use Api\Book\Service\BookServiceInterface;
+use Core\App\Message;
+use Dot\DependencyInjection\Attribute\Inject;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+class PostBookResourceHandler extends AbstractHandler
+{
+    #[Inject(
+        CreateBookInputFilter::class,
+        BookServiceInterface::class,
+    )]
+    public function __construct(
+        protected CreateBookInputFilter $inputFilter,
+        protected BookServiceInterface $bookService,
+    ) {
+    }
+
+    /**
+     * @throws BadRequestException
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        $this->inputFilter->setData((array) $request->getParsedBody());
+        if (! $this->inputFilter->isValid()) {
+            throw BadRequestException::create(
+                detail: Message::VALIDATOR_INVALID_DATA,
+                additional: ['errors' => $this->inputFilter->getMessages()]
+            );
+        }
+
+        /** @var non-empty-array<non-empty-string, mixed> $data */
+        $data = (array) $this->inputFilter->getValues();
+
+        return $this->createdResponse($request, $this->bookService->saveBook($data));
+    }
+}
+
+```
+
+In `src/Book/src` we now create the 2 PHP files: `RoutesDelegator.php` and `ConfigProvider.php`.
+
+`RoutesDelegator.php` contains all of our routes while `ConfigProvider` contains all the necessary configuration needed, so the above files work properly like dependency injection, aliases and so on.
 
 * `src/Book/src/ConfigProvider.php`
 
@@ -642,18 +606,18 @@ declare(strict_types=1);
 
 namespace Api\Book;
 
+use Api\App\ConfigProvider as AppConfigProvider;
+use Api\App\Factory\HandlerDelegatorFactory;
 use Api\Book\Collection\BookCollection;
-use Api\Book\Entity\Book;
-use Api\Book\Handler\BookHandler;
-use Api\Book\Repository\BookRepository;
+use Api\Book\Handler\GetBookCollectionHandler;
+use Api\Book\Handler\GetBookResourceHandler;
+use Api\Book\Handler\PostBookResourceHandler;
 use Api\Book\Service\BookService;
 use Api\Book\Service\BookServiceInterface;
-use Doctrine\ORM\Mapping\Driver\AttributeDriver;
-use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+use Core\Book\Entity\Book;
 use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Mezzio\Application;
 use Mezzio\Hal\Metadata\MetadataMap;
-use Api\App\ConfigProvider as AppConfigProvider;
 
 class ConfigProvider
 {
@@ -661,7 +625,6 @@ class ConfigProvider
     {
         return [
             'dependencies'     => $this->getDependencies(),
-            'doctrine'     => $this->getDoctrineConfig(),
             MetadataMap::class => $this->getHalConfig(),
         ];
     }
@@ -670,17 +633,106 @@ class ConfigProvider
     {
         return [
             'delegators' => [
-                Application::class => [
-                    RoutesDelegator::class
-                ]
+                Application::class              => [RoutesDelegator::class],
+                PostBookResourceHandler::class  => [HandlerDelegatorFactory::class],
+                GetBookResourceHandler::class   => [HandlerDelegatorFactory::class],
+                GetBookCollectionHandler::class => [HandlerDelegatorFactory::class],
             ],
+            'factories'  => [
+                PostBookResourceHandler::class  => AttributedServiceFactory::class,
+                GetBookResourceHandler::class   => AttributedServiceFactory::class,
+                GetBookCollectionHandler::class => AttributedServiceFactory::class,
+                BookService::class              => AttributedServiceFactory::class,
+            ],
+            'aliases'    => [
+                BookServiceInterface::class => BookService::class,
+            ],
+        ];
+    }
+
+    private function getHalConfig(): array
+    {
+        return [
+            AppConfigProvider::getResource(Book::class, 'book::view-book'),
+            AppConfigProvider::getCollection(BookCollection::class, 'book::list-books', 'books'),
+        ];
+    }
+}
+
+```
+
+* `src/Book/src/RoutesDelegator.php`
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Api\Book;
+
+use Api\Book\Handler\GetBookCollectionHandler;
+use Api\Book\Handler\GetBookResourceHandler;
+use Api\Book\Handler\PostBookResourceHandler;
+use Core\App\ConfigProvider;
+use Dot\Router\RouteCollectorInterface;
+use Mezzio\Application;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
+
+class RoutesDelegator
+{
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
+    {
+        $uuid = ConfigProvider::REGEXP_UUID;
+
+        /** @var RouteCollectorInterface $routeCollector */
+        $routeCollector = $container->get(RouteCollectorInterface::class);
+
+        $routeCollector->post('/book', PostBookResourceHandler::class, 'book::create-book');
+        $routeCollector->get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
+        $routeCollector->get('/books', GetBookCollectionHandler::class, 'book::list-books');
+
+        return $callback();
+    }
+}
+
+```
+
+In `src/Core/src/Book/src` we will create `ConfigProvider.php` where we configure Doctrine ORM.
+
+* `src/Core/src/Book/src/ConfigProvider.php`.
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace Core\Book;
+
+use Core\Book\Repository\BookRepository;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+
+class ConfigProvider
+{
+    public function __invoke(): array
+    {
+        return [
+            'dependencies' => $this->getDependencies(),
+            'doctrine'     => $this->getDoctrineConfig(),
+        ];
+    }
+
+    private function getDependencies(): array
+    {
+        return [
             'factories' => [
-                BookHandler::class    => AttributedServiceFactory::class,
-                BookService::class    => AttributedServiceFactory::class,
                 BookRepository::class => AttributedRepositoryFactory::class,
-            ],
-            'aliases'   => [
-                BookServiceInterface::class     => BookService::class,
             ],
         ];
     }
@@ -689,30 +741,43 @@ class ConfigProvider
     {
         return [
             'driver' => [
-                'orm_default'   => [
+                'orm_default'  => [
                     'drivers' => [
-                        'Api\Book\Entity' => 'BookEntities'
+                        'Core\Book\Entity' => 'BookEntities',
                     ],
                 ],
-                'BookEntities'  => [
+                'BookEntities' => [
                     'class' => AttributeDriver::class,
                     'cache' => 'array',
-                    'paths' => __DIR__ . '/Entity',
+                    'paths' => [__DIR__ . '/Entity'],
                 ],
             ],
         ];
     }
-
-    private function getHalConfig(): array
-    {
-        return [
-            AppConfigProvider::getCollection(BookCollection::class, 'books.list', 'books'),
-            AppConfigProvider::getResource(Book::class, 'book.show')
-        ];
-    }
-
 }
+
 ```
+
+### Registering the module
+
+* register the module config by adding `Api\Book\ConfigProvider::class,` and `Core\Book\ConfigProvider::class,` in `config/config.php` under the `Api\User\ConfigProvider::class,`
+* register the namespace by adding this line `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"`, in `composer.json` under the `autoload`.`psr-4` key
+* update Composer autoloader by running the command:
+
+```shell
+composer dump-autoload
+```
+
+That's it. The module is now registered.
+
+We need to configure access to the newly created endpoints.
+Open `config/autoload/authorization.global.php` and append the below route names to the `UserRoleEnum::Guest->value` key:
+
+* `book::list-books`
+* `book::view-book`
+* `book::create-book`
+
+> Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
 
 ## Migrations
 
@@ -720,27 +785,33 @@ We created the `Book` entity, but we didn't create the associated table for it.
 
 > You can check the mapping files by running:
 
-```shel
-php bin/doctrine orm:validate-schema
+```shell
+php ./bin/doctrine orm:validate-schema
 ```
 
 Doctrine can handle the table creation, run the following command:
 
 ```shell
-vendor/bin/doctrine-migrations diff --filter-expression='/^(?!oauth_)/'
+php ./vendor/bin/doctrine-migrations diff
 ```
 
-This will check for differences between your entities and database structure and create migration files if necessary, in `data/doctrine/migrations`.
+This will check for differences between your entities and database structure and create migration files if necessary, in `src/Core/src/App/src/Migration`.
 
 To execute the migrations run:
 
 ```shell
-vendor/bin/doctrine-migrations migrate
+php ./vendor/bin/doctrine-migrations migrate
 ```
 
 ## Checking endpoints
 
-If we did everything as planned we can call the `http://0.0.0.0:8080/book` endpoint and create a new book:
+First, we start a local server by executing:
+
+```shell
+composer serve
+```
+
+If we did everything as planned, we should be able to create a new book by executing the below command:
 
 ```shell
 curl -X POST http://0.0.0.0:8080/book
@@ -754,7 +825,9 @@ To list the books use:
 curl http://0.0.0.0:8080/books
 ```
 
-To retrieve a book use:
+To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
+
+The link should have the following format:
 
 ```shell
 curl http://0.0.0.0:8080/book/{uuid}
