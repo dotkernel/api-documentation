@@ -283,7 +283,7 @@ class BookService implements BookServiceInterface
             $params['sort'] = 'book.created';
         }
 
-        return $this->bookRepository->getBooks($params);
+        return $this->bookRepository->getBooks($params, $filters);
     }
 }
 
