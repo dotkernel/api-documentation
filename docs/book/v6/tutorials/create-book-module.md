@@ -214,7 +214,7 @@ interface BookServiceInterface
 
     public function saveBook(array $data): Book;
 
-    public function getBooks(array $params): QueryBuilder;
+    public function getBooks(array $params = []): QueryBuilder;
 }
 
 ```
