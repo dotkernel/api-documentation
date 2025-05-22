@@ -181,7 +181,7 @@ use Dot\DependencyInjection\Attribute\Entity;
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
-    public function getBooks(array $params): QueryBuilder
+    public function getBooks(array $params, array $filters = []): QueryBuilder
     {
         return $this
             ->getQueryBuilder()
