@@ -2,7 +2,6 @@
 
 > You can find a complete list in [Changelog](https://github.com/dotkernel/api/blob/6.0/CHANGELOG.md)
 
-
 * Move common logic to Core module [https://github.com/dotkernel/api/pull/358](https://github.com/dotkernel/api/pull/358)
 * Refactored Handlers [https://github.com/dotkernel/api/pull/385](https://github.com/dotkernel/api/pull/385)
 * Inject `InputFilters` in handlers [https://github.com/dotkernel/api/pull/389](https://github.com/dotkernel/api/pull/389)
@@ -23,4 +22,3 @@
 * Replaced `Twig` with custom templating solution [https://github.com/dotkernel/api/pull/419](https://github.com/dotkernel/api/pull/419)
 * Increased `PHPStan` level to 8 [https://github.com/dotkernel/api/pull/421](https://github.com/dotkernel/api/pull/421)
 * Split the `/security/token` endpoint into two separate endpoints [https://github.com/dotkernel/api/pull/423](https://github.com/dotkernel/api/pull/423)
-
