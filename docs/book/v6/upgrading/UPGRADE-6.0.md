@@ -3,7 +3,6 @@
 > You can find a complete list in [Changelog](https://github.com/dotkernel/api/blob/6.0/CHANGELOG.md)
 
 
-
 * Move common logic to Core module [https://github.com/dotkernel/api/pull/358](https://github.com/dotkernel/api/pull/358)
 * Refactored Handlers [https://github.com/dotkernel/api/pull/385](https://github.com/dotkernel/api/pull/385)
 * Inject `InputFilters` in handlers [https://github.com/dotkernel/api/pull/389](https://github.com/dotkernel/api/pull/389)
