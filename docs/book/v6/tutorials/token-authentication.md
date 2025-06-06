@@ -30,7 +30,7 @@ Dotkernel API provides out-of-the-box both an `admin` and a `user` account.
 The admin account with **role** set to both `superuser` and `admin` with the following credentials:
 
 - **identity**: `admin`
-- **password**: `dotkernel`
+- **password**: `dotadmin`
 
 The user account with **role** set to both `user` and `guest` with the following credentials:
 
