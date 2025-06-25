@@ -46,13 +46,13 @@ The user account with **role** set to both `user` and `guest` with the following
 
 ### Note
 
-> The first two steps need to executed only once.
+> The first two steps need to be executed only once.
 > Access token should be stored and reused for all upcoming requests.
 > Refresh token should be stored and used to refresh expired access token.
 
 For a better overview of the flow, see the below image:
 
-![Token authentication flow](https://docs.dotkernel.org/img/api/token-authentication.png)
+![Token authentication flow](https://docs.dotkernel.org/img/api/v5/token-authentication.png)
 
 ## Generate admin access token
 
