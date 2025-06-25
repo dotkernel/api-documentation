@@ -132,42 +132,44 @@
                 </li>
                 <li class="nav-item">
                     
-<div class="version-selector">
-    <div class="btn-group">
-        <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
-            
-                v6
-            
-        </button>
-        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
-            
+    
+    <div class="version-selector">
+        <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
-                    <a href="v6/introduction/introduction/" class="dropdown-item">
-                        
-                            v6 (latest)
-                        
-                    </a>
+                    v6
                 
-            
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
                 
-                    <a href="v5/introduction/introduction/" class="dropdown-item">
-                        
-                            v5
-                        
-                    </a>
                 
-            
+                <a href="v6/introduction/introduction/" class="dropdown-item">
+                    
+                        v6 (latest)
+                    
+                </a>
                 
-                    <a href="v4/introduction/introduction/" class="dropdown-item">
-                        
-                            v4
-                        
-                    </a>
                 
-            
+                
+                <a href="v5/introduction/introduction/" class="dropdown-item">
+                    
+                        v5
+                    
+                </a>
+                
+                
+                
+                <a href="v4/introduction/introduction/" class="dropdown-item">
+                    
+                        v4
+                    
+                </a>
+                
+                
+            </div>
         </div>
     </div>
-</div>
+    
 
                 </li>
             </ul>
@@ -928,56 +930,57 @@
 
     
     <h1>Dotkernel API</h1>
-    <h2>Features</h2>
-    <div style="display: flex;gap: 30px;flex-wrap: wrap;">
-        <div style="width:300px">
-            <div style="display: flex;gap:25px;height:70px;margin-bottom:20px;">
-                <img style="background: #E4EDFF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/cycle.svg">
-                <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/container/intro/" target="_blank" rel="noopener">Containers</a></h3>
-            </div>
-            Dotkernel is built around the PSR-11 dependency container. We have chosen <strong><a href="https://github.com/laminas/laminas-servicemanager">Laminas Service Manager</a></strong> as our default implementation.
+<h2>Features</h2>
+<div style="display: flex;gap: 30px;flex-wrap: wrap;">
+    <div style="width:300px">
+        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px;">
+            <img style="background: #E4EDFF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/cycle.svg" alt="Mezzio Containers">
+            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/container/intro/" target="_blank" rel="noopener">Containers</a></h3>
         </div>
-        <div style="width:300px">
-            <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-                <img style="background: #E5F6E3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/migrate.svg">
-                <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/template/intro/" target="_blank" rel="noopener">Templating</a></h3>
-            </div>
-            By default, no middleware in Mezzio is templated. We use <strong><a href="https://twig.symfony.com/doc/3.x/">Twig</a></strong> as the default templating engine.
-        </div>
-        <div style="width:300px">
-            <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-                <img style="background: #FDD3D3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/jump.svg">
-                <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/router/intro/" target="_blank" rel="noopener">Routers</a></h3>
-            </div>
-            There are various routing implementations compatible with Expressive. We have chosen <strong><a href="https://github.com/nikic/FastRoute">FastRoute</a></strong> as Dotkernel’s default routing library.
-        </div>
-        <div style="width:300px">
-            <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-                <img style="background: #DDD1FF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/notepad.svg">
-                <h3 style="padding-top:0;margin-top:0;"><a href="https://github.com/laminas/laminas-diactoros" target="_blank" rel="noopener">Http messages</a></h3>
-            </div>
-            Mezzio, and consequently Dotkernel, is built around <strong><a href="https://github.com/php-fig/http-message">PSR-7</a></strong>. It uses <strong><a href="https://github.com/laminas/laminas-diactoros">Laminas Diactoros</a></strong> as the PSR-7 implementation.
-        </div>
-        <div style="width:300px">
-            <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-                <img style="background: #FFEDD8;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/integration.svg">
-                <h3 style="padding-top:0;margin-top:0;"><a href="https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html" target="_blank" rel="noopener">Database and object mapping</a></h3>
-            </div>
-            The Doctrine Project’s PHP libraries are at the core of our database storage and object mapping. We use Doctrine's <strong><a href="https://www.doctrine-project.org/projects/dbal.html">Database Abstraction Layer</a></strong> and <strong><a href="https://www.doctrine-project.org/projects/orm.html">Object Relational Mapper</a></strong>.
-        </div>
+        Dotkernel is built around the PSR-11 dependency container. We have chosen <strong><a href="https://github.com/laminas/laminas-servicemanager">Laminas Service Manager</a></strong> as our default implementation.
     </div>
-    <h2>Installation</h2>
-    <h3>Using Git</h3>
-    <pre class="highlight line-numbers">
-        <i class="bi bi-copy copy_btn" onclick="copy(this)"></i>
-        <code class="language-bash">git clone https://github.com/dotkernel/api.git dotkernel-api</code>
-    </pre>
+    <div style="width:300px">
+        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
+            <img style="background: #E5F6E3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/migrate.svg" alt="Mezzio Templating">
+            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/template/intro/" target="_blank" rel="noopener">Templating</a></h3>
+        </div>
+        By default, no middleware in Mezzio is templated. We use <strong><a href="https://twig.symfony.com/doc/3.x/">Twig</a></strong> as the default templating engine.
+    </div>
+    <div style="width:300px">
+        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
+            <img style="background: #FDD3D3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/jump.svg" alt="Mezzio Routers">
+            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/router/intro/" target="_blank" rel="noopener">Routers</a></h3>
+        </div>
+        There are various routing implementations compatible with Expressive. We have chosen <strong><a href="https://github.com/nikic/FastRoute">FastRoute</a></strong> as Dotkernel’s default routing library.
+    </div>
+    <div style="width:300px">
+        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
+            <img style="background: #DDD1FF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/notepad.svg" alt="Laminas diactoros">
+            <h3 style="padding-top:0;margin-top:0;"><a href="https://github.com/laminas/laminas-diactoros" target="_blank" rel="noopener">Http messages</a></h3>
+        </div>
+        Mezzio, and consequently Dotkernel, is built around <strong><a href="https://github.com/php-fig/http-message">PSR-7</a></strong>. It uses <strong><a href="https://github.com/laminas/laminas-diactoros">Laminas Diactoros</a></strong> as the PSR-7 implementation.
+    </div>
+    <div style="width:300px">
+        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
+            <img style="background: #FFEDD8;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/integration.svg" alt="Doctrine">
+            <h3 style="padding-top:0;margin-top:0;"><a href="https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html" target="_blank" rel="noopener">Database and object mapping</a></h3>
+        </div>
+        The Doctrine Project’s PHP libraries are at the core of our database storage and object mapping. We use Doctrine's <strong><a href="https://www.doctrine-project.org/projects/dbal.html">Database Abstraction Layer</a></strong> and <strong><a href="https://www.doctrine-project.org/projects/orm.html">Object Relational Mapper</a></strong>.
+    </div>
+</div>
+<h2>Installation</h2>
+<h3>Using Git</h3>
+<pre class="highlight line-numbers">
+    <i class="bi bi-copy copy_btn" onclick="copy(this)"></i>
+    <code class="language-bash">git clone https://github.com/dotkernel/api.git dotkernel-api</code>
+</pre>
 
 
 <h2>Support</h2>
 <ul>
-    <li>Issues: <a href="https://github.com/dotkernel/api/issues">github.com/dotkernel/api/issues</a></li>
-    <li>Source: <a href="https://github.com/dotkernel/api">github.com/dotkernel/api</a></li>
+    <li>Discussions: <a href="https://github.com/orgs/dotkernel/discussions" target="_blank">https://github.com/orgs/dotkernel/discussions</a></li>
+    <li>Issues: <a href="https://github.com/dotkernel/api/issues" target="_blank">github.com/dotkernel/api/issues</a></li>
+    <li>Source: <a href="https://github.com/dotkernel/api" target="_blank">github.com/dotkernel/api</a></li>
 </ul>
 
 
@@ -1149,5 +1152,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-06-06 09:57:05.191649+00:00
+Build Date UTC : 2025-06-25 07:36:03.037251+00:00
 -->

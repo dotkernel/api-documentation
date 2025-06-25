@@ -132,42 +132,44 @@
                 </li>
                 <li class="nav-item">
                     
-<div class="version-selector">
-    <div class="btn-group">
-        <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
-            
-                v6
-            
-        </button>
-        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
-            
+    
+    <div class="version-selector">
+        <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
-                    <a href="../../introduction/introduction/" class="dropdown-item active">
-                        
-                            v6 (latest)
-                        
-                    </a>
+                    v6
                 
-            
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
                 
-                    <a href="../../../v5/introduction/introduction/" class="dropdown-item">
-                        
-                            v5
-                        
-                    </a>
                 
-            
+                <a href="../../introduction/introduction/" class="dropdown-item active">
+                    
+                        v6 (latest)
+                    
+                </a>
                 
-                    <a href="../../../v4/introduction/introduction/" class="dropdown-item">
-                        
-                            v4
-                        
-                    </a>
                 
-            
+                
+                <a href="../../../v5/introduction/introduction/" class="dropdown-item">
+                    
+                        v5
+                    
+                </a>
+                
+                
+                
+                <a href="../../../v4/introduction/introduction/" class="dropdown-item">
+                    
+                        v4
+                    
+                </a>
+                
+                
+            </div>
         </div>
     </div>
-</div>
+    
 
                 </li>
             </ul>
@@ -1038,12 +1040,12 @@ These roles are identified from the access token sent via the <code>Authorizatio
 </ul>
 <h3 id="note">Note</h3>
 <blockquote>
-<p>The first two steps need to executed only once.
+<p>The first two steps need to be executed only once.
 Access token should be stored and reused for all upcoming requests.
 Refresh token should be stored and used to refresh expired access token.</p>
 </blockquote>
 <p>For a better overview of the flow, see the below image:</p>
-<p><img alt="Token authentication flow" src="https://docs.dotkernel.org/img/api/token-authentication.png" class="img-responsive"/></p>
+<p><img alt="Token authentication flow" src="https://docs.dotkernel.org/img/api/v6/token-authentication.png" class="img-responsive"/></p>
 <h2 id="generate-admin-access-token">Generate admin access token</h2>
 <p>Send a <code>POST</code> request to the <code>/security/generate-token</code> endpoint with <code>Content-Type</code> header set to <code>application/json</code>.</p>
 <p>Set request body to:</p>
