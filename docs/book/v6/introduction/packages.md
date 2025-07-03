@@ -4,6 +4,8 @@
 >
 > Once Laminas Service Manager 4 is fully supported, Dotkernel API 6.x will be installable on PHP 8.4 as well.
 
+* `doctrine/dbal`:`^4.2` - Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.
+* `doctrine/orm`:`^3.4` - Object-Relational-Mapper for PHP
 * `dotkernel/dot-cache`:`^4.3` - Cache component extending symfony-cache
 * `dotkernel/dot-cli`:`^3.9` - Component for creating console applications based on laminas-cli
 * `dotkernel/dot-data-fixtures`:`^1.4` - Provides a CLI interface for listing & executing doctrine data fixtures
