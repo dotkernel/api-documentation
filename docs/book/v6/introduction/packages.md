@@ -11,7 +11,7 @@
 * `dotkernel/dot-data-fixtures`:`^1.4` - Provides a CLI interface for listing & executing doctrine data fixtures
 * `dotkernel/dot-dependency-injection`:`^1.2` - Dependency injection component using class attributes.
 * `dotkernel/dot-errorhandler`:`^4.0` - Logging Error Handler for Middleware Applications
-* `dotkernel/dot-mail`:`^5.3` - Mail component based on laminas-mail
+* `dotkernel/dot-mail`:`^5.3` - Mail component based on Symfony Mailer
 * `dotkernel/dot-response-header`:`^3.5` - Middleware for setting custom response headers.
 * `dotkernel/dot-router`:`^1.0` - Dotkernel component to build complex routes, based on `mezzio/mezzio-fastroute`
 * `laminas/laminas-authentication`:`^2.18` - API for authentication and includes concrete authentication adapters for common use case scenarios
