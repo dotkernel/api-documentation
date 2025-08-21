@@ -191,7 +191,7 @@ class Book extends AbstractEntity
 ```
 
 The `BookService` class will require minor modifications for the `getBooks()` and `saveBook()` methods, to add the custom properties added in the previous step.
-The class should look like the following after updating the methods/
+The class should look like the following after updating the methods.
 
 * `src/Book/src/Service/BookService.php`
 
@@ -279,7 +279,8 @@ class BookService implements BookServiceInterface
 
 When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request.
 
-By creating a `module` with `dot-maker`, separate inputs will not be created. However, you can still generate them as using these steps:
+By creating a `module` with `dot-maker`, separate inputs will not be created.
+However, you can still generate them as using these steps:
 
 * Run the following to start adding `Input` classes:
 
@@ -321,7 +322,7 @@ class CreateBookInputFilter extends AbstractInputFilter
 
 We create separate `Input` files to demonstrate their reusability and obtain a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
 
-> Note that `dot-maker` will not generate inputs in the constructor, so the following are to be added by hand **if** going for this approach
+> Note that `dot-maker` will not generate inputs in the constructor, so the following are to be added by hand **if** going for this approach.
 
 ```php
 $nameInput = new Input();
@@ -369,7 +370,7 @@ $this->add($releaseDateInput);
 
 ## Migrations
 
-As all changes are done, so at this point the migration file can be generated to create the associated table for the `Book` entity.
+All changes are done, so at this point the migration file can be generated to create the associated table for the `Book` entity.
 
 > You can check the mapping files by running:
 
@@ -383,7 +384,7 @@ php ./bin/doctrine orm:validate-schema
 php ./vendor/bin/doctrine-migrations diff
 ```
 
-This will check for differences between your entities and database structure and create migration files if necessary, in src/Core/src/App/src/Migration.
+This will check for differences between your entities and database structure and create migration files if necessary, in `src/Core/src/App/src/Migration`.
 
 To execute the migrations run:
 
