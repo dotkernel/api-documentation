@@ -52,6 +52,7 @@ nav:
       - Tutorials:
           - "Setting up CORS": v6/tutorials/cors.md
           - "Creating a book module": v6/tutorials/create-book-module.md
+          - "Creating a book module using dotkernel/dot-maker": v6/tutorials/create-book-module-via-dot-maker.md
           - "Token authentication": v6/tutorials/token-authentication.md
           - "API Evolution": v6/tutorials/api-evolution.md
           - "Find user by identity": v6/tutorials/find-user-by-identity.md
