@@ -59,13 +59,13 @@ you can have multiple components such as event listeners, wrappers, etc.
 
 After successfully installing `dot-maker`, it can be used to generate the Book module.
 Invoke `dot-maker` by executing `./vendor/bin/dot-maker` or via the optional script described in the documentation - `composer make`.
-This will list all component types that can be created - for the purposes of this tutorial, enter the `module`:
+This will list all component types that can be created - for the purposes of this tutorial, enter `module`:
 
 ```shell
 ./vendor/bin/dot-maker module
 ```
 
-Type "book" when prompted to enter the module name.
+Type `book` when prompted to enter the module name.
 
 Next you will be prompted to add the relevant components of a module, accepting `y(es)`, `n(o)` and `Enter` (defaults to `yes`):
 
