@@ -421,7 +421,7 @@ curl -X POST http://0.0.0.0:8080/book
 To list the books use:
 
 ```shell
-curl http://0.0.0.0:8080/book
+curl http://0.0.0.0:8080/books
 ```
 
 To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
