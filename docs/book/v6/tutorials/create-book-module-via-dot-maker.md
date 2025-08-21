@@ -83,7 +83,7 @@ Next you will be prompted to add the relevant components of a module, accepting 
 
 You will then be instructed to:
 
-* Register the `ConfigProvider` classes by adding `Api\Book\ConfigProvider::class` and `Core\Computer\ConfigProvider::class` to `config/config.php`
+* Register the `ConfigProvider` classes by adding `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` to `config/config.php`
 * Register the new `Book` namespace by adding `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"` to `composer.json` under the `autoload.psr-4` key.
     * After registering the namespace, run the following command to regenerate the autoloaded files, as notified by `dot-maker`:
 
