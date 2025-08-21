@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/extended-features/route-grouping/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/tutorials/create-book-module-via-dot-maker/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Route Grouping - api - Dotkernel Documentation</title>
+        <title>Creating a book module using dotkernel/dot-maker - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -217,12 +217,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Extended features</li>
+                                <li class="breadcrumb-item">Tutorials</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Route Grouping</li>
+                    <li class="breadcrumb-item active" aria-current="page">Creating a book module using dotkernel/dot-maker</li>
                 
             
         </ol>
@@ -594,31 +594,31 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../core-and-app/" class="subnavigation__link">Core and App</a>
+    <a href="../../extended-features/core-and-app/" class="subnavigation__link">Core and App</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../handler-structure/" class="subnavigation__link">New Handler Structure</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Route Grouping</a>
+    <a href="../../extended-features/handler-structure/" class="subnavigation__link">New Handler Structure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../problem-details/" class="subnavigation__link">Problem Details</a>
+    <a href="../../extended-features/route-grouping/" class="subnavigation__link">Route Grouping</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../injectable-input-filters/" class="subnavigation__link">Injectable Input Filters</a>
+    <a href="../../extended-features/problem-details/" class="subnavigation__link">Problem Details</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/injectable-input-filters/" class="subnavigation__link">Injectable Input Filters</a>
 </li>
 
         
@@ -710,37 +710,37 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+    <a href="../cors/" class="subnavigation__link">Setting up CORS</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+    <a href="../create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Creating a book module using dotkernel/dot-maker</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/create-book-module-via-dot-maker/" class="subnavigation__link">Creating a book module using dotkernel/dot-maker</a>
+    <a href="../token-authentication/" class="subnavigation__link">Token authentication</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+    <a href="../api-evolution/" class="subnavigation__link">API Evolution</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
+    <a href="../find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
 </li>
 
         
@@ -968,6 +968,33 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#folder-and-files-structure" class="toc__link nav-link">Folder and files structure</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#file-creation-and-contents" class="toc__link nav-link">File creation and contents</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#migrations" class="toc__link nav-link">Migrations</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#update-the-authorization-file" class="toc__link nav-link">Update the authorization file</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#checking-endpoints" class="toc__link nav-link">Checking endpoints</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -980,29 +1007,390 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Extended features</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Tutorials</h2>-->
     
 
-    <h1 id="route-grouping">Route grouping</h1>
-<p>In Dotkernel 6.0 with the help of the new <a href="https://docs.dotkernel.org/dot-router/v1/overview/">dot-router</a> package, we have managed to implement a nicer way of creating routes.
-A lot of the times developers need to create sets of routes that have a similar format. As an example:</p>
-<pre class="highlight"><code class="language-php">$app-&gt;post('/product/create', CreateProductHandler::class, 'product:create');
-$app-&gt;delete('/product/delete/{id}', DeleteProductHandler::class, 'product:delete');
-$app-&gt;patch('/product/update/{id}', UpdateProductHandler::class, 'product:update');
-$app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</code></pre>
-<p>Along with the features from <code>mezzio/mezzio-fastroute</code>, the new <code>dot-router</code> package provides the ability to create route groups which are collections of routes that have the same base string for the path.</p>
-<p>Here we have an example from <code>src/User/src/RoutesDelegator.php</code> with the new grouping method:</p>
-<pre class="highlight"><code class="language-php">$routeCollector-&gt;group('/user/' . $uuid)
-    -&gt;delete('', DeleteUserResourceHandler::class, 'user::delete-user')
-    -&gt;get('', GetUserResourceHandler::class, 'user::view-user')
-    -&gt;patch('', PatchUserResourceHandler::class, 'user::update-user');</code></pre>
-<p>The advantages of this new implementation:</p>
+    <h1 id="implementing-a-book-module-in-dotkernel-api-using-dotkerneldot-maker">Implementing a book module in Dotkernel API using dotkernel/dot-maker</h1>
+<p>The <code>dotkernel/dot-maker</code> library can be used to programmatically generate project files and directories.
+It can be added to your API installation by following the <a href="https://docs.dotkernel.org/dot-maker/">official documentation</a>.</p>
+<h2 id="folder-and-files-structure">Folder and files structure</h2>
+<p>The below files structure is what we will have at the end of this tutorial and is just an example,
+you can have multiple components such as event listeners, wrappers, etc.</p>
+<pre class="highlight"><code class="language-markdown">.
+└── src/
+    ├── Book/
+    │   └── src/
+    │       ├── Collection/
+    │       │   └── BookCollection.php
+    │       ├── Handler/
+    │       │   ├── GetBookCollectionHandler.php
+    │       │   ├── GetBookResourceHandler.php
+    │       │   └── PostBookResourceHandler.php
+    │       ├── InputFilter/
+    │       │   ├── Input/
+    │       │   │   ├── AuthorInput.php
+    │       │   │   ├── NameInput.php
+    │       │   │   └── ReleaseDateInput.php
+    │       │   └── CreateBookInputFilter.php
+    │       ├── Service/
+    │       │   ├── BookService.php
+    │       │   └── BookServiceInterface.php
+    │       ├── ConfigProvider.php
+    │       └── RoutesDelegator.php
+    └── Core/
+        └── src/
+            └── Book/
+                └── src/
+                    ├──Entity/
+                    │   └──Book.php
+                    ├──Repository/
+                    │   └──BookRepository.php
+                    └── ConfigProvider.php</code></pre>
 <ul>
-<li><strong>DRY</strong>- no need for repeating common route parts</li>
-<li><strong>encapsulation</strong> - similar routes are grouped in a single block of code (vs each route a separate statement)</li>
-<li><strong>easy path refactoring</strong> - modify all routes at once by changing only the prefix</li>
-<li><strong>easy copying/moving</strong> - copying/moving an entire group makes sure that you don't accidentally omit a route</li>
+<li><code>src/Book/src/Collection/BookCollection.php</code> – a collection refers to a container for a group of related objects, typically used to manage sets of related entities fetched from a database</li>
+<li><code>src/Book/src/Handler/GetBookCollectionHandler.php</code> – handler that reflects the GET action for the BookCollection class</li>
+<li><code>src/Book/src/Handler/GetBookResourceHandler.php</code> – handler that reflects the GET action for the Book entity</li>
+<li><code>src/Book/src/Handler/PostBookResourceHandler.php</code> – handler that reflects the POST action for the Book entity</li>
+<li><code>src/Book/src/InputFilter/Input/*</code> – input filters and validator configurations</li>
+<li><code>src/Book/src/InputFilter/CreateBookInputFilter.php</code> – input filters and validators</li>
+<li><code>src/Book/src/Service/BookService.php</code> – is a class or component responsible for performing a specific task or providing functionality to other parts of the application</li>
+<li><code>src/Book/src/Service/BookServiceInterface.php</code> – interface that reflects the publicly available methods in <code>BookService</code></li>
+<li><code>src/Book/src/ConfigProvider.php</code> – is a class that provides configuration for various aspects of the framework or application</li>
+<li><code>src/Book/src/RoutesDelegator.php</code> – a routes delegator is a delegator factory responsible for configuring routing middleware based on routing configuration provided by the application</li>
+<li><code>src/Core/src/Book/src/Entity/Book.php</code> – an entity refers to a PHP class that represents a persistent object or data structure</li>
+<li><code>src/Core/src/Book/src/Repository/BookRepository.php</code> – a repository is a class responsible for querying and retrieving entities from the database</li>
+<li><code>src/Core/src/Book/src/ConfigProvider.php</code> – is a class that provides configuration for Doctrine ORM</li>
 </ul>
+<h2 id="file-creation-and-contents">File creation and contents</h2>
+<p>After successfully installing <code>dot-maker</code>, it can be used to generate the Book module.
+Invoke <code>dot-maker</code> by executing <code>./vendor/bin/dot-maker</code> or via the optional script described in the documentation - <code>composer make</code>.
+This will list all component types that can be created - for the purposes of this tutorial, enter <code>module</code>:</p>
+<pre class="highlight"><code class="language-shell">./vendor/bin/dot-maker module</code></pre>
+<p>Type <code>book</code> when prompted to enter the module name.</p>
+<p>Next you will be prompted to add the relevant components of a module, accepting <code>y(es)</code>, <code>n(o)</code> and <code>Enter</code> (defaults to <code>yes</code>):</p>
+<blockquote>
+<p>Note that <code>dot-maker</code> will automatically split the files into the described <code>Api</code> and <code>Core</code> structure without a further input needed.</p>
+</blockquote>
+<ul>
+<li><code>Entity and repository</code> (Y): will generate the <code>Book.php</code> entity and the associated <code>BookRepository.php</code>.</li>
+<li><code>Service</code> and <code>service interface</code> (Y): will generate the <code>BookService</code> and the <code>BookServiceInterface</code>.</li>
+<li><code>Command</code>, followed by <code>middleware</code>(N): not necessary for the module described in this tutorial.</li>
+<li><code>Handler</code> (Y): this option is needed, and will further prompt you for the required actions.<ul>
+<li><code>Allow listing Books?</code> (Y): this will generate both the <code>GetBookResourceHandler.php</code> class and the <code>BookCollection.php</code> it uses.</li>
+<li><code>Allow viewing Books?</code> (Y): will generate the single resource GET action handler - <code>GetBookResourceHandler.php</code>.</li>
+<li><code>Allow creating Books?</code> (Y): will generate the POST action handler for the <code>Book</code> entity - <code>PostBookResourceHandler.php</code>, as well as the input filter used for validating the data - <code>CreateBookInputFilter.php</code>.</li>
+<li><code>Allow deleting Books?</code>, <code>Allow editing Books?</code> and <code>Allow replacing Books?</code> (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.</li>
+</ul>
+</li>
+<li>Following this step, <code>dot-maker</code> will automatically generate the <code>ConfigProvider.php</code> classes for both the <code>Api</code> and <code>Core</code> namespaces, as well as the <code>OpenAPI.php</code> class which automatically documents the previously generated routes.</li>
+</ul>
+<p>You will then be instructed to:</p>
+<ul>
+<li>Register the <code>ConfigProvider</code> classes by adding <code>Api\Book\ConfigProvider::class</code> and <code>Core\Computer\ConfigProvider::class</code> to <code>config/config.php</code></li>
+<li>Register the new <code>Book</code> namespace by adding <code>"Api\\Book\\": "src/Book/src/"</code> and <code>"Core\\Book\\": "src/Core/src/Book/src/"</code> to <code>composer.json</code> under the <code>autoload.psr-4</code> key.<ul>
+<li>After registering the namespace, run the following command to regenerate the autoloaded files, as notified by <code>dot-maker</code>:</li>
+</ul>
+</li>
+</ul>
+<pre class="highlight"><code class="language-shell">composer dump</code></pre>
+<ul>
+<li><code>dot-maker</code> will by default prompt you to generate the migrations for the new entity, but for the purpose of this tutorial
+we will run this after updating the generated entity.</li>
+</ul>
+<p>The next step is filling in the required logic for the proposed flow of this module.
+While <code>dot-maker</code> does also include common logic in the relevant files, the tutorial adds custom functionality.
+As such, the following section will go over the files that require changes.</p>
+<ul>
+<li><code>src/Core/src/Book/src/Entity/Book.php</code></li>
+</ul>
+<p>To keep things simple in this tutorial, our book will have three properties: <code>name</code>, <code>author</code> and <code>releaseDate</code>.
+Add the three properties and their getters and setters, while making sure to update the generated constructor method.</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Core\Book\Entity;
+
+use Core\App\Entity\AbstractEntity;
+use Core\App\Entity\TimestampsTrait;
+use Core\Book\Repository\BookRepository;
+use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Table("book")]
+#[ORM\HasLifecycleCallbacks]
+class Book extends AbstractEntity
+{
+    use TimestampsTrait;
+
+    #[ORM\Column(name: "name", type: "string", length: 100)]
+    protected string $name;
+
+    #[ORM\Column(name: "author", type: "string", length: 100)]
+    protected string $author;
+
+    #[ORM\Column(name: "releaseDate", type: "datetime_immutable")]
+    protected DateTimeImmutable $releaseDate;
+
+    public function __construct(string $name, string $author, DateTimeImmutable $releaseDate)
+    {
+        parent::__construct();
+
+        $this-&gt;setName($name);
+        $this-&gt;setAuthor($author);
+        $this-&gt;setReleaseDate($releaseDate);
+    }
+
+    public function getName(): string
+    {
+        return $this-&gt;name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this-&gt;name = $name;
+
+        return $this;
+    }
+
+    public function getAuthor(): string
+    {
+        return $this-&gt;author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this-&gt;author = $author;
+
+        return $this;
+    }
+
+    public function getReleaseDate(): DateTimeImmutable
+    {
+        return $this-&gt;releaseDate;
+    }
+
+    public function setReleaseDate(DateTimeImmutable $releaseDate): self
+    {
+        $this-&gt;releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    public function getArrayCopy(): array
+    {
+        return [
+            'uuid'        =&gt; $this-&gt;getUuid()-&gt;toString(),
+            'name'        =&gt; $this-&gt;getName(),
+            'author'      =&gt; $this-&gt;getAuthor(),
+            'releaseDate' =&gt; $this-&gt;getReleaseDate(),
+        ];
+    }
+}
+</code></pre>
+<p>The <code>BookService</code> class will require minor modifications for the <code>getBooks()</code> and <code>saveBook()</code> methods, to add the custom properties added in the previous step.
+The class should look like the following after updating the methods.</p>
+<ul>
+<li><code>src/Book/src/Service/BookService.php</code></li>
+</ul>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\Book\Service;
+
+use Core\App\Helper\Paginator;
+use Core\Book\Entity\Book;
+use Core\Book\Repository\BookRepository;
+use DateTimeImmutable;
+use Doctrine\ORM\QueryBuilder;
+use Dot\DependencyInjection\Attribute\Inject;
+
+use function in_array;
+
+class BookService implements BookServiceInterface
+{
+    #[Inject(
+        BookRepository::class,
+    )]
+    public function __construct(
+        protected BookRepository $bookRepository,
+    ) {
+    }
+
+    public function getBookRepository(): BookRepository
+    {
+        return $this-&gt;bookRepository;
+    }
+
+    public function deleteBook(
+        Book $book,
+    ): void {
+        $this-&gt;bookRepository-&gt;deleteResource($book);
+    }
+
+    /**
+     * @param array&lt;non-empty-string, mixed&gt; $params
+     */
+    public function getBooks(
+        array $params,
+    ): QueryBuilder {
+        $filters = $params['filters'] ?? [];
+        $params  = Paginator::getParams($params, 'book.created');
+
+        $sortableColumns = [
+            'book.name',
+            'book.author',
+            'book.releaseDate',
+            'book.created',
+        ];
+        if (! in_array($params['sort'], $sortableColumns, true)) {
+            $params['sort'] = 'book.created';
+        }
+
+        return $this-&gt;bookRepository-&gt;getBooks($params, $filters);
+    }
+
+    /**
+     * @param array&lt;non-empty-string, mixed&gt; $data
+     */
+    public function saveBook(
+        array $data,
+        ?Book $book = null,
+    ): Book {
+        if (! $book instanceof Book) {
+            $book = new Book(
+                $data['name'],
+                $data['author'],
+                new DateTimeImmutable($data['releaseDate'])
+            );
+        }
+
+        $this-&gt;bookRepository-&gt;saveResource($book);
+
+        return $book;
+    }
+}
+</code></pre>
+<p>When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request.</p>
+<p>By creating a <code>module</code> with <code>dot-maker</code>, separate inputs will not be created.
+However, you can still generate them as using these steps:</p>
+<ul>
+<li>Run the following to start adding <code>Input</code> classes:</li>
+</ul>
+<pre class="highlight"><code class="language-shell">./vendor/bin/dot-maker input</code></pre>
+<ul>
+<li>When prompted, enter the names <code>Author</code>, <code>Name</code> and <code>ReleaseDate</code> one by one to generate the classes.</li>
+<li>The resulting <code>AuthorInput.php</code>, <code>NameInput.php</code> and <code>ReleaseDateInput.php</code> classes require no further changes for the tutorial use case.</li>
+</ul>
+<p>The module creation process has generated the parent input filter <code>CreateBookInputFilter.php</code> with an empty constructor.
+Now we add all the inputs together in the parent input filter's <code>__construct</code>, as below:</p>
+<ul>
+<li><code>src/Book/src/InputFilter/CreateBookInputFilter.php</code></li>
+</ul>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\Book\InputFilter;
+
+use Api\Book\InputFilter\Input\AuthorInput;
+use Api\Book\InputFilter\Input\NameInput;
+use Api\Book\InputFilter\Input\ReleaseDateInput;
+use Core\App\InputFilter\AbstractInputFilter;
+
+class CreateBookInputFilter extends AbstractInputFilter
+{
+    public function __construct()
+    {
+        $this-&gt;add(new NameInput('name'));
+        $this-&gt;add(new AuthorInput('author'));
+        $this-&gt;add(new ReleaseDateInput('releaseDate'));
+    }
+}
+</code></pre>
+<p>We create separate <code>Input</code> files to demonstrate their reusability and obtain a clean <code>CreateBookInputFilter</code> but you could have all the inputs created directly in the <code>CreateBookInputFilter</code> like this:</p>
+<blockquote>
+<p>Note that <code>dot-maker</code> will not generate inputs in the constructor, so the following are to be added by hand <strong>if</strong> going for this approach.</p>
+</blockquote>
+<pre class="highlight"><code class="language-php">$nameInput = new Input();
+$nameInput-&gt;setRequired(true);
+
+$nameInput-&gt;getFilterChain()
+    -&gt;attachByName(StringTrim::class)
+    -&gt;attachByName(StripTags::class);
+
+$nameInput-&gt;getValidatorChain()
+    -&gt;attachByName(NotEmpty::class, [
+        'message' =&gt; Message::VALIDATOR_REQUIRED_FIELD,
+    ], true);
+
+$this-&gt;add($nameInput);
+
+$authorInput = new Input();
+$authorInput-&gt;setRequired(true);
+
+$authorInput-&gt;getFilterChain()
+    -&gt;attachByName(StringTrim::class)
+    -&gt;attachByName(StripTags::class);
+
+$authorInput-&gt;getValidatorChain()
+    -&gt;attachByName(NotEmpty::class, [
+        'message' =&gt; Message::VALIDATOR_REQUIRED_FIELD,
+    ], true);
+
+$this-&gt;add($authorInput);
+
+$releaseDateInput = new Input();
+$releaseDateInput-&gt;setRequired(true);
+
+$releaseDateInput-&gt;getFilterChain()
+    -&gt;attachByName(StringTrim::class)
+    -&gt;attachByName(StripTags::class);
+
+$releaseDateInput-&gt;getValidatorChain()
+    -&gt;attachByName(NotEmpty::class, [
+        'message' =&gt; Message::VALIDATOR_REQUIRED_FIELD,
+    ], true);
+
+$this-&gt;add($releaseDateInput);</code></pre>
+<h2 id="migrations">Migrations</h2>
+<p>All changes are done, so at this point the migration file can be generated to create the associated table for the <code>Book</code> entity.</p>
+<blockquote>
+<p>You can check the mapping files by running:</p>
+</blockquote>
+<pre class="highlight"><code class="language-shell">php ./bin/doctrine orm:validate-schema</code></pre>
+<blockquote>
+<p>Generate the migration files by running:</p>
+</blockquote>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations diff</code></pre>
+<p>This will check for differences between your entities and database structure and create migration files if necessary, in <code>src/Core/src/App/src/Migration</code>.</p>
+<p>To execute the migrations run:</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations migrate</code></pre>
+<h2 id="update-the-authorization-file">Update the authorization file</h2>
+<p>We need to configure access to the newly created endpoints.
+Open <code>config/autoload/authorization.global.php</code> and append the below route names to the <code>UserRoleEnum::Guest-&gt;value</code> key:</p>
+<ul>
+<li><code>book::list-books</code></li>
+<li><code>book::view-book</code></li>
+<li><code>book::create-book</code></li>
+</ul>
+<blockquote>
+<p>Make sure you read and understand the <code>rbac</code> <a href="https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/">documentation</a>.</p>
+</blockquote>
+<h2 id="checking-endpoints">Checking endpoints</h2>
+<p>First, we start a local server by executing:</p>
+<pre class="highlight"><code class="language-shell">composer serve</code></pre>
+<p>If we did everything as planned, we should be able to create a new book by executing the below command:</p>
+<pre class="highlight"><code class="language-shell">curl -X POST http://0.0.0.0:8080/book
+  -H "Content-Type: application/json"
+  -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'</code></pre>
+<p>To list the books use:</p>
+<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/books</code></pre>
+<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
+<p>The link should have the following format:</p>
+<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{uuid}</code></pre>
 
 
 
@@ -1012,9 +1400,9 @@ $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</c
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../handler-structure/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../create-book-module/">
                     <i class="bi bi-chevron-left"></i>
-                    New Handler Structure
+                    Creating a book module
                 </a>
             
         </li>
@@ -1022,8 +1410,8 @@ $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</c
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../problem-details/">
-                    Problem Details
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../token-authentication/">
+                    Token authentication
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
