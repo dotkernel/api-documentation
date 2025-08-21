@@ -75,17 +75,17 @@ Next you will be prompted to add the relevant components of a module, accepting 
 * `Service` and `service interface` (Y): will generate the `BookService` and the `BookServiceInterface`.
 * `Command`, followed by `middleware`(N): not necessary for the module described in this tutorial.
 * `Handler` (Y): this option is needed, and will further prompt you for the required actions.
-  * `Allow listing Books?` (Y): this will generate both the `GetBookResourceHandler.php` class and the `BookCollection.php` it uses.
-  * `Allow viewing Books?` (Y): will generate the single resource GET action handler - `GetBookResourceHandler.php`.
-  * `Allow creating Books?` (Y): will generate the POST action handler for the `Book` entity - `PostBookResourceHandler.php`, as well as the input filter used for validating the data - `CreateBookInputFilter.php`.
-  * `Allow deleting Books?`, `Allow editing Books?` and `Allow replacing Books?` (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.
+    * `Allow listing Books?` (Y): this will generate both the `GetBookResourceHandler.php` class and the `BookCollection.php` it uses.
+    * `Allow viewing Books?` (Y): will generate the single resource GET action handler - `GetBookResourceHandler.php`.
+    * `Allow creating Books?` (Y): will generate the POST action handler for the `Book` entity - `PostBookResourceHandler.php`, as well as the input filter used for validating the data - `CreateBookInputFilter.php`.
+    * `Allow deleting Books?`, `Allow editing Books?` and `Allow replacing Books?` (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.
 * Following this step, `dot-maker` will automatically generate the `ConfigProvider.php` classes for both the `Api` and `Core` namespaces, as well as the `OpenAPI.php` class which automatically documents the previously generated routes.
 
 You will then be instructed to:
 
 * Register the `ConfigProvider` classes by adding `Api\Book\ConfigProvider::class` and `Core\Computer\ConfigProvider::class` to `config/config.php`
 * Register the new `Book` namespace by adding `"Api\\Book\\": "src/Book/src/"` and `"Core\\Book\\": "src/Core/src/Book/src/"` to `composer.json` under the `autoload.psr-4` key.
-  * After registering the namespace, run the following command to regenerate the autoloaded files, as notified by `dot-maker`:
+    * After registering the namespace, run the following command to regenerate the autoloaded files, as notified by `dot-maker`:
 
 ```shell
 composer dump
