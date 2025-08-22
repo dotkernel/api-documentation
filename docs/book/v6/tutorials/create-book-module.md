@@ -442,7 +442,7 @@ $nameInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($nameInput);
+$this->add($nameInput, 'name');
 
 $authorInput = new Input();
 $authorInput->setRequired(true);
@@ -456,7 +456,7 @@ $authorInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($authorInput);
+$this->add($authorInput, 'author');
 
 $releaseDateInput = new Input();
 $releaseDateInput->setRequired(true);
@@ -470,7 +470,7 @@ $releaseDateInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($releaseDateInput);
+$this->add($releaseDateInput, 'releaseDate');
 ```
 
 Now it's time to create the handlers.
