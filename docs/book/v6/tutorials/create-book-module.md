@@ -695,7 +695,7 @@ class RoutesDelegator
 
         $routeCollector->post('/book', PostBookResourceHandler::class, 'book::create-book');
         $routeCollector->get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
-        $routeCollector->get('/books', GetBookCollectionHandler::class, 'book::list-books');
+        $routeCollector->get('/book', GetBookCollectionHandler::class, 'book::list-books');
 
         return $callback();
     }
@@ -822,7 +822,7 @@ curl -X POST http://0.0.0.0:8080/book
 To list the books use:
 
 ```shell
-curl http://0.0.0.0:8080/books
+curl http://0.0.0.0:8080/book
 ```
 
 To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
