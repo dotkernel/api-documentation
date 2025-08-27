@@ -325,7 +325,7 @@ We create separate `Input` files to demonstrate their reusability and obtain a c
 > Note that `dot-maker` will not generate inputs in the constructor, so the following are to be added by hand **if** going for this approach.
 
 ```php
-$nameInput = new Input();
+$nameInput = new Input('name');
 $nameInput->setRequired(true);
 
 $nameInput->getFilterChain()
@@ -337,9 +337,9 @@ $nameInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($nameInput, 'name');
+$this->add($nameInput);
 
-$authorInput = new Input();
+$authorInput = new Input('author');
 $authorInput->setRequired(true);
 
 $authorInput->getFilterChain()
@@ -351,9 +351,9 @@ $authorInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($authorInput, 'author');
+$this->add($authorInput);
 
-$releaseDateInput = new Input();
+$releaseDateInput = new Input('releaseDate');
 $releaseDateInput->setRequired(true);
 
 $releaseDateInput->getFilterChain()
@@ -365,7 +365,7 @@ $releaseDateInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($releaseDateInput, 'releaseDate');
+$this->add($releaseDateInput);
 ```
 
 ## Migrations
