@@ -430,7 +430,7 @@ class CreateBookInputFilter extends AbstractInputFilter
 We create separate `Input` files to demonstrate their reusability and obtain a clean `CreateBookInputFilter` but you could have all the inputs created directly in the `CreateBookInputFilter` like this:
 
 ```php
-$nameInput = new Input();
+$nameInput = new Input('name');
 $nameInput->setRequired(true);
 
 $nameInput->getFilterChain()
@@ -442,9 +442,9 @@ $nameInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($nameInput, 'name');
+$this->add($nameInput);
 
-$authorInput = new Input();
+$authorInput = new Input('author');
 $authorInput->setRequired(true);
 
 $authorInput->getFilterChain()
@@ -456,9 +456,9 @@ $authorInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($authorInput, 'author');
+$this->add($authorInput);
 
-$releaseDateInput = new Input();
+$releaseDateInput = new Input('releaseDate');
 $releaseDateInput->setRequired(true);
 
 $releaseDateInput->getFilterChain()
@@ -470,7 +470,7 @@ $releaseDateInput->getValidatorChain()
         'message' => Message::VALIDATOR_REQUIRED_FIELD,
     ], true);
 
-$this->add($releaseDateInput, 'releaseDate');
+$this->add($releaseDateInput);
 ```
 
 Now it's time to create the handlers.
