@@ -1086,7 +1086,7 @@ This will list all component types that can be created - for the purposes of thi
 </ul>
 <p>You will then be instructed to:</p>
 <ul>
-<li>Register the <code>ConfigProvider</code> classes by adding <code>Api\Book\ConfigProvider::class</code> and <code>Core\Computer\ConfigProvider::class</code> to <code>config/config.php</code></li>
+<li>Register the <code>ConfigProvider</code> classes by adding <code>Api\Book\ConfigProvider::class</code> and <code>Core\Book\ConfigProvider::class</code> to <code>config/config.php</code></li>
 <li>Register the new <code>Book</code> namespace by adding <code>"Api\\Book\\": "src/Book/src/"</code> and <code>"Core\\Book\\": "src/Core/src/Book/src/"</code> to <code>composer.json</code> under the <code>autoload.psr-4</code> key.<ul>
 <li>After registering the namespace, run the following command to regenerate the autoloaded files, as notified by <code>dot-maker</code>:</li>
 </ul>
@@ -1314,7 +1314,7 @@ class CreateBookInputFilter extends AbstractInputFilter
 <blockquote>
 <p>Note that <code>dot-maker</code> will not generate inputs in the constructor, so the following are to be added by hand <strong>if</strong> going for this approach.</p>
 </blockquote>
-<pre class="highlight"><code class="language-php">$nameInput = new Input();
+<pre class="highlight"><code class="language-php">$nameInput = new Input('name');
 $nameInput-&gt;setRequired(true);
 
 $nameInput-&gt;getFilterChain()
@@ -1328,7 +1328,7 @@ $nameInput-&gt;getValidatorChain()
 
 $this-&gt;add($nameInput);
 
-$authorInput = new Input();
+$authorInput = new Input('author');
 $authorInput-&gt;setRequired(true);
 
 $authorInput-&gt;getFilterChain()
@@ -1342,7 +1342,7 @@ $authorInput-&gt;getValidatorChain()
 
 $this-&gt;add($authorInput);
 
-$releaseDateInput = new Input();
+$releaseDateInput = new Input('releaseDate');
 $releaseDateInput-&gt;setRequired(true);
 
 $releaseDateInput-&gt;getFilterChain()
@@ -1387,7 +1387,7 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
   -H "Content-Type: application/json"
   -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'</code></pre>
 <p>To list the books use:</p>
-<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/books</code></pre>
+<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
 <p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{uuid}</code></pre>

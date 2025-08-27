@@ -1408,7 +1408,7 @@ class CreateBookInputFilter extends AbstractInputFilter
 }
 </code></pre>
 <p>We create separate <code>Input</code> files to demonstrate their reusability and obtain a clean <code>CreateBookInputFilter</code> but you could have all the inputs created directly in the <code>CreateBookInputFilter</code> like this:</p>
-<pre class="highlight"><code class="language-php">$nameInput = new Input();
+<pre class="highlight"><code class="language-php">$nameInput = new Input('name');
 $nameInput-&gt;setRequired(true);
 
 $nameInput-&gt;getFilterChain()
@@ -1422,7 +1422,7 @@ $nameInput-&gt;getValidatorChain()
 
 $this-&gt;add($nameInput);
 
-$authorInput = new Input();
+$authorInput = new Input('author');
 $authorInput-&gt;setRequired(true);
 
 $authorInput-&gt;getFilterChain()
@@ -1436,7 +1436,7 @@ $authorInput-&gt;getValidatorChain()
 
 $this-&gt;add($authorInput);
 
-$releaseDateInput = new Input();
+$releaseDateInput = new Input('releaseDate');
 $releaseDateInput-&gt;setRequired(true);
 
 $releaseDateInput-&gt;getFilterChain()
@@ -1660,7 +1660,7 @@ class RoutesDelegator
 
         $routeCollector-&gt;post('/book', PostBookResourceHandler::class, 'book::create-book');
         $routeCollector-&gt;get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
-        $routeCollector-&gt;get('/books', GetBookCollectionHandler::class, 'book::list-books');
+        $routeCollector-&gt;get('/book', GetBookCollectionHandler::class, 'book::list-books');
 
         return $callback();
     }
@@ -1755,7 +1755,7 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
   -H "Content-Type: application/json"
   -d '{"name": "test", "author": "author name", "releaseDate": "2023-03-03"}'</code></pre>
 <p>To list the books use:</p>
-<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/books</code></pre>
+<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
 <p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{uuid}</code></pre>
