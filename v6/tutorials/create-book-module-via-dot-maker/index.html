@@ -22,7 +22,7 @@
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Creating a book module using dotkernel/dot-maker - api - Dotkernel Documentation</title>
+        <title>Creating a book module using DotMaker - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -222,7 +222,7 @@
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Creating a book module using dotkernel/dot-maker</li>
+                    <li class="breadcrumb-item active" aria-current="page">Creating a book module using DotMaker</li>
                 
             
         </ol>
@@ -722,7 +722,7 @@
         
         
 <li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Creating a book module using dotkernel/dot-maker</a>
+    <a href="./" class="subnavigation__link">Creating a book module using DotMaker</a>
 </li>
 
         
@@ -1010,7 +1010,7 @@
 <!--        <h2 class="chapter__headline text-black-50">Tutorials</h2>-->
     
 
-    <h1 id="implementing-a-book-module-in-dotkernel-api-using-dotkerneldot-maker">Implementing a book module in Dotkernel API using dotkernel/dot-maker</h1>
+    <h1 id="implementing-a-book-module-in-dotkernel-api-using-dotmaker">Implementing a book module in Dotkernel API using DotMaker</h1>
 <p>The <code>dotkernel/dot-maker</code> library can be used to programmatically generate project files and directories.
 It can be added to your API installation by following the <a href="https://docs.dotkernel.org/dot-maker/">official documentation</a>.</p>
 <h2 id="folder-and-files-structure">Folder and files structure</h2>
@@ -1383,8 +1383,8 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
 <p>First, we start a local server by executing:</p>
 <pre class="highlight"><code class="language-shell">composer serve</code></pre>
 <p>If we did everything as planned, we should be able to create a new book by executing the below command:</p>
-<pre class="highlight"><code class="language-shell">curl -X POST http://0.0.0.0:8080/book
-  -H "Content-Type: application/json"
+<pre class="highlight"><code class="language-shell">curl -X POST http://0.0.0.0:8080/book \
+  -H "Content-Type: application/json" \
   -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'</code></pre>
 <p>To list the books use:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
