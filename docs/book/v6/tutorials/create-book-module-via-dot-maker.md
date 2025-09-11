@@ -1,4 +1,4 @@
-# Implementing a book module in Dotkernel API using dotkernel/dot-maker
+# Implementing a book module in Dotkernel API using DotMaker
 
 The `dotkernel/dot-maker` library can be used to programmatically generate project files and directories.
 It can be added to your API installation by following the [official documentation](https://docs.dotkernel.org/dot-maker/).
@@ -414,8 +414,8 @@ composer serve
 If we did everything as planned, we should be able to create a new book by executing the below command:
 
 ```shell
-curl -X POST http://0.0.0.0:8080/book
-  -H "Content-Type: application/json"
+curl -X POST http://0.0.0.0:8080/book \
+  -H "Content-Type: application/json" \
   -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'
 ```
 
