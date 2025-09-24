@@ -976,14 +976,6 @@
                     <a href="#setup-database" class="toc__link nav-link">Setup database</a>
                 </li>
             
-                <li class="toc__entry">
-                    <a href="#running-migrations" class="toc__link nav-link">Running migrations</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#executing-fixtures" class="toc__link nav-link">Executing fixtures</a>
-                </li>
-            
             </ul>
         </div>
     
@@ -1003,26 +995,60 @@
     
 
     <h1 id="doctrine-orm">Doctrine ORM</h1>
+<p>This step saves the database connection credentials in an API configuration file.
+We do not cover the creation steps of the database itself.</p>
 <h2 id="setup-database">Setup database</h2>
-<p>Make sure you fill out the database credentials in <code>config/autoload/local.php</code> under <code>$databases['default']</code>.</p>
-<p>Create a new MySQL database - set collation to <code>utf8mb4_general_ci</code></p>
-<h2 id="running-migrations">Running migrations</h2>
-<p>Run the database migrations by using the following command:</p>
-<pre class="highlight"><code class="language-shell">php vendor/bin/doctrine-migrations migrate</code></pre>
-<p>This command will prompt you to confirm that you want to run it.</p>
+<p>Create a new <strong>MariaDB</strong>/<strong>MySQL</strong> database and set its collation to <code>utf8mb4_general_ci</code>.</p>
+<p>Make sure you fill out the database credentials in <code>config/autoload/local.php</code> under <code>$databases['default']</code>.
+Below is the item you need to focus on:</p>
+<pre class="highlight"><code class="language-php">$databases = [
+    'default' =&gt; [
+        'host'     =&gt; 'localhost',
+        'dbname'   =&gt; 'my_database',
+        'user'     =&gt; 'my_user',
+        'password' =&gt; 'my_password',
+        'port'     =&gt; 3306,
+        'driver'   =&gt; 'pdo_mysql',
+        'charset'  =&gt; 'utf8mb4',
+        'collate'  =&gt; 'utf8mb4_general_ci',
+    ],
+    // you can add more database connections into this array
+];</code></pre>
 <blockquote>
-<p>WARNING! You are about to execute a migration in database "..." that could result in schema changes and data loss. Are you sure you wish to continue? (yes/no) [yes]:</p>
+<p><code>my_database</code>, <code>my_user</code>, <code>my_password</code> are provided only as an example.</p>
 </blockquote>
-<p>Hit <code>Enter</code> to confirm the operation.</p>
-<h2 id="executing-fixtures">Executing fixtures</h2>
+<h3 id="creating-migrations">Creating migrations</h3>
+<p>Create a database migration by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations diff</code></pre>
+<p>The new migration file will be placed in <code>src/Core/src/App/src/Migration/</code>.</p>
+<h3 id="running-migrations">Running migrations</h3>
+<p>Run the database migrations by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations migrate</code></pre>
+<blockquote>
+<p>If you have already run the migrations, you may get the below message:</p>
+</blockquote>
+<pre class="highlight"><code class="language-text">WARNING! You have x previously executed migrations in the database that are not registered migrations.
+  {migration list}
+Are you sure you wish to continue? (y/n)</code></pre>
+<blockquote>
+<p>In this case, you should double-check to make sure the new migrations are ok to run.</p>
+</blockquote>
+<p>When using an empty database, you will get this confirmation message:</p>
+<pre class="highlight"><code class="language-text">WARNING! You are about to execute a migration in database "&lt;your_database_name&gt;" that could result in schema changes and data loss. Are you sure you wish to continue? (yes/no)</code></pre>
+<p>Hit <code>Enter</code> to confirm the operation.
+This will run all the migrations in chronological order.
+Each migration will be logged in the <code>migrations</code> table to prevent running the same migration more than once, which is often not desirable.</p>
+<p>If everything ran correctly, you will get this confirmation.</p>
+<pre class="highlight"><code class="language-text">[OK] Successfully migrated to version: Core\App\Migration\VersionYYYYMMDDHHMMSS</code></pre>
+<h3 id="executing-fixtures">Executing fixtures</h3>
 <p><strong>Fixtures are used to seed the database with initial values and should be executed after migrating the database.</strong></p>
 <p>To list all the fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:list</code></pre>
+<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:list</code></pre>
 <p>This will output all the fixtures in the order of execution.</p>
 <p>To execute all fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:execute</code></pre>
+<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute</code></pre>
 <p>To execute a specific fixture, run:</p>
-<pre class="highlight"><code class="language-shell">php bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
+<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
 <p>More details on how fixtures work can be found on <a href="https://github.com/dotkernel/dot-data-fixtures#creating-fixtures">dot-data-fixtures documentation</a></p>
 
 
