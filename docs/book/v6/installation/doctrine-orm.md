@@ -8,7 +8,7 @@ Use an existing empty one or create a new **MariaDB**/**MySQL** database.
 
 With a database created, fill out the database connection params in `config/autoload/local.php` under `$databases['default']`.
 
-#### Creating migrations
+### Creating migrations
 
 Create a new migration by running:
 
@@ -18,7 +18,7 @@ php ./vendor/bin/doctrine-migrations diff
 
 The new migration file will be placed in `src/Core/src/App/src/Migration/`.
 
-#### Running migrations
+### Running migrations
 
 Execute a new migration by running:
 
@@ -32,7 +32,7 @@ This command will prompt you to confirm that you want to run it:
 
 Hit `Enter` to confirm the operation.
 
-## Executing fixtures
+### Executing fixtures
 
 **Fixtures are used to seed the database with initial values and should be executed after migrating the database.**
 
