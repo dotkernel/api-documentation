@@ -107,4 +107,4 @@ To summarize, the typical scenario on working on your own instance of Dotkernel 
 - create new module (example: `Book`)
 - add functionality to your new module (routes, entities, repositories, handlers, services, tests etc)
 - create file `OpenAPI.php` in the new module and describe each new endpoint
-- generate latest version of documentation file as described [here](./generate-documentation.md)
+- generate latest version of documentation file as described [in this tutorial](./generate-documentation.md)

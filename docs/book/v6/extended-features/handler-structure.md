@@ -38,6 +38,6 @@ In this way, the developer can easily figure out the functionality of each handl
 
 ## Mapping of the handlers
 
-The full mapping of the handlers and their current paths and actions can be found [**here**](https://docs.dotkernel.org/img/api/v6/naming-convention.png).
+The full mapping of the handlers and their current paths and actions can be found in the full [naming convention table](https://docs.dotkernel.org/img/api/v6/naming-convention.png).
 
 [![naming-convention-thumbnail](https://docs.dotkernel.org/img/api/v6/naming-convention-thumbnail.png)](https://docs.dotkernel.org/img/api/v6/naming-convention.png)
