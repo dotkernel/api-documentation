@@ -43,7 +43,7 @@ Another table that is pre-populated is the `oauth_scopes` table, with the `api` 
 
 ### Issuing API Tokens
 
-Token generation in Dotkernel API is done using the `password` `grand_type` scenario, which in this case allows
+Token generation in Dotkernel API is done using the `password` `grant_type` scenario, which in this case allows
 authentication to an API using the user's credentials (generally a username and password).
 
 The client sends a POST request to the `/security/generate-token` with the following parameters:

@@ -5,7 +5,7 @@ The goal of this update is to implement PSR-15 handlers into Dotkernel API.
 
 ## What is a handler?
 
-In DotKernel 6.0, a "handler" is the piece of code that reacts when a user makes a specific request (like visiting a webpage or submitting a form).
+In Dotkernel 6.0, a "handler" is the piece of code that reacts when a user makes a specific request (like visiting a webpage or submitting a form).
 It's basically the "controller" that decides what happens next.
 
 HTTP request handlers are at the core of any web application.
