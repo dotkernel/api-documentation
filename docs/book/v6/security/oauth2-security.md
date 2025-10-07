@@ -17,6 +17,7 @@ The configuration for OAuth2 tokens can be edited in `config/autoload/local.php`
 By default, the lifetimes of the `access` and `refresh` tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance to your application's needs, with lower values being generally safer.
 
+> If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the `revokeTokens` method of `UserService`.
 > Read more about the available [configuration options](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration).
 
 ## Autogeneration of Cryptographic Keys
