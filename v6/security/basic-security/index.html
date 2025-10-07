@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/installation/getting-started/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/security/basic-security/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Getting Started - api - Dotkernel Documentation</title>
+        <title>Basic Security - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -209,12 +209,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Installation</li>
+                                <li class="breadcrumb-item">Basic Security</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+                    <li class="breadcrumb-item active" aria-current="page">Basic Security</li>
                 
             
         </ol>
@@ -335,38 +335,38 @@
     <ul class="subnavigation__list collapse" id="installation">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Getting Started</a>
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -931,14 +931,14 @@
     <ul class="subnavigation__list collapse" id="basic-security">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../security/basic-security/" class="subnavigation__link">Basic Security</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Basic Security</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../security/oauth2-security/" class="subnavigation__link">OAuth2 Security</a>
+    <a href="../oauth2-security/" class="subnavigation__link">OAuth2 Security</a>
 </li>
 
         
@@ -1019,7 +1019,39 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#recommended-development-environment" class="toc__link nav-link">Recommended development environment</a>
+                    <a href="#user-input-validation" class="toc__link nav-link">User Input Validation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#content-negotiation" class="toc__link nav-link">Content Negotiation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#cross-origin-resource-sharing" class="toc__link nav-link">Cross-Origin Resource Sharing</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#role-based-access-control" class="toc__link nav-link">Role-Based Access Control</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#demo-credentials" class="toc__link nav-link">Demo Credentials</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#error-reporting-endpoint-and-errorreportingtokens" class="toc__link nav-link">Error Reporting Endpoint and ErrorReportingTokens</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#openapi-documentation" class="toc__link nav-link">OpenAPI Documentation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#php-dependencies" class="toc__link nav-link">PHP Dependencies</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#general-considerations" class="toc__link nav-link">General Considerations</a>
                 </li>
             
             </ul>
@@ -1037,18 +1069,78 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Basic Security</h2>-->
     
 
-    <h1 id="clone-the-project">Clone the project</h1>
-<h2 id="recommended-development-environment">Recommended development environment</h2>
+    <h1 id="basic-security">Basic Security</h1>
+<p>Dotkernel API provides all necessary tools to implement safe applications, however you will need to manually make use of some of them.
+This section will go over the provided tools and any steps you need to follow in order to use them successfully, as well as a few general considerations.</p>
+<h2 id="user-input-validation">User Input Validation</h2>
+<p>In order to validate user input, Dotkernel API makes use of <a href="https://github.com/laminas/laminas-inputfilter">laminas/laminas-inputfilter</a>.
+It is strongly recommended that custom functionality parsing user input also make use of input filters to validate the data.</p>
+<h2 id="content-negotiation">Content Negotiation</h2>
+<p>Content negotiation in Dotkernel API is done by a middleware configured using the <code>config/autoload/content-negotiation.global.php</code> file.</p>
+<p>Whenever an endpoint needs custom <code>Accept</code> and/or <code>Content-Type</code>, make sure that you set them in the above file.</p>
 <blockquote>
-<p>If you are using Windows as OS on your machine, you can use WSL2 as development environment.
-Read more here: <a href="https://www.dotkernel.com/php-development/almalinux-9-in-wsl2-install-php-apache-mariadb-composer-phpmyadmin/">PHP-Mariadb-on-WLS2</a></p>
+<p>Read more about <a href="https://www.dotkernel.com/dotkernel-api/content-negotiation-in-dotkernel-rest-api/">content negotiation</a> and the way it is implemented in <a href="../../core-features/content-validation/">Dotkernel API</a>.</p>
 </blockquote>
-<p>Using your terminal, navigate inside the directory you want to download the project files into. Make sure that the
-directory is empty before proceeding to the download process. Once there, run the following command:</p>
-<pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+<h2 id="cross-origin-resource-sharing">Cross-Origin Resource Sharing</h2>
+<p>Dotkernel API uses <a href="https://github.com/mezzio/mezzio-cors">mezzio/mezzio-cors</a> to handle CORS details.
+The default configuration, found in <code>config/autoload/cors.local.php</code>, makes the application accessible by any origin.</p>
+<p>Make sure your application specifies only the required origins when in a production environment.</p>
+<blockquote>
+<p>This step is described in the <a href="../../tutorials/cors/">CORS</a> tutorial.</p>
+</blockquote>
+<h2 id="role-based-access-control">Role-Based Access Control</h2>
+<p>This project makes use of <a href="../../core-features/authorization/">mezzio/mezzio-authorization-rbac</a> to handle access control.</p>
+<p>The default use cases have already been configured, but any custom functionality will require additional configuration to make sure it is protected.
+Update the configuration file of this package (<code>config/autoload/authorization.global.php</code>) whenever you add new routes or roles.</p>
+<h2 id="demo-credentials">Demo Credentials</h2>
+<p>Dotkernel API ships with two demo accounts: an admin account (<code>admin</code>) and a user account (<code>test@dotkernel.com</code>),
+with public identities and passwords as described in the <a href="https://docs.dotkernel.org/api-documentation/v6/tutorials/token-authentication/">token authentication tutorial</a>.</p>
+<p>Make sure to <strong>update</strong> or <strong>remove</strong> these demo accounts in your production environment.</p>
+<h2 id="error-reporting-endpoint-and-errorreportingtokens">Error Reporting Endpoint and ErrorReportingTokens</h2>
+<p>The error reporting endpoint (<code>/error-report</code>) is intended to be used by third parties to report errors back to your application.
+This endpoint requires its own token type, namely an <code>ErrorReportingToken</code>, that is to be added in the configuration file for every application sending reports.</p>
+<p>Since these tokens do not have an expiration date, consider periodically refreshing them manually.</p>
+<p>This feature is configured using the <code>config/autoload/error-handling.global.php</code> file, under the configured <code>ErrorReportServiceInterface::class</code> key.</p>
+<p>This file is visible to your VCS by default, so take care not to overwrite tokens locally and commit them to your production environment.
+Additionally, make sure the <code>ip_whitelist</code> or <code>domain_whitelist</code> keys are set to your desired values, especially when in a production environment.</p>
+<blockquote>
+<p>Read more about the <a href="../../core-features/error-reporting/">error reporting</a> feature.</p>
+</blockquote>
+<h2 id="openapi-documentation">OpenAPI Documentation</h2>
+<p>In order to provide an interactive documentation, Dotkernel API implemented <a href="https://github.com/zircote/swagger-php">zircote/swagger-php</a>.</p>
+<p>Make sure <strong>not</strong> to include sensitive data as examples for any of the documented endpoints.
+It is not recommended to enable the documentation in a production environment.</p>
+<blockquote>
+<p>Read more about the <a href="../../openapi/introduction/">OpenAPI documentation</a>.</p>
+</blockquote>
+<h2 id="php-dependencies">PHP Dependencies</h2>
+<p>Dotkernel API uses <code>composer</code> to handle PHP dependencies.
+In time, make sure to review any common vulnerabilities and exposures for your dependencies.</p>
+<blockquote>
+<p>You may also keep an eye on the Dotkernel API changelog for any updates relevant to your project.</p>
+</blockquote>
+<h2 id="general-considerations">General Considerations</h2>
+<ul>
+<li><code>*.global.php</code> and <code>*.php.dist</code> configuration files are visible to the VCS, make sure <strong>not</strong> to include sensitive data in commits.<ul>
+<li><code>*.local.php</code> configuration files are ignored by the VCS by default and are the recommended place for sensitive data such as API keys.</li>
+</ul>
+</li>
+<li>Make sure the <code>development mode</code> is correctly set - <strong>do not</strong> enable <code>development mode</code> in a production environment.<ul>
+<li>You can use the following command to check the current status:</li>
+</ul>
+</li>
+</ul>
+<pre class="highlight"><code class="language-shell">composer development-status</code></pre>
+<ul>
+<li>Dotkernel API ships with a <a href="https://github.com/laminas/laminas-continuous-integration-action">Laminas Continuous Integration</a> GitHub Action,
+  if you are using a public repository consider keeping it in your custom applications to ensure code quality.</li>
+</ul>
+<blockquote>
+<p>Read more about using <a href="https://getlaminas.org/blog/2024-08-05-using-laminas-continuous-integration.html">Laminas Continuous Integration</a>.</p>
+</blockquote>
 
 
 
@@ -1058,9 +1150,9 @@ directory is empty before proceeding to the download process. Once there, run th
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../introduction/psr/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../openapi/getting-help/">
                     <i class="bi bi-chevron-left"></i>
-                    PSRs
+                    Getting Help
                 </a>
             
         </li>
@@ -1068,8 +1160,8 @@ directory is empty before proceeding to the download process. Once there, run th
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../composer/">
-                    Composer
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../oauth2-security/">
+                    OAuth2 Security
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

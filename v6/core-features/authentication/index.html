@@ -914,6 +914,60 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#basic-security" role="button" aria-expanded="false" aria-controls="basic-security">
+        <span class="subnavigation__headline">Basic Security</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="basic-security">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../security/basic-security/" class="subnavigation__link">Basic Security</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../security/oauth2-security/" class="subnavigation__link">OAuth2 Security</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <li class="subnavigation__list-item">
     <a data-bs-toggle="collapse" href="#reference" role="button" aria-expanded="false" aria-controls="reference">
         <span class="subnavigation__headline">Reference</span>
@@ -1025,7 +1079,7 @@ their names (<strong>we recommend you change the default passwords</strong>).</p
 <p>As you guessed each client serves to authenticate <code>admin</code> or <code>user</code>.</p>
 <p>Another table that is pre-populated is the <code>oauth_scopes</code> table, with the <code>api</code> scope.</p>
 <h3 id="issuing-api-tokens">Issuing API Tokens</h3>
-<p>Token generation in Dotkernel API is done using the <code>password</code> <code>grand_type</code> scenario, which in this case allows
+<p>Token generation in Dotkernel API is done using the <code>password</code> <code>grant_type</code> scenario, which in this case allows
 authentication to an API using the user's credentials (generally a username and password).</p>
 <p>The client sends a POST request to the <code>/security/generate-token</code> with the following parameters:</p>
 <ul>

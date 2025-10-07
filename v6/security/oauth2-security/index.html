@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/installation/getting-started/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v6/security/oauth2-security/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Getting Started - api - Dotkernel Documentation</title>
+        <title>OAuth2 Security - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -209,12 +209,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Installation</li>
+                                <li class="breadcrumb-item">Basic Security</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Getting Started</li>
+                    <li class="breadcrumb-item active" aria-current="page">OAuth2 Security</li>
                 
             
         </ol>
@@ -335,38 +335,38 @@
     <ul class="subnavigation__list collapse" id="installation">
         
         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Getting Started</a>
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../composer/" class="subnavigation__link">Composer</a>
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../configuration-files/" class="subnavigation__link">Configuration Files</a>
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../test-the-installation/" class="subnavigation__link">Test the Installation</a>
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../faq/" class="subnavigation__link">FAQ</a>
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
 </li>
 
         
@@ -932,13 +932,13 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../security/basic-security/" class="subnavigation__link">Basic Security</a>
+    <a href="../basic-security/" class="subnavigation__link">Basic Security</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../security/oauth2-security/" class="subnavigation__link">OAuth2 Security</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">OAuth2 Security</a>
 </li>
 
         
@@ -1019,7 +1019,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#recommended-development-environment" class="toc__link nav-link">Recommended development environment</a>
+                    <a href="#default-oauth-clients" class="toc__link nav-link">Default OAuth Clients</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#oauth-token-lifetime-and-refresh-hygiene" class="toc__link nav-link">OAuth Token Lifetime and Refresh Hygiene</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#autogeneration-of-cryptographic-keys" class="toc__link nav-link">Autogeneration of Cryptographic Keys</a>
                 </li>
             
             </ul>
@@ -1037,18 +1045,33 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Installation</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Basic Security</h2>-->
     
 
-    <h1 id="clone-the-project">Clone the project</h1>
-<h2 id="recommended-development-environment">Recommended development environment</h2>
+    <h1 id="oauth2-security">OAuth2 Security</h1>
+<p>Dotkernel API uses the <a href="https://github.com/mezzio/mezzio-authentication-oauth2">mezzio/mezzio-authentication-oauth2</a> component to provide the OAuth2 authentication service.
+As a security stating point, when developing an application using this project make sure you go over the following steps.</p>
+<h2 id="default-oauth-clients">Default OAuth Clients</h2>
+<p>The project ships with the default OAuth clients <code>admin</code> and <code>frontend</code> with passwords equal to their names, as described in the <a href="https://docs.dotkernel.org/api-documentation/v6/core-features/authentication/">Authentication</a> guide.</p>
+<p>These clients <strong>must not</strong> remain unchanged in your production environment, as they are a security risk -
+ensure you deleted them or updated the passwords.</p>
+<h2 id="oauth-token-lifetime-and-refresh-hygiene">OAuth Token Lifetime and Refresh Hygiene</h2>
+<p>The configuration for OAuth2 tokens can be edited in <code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
+<p>By default, the lifetimes of the <code>access</code> and <code>refresh</code> tokens are set to one day and one month respectively.
+Make sure to adjust their values in accordance to your application's needs, with lower values being generally safer.</p>
 <blockquote>
-<p>If you are using Windows as OS on your machine, you can use WSL2 as development environment.
-Read more here: <a href="https://www.dotkernel.com/php-development/almalinux-9-in-wsl2-install-php-apache-mariadb-composer-phpmyadmin/">PHP-Mariadb-on-WLS2</a></p>
+<p>If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the <code>revokeTokens</code> method of <code>UserService</code>.
+Read more about the available <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">configuration options</a>.</p>
 </blockquote>
-<p>Using your terminal, navigate inside the directory you want to download the project files into. Make sure that the
-directory is empty before proceeding to the download process. Once there, run the following command:</p>
-<pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+<h2 id="autogeneration-of-cryptographic-keys">Autogeneration of Cryptographic Keys</h2>
+<p>Dotkernel API makes use of the <code>./vendor/bin/generate-oauth2-keys</code> command from <code>mezzio-authentication-oauth2</code> to automatically regenerate the
+public/private key pair used to verify the transmitted JWTs.
+This process is done after each <code>composer update</code> (or <code>composer install</code> with no lock file), as specified in <code>composer.json</code> under the <code>scripts.post-update-cmd</code> key.</p>
+<p>While hidden to the VCS by default, keep in mind not to commit any local keys.</p>
+<blockquote>
+<p>Autogeneration of keys can be disabled by simply removing the <code>php ./vendor/bin/generate-oauth2-keys</code> command from the mentioned key.
+While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.</p>
+</blockquote>
 
 
 
@@ -1058,9 +1081,9 @@ directory is empty before proceeding to the download process. Once there, run th
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../introduction/psr/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../basic-security/">
                     <i class="bi bi-chevron-left"></i>
-                    PSRs
+                    Basic Security
                 </a>
             
         </li>
@@ -1068,8 +1091,8 @@ directory is empty before proceeding to the download process. Once there, run th
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../composer/">
-                    Composer
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../reference/account-anonymization/">
+                    Anonymize Accounts
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
