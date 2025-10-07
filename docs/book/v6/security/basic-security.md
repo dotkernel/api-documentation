@@ -12,7 +12,7 @@ It is strongly recommended that custom functionality parsing user input also mak
 
 Content negotiation in Dotkernel API is done by a middleware configured using the `config/autoload/content-negotiation.global.php` file.
 
-Review the contents of this file and update it whenever you need to handle new routes.
+Whenever an endpoint needs custom `Accept` and/or `Content-Type`, make sure that you set them in the above file.
 
 > Read more about [content negotiation](https://www.dotkernel.com/dotkernel-api/content-negotiation-in-dotkernel-rest-api/) and the way it is implemented in [Dotkernel API](../core-features/content-validation.md).
 
