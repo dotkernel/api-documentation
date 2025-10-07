@@ -1060,8 +1060,8 @@ ensure you deleted them or updated the passwords.</p>
 <p>By default, the lifetimes of the <code>access</code> and <code>refresh</code> tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance to your application's needs, with lower values being generally safer.</p>
 <blockquote>
-<p>If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the <code>revokeTokens</code> method of <code>UserService</code>.
-Read more about the available <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">configuration options</a>.</p>
+<p>If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the <code>revokeTokens</code> method of <code>UserService</code>.</p>
+<p>Read more about the available <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">configuration options</a>.</p>
 </blockquote>
 <h2 id="autogeneration-of-cryptographic-keys">Autogeneration of Cryptographic Keys</h2>
 <p>Dotkernel API makes use of the <code>./vendor/bin/generate-oauth2-keys</code> command from <code>mezzio-authentication-oauth2</code> to automatically regenerate the
@@ -1069,8 +1069,8 @@ public/private key pair used to verify the transmitted JWTs.
 This process is done after each <code>composer update</code> (or <code>composer install</code> with no lock file), as specified in <code>composer.json</code> under the <code>scripts.post-update-cmd</code> key.</p>
 <p>While hidden to the VCS by default, keep in mind not to commit any local keys.</p>
 <blockquote>
-<p>Autogeneration of keys can be disabled by simply removing the <code>php ./vendor/bin/generate-oauth2-keys</code> command from the mentioned key.
-While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.</p>
+<p>Autogeneration of keys can be disabled by simply removing the <code>php ./vendor/bin/generate-oauth2-keys</code> command from the mentioned key.</p>
+<p>While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.</p>
 </blockquote>
 
 
