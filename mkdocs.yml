@@ -68,6 +68,9 @@ nav:
           - "Render Documentation": v6/openapi/render-documentation.md
           - "Use Documentation": v6/openapi/use-documentation.md
           - "Getting Help": v6/openapi/getting-help.md
+      - Basic Security:
+          - "Basic Security": v6/security/basic-security.md
+          - "OAuth2 Security": v6/security/oauth2-security.md
       - Reference:
           - "Anonymize Accounts": v6/reference/account-anonymization.md
   - v5:
