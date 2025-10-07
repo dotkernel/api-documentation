@@ -18,6 +18,7 @@ By default, the lifetimes of the `access` and `refresh` tokens are set to one da
 Make sure to adjust their values in accordance to your application's needs, with lower values being generally safer.
 
 > If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the `revokeTokens` method of `UserService`.
+>
 > Read more about the available [configuration options](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration).
 
 ## Autogeneration of Cryptographic Keys
@@ -29,4 +30,5 @@ This process is done after each `composer update` (or `composer install` with no
 While hidden to the VCS by default, keep in mind not to commit any local keys.
 
 > Autogeneration of keys can be disabled by simply removing the `php ./vendor/bin/generate-oauth2-keys` command from the mentioned key.
+>
 > While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.
