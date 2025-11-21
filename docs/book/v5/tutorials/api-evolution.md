@@ -23,7 +23,7 @@ When you want to mark an entire resource as deprecated you have to use the `Reso
 ...
 #[ResourceDeprecation(
     sunset: '2038-01-01',
-    link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+    link: 'https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/',
     deprecationReason: 'Resource deprecation example.',
     rel: 'sunset',
     type: 'text/html'
@@ -50,7 +50,7 @@ X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Link: https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin
 ```
 
@@ -67,7 +67,7 @@ class HomeHandler implements RequestHandlerInterface
 
     #[MethodDeprecation(
         sunset: '2038-01-01',
-        link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+        link: 'https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/',
         deprecationReason: 'Method deprecation example.',
         rel: 'sunset',
         type: 'text/html'
@@ -98,7 +98,7 @@ X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Link: https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin
 ```
 

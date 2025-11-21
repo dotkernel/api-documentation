@@ -7,7 +7,7 @@ Example of a response with details:
 ```json
 {
     "title": "Unauthorized",
-    "type": "https://docs.dotkernel.org/api-documentation/v5/core-features/error-reporting/",
+    "type": "https://docs.dotkernel.org/api-documentation/v6/core-features/error-reporting/",
     "status": 401,
     "detail": "You are not allowed to report errors."
 }
