@@ -21,4 +21,5 @@
 | PSR                 | PSR-7                                          | PSR-7, PSR-15                                                                                                                                          |
 
 > \* Versioning was replaced by Deprecations, using evolution strategy
+>
 > \* Version 5 implemented OpenAPI 3.0
