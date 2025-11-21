@@ -724,18 +724,6 @@
 </li>
 
         
-        
-<li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
-</li>
-
-        
     </ul>
 </li>
 
@@ -934,7 +922,7 @@ In our case it's <code>config/pipeline.php</code>.</p>
 <pre class="highlight"><code class="language-php">...
 #[ResourceDeprecation(
     sunset: '2038-01-01',
-    link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+    link: 'https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/',
     deprecationReason: 'Resource deprecation example.',
     rel: 'sunset',
     type: 'text/html'
@@ -953,7 +941,7 @@ X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Link: https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin</code></pre>
 <h2 id="marking-a-method-as-deprecated">Marking a method as deprecated</h2>
 <p>Most of the time you want to deprecate only an endpoint, so you will need to use the <code>MethodDeprecation</code> attribute which has the same parameters, but it attaches to a handler method.</p>
@@ -965,7 +953,7 @@ class HomeHandler implements RequestHandlerInterface
 
     #[MethodDeprecation(
         sunset: '2038-01-01',
-        link: 'https://docs.dotkernel.org/api-documentation/v5/core-features/versioning',
+        link: 'https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/',
         deprecationReason: 'Method deprecation example.',
         rel: 'sunset',
         type: 'text/html'
@@ -987,7 +975,7 @@ X-Powered-By: PHP/6.4.20
 Content-Type: application/json
 Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v5/core-features/versioning;rel="sunset";type="text/html"
+Link: https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin</code></pre>
 <h2 id="notes">NOTES</h2>
 <blockquote>
