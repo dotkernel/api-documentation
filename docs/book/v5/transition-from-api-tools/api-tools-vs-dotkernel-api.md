@@ -9,7 +9,7 @@
 | OSS Lifecycle       | Archived                                       | ![OSS Lifecycle](https://img.shields.io/osslifecycle?style=flat&label=&file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fapi%2Fblob%2F5.0%2FOSSMETADATA) |
 | Style               | REST, RPC                                      | REST                                                                                                                                                   |
 | Versioning          | Yes                                            | [Deprecations *](https://docs.dotkernel.org/api-documentation/v5/tutorials/api-evolution/)                                                             |
-| Documentation       | Swagger (Automated)                            | Postman (Manual) *                                                                                                                                     |
+| Documentation       | Swagger (Automated)                            | OpenAPI (Swagger) / Postman (Manual) *                                                                                                                 |
 | Content-Negotiation | Custom                                         | Custom                                                                                                                                                 |
 | License             | BSD-3                                          | MIT                                                                                                                                                    |
 | Default DB Layer    | laminas-db                                     | doctrine-orm                                                                                                                                           |
@@ -20,4 +20,5 @@
 | Endpoint Generator  | Yes                                            | Under development                                                                                                                                      |
 | PSR                 | PSR-7                                          | PSR-7, PSR-15                                                                                                                                          |
 
-> \* Versioning is replaced by Deprecations, using evolution strategy
+> \* Versioning was replaced by Deprecations, using evolution strategy
+> \* Version 5 implemented OpenAPI 3.0

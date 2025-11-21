@@ -8,7 +8,7 @@
 | Architecture        | MVC, Event Driven                              | Middleware                                                                                                                                             |
 | OSS Lifecycle       | Archived                                       | ![OSS Lifecycle](https://img.shields.io/osslifecycle?style=flat&label=&file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fapi%2Fblob%2F6.0%2FOSSMETADATA) |
 | Style               | REST, RPC                                      | REST                                                                                                                                                   |
-| Versioning          | Yes                                            | [Deprecations *](https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/)                                                             |
+| Versioning          | Yes                                            | [Deprecations](https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/)                                                               |
 | Documentation       | Swagger (Automated)                            | OpenAPI (Swagger) / Postman (Manual)                                                                                                                   |
 | Content-Negotiation | Custom                                         | Custom                                                                                                                                                 |
 | License             | BSD-3                                          | MIT                                                                                                                                                    |
@@ -19,5 +19,3 @@
 | Unit Tests          | Yes                                            | Yes                                                                                                                                                    |
 | Endpoint Generator  | Yes                                            | Under development                                                                                                                                      |
 | PSR                 | PSR-7                                          | PSR-7, PSR-15                                                                                                                                          |
-
-> \* Versioning is replaced by Deprecations, using evolution strategy.
