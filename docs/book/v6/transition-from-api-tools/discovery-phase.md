@@ -8,8 +8,6 @@ To transition a system built using api-tools to Dotkernel API, we need to analyz
 - which is the connection to a database
 - which library is used for database interaction (laminas-db, doctrine 2, eloquent, or else)?
 
-### Note
-
 >  Dotkernel API is tested only with MariaDB version 10.6, 10.11 LTS, 11.4 LTS, and 11.8 LTS
 
 ## Authentication and Authorization
