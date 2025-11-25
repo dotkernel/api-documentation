@@ -5,7 +5,7 @@ API evolution: Updating an API while keeping it compatible for existing consumer
 ## How it works
 
 In Dotkernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
-We use response headers to inform the consumers about the future changes by using 2 new headers:
+We use response headers to inform the consumers about the future changes by using two new headers:
 
 - `Link` - it's a link to the official documentation pointing out the changes that will take place.
 - `Sunset` - this header is a date, indicating when the deprecated resource will potentially become unresponsive.
@@ -17,7 +17,7 @@ We use response headers to inform the consumers about the future changes by usin
 
 ## Marking an entire endpoint as deprecated
 
-When you want to mark an entire resource as deprecated you have to use the `ResourceDeprecation` attribute.
+When you want to mark an entire resource as deprecated, you have to use the `ResourceDeprecation` attribute.
 
 ```php
 ...
@@ -56,59 +56,16 @@ Vary: Origin
 
 ## Marking a method as deprecated
 
-Most of the time you want to deprecate only an endpoint, so you will need to use the `MethodDeprecation` attribute which has the same parameters, but it attaches to a handler method.
-
-```php
-...
-class HomeHandler implements RequestHandlerInterface
-{
-    ...
-    use Api\App\Attribute\MethodDeprecation;
-
-    #[MethodDeprecation(
-        sunset: '2038-01-01',
-        link: 'https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/',
-        deprecationReason: 'Method deprecation example.',
-        rel: 'sunset',
-        type: 'text/html'
-    )]
-    public function get(): ResponseInterface
-    {
-        ...
-    }
-}
-```
-
-Attaching the `MethodDeprecation` can only be done to HTTP verb methods (`GET`, `POST`, `PUT`, `PATCH` and `DELETE`).
-
-If you followed along you can run the below curl:
-
-```shell
-curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"
-```
-
-The response lists the **Sunset** and **Link** headers.
-
-```shell
-HTTP/1.1 200 OK
-Host: 0.0.0.0:8080
-Date: Mon, 24 Jun 2024 10:54:57 GMT
-Connection: close
-X-Powered-By: PHP/6.4.20
-Content-Type: application/json
-Permissions-Policy: interest-cohort=()
-Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/;rel="sunset";type="text/html"
-Vary: Origin
-```
+Since version 6, in Dotkernel API each handler is PSR-15 middleware responsible for handling a single request method.
+This means that each resource operation will have its own handler class.
+Therefore, `MethodDeprecation` no longer has a class method to attach to.
+Instead, you should use the `ResourceDeprecation` attribute on the handler class.
 
 ## NOTES
 
 > If `Link` or `Sunset` do not have a value they will not appear in the response headers.
 
 > `Sunset` has to be a **valid** date, otherwise it will throw an error.
-
-> You **cannot** use both `ResourceDeprecation` and `MethodDeprecation` in the same handler.
 
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 

@@ -17,5 +17,5 @@
 | Authentication      | HTTP Basic/Digest   OAuth2.0                   | OAuth2.0                                                                                                                                               |
 | CI/CD               | Yes                                            | Yes                                                                                                                                                    |
 | Unit Tests          | Yes                                            | Yes                                                                                                                                                    |
-| Endpoint Generator  | Yes                                            | Under development                                                                                                                                      |
+| Code Generator      | Yes                                            | [dotkernel/dot-maker](https://docs.dotkernel.org/dot-maker/v1/overview/)                                                                               |
 | PSR                 | PSR-7                                          | PSR-7, PSR-15                                                                                                                                          |
