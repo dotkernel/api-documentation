@@ -1056,7 +1056,7 @@
 <p>API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.</p>
 <h2 id="how-it-works">How it works</h2>
 <p>In Dotkernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
-We use response headers to inform the consumers about the future changes by using 2 new headers:</p>
+We use response headers to inform the consumers about the future changes by using two new headers:</p>
 <ul>
 <li><code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.</li>
 <li><code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</li>
@@ -1067,7 +1067,7 @@ We use response headers to inform the consumers about the future changes by usin
 In our case it's <code>config/pipeline.php</code>.</p>
 </blockquote>
 <h2 id="marking-an-entire-endpoint-as-deprecated">Marking an entire endpoint as deprecated</h2>
-<p>When you want to mark an entire resource as deprecated you have to use the <code>ResourceDeprecation</code> attribute.</p>
+<p>When you want to mark an entire resource as deprecated, you have to use the <code>ResourceDeprecation</code> attribute.</p>
 <pre class="highlight"><code class="language-php">...
 #[ResourceDeprecation(
     sunset: '2038-01-01',
@@ -1093,44 +1093,14 @@ Sunset: 2038-01-01
 Link: https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin</code></pre>
 <h2 id="marking-a-method-as-deprecated">Marking a method as deprecated</h2>
-<p>Most of the time you want to deprecate only an endpoint, so you will need to use the <code>MethodDeprecation</code> attribute which has the same parameters, but it attaches to a handler method.</p>
-<pre class="highlight"><code class="language-php">...
-class HomeHandler implements RequestHandlerInterface
-{
-    ...
-    use Api\App\Attribute\MethodDeprecation;
-
-    #[MethodDeprecation(
-        sunset: '2038-01-01',
-        link: 'https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/',
-        deprecationReason: 'Method deprecation example.',
-        rel: 'sunset',
-        type: 'text/html'
-    )]
-    public function get(): ResponseInterface
-    {
-        ...
-    }
-}</code></pre>
-<p>Attaching the <code>MethodDeprecation</code> can only be done to HTTP verb methods (<code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code> and <code>DELETE</code>).</p>
-<p>If you followed along you can run the below curl:</p>
-<pre class="highlight"><code class="language-shell">curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"</code></pre>
-<p>The response lists the <strong>Sunset</strong> and <strong>Link</strong> headers.</p>
-<pre class="highlight"><code class="language-shell">HTTP/1.1 200 OK
-Host: 0.0.0.0:8080
-Date: Mon, 24 Jun 2024 10:54:57 GMT
-Connection: close
-X-Powered-By: PHP/6.4.20
-Content-Type: application/json
-Permissions-Policy: interest-cohort=()
-Sunset: 2038-01-01
-Link: https://docs.dotkernel.org/api-documentation/v6/tutorials/api-evolution/;rel="sunset";type="text/html"
-Vary: Origin</code></pre>
+<p>Since version 6, in Dotkernel API each handler is PSR-15 middleware responsible for handling a single request method.
+This means that each resource operation will have its own handler class.
+Therefore, <code>MethodDeprecation</code> no longer has a class method to attach to.
+Instead, you should use the <code>ResourceDeprecation</code> attribute on the handler class.</p>
 <h2 id="notes">NOTES</h2>
 <blockquote>
 <p>If <code>Link</code> or <code>Sunset</code> do not have a value they will not appear in the response headers.</p>
 <p><code>Sunset</code> has to be a <strong>valid</strong> date, otherwise it will throw an error.</p>
-<p>You <strong>cannot</strong> use both <code>ResourceDeprecation</code> and <code>MethodDeprecation</code> in the same handler.</p>
 <p>Deprecations can only be attached to handler classes that implement <code>RequestHandlerInterface</code>.</p>
 <p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value was provided and are <code>Link</code> related parts.</p>
 </blockquote>

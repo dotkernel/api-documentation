@@ -1049,14 +1049,15 @@ We do not cover the creation steps of the database itself.</p>
 Below is the item you need to focus on:</p>
 <pre class="highlight"><code class="language-php">$databases = [
     'default' =&gt; [
-        'host'     =&gt; 'localhost',
-        'dbname'   =&gt; 'my_database',
-        'user'     =&gt; 'my_user',
-        'password' =&gt; 'my_password',
-        'port'     =&gt; 3306,
-        'driver'   =&gt; 'pdo_mysql',
-        'charset'  =&gt; 'utf8mb4',
-        'collate'  =&gt; 'utf8mb4_general_ci',
+        'host'         =&gt; 'localhost',
+        'dbname'       =&gt; 'my_database',
+        'user'         =&gt; 'my_user',
+        'password'     =&gt; 'my_password',
+        'port'         =&gt; 3306,
+        'driver'       =&gt; 'pdo_mysql',
+        'charset'      =&gt; 'utf8mb4',
+        'collate'      =&gt; 'utf8mb4_general_ci',
+        'table_prefix' =&gt; '',
     ],
     // you can add more database connections into this array
 ];</code></pre>
@@ -1096,6 +1097,52 @@ Each migration will be logged in the <code>migrations</code> table to prevent ru
 <p>To execute a specific fixture, run:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
 <p>More details on how fixtures work can be found on <a href="https://github.com/dotkernel/dot-data-fixtures#creating-fixtures">dot-data-fixtures documentation</a></p>
+<h3 id="prefixing-table-names">Prefixing table names</h3>
+<p>Note in the database configuration array the key called <code>table_prefix</code>.
+By default, it is an empty string, which means that all the tables will be named exactly the way they are configured in the entities.</p>
+<pre class="highlight"><code class="language-text">├─ admin
+├─ admin_login
+├─ admin_role
+├─ admin_roles
+├─ doctrine_migration_versions
+├─ oauth_access_tokens
+├─ oauth_access_token_scopes
+├─ oauth_auth_codes
+├─ oauth_auth_code_scopes
+├─ oauth_clients
+├─ oauth_refresh_tokens
+├─ oauth_scopes
+├─ settings
+├─ user
+├─ user_avatar
+├─ user_detail
+├─ user_reset_password
+├─ user_role
+└─ user_roles </code></pre>
+<p>Adding a prefix, for example <code>dot_</code>, all the table will be composed of the prefix and the original table name.</p>
+<pre class="highlight"><code class="language-text">├─ dot_admin
+├─ dot_admin_login
+├─ dot_admin_role
+├─ dot_admin_roles
+├─ doctrine_migration_versions
+├─ dot_oauth_access_tokens
+├─ dot_oauth_access_token_scopes
+├─ dot_oauth_auth_codes
+├─ dot_oauth_auth_code_scopes
+├─ dot_oauth_clients
+├─ dot_oauth_refresh_tokens
+├─ dot_oauth_scopes
+├─ dot_settings
+├─ dot_user
+├─ dot_user_avatar
+├─ dot_user_detail
+├─ dot_user_reset_password
+├─ dot_user_role
+└─ dot_user_roles </code></pre>
+<blockquote>
+<p>The configured prefix is prepended as is, no intermediary character will be added.</p>
+<p><code>doctrine_migration_versions</code> is an exception, being a special table handled by Doctrine Migrations.</p>
+</blockquote>
 
 
 
