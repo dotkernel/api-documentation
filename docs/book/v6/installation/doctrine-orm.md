@@ -125,6 +125,7 @@ By default, it is an empty string, which means that all the tables will be named
 ├─ user_role
 └─ user_roles 
 ```
+
 Adding a prefix, for example `dot_`, all the table will be composed of the prefix and the original table name.
 
 ```text
