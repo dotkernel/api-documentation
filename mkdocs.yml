@@ -2,13 +2,79 @@ docs_dir: docs/book
 site_dir: docs/html
 extra:
   project: API
-  current_version: v6
+  current_version: v7
   versions:
-    - v4
-    - v5
+    - v7
     - v6
+    - v5
+    - v4
 nav:
   - Home: index.md
+  - v7:
+      - Introduction: v7/introduction/introduction.md
+      - Overview:
+          - "Server Requirements": v7/introduction/server-requirements.md
+          - "File Structure": v7/introduction/file-structure.md
+          - "Packages": v7/introduction/packages.md
+          - "PSRs": v7/introduction/psr.md
+      - Installation:
+          - "Getting Started": v7/installation/getting-started.md
+          - "Composer": v7/installation/composer.md
+          - "Configuration Files": v7/installation/configuration-files.md
+          - "Doctrine ORM": v7/installation/doctrine-orm.md
+          - "Test the Installation": v7/installation/test-the-installation.md
+          - "FAQ": v7/installation/faq.md
+      - Upgrading:
+          - "Upgrade procedure": v7/upgrading/upgrading.md
+          - "Upgrading 6.x to 7.0": v7/upgrading/UPGRADE-7.0.md
+          - "Upgrading 5.x to 6.0": v7/upgrading/UPGRADE-6.0.md
+      - Flow:
+          - "Middleware Flow": v7/flow/middleware-flow.md
+          - "Default Library Flow": v7/flow/default-library-flow.md
+          - "Library Flow for Email": v7/flow/library-flow-for-email.md
+      - Core Features:
+          - "Authentication": v7/core-features/authentication.md
+          - "Authorization": v7/core-features/authorization.md
+          - "Content Validation": v7/core-features/content-validation.md
+          - "Exceptions": v7/core-features/exceptions.md
+          - "Dependency Injection": v7/core-features/dependency-injection.md
+          - "Error reporting": v7/core-features/error-reporting.md
+          - "Rendering and Sending emails": v7/core-features/rendering-and-sending-emails.md
+      - Extended features:
+          - "Core and App": v7/extended-features/core-and-app.md
+          - "New Handler Structure": v7/extended-features/handler-structure.md
+          - "Route Grouping": v7/extended-features/route-grouping.md
+          - "Problem Details": v7/extended-features/problem-details.md
+          - "Injectable Input Filters": v7/extended-features/injectable-input-filters.md
+      - Commands:
+          - "Create admin account": v7/commands/create-admin-account.md
+          - "Generate database migrations": v7/commands/generate-database-migrations.md
+          - "Display available endpoints": v7/commands/display-available-endpoints.md
+          - "Generate tokens": v7/commands/generate-tokens.md
+      - Tutorials:
+          - "Setting up CORS": v7/tutorials/cors.md
+          - "Creating a book module": v7/tutorials/create-book-module.md
+          - "Creating a book module using DotMaker": v7/tutorials/create-book-module-via-dot-maker.md
+          - "Token authentication": v7/tutorials/token-authentication.md
+          - "API Evolution": v7/tutorials/api-evolution.md
+          - "Find user by identity": v7/tutorials/find-user-by-identity.md
+      - Transition from API Tools:
+          - "Laminas API Tools vs Dotkernel API": v7/transition-from-api-tools/api-tools-vs-dotkernel-api.md
+          - "Transition Approach": v7/transition-from-api-tools/transition-approach.md
+          - "Discovery Phase": v7/transition-from-api-tools/discovery-phase.md
+      - OpenAPI:
+          - "Introduction": v7/openapi/introduction.md
+          - "Initialized Components": v7/openapi/initialized-components.md
+          - "Write Documentation": v7/openapi/write-documentation.md
+          - "Generate Documentation": v7/openapi/generate-documentation.md
+          - "Render Documentation": v7/openapi/render-documentation.md
+          - "Use Documentation": v7/openapi/use-documentation.md
+          - "Getting Help": v7/openapi/getting-help.md
+      - Basic Security:
+          - "Basic Security": v7/security/basic-security.md
+          - "OAuth2 Security": v7/security/oauth2-security.md
+      - Reference:
+          - "Anonymize Accounts": v7/reference/account-anonymization.md
   - v6:
       - Introduction: v6/introduction/introduction.md
       - Overview:
