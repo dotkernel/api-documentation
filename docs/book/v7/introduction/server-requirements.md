@@ -29,7 +29,7 @@ Both mod_php and FCGI (FPM) are supported.
 
 ## RDBMS
 
-* Tested with MariaDB 10.6, 10.11 LTS, 11.4 LTS, and 11.8 LTS
+* Tested with MariaDB 10.7, 10.11 LTS, 11.4 LTS, and 11.8 LTS
 * Tested with PostgreSQL 13 and above
 
 > MySQL is not supported because of missing UUID support.
