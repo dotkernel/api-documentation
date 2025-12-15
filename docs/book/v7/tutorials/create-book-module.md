@@ -151,6 +151,16 @@ class Book extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return array{
+     *     id: non-empty-string,
+     *     name: non-empty-string,
+     *     author: non-empty-string,
+     *     releaseDate: DateTimeImmutable|null,
+     *     created: DateTimeImmutable|null,
+     *     updated: DateTimeImmutable|null,
+     * }
+     */
     public function getArrayCopy(): array
     {
         return [
@@ -158,6 +168,8 @@ class Book extends AbstractEntity
             'name'        => $this->getName(),
             'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
+            'created'     => $this->created,
+            'updated'     => $this->updated,
         ];
     }
 }
@@ -181,6 +193,10 @@ use Dot\DependencyInjection\Attribute\Entity;
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
+    /**
+     * @param array<non-empty-string, mixed> $params
+     * @param array<non-empty-string, mixed> $filters
+     */
     public function getBooks(array $params, array $filters = []): QueryBuilder
     {
         return $this
@@ -214,6 +230,9 @@ interface BookServiceInterface
 
     public function saveBook(array $data): Book;
 
+    /**
+     * @param array<non-empty-string, mixed> $params
+     */
     public function getBooks(array $params = []): QueryBuilder;
 }
 
@@ -253,6 +272,7 @@ class BookService implements BookServiceInterface
 
     /**
      * @throws Exception
+     * @param array<non-empty-string, mixed> $data
      */
     public function saveBook(array $data): Book
     {
@@ -267,6 +287,9 @@ class BookService implements BookServiceInterface
         return $book;
     }
 
+    /**
+     * @param array<non-empty-string, mixed> $params
+     */
     public function getBooks(array $params = []): QueryBuilder
     {
         $filters = $params['filters'] ?? [];
@@ -289,7 +312,7 @@ class BookService implements BookServiceInterface
 
 ```
 
-When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request
+When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request.
 
 * `src/Book/src/InputFilter/Input/AuthorInput.php`
 
@@ -415,6 +438,14 @@ use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
 use Core\App\InputFilter\AbstractInputFilter;
 
+/**
+ * @phpstan-type CreateBookDataType array{
+ *     name: non-empty-string,
+ *     author: non-empty-string,
+ *     name: DateTimeImmutable|null,
+ * }
+ * @extends AbstractInputFilter<CreateBookDataType>
+ */
 class CreateBookInputFilter extends AbstractInputFilter
 {
     public function __construct()
@@ -619,6 +650,14 @@ use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Mezzio\Application;
 use Mezzio\Hal\Metadata\MetadataMap;
 
+/**
+ * @phpstan-import-type MetadataType from AppConfigProvider
+ * @phpstan-type DependenciesType array{
+ *      delegators: array<class-string, array<class-string>>,
+ *      factories: array<class-string, class-string>,
+ *      aliases: array<class-string, class-string>,
+ * }
+ */
 class ConfigProvider
 {
     public function __invoke(): array
@@ -650,6 +689,9 @@ class ConfigProvider
         ];
     }
 
+    /**
+     * @return MetadataType[]
+     */
     private function getHalConfig(): array
     {
         return [
@@ -718,13 +760,31 @@ use Core\Book\Repository\BookRepository;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
 
+/**
+ * @phpstan-type ConfigType array{
+ *      dependencies: DependenciesType,
+ *      doctrine: DoctrineConfigType,
+ *      resultCacheLifetime: int,
+ * }
+ * @phpstan-type DoctrineConfigType array{
+ *      driver: array{
+ *          orm_default: array{
+ *              class: class-string<MappingDriver>,
+ *          },
+ *      },
+ * }
+ * @phpstan-type DependenciesType array{
+ *       factories: array<class-string|non-empty-string, class-string|non-empty-string>,
+ * }
+ */
 class ConfigProvider
 {
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'doctrine'     => $this->getDoctrineConfig(),
+            'dependencies'        => $this->getDependencies(),
+            'doctrine'            => $this->getDoctrineConfig(),
+            'resultCacheLifetime' => 600,
         ];
     }
 
@@ -777,7 +837,7 @@ Open `config/autoload/authorization.global.php` and append the below route names
 * `book::view-book`
 * `book::create-book`
 
-> Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
+> Make sure you read and understand the [rbac documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
 
 ## Migrations
 

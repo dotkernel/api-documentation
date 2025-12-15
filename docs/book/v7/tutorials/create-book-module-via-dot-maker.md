@@ -175,6 +175,16 @@ class Book extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return array{
+     *     id: non-empty-string,
+     *     name: non-empty-string,
+     *     author: non-empty-string,
+     *     releaseDate: DateTimeImmutable|null,
+     *     created: DateTimeImmutable|null,
+     *     updated: DateTimeImmutable|null,
+     * }
+     */
     public function getArrayCopy(): array
     {
         return [
@@ -182,6 +192,8 @@ class Book extends AbstractEntity
             'name'        => $this->getName(),
             'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
+            'created'     => $this->created,
+            'updated'     => $this->updated,
         ];
     }
 }
@@ -306,6 +318,14 @@ use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
 use Core\App\InputFilter\AbstractInputFilter;
 
+/**
+ * @phpstan-type CreateBookDataType array{
+ *     name: non-empty-string,
+ *     author: non-empty-string,
+ *     name: DateTimeImmutable|null,
+ * }
+ * @extends AbstractInputFilter<CreateBookDataType>
+ */
 class CreateBookInputFilter extends AbstractInputFilter
 {
     public function __construct()
