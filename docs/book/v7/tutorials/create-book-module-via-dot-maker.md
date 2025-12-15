@@ -178,7 +178,7 @@ class Book extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid'        => $this->getUuid()->toString(),
+            'id'          => $this->id->toString(),
             'name'        => $this->getName(),
             'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
@@ -428,5 +428,5 @@ To fetch a book, `curl` one of the links found in the output of the **list books
 The link should have the following format:
 
 ```shell
-curl http://0.0.0.0:8080/book/{uuid}
+curl http://0.0.0.0:8080/book/{id}
 ```

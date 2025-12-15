@@ -15,7 +15,7 @@ Along with the features from `mezzio/mezzio-fastroute`, the new `dot-router` pac
 Here we have an example from `src/User/src/RoutesDelegator.php` with the new grouping method:
 
 ```php
-$routeCollector->group('/user/' . $uuid)
+$routeCollector->group('/user/' . $id)
     ->delete('', DeleteUserResourceHandler::class, 'user::delete-user')
     ->get('', GetUserResourceHandler::class, 'user::view-user')
     ->patch('', PatchUserResourceHandler::class, 'user::update-user');

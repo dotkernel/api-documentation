@@ -154,7 +154,7 @@ class Book extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid'        => $this->getUuid()->toString(),
+            'id'          => $this->id->toString(),
             'name'        => $this->getName(),
             'author'      => $this->getAuthor(),
             'releaseDate' => $this->getReleaseDate(),
@@ -688,13 +688,13 @@ class RoutesDelegator
      */
     public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
     {
-        $uuid = ConfigProvider::REGEXP_UUID;
+        $id = ConfigProvider::REGEXP_UUID;
 
         /** @var RouteCollectorInterface $routeCollector */
         $routeCollector = $container->get(RouteCollectorInterface::class);
 
         $routeCollector->post('/book', PostBookResourceHandler::class, 'book::create-book');
-        $routeCollector->get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
+        $routeCollector->get('/book/' . $id, GetBookResourceHandler::class, 'book::view-book');
         $routeCollector->get('/book', GetBookCollectionHandler::class, 'book::list-books');
 
         return $callback();
@@ -830,5 +830,5 @@ To fetch a book, `curl` one of the links found in the output of the **list books
 The link should have the following format:
 
 ```shell
-curl http://0.0.0.0:8080/book/{uuid}
+curl http://0.0.0.0:8080/book/{id}
 ```

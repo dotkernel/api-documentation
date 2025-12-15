@@ -30,7 +30,7 @@ If you need help, take a look at the existing definitions found in Dotkernel API
 
 Defines a `DELETE` HTTP request. It should specify at least the following parameters:
 
-- `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
+- `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -42,7 +42,7 @@ Defines a `DELETE` HTTP request. It should specify at least the following parame
 
 Defines a `GET` HTTP request. It should specify at least the following parameters:
 
-- `path`: the route to a single or collection of resources (example: `/resource/{uuid}` for a single resource or `/resource` for a collection of resources)
+- `path`: the route to a single or collection of resources (example: `/resource/{id}` for a single resource or `/resource` for a collection of resources)
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -54,7 +54,7 @@ Defines a `GET` HTTP request. It should specify at least the following parameter
 
 Defines a `PATCH` HTTP request. It should specify at least the following parameters:
 
-- `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
+- `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -67,7 +67,7 @@ Defines a `PATCH` HTTP request. It should specify at least the following paramet
 
 Defines a `POST` HTTP request. It should specify at least the following parameters:
 
-- `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
+- `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -80,7 +80,7 @@ Defines a `POST` HTTP request. It should specify at least the following paramete
 
 Defines a `PUT` HTTP request. It should specify at least the following parameters:
 
-- `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
+- `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected

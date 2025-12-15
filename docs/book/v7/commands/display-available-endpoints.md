@@ -21,10 +21,10 @@ The output should be similar to the following:
 | GET            | admin::view-account                 | /admin/account                      |
 | PATCH          | admin::update-account               | /admin/account                      |
 | GET            | admin::list-role                    | /admin/role                         |
-| GET            | admin::view-role                    | /admin/role/{uuid}                  |
-| DELETE         | admin::delete-admin                 | /admin/{uuid}                       |
-| GET            | admin::view-admin                   | /admin/{uuid}                       |
-| PATCH          | admin::update-admin                 | /admin/{uuid}                       |
+| GET            | admin::view-role                    | /admin/role/{id}                    |
+| DELETE         | admin::delete-admin                 | /admin/{id}                         |
+| GET            | admin::view-admin                   | /admin/{id}                         |
+| PATCH          | admin::update-admin                 | /admin/{id}                         |
 | POST           | app::create-error-report            | /error-report                       |
 | POST           | security::token                     | /security/token                     |
 | GET            | user::list-user                     | /user                               |
@@ -43,15 +43,15 @@ The output should be similar to the following:
 | GET            | user::check-account-reset-password  | /user/account/reset-password/{hash} |
 | PATCH          | user::update-account-reset-password | /user/account/reset-password/{hash} |
 | GET            | user::list-role                     | /user/role                          |
-| GET            | user::view-role                     | /user/role/{uuid}                   |
-| DELETE         | user::delete-user                   | /user/{uuid}                        |
-| GET            | user::view-user                     | /user/{uuid}                        |
-| PATCH          | user::update-user                   | /user/{uuid}                        |
-| PATCH          | user::activate-user                 | /user/{uuid}/activate               |
-| DELETE         | user::delete-user-avatar            | /user/{uuid}/avatar                 |
-| GET            | user::view-user-avatar              | /user/{uuid}/avatar                 |
-| POST           | user::create-user-avatar            | /user/{uuid}/avatar                 |
-| PATCH          | user::deactivate-user               | /user/{uuid}/deactivate             |
+| GET            | user::view-role                     | /user/role/{id}                     |
+| DELETE         | user::delete-user                   | /user/{id}                          |
+| GET            | user::view-user                     | /user/{id}                          |
+| PATCH          | user::update-user                   | /user/{id}                          |
+| PATCH          | user::activate-user                 | /user/{id}/activate                 |
+| DELETE         | user::delete-user-avatar            | /user/{id}/avatar                   |
+| GET            | user::view-user-avatar              | /user/{id}/avatar                   |
+| POST           | user::create-user-avatar            | /user/{id}/avatar                   |
+| PATCH          | user::deactivate-user               | /user/{id}/deactivate               |
 +------+----------------+-------------------------------------+-------------------------------------+
 
 ```

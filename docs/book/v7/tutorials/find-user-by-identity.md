@@ -28,9 +28,9 @@ This command will list all available endpoints, which looks like this:
 .............................................................................
 | GET    | user.my-avatar.view             | /user/my-avatar                |
 | GET    | user.role.list                  | /user/role                     |
-| GET    | user.role.view                  | /user/role/{uuid}              |
-| PATCH  | user.update                     | /user/{uuid}                   |
-| GET    | user.view                       | /user/{uuid}                   |
+| GET    | user.role.view                  | /user/role/{id}                |
+| PATCH  | user.update                     | /user/{id}                     |
+| GET    | user.view                       | /user/{id}                     |
 +--------+---------------------------------+--------------------------------+
 ```
 
@@ -45,7 +45,7 @@ The endpoint we're focusing on is the last one, `user.view`, so let's take a clo
 If we search for the route name `user.view` we will find its definition in the `src/User/src/RoutesDelegator.php` class, where all user-related endpoints are found.
 
 ```php
-$app->get('/user/' . $uuid, UserHandler::class, 'user.view');
+$app->get('/user/' . $id, UserHandler::class, 'user.view');
 ```
 
 Our route points to `get` method from `UserHandler` so let's navigate to that method.
@@ -53,13 +53,13 @@ Our route points to `get` method from `UserHandler` so let's navigate to that me
 ```php
 public function get(ServerRequestInterface $request): ResponseInterface
 {
-    $user = $this->userService->findOneBy(['uuid' => $request->getAttribute('uuid')]);
+    $user = $this->userService->findOneBy(['id' => $request->getAttribute('id')]);
 
     return $this->createResponse($request, $user);
 }
 ```
 
-As we can see, the method will query the database for the user based on its uuid taken from the endpoint.
+As we can see, the method will query the database for the user based on its id taken from the endpoint.
 
 We now have an understanding of how things work, and we can start to implement our own endpoint.
 
