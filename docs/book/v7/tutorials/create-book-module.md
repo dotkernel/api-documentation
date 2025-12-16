@@ -86,6 +86,7 @@ namespace Core\Book\Entity;
 
 use Core\App\Entity\AbstractEntity;
 use Core\App\Entity\TimestampsTrait;
+use Core\App\Entity\UuidIdentifierTrait;
 use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,6 +97,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book extends AbstractEntity
 {
     use TimestampsTrait;
+    use UuidIdentifierTrait;
 
     #[ORM\Column(name: "name", type: "string", length: 100)]
     protected string $name;
@@ -165,9 +167,9 @@ class Book extends AbstractEntity
     {
         return [
             'id'          => $this->id->toString(),
-            'name'        => $this->getName(),
-            'author'      => $this->getAuthor(),
-            'releaseDate' => $this->getReleaseDate(),
+            'name'        => $this->name,
+            'author'      => $this->author,
+            'releaseDate' => $this->releaseDate,
             'created'     => $this->created,
             'updated'     => $this->updated,
         ];
