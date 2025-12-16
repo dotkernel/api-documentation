@@ -4,20 +4,20 @@ API evolution: Updating an API while keeping it compatible for existing consumer
 
 ## How it works
 
-In Dotkernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
+In Dotkernel API we can mark an endpoint as deprecated using attributes on handlers.
 We use response headers to inform the consumers about the future changes by using two new headers:
 
 - `Link` - it's a link to the official documentation pointing out the changes that will take place.
 - `Sunset` - this header is a date, indicating when the deprecated resource will potentially become unresponsive.
 
-**Both headers are independent, you can use them separately.**
+**The above headers are independent, so you can use them separately.**
 
-> Make sure you have the `DeprecationMiddleware:class` piped in your `pipeline` list.
+> Make sure you have the `DeprecationMiddleware:class` added to your `pipeline` list.
 > In our case it's `config/pipeline.php`.
 
-## Marking an entire endpoint as deprecated
+## Marking an endpoint as deprecated
 
-When you want to mark an entire resource as deprecated, you have to use the `ResourceDeprecation` attribute.
+When you want to mark a resource as deprecated, you have to use the `ResourceDeprecation` attribute.
 
 ```php
 ...
@@ -33,7 +33,7 @@ class HomeHandler implements RequestHandlerInterface
 }
 ```
 
-In the example above, the `ResourceDeprecation` attribute is attached to the class, marking the entire `/` (home) endpoint as deprecated starting from `2038-01-01`.
+In the example above, the `ResourceDeprecation` attribute is attached to the class, marking the `/` (home) endpoint as deprecated starting from `2038-01-01`.
 
 Running the following curl will print out the response headers where we can see the **Sunset** and **Link** headers.
 
@@ -62,4 +62,4 @@ Vary: Origin
 
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 
-> The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value was provided and are `Link` related parts.
+> The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value is provided and are `Link` related parts.

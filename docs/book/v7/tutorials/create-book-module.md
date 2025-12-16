@@ -86,6 +86,7 @@ namespace Core\Book\Entity;
 
 use Core\App\Entity\AbstractEntity;
 use Core\App\Entity\TimestampsTrait;
+use Core\App\Entity\UuidIdentifierTrait;
 use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -96,6 +97,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book extends AbstractEntity
 {
     use TimestampsTrait;
+    use UuidIdentifierTrait;
 
     #[ORM\Column(name: "name", type: "string", length: 100)]
     protected string $name;
@@ -151,13 +153,25 @@ class Book extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return array{
+     *     id: non-empty-string,
+     *     name: non-empty-string,
+     *     author: non-empty-string,
+     *     releaseDate: DateTimeImmutable|null,
+     *     created: DateTimeImmutable|null,
+     *     updated: DateTimeImmutable|null,
+     * }
+     */
     public function getArrayCopy(): array
     {
         return [
-            'uuid'        => $this->getUuid()->toString(),
-            'name'        => $this->getName(),
-            'author'      => $this->getAuthor(),
-            'releaseDate' => $this->getReleaseDate(),
+            'id'          => $this->id->toString(),
+            'name'        => $this->name,
+            'author'      => $this->author,
+            'releaseDate' => $this->releaseDate,
+            'created'     => $this->created,
+            'updated'     => $this->updated,
         ];
     }
 }
@@ -181,6 +195,10 @@ use Dot\DependencyInjection\Attribute\Entity;
 #[Entity(name: Book::class)]
 class BookRepository extends AbstractRepository
 {
+    /**
+     * @param array<non-empty-string, mixed> $params
+     * @param array<non-empty-string, mixed> $filters
+     */
     public function getBooks(array $params, array $filters = []): QueryBuilder
     {
         return $this
@@ -214,6 +232,9 @@ interface BookServiceInterface
 
     public function saveBook(array $data): Book;
 
+    /**
+     * @param array<non-empty-string, mixed> $params
+     */
     public function getBooks(array $params = []): QueryBuilder;
 }
 
@@ -253,6 +274,7 @@ class BookService implements BookServiceInterface
 
     /**
      * @throws Exception
+     * @param array<non-empty-string, mixed> $data
      */
     public function saveBook(array $data): Book
     {
@@ -267,6 +289,9 @@ class BookService implements BookServiceInterface
         return $book;
     }
 
+    /**
+     * @param array<non-empty-string, mixed> $params
+     */
     public function getBooks(array $params = []): QueryBuilder
     {
         $filters = $params['filters'] ?? [];
@@ -289,7 +314,7 @@ class BookService implements BookServiceInterface
 
 ```
 
-When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request
+When creating or updating a book, we will need some validators, so we will create input filters that will be used to validate the data received in the request.
 
 * `src/Book/src/InputFilter/Input/AuthorInput.php`
 
@@ -415,6 +440,14 @@ use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
 use Core\App\InputFilter\AbstractInputFilter;
 
+/**
+ * @phpstan-type CreateBookDataType array{
+ *     name: non-empty-string,
+ *     author: non-empty-string,
+ *     name: DateTimeImmutable|null,
+ * }
+ * @extends AbstractInputFilter<CreateBookDataType>
+ */
 class CreateBookInputFilter extends AbstractInputFilter
 {
     public function __construct()
@@ -619,6 +652,14 @@ use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Mezzio\Application;
 use Mezzio\Hal\Metadata\MetadataMap;
 
+/**
+ * @phpstan-import-type MetadataType from AppConfigProvider
+ * @phpstan-type DependenciesType array{
+ *      delegators: array<class-string, array<class-string>>,
+ *      factories: array<class-string, class-string>,
+ *      aliases: array<class-string, class-string>,
+ * }
+ */
 class ConfigProvider
 {
     public function __invoke(): array
@@ -650,6 +691,9 @@ class ConfigProvider
         ];
     }
 
+    /**
+     * @return MetadataType[]
+     */
     private function getHalConfig(): array
     {
         return [
@@ -688,13 +732,13 @@ class RoutesDelegator
      */
     public function __invoke(ContainerInterface $container, string $serviceName, callable $callback): Application
     {
-        $uuid = ConfigProvider::REGEXP_UUID;
+        $id = ConfigProvider::REGEXP_UUID;
 
         /** @var RouteCollectorInterface $routeCollector */
         $routeCollector = $container->get(RouteCollectorInterface::class);
 
         $routeCollector->post('/book', PostBookResourceHandler::class, 'book::create-book');
-        $routeCollector->get('/book/' . $uuid, GetBookResourceHandler::class, 'book::view-book');
+        $routeCollector->get('/book/' . $id, GetBookResourceHandler::class, 'book::view-book');
         $routeCollector->get('/book', GetBookCollectionHandler::class, 'book::list-books');
 
         return $callback();
@@ -718,13 +762,31 @@ use Core\Book\Repository\BookRepository;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
 
+/**
+ * @phpstan-type ConfigType array{
+ *      dependencies: DependenciesType,
+ *      doctrine: DoctrineConfigType,
+ *      resultCacheLifetime: int,
+ * }
+ * @phpstan-type DoctrineConfigType array{
+ *      driver: array{
+ *          orm_default: array{
+ *              class: class-string<MappingDriver>,
+ *          },
+ *      },
+ * }
+ * @phpstan-type DependenciesType array{
+ *       factories: array<class-string|non-empty-string, class-string|non-empty-string>,
+ * }
+ */
 class ConfigProvider
 {
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'doctrine'     => $this->getDoctrineConfig(),
+            'dependencies'        => $this->getDependencies(),
+            'doctrine'            => $this->getDoctrineConfig(),
+            'resultCacheLifetime' => 600,
         ];
     }
 
@@ -777,7 +839,7 @@ Open `config/autoload/authorization.global.php` and append the below route names
 * `book::view-book`
 * `book::create-book`
 
-> Make sure you read and understand the rbac [documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
+> Make sure you read and understand the [rbac documentation](https://docs.dotkernel.org/dot-rbac-guard/v4/configuration/).
 
 ## Migrations
 
@@ -830,5 +892,5 @@ To fetch a book, `curl` one of the links found in the output of the **list books
 The link should have the following format:
 
 ```shell
-curl http://0.0.0.0:8080/book/{uuid}
+curl http://0.0.0.0:8080/book/{id}
 ```
