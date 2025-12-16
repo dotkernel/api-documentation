@@ -1060,7 +1060,7 @@ $app-&gt;patch('/product/update/{id}', UpdateProductHandler::class, 'product:upd
 $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</code></pre>
 <p>Along with the features from <code>mezzio/mezzio-fastroute</code>, the new <code>dot-router</code> package provides the ability to create route groups which are collections of routes that have the same base string for the path.</p>
 <p>Here we have an example from <code>src/User/src/RoutesDelegator.php</code> with the new grouping method:</p>
-<pre class="highlight"><code class="language-php">$routeCollector-&gt;group('/user/' . $uuid)
+<pre class="highlight"><code class="language-php">$routeCollector-&gt;group('/user/' . $id)
     -&gt;delete('', DeleteUserResourceHandler::class, 'user::delete-user')
     -&gt;get('', GetUserResourceHandler::class, 'user::view-user')
     -&gt;patch('', PatchUserResourceHandler::class, 'user::update-user');</code></pre>

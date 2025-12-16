@@ -1179,6 +1179,7 @@ namespace Core\Book\Entity;
 
 use Core\App\Entity\AbstractEntity;
 use Core\App\Entity\TimestampsTrait;
+use Core\App\Entity\UuidIdentifierTrait;
 use Core\Book\Repository\BookRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -1189,6 +1190,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book extends AbstractEntity
 {
     use TimestampsTrait;
+    use UuidIdentifierTrait;
 
     #[ORM\Column(name: "name", type: "string", length: 100)]
     protected string $name;
@@ -1244,13 +1246,25 @@ class Book extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @return array{
+     *     id: non-empty-string,
+     *     name: non-empty-string,
+     *     author: non-empty-string,
+     *     releaseDate: DateTimeImmutable|null,
+     *     created: DateTimeImmutable|null,
+     *     updated: DateTimeImmutable|null,
+     * }
+     */
     public function getArrayCopy(): array
     {
         return [
-            'uuid'        =&gt; $this-&gt;getUuid()-&gt;toString(),
-            'name'        =&gt; $this-&gt;getName(),
-            'author'      =&gt; $this-&gt;getAuthor(),
-            'releaseDate' =&gt; $this-&gt;getReleaseDate(),
+            'id'          =&gt; $this-&gt;id-&gt;toString(),
+            'name'        =&gt; $this-&gt;name,
+            'author'      =&gt; $this-&gt;author,
+            'releaseDate' =&gt; $this-&gt;releaseDate,
+            'created'     =&gt; $this-&gt;created,
+            'updated'     =&gt; $this-&gt;updated,
         ];
     }
 }
@@ -1366,6 +1380,14 @@ use Api\Book\InputFilter\Input\NameInput;
 use Api\Book\InputFilter\Input\ReleaseDateInput;
 use Core\App\InputFilter\AbstractInputFilter;
 
+/**
+ * @phpstan-type CreateBookDataType array{
+ *     name: non-empty-string,
+ *     author: non-empty-string,
+ *     name: DateTimeImmutable|null,
+ * }
+ * @extends AbstractInputFilter&lt;CreateBookDataType&gt;
+ */
 class CreateBookInputFilter extends AbstractInputFilter
 {
     public function __construct()
@@ -1456,7 +1478,7 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
 <p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
 <p>The link should have the following format:</p>
-<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{uuid}</code></pre>
+<pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
 
 
 

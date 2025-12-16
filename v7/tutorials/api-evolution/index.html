@@ -1045,7 +1045,7 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#marking-an-entire-endpoint-as-deprecated" class="toc__link nav-link">Marking an entire endpoint as deprecated</a>
+                    <a href="#marking-an-endpoint-as-deprecated" class="toc__link nav-link">Marking an endpoint as deprecated</a>
                 </li>
             
                 <li class="toc__entry">
@@ -1073,19 +1073,19 @@
     <h1 id="api-evolution-pattern">API Evolution pattern</h1>
 <p>API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.</p>
 <h2 id="how-it-works">How it works</h2>
-<p>In Dotkernel API we can mark an entire endpoint or a single method as deprecated using attributes on handlers.
+<p>In Dotkernel API we can mark an endpoint as deprecated using attributes on handlers.
 We use response headers to inform the consumers about the future changes by using two new headers:</p>
 <ul>
 <li><code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.</li>
 <li><code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</li>
 </ul>
-<p><strong>Both headers are independent, you can use them separately.</strong></p>
+<p><strong>The above headers are independent, so you can use them separately.</strong></p>
 <blockquote>
-<p>Make sure you have the <code>DeprecationMiddleware:class</code> piped in your <code>pipeline</code> list.
+<p>Make sure you have the <code>DeprecationMiddleware:class</code> added to your <code>pipeline</code> list.
 In our case it's <code>config/pipeline.php</code>.</p>
 </blockquote>
-<h2 id="marking-an-entire-endpoint-as-deprecated">Marking an entire endpoint as deprecated</h2>
-<p>When you want to mark an entire resource as deprecated, you have to use the <code>ResourceDeprecation</code> attribute.</p>
+<h2 id="marking-an-endpoint-as-deprecated">Marking an endpoint as deprecated</h2>
+<p>When you want to mark a resource as deprecated, you have to use the <code>ResourceDeprecation</code> attribute.</p>
 <pre class="highlight"><code class="language-php">...
 #[ResourceDeprecation(
     sunset: '2038-01-01',
@@ -1097,7 +1097,7 @@ In our case it's <code>config/pipeline.php</code>.</p>
 class HomeHandler implements RequestHandlerInterface
 {
 }</code></pre>
-<p>In the example above, the <code>ResourceDeprecation</code> attribute is attached to the class, marking the entire <code>/</code> (home) endpoint as deprecated starting from <code>2038-01-01</code>.</p>
+<p>In the example above, the <code>ResourceDeprecation</code> attribute is attached to the class, marking the <code>/</code> (home) endpoint as deprecated starting from <code>2038-01-01</code>.</p>
 <p>Running the following curl will print out the response headers where we can see the <strong>Sunset</strong> and <strong>Link</strong> headers.</p>
 <pre class="highlight"><code class="language-shell">curl --head -X GET http://0.0.0.0:8080 -H "Content-Type: application/json"</code></pre>
 <pre class="highlight"><code class="language-shell">HTTP/1.1 200 OK
@@ -1115,7 +1115,7 @@ Vary: Origin</code></pre>
 <p>If <code>Link</code> or <code>Sunset</code> do not have a value they will not appear in the response headers.</p>
 <p><code>Sunset</code> has to be a <strong>valid</strong> date, otherwise it will throw an error.</p>
 <p>Deprecations can only be attached to handler classes that implement <code>RequestHandlerInterface</code>.</p>
-<p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value was provided and are <code>Link</code> related parts.</p>
+<p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value is provided and are <code>Link</code> related parts.</p>
 </blockquote>
 
 

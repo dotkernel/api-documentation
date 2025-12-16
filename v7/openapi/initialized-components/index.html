@@ -1162,7 +1162,7 @@ use OpenApi\Attributes as OA;
 #[OA\Schema(
     schema: 'UserRole',
     properties: [
-        new OA\Property(property: 'uuid', type: 'string', example: '1234abcd-abcd-4321-12ab-123456abcdef'),
+        new OA\Property(property: 'id', type: 'string', example: '1234abcd-abcd-4321-12ab-123456abcdef'),
         new OA\Property(property: 'name', type: 'string', example: UserRole::ROLE_USER),
         new OA\Property(
             property: '_links',
@@ -1187,7 +1187,7 @@ use OpenApi\Attributes as OA;
 <p>Then, when generating the documentation file, <code>OpenAPI</code> will transform it into the specified format (<strong>json</strong>/<strong>yaml</strong>).</p>
 <pre class="highlight"><code class="language-yaml">UserRole:
   properties:
-    uuid:
+    id:
       type: string
       example: 1234abcd-abcd-4321-12ab-123456abcdef
     name:

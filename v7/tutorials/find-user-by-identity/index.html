@@ -1085,9 +1085,9 @@
 .............................................................................
 | GET    | user.my-avatar.view             | /user/my-avatar                |
 | GET    | user.role.list                  | /user/role                     |
-| GET    | user.role.view                  | /user/role/{uuid}              |
-| PATCH  | user.update                     | /user/{uuid}                   |
-| GET    | user.view                       | /user/{uuid}                   |
+| GET    | user.role.view                  | /user/role/{id}                |
+| PATCH  | user.update                     | /user/{id}                     |
+| GET    | user.view                       | /user/{id}                     |
 +--------+---------------------------------+--------------------------------+</code></pre>
 <h3 id="note">Note</h3>
 <blockquote>
@@ -1096,15 +1096,15 @@
 </blockquote>
 <p>The endpoint we're focusing on is the last one, <code>user.view</code>, so let's take a closer look at its functionality.</p>
 <p>If we search for the route name <code>user.view</code> we will find its definition in the <code>src/User/src/RoutesDelegator.php</code> class, where all user-related endpoints are found.</p>
-<pre class="highlight"><code class="language-php">$app-&gt;get('/user/' . $uuid, UserHandler::class, 'user.view');</code></pre>
+<pre class="highlight"><code class="language-php">$app-&gt;get('/user/' . $id, UserHandler::class, 'user.view');</code></pre>
 <p>Our route points to <code>get</code> method from <code>UserHandler</code> so let's navigate to that method.</p>
 <pre class="highlight"><code class="language-php">public function get(ServerRequestInterface $request): ResponseInterface
 {
-    $user = $this-&gt;userService-&gt;findOneBy(['uuid' =&gt; $request-&gt;getAttribute('uuid')]);
+    $user = $this-&gt;userService-&gt;findOneBy(['id' =&gt; $request-&gt;getAttribute('id')]);
 
     return $this-&gt;createResponse($request, $user);
 }</code></pre>
-<p>As we can see, the method will query the database for the user based on its uuid taken from the endpoint.</p>
+<p>As we can see, the method will query the database for the user based on its id taken from the endpoint.</p>
 <p>We now have an understanding of how things work, and we can start to implement our own endpoint.</p>
 <h3 id="implementation">Implementation</h3>
 <p>We need to create a new handler that will process our request, we can call it <code>IdentityHandler</code>.</p>

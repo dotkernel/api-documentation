@@ -1221,7 +1221,7 @@ class Book extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid'        =&gt; $this-&gt;getUuid()-&gt;toString(),
+            'uuid'        =&gt; $this-&gt;uuid-&gt;toString(),
             'name'        =&gt; $this-&gt;getName(),
             'author'      =&gt; $this-&gt;getAuthor(),
             'releaseDate' =&gt; $this-&gt;getReleaseDate(),
