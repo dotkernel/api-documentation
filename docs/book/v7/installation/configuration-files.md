@@ -1,5 +1,8 @@
 # Configuration Files
 
+> The installation script should have already created the files mentioned on this page.
+> We mention them explicitly because you will need to visit them to fully configure your development environment.
+
 ## Prepare config files
 
 * duplicate `config/autoload/cors.local.php.dist` as `config/autoload/cors.local.php`

@@ -114,8 +114,8 @@ More details on how fixtures work can be found on [dot-data-fixtures documentati
 
 ### Prefixing table names
 
-Note in the database configuration array the key called `table_prefix`.
-By default, it is an empty string, which means that all the tables will be named exactly the way they are configured in the entities.
+The database configuration array contains the key called `table_prefix`.
+By default, it is an empty string, which means that all the tables will use the names specified in their respective entities.
 
 ```text
 ├─ admin
@@ -139,7 +139,7 @@ By default, it is an empty string, which means that all the tables will be named
 └─ user_roles 
 ```
 
-Adding a prefix, for example `dot_`, all the table will be composed of the prefix and the original table name.
+By adding a prefix, for example `dot_`, all the table names will have the prefix appended to the table names specified in the entities.
 
 ```text
 ├─ dot_admin
@@ -165,4 +165,4 @@ Adding a prefix, for example `dot_`, all the table will be composed of the prefi
 
 > The configured prefix is prepended as is, no intermediary character will be added.
 
-> `doctrine_migration_versions` is an exception, being a special table handled by Doctrine Migrations.
+> `doctrine_migration_versions` is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.
