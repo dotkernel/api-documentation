@@ -1132,8 +1132,8 @@ Each migration will be logged in the <code>migrations</code> table to prevent ru
 <pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
 <p>More details on how fixtures work can be found on <a href="https://github.com/dotkernel/dot-data-fixtures#creating-fixtures">dot-data-fixtures documentation</a></p>
 <h3 id="prefixing-table-names">Prefixing table names</h3>
-<p>Note in the database configuration array the key called <code>table_prefix</code>.
-By default, it is an empty string, which means that all the tables will be named exactly the way they are configured in the entities.</p>
+<p>The database configuration array contains the key called <code>table_prefix</code>.
+By default, it is an empty string, which means that all the tables will use the names specified in their respective entities.</p>
 <pre class="highlight"><code class="language-text">├─ admin
 ├─ admin_login
 ├─ admin_role
@@ -1153,7 +1153,7 @@ By default, it is an empty string, which means that all the tables will be named
 ├─ user_reset_password
 ├─ user_role
 └─ user_roles </code></pre>
-<p>Adding a prefix, for example <code>dot_</code>, all the table will be composed of the prefix and the original table name.</p>
+<p>By adding a prefix, for example <code>dot_</code>, all the table names will have the prefix appended to the table names specified in the entities.</p>
 <pre class="highlight"><code class="language-text">├─ dot_admin
 ├─ dot_admin_login
 ├─ dot_admin_role
@@ -1175,7 +1175,7 @@ By default, it is an empty string, which means that all the tables will be named
 └─ dot_user_roles </code></pre>
 <blockquote>
 <p>The configured prefix is prepended as is, no intermediary character will be added.</p>
-<p><code>doctrine_migration_versions</code> is an exception, being a special table handled by Doctrine Migrations.</p>
+<p><code>doctrine_migration_versions</code> is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.</p>
 </blockquote>
 
 
