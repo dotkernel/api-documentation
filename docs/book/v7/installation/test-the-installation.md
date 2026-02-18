@@ -1,5 +1,7 @@
 # Test the installation
 
+> If you are getting server error 500, make sure to check the folder permissions covered in the [FAQ page](https://docs.dotkernel.org/api-documentation/v7/installation/faq/)
+
 Sending a GET request to the [home page](http://0.0.0.0:8080/) should output the following message:
 
 ```json
