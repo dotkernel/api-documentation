@@ -3,6 +3,12 @@
 This step saves the database connection credentials in an API configuration file.
 We do not cover the creation steps of the database itself.
 
+In this step you will:
+
+- Create a database.
+- Create and run a database migration that creates the main tables.
+- Execute fixtures which populate the database with initial data.
+
 ## Setup database
 
 Create a new **MariaDB**/**PostgreSQL** database and set its collation to `utf8mb4_general_ci`.
@@ -35,12 +41,70 @@ $databases = [
 ];
 ```
 
-`my_database`, `my_user`, `my_password` are provided only as an example.
+> The database `dotkernel` is provided as an example, but you can use any name you like.
+> Make sure to use the same database name when you create the database in the next step.
 
-> You can add more database connections to this array.
-> Only one active connection is allowed at a time.
+> If needed, you can add more database connections to this array.
+> Only **one active database connection** is allowed at a time.
+
 > By default, the application uses the 'mariadb' connection.
-> You can switch to another connection by activating it under `doctrine` -> `connection` -> `orm_default` -> `params`.
+> You can switch to another connection by updating `doctrine` -> `connection` -> `orm_default` -> `params`.
+
+### Prefixing table names
+
+The database configuration array contains an optional key called `table_prefix`.
+By default, it is an empty string, which means that all the tables will use the names specified in their respective entities, like below.
+
+```text
+├─ admin
+├─ admin_login
+├─ admin_role
+├─ admin_roles
+├─ doctrine_migration_versions
+├─ oauth_access_tokens
+├─ oauth_access_token_scopes
+├─ oauth_auth_codes
+├─ oauth_auth_code_scopes
+├─ oauth_clients
+├─ oauth_refresh_tokens
+├─ oauth_scopes
+├─ settings
+├─ user
+├─ user_avatar
+├─ user_detail
+├─ user_reset_password
+├─ user_role
+└─ user_roles 
+```
+
+By adding a prefix, for example `dot_`, all the table names will have the prefix appended to the table names specified in the entities.
+This feature helps organize databases and prevent naming conflicts if you plan on installing multiple applications in a single database.
+
+```text
+├─ dot_admin
+├─ dot_admin_login
+├─ dot_admin_role
+├─ dot_admin_roles
+├─ doctrine_migration_versions
+├─ dot_oauth_access_tokens
+├─ dot_oauth_access_token_scopes
+├─ dot_oauth_auth_codes
+├─ dot_oauth_auth_code_scopes
+├─ dot_oauth_clients
+├─ dot_oauth_refresh_tokens
+├─ dot_oauth_scopes
+├─ dot_settings
+├─ dot_user
+├─ dot_user_avatar
+├─ dot_user_detail
+├─ dot_user_reset_password
+├─ dot_user_role
+└─ dot_user_roles 
+```
+
+> The configured prefix is prepended as is, no intermediary character will be added.
+
+> `doctrine_migration_versions` is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.
 
 ### Creating migrations
 
@@ -50,7 +114,15 @@ Create a database migration by executing the following command:
 php ./vendor/bin/doctrine-migrations diff
 ```
 
-The new migration file will be placed in `src/Core/src/App/src/Migration/`.
+You can expect a message like this:
+
+```shell
+ Generated new migration class to "src/Core/src/App/src/Migration/Version20260327154303.php"
+
+ To run just this migration for testing purposes, you can use migrations:execute --up "Core\\App\\Migration\\Version20260327154303"
+
+ To revert the migration you can use migrations:execute --down "Core\\App\\Migration\\Version20260327154303"
+```
 
 ### Running migrations
 
@@ -86,83 +158,16 @@ If everything ran correctly, you will get this confirmation.
 [OK] Successfully migrated to version: Core\App\Migration\VersionYYYYMMDDHHMMSS
 ```
 
+> The version number `YYYYMMDDHHMMSS` is the timestamp of the migration.
+
 ### Executing fixtures
 
 **Fixtures are used to seed the database with initial values and should be executed after migrating the database.**
 
-To list all the fixtures, run:
-
-```shell
-php ./bin/doctrine fixtures:list
-```
-
-This will output all the fixtures in the order of execution.
-
-To execute all fixtures, run:
+To execute fixtures, run:
 
 ```shell
 php ./bin/doctrine fixtures:execute
 ```
 
-To execute a specific fixture, run:
-
-```shell
-php ./bin/doctrine fixtures:execute --class=FixtureClassName
-```
-
-More details on how fixtures work can be found on [dot-data-fixtures documentation](https://github.com/dotkernel/dot-data-fixtures#creating-fixtures)
-
-### Prefixing table names
-
-The database configuration array contains the key called `table_prefix`.
-By default, it is an empty string, which means that all the tables will use the names specified in their respective entities.
-
-```text
-├─ admin
-├─ admin_login
-├─ admin_role
-├─ admin_roles
-├─ doctrine_migration_versions
-├─ oauth_access_tokens
-├─ oauth_access_token_scopes
-├─ oauth_auth_codes
-├─ oauth_auth_code_scopes
-├─ oauth_clients
-├─ oauth_refresh_tokens
-├─ oauth_scopes
-├─ settings
-├─ user
-├─ user_avatar
-├─ user_detail
-├─ user_reset_password
-├─ user_role
-└─ user_roles 
-```
-
-By adding a prefix, for example `dot_`, all the table names will have the prefix appended to the table names specified in the entities.
-
-```text
-├─ dot_admin
-├─ dot_admin_login
-├─ dot_admin_role
-├─ dot_admin_roles
-├─ doctrine_migration_versions
-├─ dot_oauth_access_tokens
-├─ dot_oauth_access_token_scopes
-├─ dot_oauth_auth_codes
-├─ dot_oauth_auth_code_scopes
-├─ dot_oauth_clients
-├─ dot_oauth_refresh_tokens
-├─ dot_oauth_scopes
-├─ dot_settings
-├─ dot_user
-├─ dot_user_avatar
-├─ dot_user_detail
-├─ dot_user_reset_password
-├─ dot_user_role
-└─ dot_user_roles 
-```
-
-> The configured prefix is prepended as is, no intermediary character will be added.
-
-> `doctrine_migration_versions` is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.
+More details on how fixtures work can be found on [dot-data-fixtures documentation](https://github.com/dotkernel/dot-data-fixtures#usage)

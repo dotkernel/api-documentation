@@ -16,7 +16,7 @@ composer install
 
 You should see this text below, along with a long list of packages to be installed instead of the `[...]`.
 In this example there are 164 packages, though the number can change in future updates.
-You will find the packages in the `vendor` folder.
+You will find the packages in the newly-created `vendor` folder.
 
 ```shell
 No composer.lock file present. Updating dependencies to latest instead of installing from lock file. See https://getcomposer.org/install for more information.
@@ -42,8 +42,8 @@ Please select which config file you wish to inject 'Laminas\Diactoros\ConfigProv
 
 Type `0` to select `[0] Do not inject`.
 
-> We choose `0` because Dotkernel includes its own ConfigProvider, which already contains the prompted configurations.
-> If you choose `[1] config/config.php`, an extra `ConfigProvider` will be injected.
+> If you choose `1`, an extra `ConfigProvider` will be injected, which may return an error for packages you add in the future.
+> Choosing `0` prevents duplicate ConfigProvider registrations, as Dotkernel already includes its own.
 
 The next question is:
 
@@ -53,20 +53,23 @@ Type `y` here, and hit `enter` to complete this stage.
 
 ## Development mode
 
-If you're installing the project for development, make sure you have development mode enabled by running:
+Normally, a new project starts in development mode to prevent caching certain files in the `data/cache` folder.
+Enable development mode by running:
 
 ```shell
 composer development-enable
 ```
 
-You can disable the development mode by running:
+If you ever need to disable the development mode, run:
 
 ```shell
 composer development-disable
 ```
 
-You can check if you have development mode enabled by running:
+This command displays the development mode status:
 
 ```shell
 composer development-status
 ```
+
+You should see the message `Development mode is ENABLED` or `Development mode is DISABLED`.
