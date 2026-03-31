@@ -3,7 +3,7 @@
 ## Recommended development environment
 
 > If you are using the Microsoft Windows Operating System on your machine, you can use WSL2 as a development environment.
-> Read more about [PHP Mariadb on WLS2](https://www.dotkernel.com/php-development/almalinux-9-in-wsl2-install-php-apache-mariadb-composer-phpmyadmin/).
+> Read more about [installing and using WLS2](https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin//).
 
 Using your terminal, navigate inside the directory where you want to download the project files.
 
