@@ -33,7 +33,7 @@ The admin account with **role** set to both `superuser` and `admin` with the fol
 
 The user account with **role** set to both `user` and `guest` with the following credentials:
 
-- **identify**: `test@dotkernel.com`
+- **identity**: `test@dotkernel.com`
 - **password**: `dotkernel`
 
 ## Flow
