@@ -23,12 +23,12 @@ Below are some practical use cases (it's by no means an exhaustive list).
 
 Below is a quick overview of features in Dotkernel API and how they interconnect.
 
-| Feature	             | Purpose	                            | Configuration                                  |
-|----------------------|-------------------------------------|------------------------------------------------|
-| OAuth2	              | Authentication	                     | config/autoload/local.php                      |
-| RBAC	                | Authorization	                      | config/autoload/authorization.global.php       |
-| Content Negotiation	 | Request/response format validation	 | config/autoload/content-negotiation.global.php |
-| OpenAPI/Swagger	     | API documentation	                  | Auto-generated                                 |
+| Feature             | Purpose                            | Configuration                                  |
+|---------------------|------------------------------------|------------------------------------------------|
+| OAuth2              | Authentication                     | config/autoload/local.php                      |
+| RBAC                | Authorization                      | config/autoload/authorization.global.php       |
+| Content Negotiation | Request/response format validation | config/autoload/content-negotiation.global.php |
+| OpenAPI/Swagger     | API documentation                  | Auto-generated                                 |
 
 ## Doctrine 3 ORM
 

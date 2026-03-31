@@ -23,8 +23,8 @@ Windows is supported for development via WSL2.
 
 ### Apache >= 2.2
 
-* mod_rewrite
-* .htaccess support `(AllowOverride All)`
+- mod_rewrite
+- .htaccess support `(AllowOverride All)`
 
 > The repository includes a default `.htaccess` file in the `public` folder.
 
@@ -95,20 +95,20 @@ When creating databases, use:
 
 ## Recommended extensions
 
-* `opcache`
-* `pdo_mysql`, `pdo_pgsql` or `mysqli` (if using MariaDB or PostgreSQL as RDBMS)
-* `dom` - if working with markup files structure (HTML, XML, etc.)
-* `simplexml` - working with XML files
-* `gd`, `exif` - if working with images
-* `zlib`, `zip`, `bz2` - if compressing files
-* `curl` (required if APIs are used)
-* `sqlite3` - for tests
+- `opcache`
+- `pdo_mysql`, `pdo_pgsql` or `mysqli` (if using MariaDB or PostgreSQL as RDBMS)
+- `dom` - if working with markup files structure (HTML, XML, etc.)
+- `simplexml` - working with XML files
+- `gd`, `exif` - if working with images
+- `zlib`, `zip`, `bz2` - if compressing files
+- `curl` (required if APIs are used)
+- `sqlite3` - for tests
 
-# Composer
+## Composer
 
 Dotkernel API requires Composer >= 2.0 for managing PHP dependencies.
 
-# Security Considerations
+## Security Considerations
 
 - **Firewall**: Only expose ports 80 (HTTP) and 443 (HTTPS)
 - **PHP**: Disable dangerous functions: exec, shell_exec, passthru, system

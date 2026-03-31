@@ -21,7 +21,7 @@ Location: `src/Core/src/`
 
 You typically don't modify Core unless you're updating system behavior or adding shared infrastructure features.
 
-## App Layer
+### App Layer
 
 The **App** is where you build your project-specific features—the "business logic" of your application:
 
@@ -36,7 +36,7 @@ Location: `src/App/src/`
 
 You spend most development time here, implementing your API's features and business logic.
 
-# Headless CMS Architecture
+## Headless CMS Architecture
 
 Dotkernel API is built toward a Headless CMS architecture:
 
@@ -71,7 +71,7 @@ Dotkernel API is built toward a Headless CMS architecture:
                     └───────────────────────────────────┘
 ```
 
-# Modular Design
+## Modular Design
 
 Applications are organized into modules, each handling a specific domain.
 
@@ -85,7 +85,7 @@ Applications are organized into modules, each handling a specific domain.
 
 Custom Modules: You can create your own modules (e.g., Book, Product, Article) following the same pattern.
 
-## Request Flow
+### Request Flow
 
 Here's how a typical request flows through Dotkernel API:
 
@@ -112,9 +112,9 @@ Here's how a typical request flows through Dotkernel API:
 5. HTTP Response
 ```
 
-# Key Components
+## Key Components
 
-## Handlers (PSR-15)
+### Handlers (PSR-15)
 
 Single-action request handlers instead of multi-action controllers:
 
@@ -129,7 +129,7 @@ src/User/src/Handler/
 
 Benefits: Separation of concerns, easier testing, clearer intent.
 
-## Services
+### Services
 
 The Business logic layer sits between the handlers and repositories:
 
@@ -143,7 +143,7 @@ Services handle:
 - Data transformation
 - Cross-cutting concerns (caching, logging)
 
-## Repositories
+### Repositories
 
 Data access layer using Doctrine ORM:
 
@@ -151,7 +151,7 @@ Data access layer using Doctrine ORM:
 - Entity persistence
 - Database abstraction
 
-## Input Filters
+### Input Filters
 
 Request validation using Laminas InputFilter:
 
@@ -159,7 +159,7 @@ Request validation using Laminas InputFilter:
 Request → InputFilter → Validation → Handler
 ```
 
-## Entities
+### Entities
 
 Doctrine ORM entities representing database tables:
 
@@ -169,7 +169,7 @@ Doctrine ORM entities representing database tables:
 class User { ... }
 ```
 
-# Configuration Organization
+## Configuration Organization
 
 ```quote
 config/
@@ -184,7 +184,7 @@ config/
 └─ local.php                      (Environment-specific, ignored by VCS, private config)
 ```
 
-# Dependency Injection
+## Dependency Injection
 
 Dotkernel API uses constructor injection with attributes:
 
@@ -206,7 +206,7 @@ class UserHandler
 
 Services are automatically resolved and injected by AttributedServiceFactory.
 
-# Data Flow Architecture
+## Data Flow Architecture
 
 ```quote
 ┌─────────────────────────────────────────┐
@@ -248,7 +248,7 @@ Services are automatically resolved and injected by AttributedServiceFactory.
 └─────────────────────────────────────────┘
 ```
 
-# Standards & PSRs
+## Standards & PSRs
 
 Dotkernel API adheres to PHP standards for interoperability:
 
@@ -259,7 +259,7 @@ Dotkernel API adheres to PHP standards for interoperability:
 
 This ensures your code can integrate with other PSR-compliant libraries.
 
-# Security Layers
+## Security Layers
 
 ```quote
 ┌─────────────────────────────┐
@@ -277,12 +277,12 @@ This ensures your code can integrate with other PSR-compliant libraries.
 └─────────────────────────────┘
 ```
 
-# When to Use Each Layer
+## When to Use Each Layer
 
-| Layer       |          Purpose           |                              Example |
-|-------------|:--------------------------:|-------------------------------------:|
-| Core	       |   System infrastructure	   |       Authentication, database setup |
-| App	        |     Project features	      |   User CRUD operations, custom logic |
-| Handler     | 	Request/response mapping	 |        Extract user ID, call service |
-| Service	    |      Business rules	       | Validate user data, calculate totals |
-| Repository  |       Data queries	        |              Find users, save entity |
+| Layer      |         Purpose          |                              Example |
+|------------|:------------------------:|-------------------------------------:|
+| Core       |  System infrastructure   |       Authentication, database setup |
+| App        |     Project features     |   User CRUD operations, custom logic |
+| Handler    | Request/response mapping |        Extract user ID, call service |
+| Service    |      Business rules      | Validate user data, calculate totals |
+| Repository |       Data queries       |              Find users, save entity |

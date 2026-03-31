@@ -141,18 +141,18 @@ The response contains a new `access_token` and `refresh_token`:
 
 ## Common Issues
 
-**"Invalid credentials" error**
+### "Invalid credentials" error
 
 - Check username/password are correct.
 - Verify client_id and client_secret match OAuth client in the database.
 - Confirm the user account exists and is active.
 
-**"Token has expired" error**
+### "Token has expired" error
 
 - Use refresh_token to get a new access_token.
 - If refresh_token is expired, re-authenticate with credentials.
 
-**"Invalid scope" error**
+### "Invalid scope" error
 
 - Verify `scope` field is set to `"api"` (the only configured scope)
 

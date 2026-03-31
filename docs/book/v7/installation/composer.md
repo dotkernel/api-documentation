@@ -21,9 +21,9 @@ The automatic setup script performs these tasks:
 - Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.
 - Generate and save the OAuth2 keys in the `data/oauth` folder.
 - Creates the initial `config/autoload` configuration files:
-  - config/autoload/local.php
-  - config/autoload/local.test.php
-  - config/autoload/mail.global.php
+    - config/autoload/local.php
+    - config/autoload/local.test.php
+    - config/autoload/mail.global.php
 
 You should see this text below, along with a long list of packages to be installed instead of the `[...]`.
 
