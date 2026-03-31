@@ -170,4 +170,22 @@ To execute fixtures, run:
 php ./bin/doctrine fixtures:execute
 ```
 
+If everything ran correctly, you will get this confirmation:
+
+```shell
+Executing Core\App\Fixture\AdminRoleLoader
+Executing Core\App\Fixture\OAuthClientLoader
+Executing Core\App\Fixture\OAuthScopeLoader
+Executing Core\App\Fixture\UserRoleLoader
+Executing Core\App\Fixture\AdminLoader
+Executing Core\App\Fixture\UserLoader
+Fixtures have been loaded.
+                .''
+      ._.-.___.' (`\
+     //(        ( `'
+    '/ )\ ).__. )
+    ' <' `\ ._/'\
+       `   \     \
+```
+
 More details on how fixtures work can be found on [dot-data-fixtures documentation](https://github.com/dotkernel/dot-data-fixtures#usage)

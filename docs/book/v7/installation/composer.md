@@ -14,19 +14,30 @@ Run this command in the command prompt.
 composer install
 ```
 
+The automatic setup script performs these tasks:
+
+- Installs the packages listed in the `composer.json` file and their dependencies into the `vendor` folder.
+- Creates the `composer.lock` file that locks all dependencies to exact versions (you can still run `composer update` to replace them with newer versions, if available).
+- Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.
+- Generate and save the OAuth2 keys in the `data/oauth` folder.
+- Creates the initial `config/autoload` configuration files:
+  - config/autoload/local.php
+  - config/autoload/local.test.php
+  - config/autoload/mail.global.php
+
 You should see this text below, along with a long list of packages to be installed instead of the `[...]`.
-In this example there are 164 packages, though the number can change in future updates.
-You will find the packages in the newly-created `vendor` folder.
+
+> In this example there are 146 packages, though the number can change in future updates.
 
 ```shell
 No composer.lock file present. Updating dependencies to latest instead of installing from lock file. See https://getcomposer.org/install for more information.
 Loading composer repositories with package information
 Updating dependencies
-Lock file operations: 164 installs, 0 updates, 0 removals
+Lock file operations: 146 installs, 0 updates, 0 removals
 [...]
 Writing lock file
 Installing dependencies from lock file (including require-dev)
-Package operations: 164 installs, 0 updates, 0 removals
+Package operations: 146 installs, 0 updates, 0 removals
 [...]
 ```
 
@@ -58,6 +69,12 @@ Enable development mode by running:
 
 ```shell
 composer development-enable
+```
+
+The confirmation message should read:
+
+```shell
+You are now in development mode.
 ```
 
 If you ever need to disable the development mode, run:
