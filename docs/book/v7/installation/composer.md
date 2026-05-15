@@ -1,14 +1,21 @@
 # Composer Installation of Packages
 
-Composer is required to install Dotkernel `api`. You can install Composer from the [official site](https://getcomposer.org/).
+In this step you will:
 
-> First, make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.
+- [Install dependencies](#install-dependencies-using-composer).
+- [Enable development mode](#development-mode).
 
-## Install dependencies
+> Composer is required to install Dotkernel `api`.
+> You can install Composer from the [official site](https://getcomposer.org/).
+
+> Before you begin, make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.
+
+## Install Dependencies Using Composer
 
 Run this command in the command prompt.
 
 > Use the **CLI** to ensure interactivity for proper configuration.
+> In some IDEs, Composer may not be able to prompt for configuration settings.
 
 ```shell
 composer install
@@ -17,13 +24,19 @@ composer install
 The automatic setup script performs these tasks:
 
 - Installs the packages listed in the `composer.json` file and their dependencies into the `vendor` folder.
-- Creates the `composer.lock` file that locks all dependencies to exact versions (you can still run `composer update` to replace them with newer versions, if available).
+- Creates the `composer.lock` file that locks all dependencies to exact versions (you can still run `composer update` to replace them with newer versions, if available and installable without conflicts).
 - Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.
 - Generate and save the OAuth2 keys in the `data/oauth` folder.
-- Creates the initial `config/autoload` configuration files:
-    - config/autoload/local.php
-    - config/autoload/local.test.php
-    - config/autoload/mail.global.php
+    - Performed by this script `./bin/generate-oauth2-keys.php`.
+- Creates the initial `config/autoload` configuration files.
+    - Performed by this script `./bin/composer-post-install-script.php`.
+    - These files are created:
+        - config/autoload/local.php
+        - config/autoload/local.test.php
+        - config/autoload/mail.global.php
+
+> The post install commands are run automatically on every `composer install` and `composer update`.
+> The scripts check if the files exist to prevent overwriting them.
 
 You should see this text below, along with a long list of packages to be installed instead of the `[...]`.
 

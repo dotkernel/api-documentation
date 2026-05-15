@@ -13,7 +13,6 @@ The **Core** is the backbone of your application—system-level infrastructure t
 
 - Authentication & Authorization: OAuth2-based authentication with RBAC (Role-Based Access Control)
 - Database Setup: Doctrine ORM configuration, entity definitions, and repositories
-- Middleware Pipeline: Request/response processing, error handling, content negotiation
 - Common Services: Mail service, error reporting, caching
 - Shared Entities: Admin/User entities, roles, permissions
 
@@ -38,7 +37,8 @@ You spend most development time here, implementing your API's features and busin
 
 ## Headless CMS Architecture
 
-Dotkernel API is built toward a Headless CMS architecture:
+Dotkernel API is built toward a Headless Platform architecture.
+Out of the box, it is a modular monolith that can be split into modules and microservices. 
 
 ```quote
 ┌──────────────────────────────────────────────────────────┐
@@ -251,11 +251,22 @@ Services are automatically resolved and injected by AttributedServiceFactory.
 ## Standards & PSRs
 
 Dotkernel API adheres to PHP standards for interoperability:
+Core PSRs
 
 - **PSR-7**: HTTP Message Interfaces (Requests/Responses)
 - **PSR-11**: Container Interface (Dependency Injection)
 - **PSR-15**: HTTP Handlers and Middleware (Request processing)
+
+Supporting PSRs, installed by dependencies:
+
+- **PSR-3**: Logger Interface (Requests/Responses)
 - **PSR-4**: Autoloading (File organization)
+- **PSR-6**: Caching Interface
+- **PSR-13**: Link Definition Interfaces
+- **PSR-14**: Event Dispatcher
+- **PSR-17**: HTTP Factories
+- **PSR-18**: HTTP Client
+- **PSR-20**: Clock
 
 This ensures your code can integrate with other PSR-compliant libraries.
 

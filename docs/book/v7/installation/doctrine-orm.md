@@ -1,17 +1,19 @@
 # Doctrine ORM
 
-This step saves the database connection credentials in an API configuration file.
-We do not cover the creation steps of the database itself.
-
 In this step you will:
 
-- Create a database.
-- Create and run a database migration that creates the main tables.
-- Execute fixtures which populate the database with initial data.
+- [Save the database connection credentials in the API configuration file](#setup-database).
+- [Learn about table names prefixing](#understanding-table-names-prefixing).
+- [Create a migration](#creating-migrations).
+- [Run a migration](#running-migrations).
+- [Executing fixtures to populate your database](#executing-fixtures).
+
+> We do not cover the creation steps of the database itself.
 
 ## Setup database
 
-Create a new **MariaDB**/**PostgreSQL** database and set its collation to `utf8mb4_general_ci`.
+Create a new **MariaDB** or **PostgreSQL** database.
+We recommend using a character set that supports UTF-8.
 
 Make sure you fill out the database credentials in `config/autoload/local.php` under `$databases['mariadb']` or `$databases['postgresql']`.
 Below is the item you need to focus on:
@@ -45,12 +47,23 @@ $databases = [
 > Make sure to use the same database name when you create the database in the next step.
 
 > If needed, you can add more database connections to this array.
-> Only **one active database connection** is allowed at a time.
+> Only **one active database connection** is allowed at a time, decided by the `doctrine.connection.orm_default.params` key in `config/autoload/local.php`.
 
-> By default, the application uses the 'mariadb' connection.
-> You can switch to another connection by updating `doctrine` -> `connection` -> `orm_default` -> `params`.
+By default, the application uses the `mariadb` connection, as seen in the `config/autoload/local.php` file below.
+You can switch to the 'postgresql' connection by commenting `'params' => $databases['mariadb']` and uncommenting `'params' => $databases['postgresql']`.
+ 
+```php
+'doctrine'            => [
+    'connection' => [
+        'orm_default' => [
+            'params' => $databases['mariadb'],
+//                'params' => $databases['postgresql'],
+        ],
+    ],
+],
+```
 
-### Prefixing table names
+### Understanding Table Names Prefixing
 
 The database configuration array contains an optional key called `table_prefix`.
 By default, it is an empty string, which means that all the tables will use the names specified in their respective entities, like below.
@@ -106,7 +119,13 @@ This feature helps organize databases and prevent naming conflicts if you plan o
 
 > `doctrine_migration_versions` is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.
 
-### Creating migrations
+### Creating Migrations
+
+When first installing the application, you will need to create a database migration.
+Migrations are used to create and update the database schema based on the entities defined in the application.
+Later, when you need to update the database schema (e.g., add/remove/edit columns), you will need to create new migrations to reflect the changes.
+
+> Using migration files is recommended compared to manually editing the database schema because they make database changes repeatable, trackable, and safe across environments.
 
 Create a database migration by executing the following command:
 
@@ -124,7 +143,12 @@ You can expect a message like this:
  To revert the migration you can use migrations:execute --down "Core\\App\\Migration\\Version20260327154303"
 ```
 
-### Running migrations
+### Running Migrations
+
+Running migrations is the process of applying the changes defined in the migration files to the database.
+
+> Make sure to double-check changes before running migrations, especially when removing columns as this can result in data loss.
+> The first migration should be safe, since the database is empty.
 
 Run the database migrations by executing the following command:
 
@@ -160,9 +184,29 @@ If everything ran correctly, you will get this confirmation.
 
 > The version number `YYYYMMDDHHMMSS` is the timestamp of the migration.
 
-### Executing fixtures
+### Executing Fixtures
 
-**Fixtures are used to seed the database with initial values and should be executed after migrating the database.**
+Fixtures are used to seed the database with initial values.
+This basically creates the first records in the database.
+
+> Fixtures should be executed after migrating the database to ensure the tables are created.
+
+> You can edit the initial records if your application demands it, even after running the fixtures.
+> For example, you can edit the user roles or the initial users.
+
+> **Important**
+> 
+> Edit the names and passwords of the initial users to prevent unauthorized users from logging into your application.
+> Make sure to do so in these files:
+> 
+> - `src/Core/src/App/Fixture/UserLoader.php`.
+> - `src/Core/src/App/Fixture/AdminLoader.php`.
+>
+> Check for these methods and change their default parameters:
+> 
+> - `setIdentity`.
+> - `usePassword`.
+> - And optionally `setFirstName` and `setLastName`.
 
 To execute fixtures, run:
 

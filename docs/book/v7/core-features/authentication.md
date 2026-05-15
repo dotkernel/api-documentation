@@ -7,7 +7,7 @@ It ensures that the entity making the request has the proper credentials to acce
 If it is present, the application tries to find and assign the identity to the application.
 If it is not presented, Dotkernel API assigns a default `guest` identity, represented by an instance of the class `Mezzio\Authentication\UserInterface`.
 Guests can access public endpoints but cannot access protected resources (those requiring user or admin roles).
-Check out the Authorization page for more details on role-based access.
+Check out the [Authorization page](https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/) for more details on role-based access.
 
 ## Configuration
 

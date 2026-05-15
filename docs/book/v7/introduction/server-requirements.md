@@ -1,23 +1,24 @@
 # Server Requirements
 
-For production environments, we highly recommend a nix-based system (Linux, BSD, macOS).
+For production environments, we highly recommend a Linux-based system.
 Windows is supported for development via WSL2.
 
 ## Operating System
 
 ### Production
 
-- Linux (CentOS, Ubuntu, Debian, AlmaLinux)
+- Linux (AlmaLinux, Debian)
 - BSD (FreeBSD)
 - macOS (Intel or Apple Silicon)
 
 ### Development
 
-- Windows 10/11 (via WSL2 - see WSL2 Setup Guide)
+- Windows 10/11 (via WSL2 - see our [WSL2 Setup Guide](https://docs.dotkernel.org/development/v2/setup/installation/))
 - macOS
 - Linux
 
-> We recommend a nix-based environment for production because of its improved performance, stability, and security hardening options compared to Windows Server.
+> We recommend a Linux-based environment for production because of its improved performance, stability, and security hardening options compared to Windows Server.
+> It should also work on Microsoft's IIS server with minimal modifications, but we have not tested this setup in our projects.
 
 ## Webserver
 
@@ -39,7 +40,6 @@ Earlier PHP versions are not supported.
 
 ### Supported PHP Configurations
 
-- mod_php (Apache module) - Simpler setup, good for shared hosting
 - FPM (FastCGI Process Manager) - Recommended for production, better performance and security isolation
 - CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures
 
@@ -83,8 +83,6 @@ Tested with:
 Tested with:
 
 - PostgreSQL 13 and above
-- PostgreSQL 14 (current stable)
-- PostgreSQL 15 (latest)
 
 ### Database Collation
 

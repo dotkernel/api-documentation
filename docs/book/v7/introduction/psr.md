@@ -154,9 +154,3 @@ Provides a standard interface for reading the system clock.
 │ (Loads services automatically)            │
 └───────────────────────────────────────────┘
 ```
-
-## Next Steps
-
-- Review PSR-7 and PSR-15 in detail—these are essential for understanding Dotkernel API.
-- Check individual PSR pages for implementation examples.
-- Consider how PSRs apply to your custom code and modules.

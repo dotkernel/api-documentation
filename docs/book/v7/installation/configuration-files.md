@@ -1,7 +1,9 @@
 # Configuration Files
 
-The installation script from `composer.json` (under the key 'post-update-cmd') should have already created the files mentioned on this page.
-We mention them explicitly because you will need to visit them to fully configure your development environment.
+The post-update scripts from `composer.json` (under the key `post-update-cmd`) should have already created the files mentioned on this page.
+
+> We mention these files explicitly because you will need to visit them to fully configure your development environment.
+> You will need to do the same for the production environment when you deploy your application.
 
 ## Prepare config files
 

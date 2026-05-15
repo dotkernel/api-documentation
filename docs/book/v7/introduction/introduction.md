@@ -3,7 +3,7 @@
 ## What is Dotkernel API?
 
 Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.2+.
-It provides a headless CMS architecture with built-in OAuth2 authentication, RBAC authorization, and content negotiation out of the box.
+It is a Headless Platform with built-in OAuth2 authentication, RBAC authorization, and content negotiation.
 
 ## When to Use Dotkernel API
 
@@ -130,4 +130,4 @@ vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 ## Next Steps
 
 Ready to get started?
-Jump to the Installation Guide from the menu to set up your first Dotkernel API application.
+Jump to the [Installation Guide](https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/) to set up your first Dotkernel API application.
