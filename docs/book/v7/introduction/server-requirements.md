@@ -41,6 +41,7 @@ Earlier PHP versions are not supported.
 ### Supported PHP Configurations
 
 - FPM (FastCGI Process Manager) - Recommended for production, better performance and security isolation
+- FastCGI - Obsolete but still in use by some hosting providers
 - CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures
 
 ### Why PHP 8.2+?
