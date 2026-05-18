@@ -51,7 +51,7 @@ $databases = [
 
 By default, the application uses the `mariadb` connection, as seen in the `config/autoload/local.php` file below.
 You can switch to the 'postgresql' connection by commenting `'params' => $databases['mariadb']` and uncommenting `'params' => $databases['postgresql']`.
- 
+
 ```php
 'doctrine'            => [
     'connection' => [
@@ -195,15 +195,15 @@ This basically creates the first records in the database.
 > For example, you can edit the user roles or the initial users.
 
 > **Important**
-> 
+>
 > Edit the names and passwords of the initial users to prevent unauthorized users from logging into your application.
 > Make sure to do so in these files:
-> 
+>
 > - `src/Core/src/App/Fixture/UserLoader.php`.
 > - `src/Core/src/App/Fixture/AdminLoader.php`.
 >
 > Check for these methods and change their default parameters:
-> 
+>
 > - `setIdentity`.
 > - `usePassword`.
 > - And optionally `setFirstName` and `setLastName`.

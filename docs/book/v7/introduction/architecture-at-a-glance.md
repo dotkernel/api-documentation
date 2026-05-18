@@ -38,7 +38,7 @@ You spend most development time here, implementing your API's features and busin
 ## Headless CMS Architecture
 
 Dotkernel API is built toward a Headless Platform architecture.
-Out of the box, it is a modular monolith that can be split into modules and microservices. 
+Out of the box, it is a modular monolith that can be split into modules and microservices.
 
 ```quote
 ┌──────────────────────────────────────────────────────────┐

@@ -5,7 +5,6 @@ In this final step you will:
 - [Test the installation of your virtual host](#running-the-application).
 - [Optionally, run a PHP built-in server](#old-way-of-doing-things-using-php-built-in-server).
 
-
 > If you are getting server error 500, make sure to check the folder permissions covered in the [FAQ page](https://docs.dotkernel.org/api-documentation/v7/installation/faq/)
 
 ## Running the application
