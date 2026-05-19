@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1049,7 +1055,15 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#database" class="toc__link nav-link">Database</a>
+                    <a href="#common-issues" class="toc__link nav-link">Common Issues</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#flow-diagram" class="toc__link nav-link">Flow Diagram</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#security-best-practices" class="toc__link nav-link">Security Best Practices</a>
                 </li>
             
             </ul>
@@ -1075,10 +1089,16 @@
 It ensures that the entity making the request has the proper credentials to access the API.</p>
 <p><strong>Dotkernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request.
 If it is present, the application tries to find and assign the identity to the application.
-If it is not presented, Dotkernel API assigns a default <code>guest</code> identity, represented by an instance of the class <code>Mezzio\Authentication\UserInterface</code>.</p>
+If it is not presented, Dotkernel API assigns a default <code>guest</code> identity, represented by an instance of the class <code>Mezzio\Authentication\UserInterface</code>.
+Guests can access public endpoints but cannot access protected resources (those requiring user or admin roles).
+Check out the <a href="https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/">Authorization page</a> for more details on role-based access.</p>
 <h2 id="configuration">Configuration</h2>
+<p>Dotkernel API uses the <strong>OAuth2 password grant flow</strong> for authentication.
+This allows users to exchange their credentials (username/password) for access tokens.
+These tokens are then used for later requests instead of repeatedly sending credentials.</p>
 <p>Authentication in Dotkernel API is built around the <code>mezzio/mezzio-authentication-oauth2</code> component and is already configured out of the box.
-But if you want to dig more, the configuration is stored in <code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
+To customize authentication behavior (token lifetimes, algorithms, etc.), edit <code>config/autoload/local.php</code> under the <code>authentication</code> key.
+See the <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">Mezzio OAuth2 documentation</a> for all available options.</p>
 <blockquote>
 <p>You can check the
 <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a>
@@ -1088,25 +1108,73 @@ configuration part for more info.</p>
 <p>Dotkernel API authentication system can be used for SPAs (single-page applications), mobile applications, and simple, token-based APIs.
 It allows each user of your application to generate API tokens for their accounts.</p>
 <p>The authentication happens through the middleware in the <code>Api\App\Middleware\AuthenticationMiddleware</code>.</p>
-<h2 id="database">Database</h2>
-<p>When you install <strong>Dotkernel API</strong> for the first time, you need to run the migrations and seeders.
+<h3 id="database">Database</h3>
+<p>When you install <strong>Dotkernel API</strong> for the first time, you need to run the migrations and seeders (fixtures).
 All the tables required for authentication are automatically created and populated.</p>
-<p>In Dotkernel API, authenticated users come from either the <code>admin</code> or the <code>user</code> table.
-We choose to keep the admin table separated from the users to prevent users of the application from accessing sensitive data, which only the administrators of the application should access.</p>
-<p>The <code>oauth_clients</code> table is pre-populated with the default <code>admin</code> and <code>frontend</code> clients with the same password as their names (<strong>we recommend you change the default passwords</strong>).</p>
-<p>As you guessed each client serves to authenticate <code>admin</code> or <code>user</code>.</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations migrate
+php ./bin/doctrine fixtures:execute</code></pre>
+<p>The commands above create OAuth tables (oauth_clients, oauth_scopes, oauth_*) and seed the initial credentials:</p>
+<ul>
+<li><strong>Admin</strong>: identity=admin, password=dotadmin</li>
+<li><strong>User</strong>: identity=test@dotkernel.com, password=dotkernel</li>
+</ul>
+<p>Check out the <a href="https://docs.dotkernel.org/api-documentation/v7/installation/doctrine-orm/">Installation Guide</a> for more details.</p>
+<p>In Dotkernel API, authenticated users come from either the <code>admin</code> or the <code>user</code> tables.
+We chose to keep the admin and user tables separate to prevent users of the application from accessing sensitive data that only administrators should access.</p>
 <p>Another table that is pre-populated is the <code>oauth_scopes</code> table, with the <code>api</code> scope.</p>
 <h3 id="issuing-api-tokens">Issuing API Tokens</h3>
 <p>Token generation in Dotkernel API is done using the <code>password</code> <code>grant_type</code> scenario, which in this case allows authentication to an API using the user's credentials (generally a username and password).</p>
-<p>The client sends a POST request to the <code>/security/generate-token</code> with the following parameters:</p>
-<ul>
-<li><code>grant_type</code> = password.</li>
-<li><code>client_id</code> = column <code>name</code> from the <code>oauth_clients</code> table</li>
-<li><code>client_secret</code> = column <code>secret</code> from the <code>oauth_clients</code> table</li>
-<li><code>scope</code> = column <code>scope</code> from the <code>oauth_scopes</code> table</li>
-<li><code>username</code> = column <code>identity</code> from table <code>admin</code>/<code>user</code></li>
-<li><code>password</code> = column <code>password</code> from table <code>admin</code>/<code>user</code></li>
-</ul>
+<p>The <code>POST /security/generate-token</code> endpoint accepts OAuth2 credentials and returns both an access token (for making API calls) and a refresh token (for refreshing expired access tokens).</p>
+<p>The client requires the following parameters:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grant_type</code></td>
+<td>string</td>
+<td>OAuth2 flow type</td>
+<td><code>"password"</code></td>
+</tr>
+<tr>
+<td><code>client_id</code></td>
+<td>string</td>
+<td>OAuth client identifier from the <code>oauth_clients</code> table</td>
+<td><code>"frontend"</code></td>
+</tr>
+<tr>
+<td><code>client_secret</code></td>
+<td>string</td>
+<td>OAuth client credential from the <code>oauth_clients</code> table</td>
+<td><code>"frontend"</code></td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>string</td>
+<td>Permission scope from the <code>oauth_scopes</code> table</td>
+<td><code>"api"</code></td>
+</tr>
+<tr>
+<td><code>username</code></td>
+<td>string</td>
+<td>User identity (email/username) from table <code>admin</code>/<code>user</code></td>
+<td><code>"test@dotkernel.com"</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>string</td>
+<td>User password</td>
+<td><code>"dotkernel"</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>This is what the call should look like:</p>
 <pre class="highlight"><code class="language-shell">POST /security/generate-token HTTP/1.1
 Accept: application/json
 Content-Type: application/json
@@ -1125,14 +1193,49 @@ Content-Type: application/json
     "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
     "refresh_token": "def5020087199939a49d0f2f818..."
 }</code></pre>
-<p>Next time when you make a request to the server to an authenticated endpoint, the client should use the <code>Authorization</code> header request.</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Lifetime</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>token_type</code></td>
+<td>string</td>
+<td>N/A</td>
+<td>Header value type</td>
+</tr>
+<tr>
+<td><code>expires_in</code></td>
+<td>integer</td>
+<td>N/A</td>
+<td>Seconds until access token expires</td>
+</tr>
+<tr>
+<td><code>access_token</code></td>
+<td>string</td>
+<td>86400 seconds = 1 day (configurable)</td>
+<td>Used in <code>Authorization</code> header</td>
+</tr>
+<tr>
+<td><code>refresh_token</code></td>
+<td>string</td>
+<td>1 month (configurable)</td>
+<td>Used to refresh expired access tokens</td>
+</tr>
+</tbody>
+</table></div>
+<p>On later requests to the server for an authenticated endpoint, the client should use the <code>Authorization</code> header request.</p>
 <pre class="highlight"><code class="language-shell">GET /users/1 HTTP/1.1
 Accept: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...</code></pre>
 <h3 id="refreshing-tokens">Refreshing tokens</h3>
-<p>Dotkernel API can refresh the access token, based on the expired access token's <code>refresh_token</code>.</p>
-<p>The clients need to send a <code>POST</code> request to the <code>/security/refresh-token</code> with the following request:</p>
-<pre class="highlight"><code class="language-shell">POST /security/refresh-token HTTP/1.1
+<p>When an access token expires, use the refresh token (received during token generation) to obtain a new access token without re-entering credentials:</p>
+<pre class="highlight"><code class="language-shell">POST /security/refresh-token
 Accept: application/json
 Content-Type: application/json
 {
@@ -1140,15 +1243,57 @@ Content-Type: application/json
   "client_id": "frontend",
   "client_secret": "frontend",
   "scope": "api",
-  "refresh_token" : "def5020087199939a49d0f2f818..."
+  "refresh_token": "def5020087199939a49d0f2f818..."
 }</code></pre>
-<p>The server responds with a JSON as follows:</p>
+<p>The response contains a new <code>access_token</code> and <code>refresh_token</code>:</p>
 <pre class="highlight"><code class="language-json">{
   "token_type": "Bearer",
   "expires_in": 86400,
   "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
   "refresh_token": "def5020087199939a49d0f2f818..."
 }</code></pre>
+<h2 id="common-issues">Common Issues</h2>
+<h3 id="invalid-credentials-error">"Invalid credentials" error</h3>
+<ul>
+<li>Check username/password are correct.</li>
+<li>Verify client_id and client_secret match OAuth client in the database.</li>
+<li>Confirm the user account exists and is active.</li>
+</ul>
+<h3 id="token-has-expired-error">"Token has expired" error</h3>
+<ul>
+<li>Use refresh_token to get a new access_token.</li>
+<li>If refresh_token is expired, re-authenticate with credentials.</li>
+</ul>
+<h3 id="invalid-scope-error">"Invalid scope" error</h3>
+<ul>
+<li>Verify <code>scope</code> field is set to <code>"api"</code> (the only configured scope)</li>
+</ul>
+<h2 id="flow-diagram">Flow Diagram</h2>
+<pre class="highlight"><code class="language-quote">User Credentials
+      ↓
+POST /security/generate-token
+      ↓
+Access Token + Refresh Token
+      ↓
+Store tokens securely  ←─────────────────────────┐
+      ↓                                          |
+Include Access Token in Authorization header     |
+      ↓                                          |
+Make API requests                                |
+      ↓                                          |
+Token expires?                                   |
+      ↓ (yes)                                    |
+POST /security/refresh-token with refresh_token  |
+      ↓                                          |
+Get new Access Token  ───────────────────────────┘</code></pre>
+<h2 id="security-best-practices">Security Best Practices</h2>
+<ul>
+<li><strong>Store tokens securely</strong>: Never commit tokens to version control. Use environment variables or secure storage.</li>
+<li><strong>Use HTTPS only</strong>: OAuth2 tokens should only be transmitted over HTTPS in production.</li>
+<li><strong>Rotate credentials</strong>: Change default OAuth client secrets in production.</li>
+<li><strong>Token expiration</strong>: Access tokens expire (default 1 day). Implement refresh logic in clients.</li>
+<li><strong>Never expose refresh tokens</strong>: Refresh tokens should only be stored client-side, never in logs or public code.</li>
+</ul>
 
 
 

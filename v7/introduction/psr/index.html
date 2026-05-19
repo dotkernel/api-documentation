@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1036,6 +1042,29 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#why-psrs-matter-for-dotkernel-api" class="toc__link nav-link">Why PSRs Matter for Dotkernel API</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#php-standards-recommendations-psrs" class="toc__link nav-link">PHP Standards Recommendations (PSRs)</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#core-psrs-essential-to-dotkernel-api" class="toc__link nav-link">Core PSRs (Essential to Dotkernel API)</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#supporting-psrs-installed-via-dependencies" class="toc__link nav-link">Supporting PSRs (Installed via Dependencies)</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1052,65 +1081,111 @@
     
 
     <h1 id="psrs">PSRs</h1>
-<p>Some of the PSRs on this list are at the core of Dotkernel API, but several others are installed with the third party packages used in the application.
-Below is the full list of PSRs present in Dotkernel API and their purpose.</p>
+<h2 id="why-psrs-matter-for-dotkernel-api">Why PSRs Matter for Dotkernel API</h2>
 <ul>
-<li>PSR-3: <a href="https://www.php-fig.org/psr/psr-3/">Logger Interface</a><ul>
-<li>Interface for logging libraries</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/log">php-fig/log</a></li>
+<li><strong>Vendor Lock-In Prevention</strong>: By following PSRs, you're not locked into Dotkernel API. Your code can be reused in other PSR-compliant frameworks.</li>
+<li><strong>Ecosystem Compatibility</strong>: Any library that follows PSRs can integrate with Dotkernel API without custom adapters.</li>
+<li><strong>Team Collaboration</strong>: Developers familiar with PSRs can immediately understand Dotkernel API's code structure.</li>
+<li><strong>Long-Term Maintenance</strong>: PSRs are stable standards maintained by the PHP community, ensuring longevity.</li>
+<li><strong>Code Quality</strong>: Following standards encourages best practices and makes code more maintainable.</li>
 </ul>
-</li>
-<li>PSR-4: <a href="https://www.php-fig.org/psr/psr-4/">Autoloader</a><ul>
-<li>Autoloading classes from file paths</li>
-<li>Interfaces implemented in <a href="https://github.com/laminas/laminas-loader">laminas/laminas-loader</a></li>
+<h2 id="php-standards-recommendations-psrs">PHP Standards Recommendations (PSRs)</h2>
+<p>Dotkernel API adheres to PHP Standards Recommendations (PSRs) established by the PHP-FIG (Framework Interoperability Group). These standards ensure code interoperability and allow Dotkernel API to work seamlessly with other PSR-compliant libraries.</p>
+<p>Some PSRs are at the <strong>core</strong> of Dotkernel API's architecture, while others are installed as dependencies through third-party packages.</p>
+<h2 id="core-psrs-essential-to-dotkernel-api">Core PSRs (Essential to Dotkernel API)</h2>
+<h3 id="psr-7-http-message-interfaces">PSR-7: HTTP Message Interfaces</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-message">php-fig/http-message</a></p>
+<p>Defines standardized interfaces for HTTP messages (requests and responses) and URIs.</p>
+<p><strong>Why it matters</strong>:</p>
+<ul>
+<li>Dotkernel API uses PSR-7 for all HTTP communication.</li>
+<li>Ensures requests and responses follow a universal standard.</li>
+<li>Allows middleware and handlers to work with consistent interfaces.</li>
+<li>Implemented via <code>Laminas\Diactoros</code>.</li>
 </ul>
-</li>
-<li>PSR-6: <a href="https://www.php-fig.org/psr/psr-6/">Caching Interface</a><ul>
-<li>Interface for caching systems to improve the performance of any project</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/cache">php-fig/cache</a></li>
+<h3 id="psr-15-http-server-request-handlers-and-middleware">PSR-15: HTTP Server Request Handlers and Middleware</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-server-handler">php-fig/http-server-handler</a> and <a href="https://github.com/php-fig/http-server-middleware">php-fig/http-server-middleware</a></p>
+<p>Defines the interface for HTTP request handlers and middleware components that process PSR-7 HTTP messages.</p>
+<p><strong>Why it matters</strong>:</p>
+<ul>
+<li>Dotkernel API's entire architecture is built on PSR-15.</li>
+<li>All handlers implement <code>RequestHandlerInterface</code>.</li>
+<li>Middleware pipeline processes requests in a chain.</li>
+<li>Single-action handlers follow this pattern for clean separation of concerns.</li>
 </ul>
-</li>
-<li>PSR-7: <a href="https://www.php-fig.org/psr/psr-7/">HTTP message interfaces</a><ul>
-<li>Interfaces for representing HTTP messages and URIs for use with HTTP messages</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/http-message">php-fig/http-message</a></li>
+<h3 id="psr-11-container-interface">PSR-11: Container Interface</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/container">php-fig/container</a></p>
+<p>Defines the standard interface for dependency injection containers.</p>
+<p><strong>Why it matters</strong>:</p>
+<ul>
+<li>Dotkernel API uses PSR-11 for managing service dependencies.</li>
+<li>All services are registered in and retrieved from a container.</li>
+<li>Enables loose coupling between components.</li>
+<li>Implemented via <code>Laminas\ServiceManager</code>.</li>
 </ul>
-</li>
-<li>PSR-11: <a href="https://www.php-fig.org/psr/psr-11/">Container interface</a><ul>
-<li>Interface for dependency injection containers</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/container">php-fig/container</a></li>
-</ul>
-</li>
-<li>PSR-13: <a href="https://www.php-fig.org/psr/psr-13/">Link definition interfaces</a><ul>
-<li>Way of representing a hypermedia link independently of the serialization format</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/link">php-fig/link</a></li>
-</ul>
-</li>
-<li>PSR-14: <a href="https://www.php-fig.org/psr/psr-14/">Event Dispatcher</a><ul>
-<li>Mechanism for event-based extension and collaboration</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/event-dispatcher">php-fig/event-dispatcher</a></li>
-</ul>
-</li>
-<li>PSR-15: <a href="https://www.php-fig.org/psr/psr-15/">HTTP Server Request Handlers</a><ul>
-<li>Interfaces for HTTP server request handlers and HTTP server middleware components that use HTTP messages</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/http-server-handler">php-fig/http-server-handler</a> and <a href="https://github.com/php-fig/http-server-middleware">php-fig/http-server-middleware</a></li>
-</ul>
-</li>
-<li>PSR-17: <a href="https://www.php-fig.org/psr/psr-17/">HTTP Factories</a><ul>
-<li>Standard for factories that create PSR-7 compliant HTTP objects</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/http-factory">php-fig/http-factory</a></li>
-</ul>
-</li>
-<li>PSR-18: <a href="https://www.php-fig.org/psr/psr-18/">HTTP Client</a><ul>
-<li>Interface for sending HTTP requests and receiving HTTP responses</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/http-client">php-fig/http-client</a></li>
-</ul>
-</li>
-<li>PSR-20: <a href="https://www.php-fig.org/psr/psr-20/">Clock</a><ul>
-<li>Interface for reading the system clock</li>
-<li>Interfaces implemented in <a href="https://github.com/php-fig/clock">php-fig/clock</a></li>
-</ul>
-</li>
-</ul>
+<h2 id="supporting-psrs-installed-via-dependencies">Supporting PSRs (Installed via Dependencies)</h2>
+<h3 id="psr-3-logger-interface">PSR-3: Logger Interface</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/log">php-fig/log</a></p>
+<p>Provides a standard interface for logging libraries.</p>
+<p><strong>Usage</strong>: Error handling, debugging, audit trails
+<strong>Implemented in</strong>: <code>dotkernel/dot-errorhandler</code></p>
+<h3 id="psr-4-autoloader">PSR-4: Autoloader</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/log">php-fig/log</a></p>
+<p>Defines how PHP files are automatically loaded based on namespaces and file paths.</p>
+<p><strong>Usage</strong>: Automatic class loading without manual <code>require</code> statements
+<strong>Implemented in</strong>: <code>Laminas\Loader</code></p>
+<h3 id="psr-6-caching-interface">PSR-6: Caching Interface</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/cache">php-fig/cache</a></p>
+<p>Defines standard interfaces for caching systems to improve application performance.</p>
+<p><strong>Usage</strong>: Caching query results, configuration, templates
+<strong>Implemented in</strong>: <code>dotkernel/dot-cache</code></p>
+<h3 id="psr-13-link-definition-interfaces">PSR-13: Link Definition Interfaces</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/link">php-fig/link</a></p>
+<p>Describes how to represent hypermedia links independently of serialization format.</p>
+<p><strong>Usage</strong>: HAL (Hypertext Application Language) resource links
+<strong>Implemented in</strong>: <code>mezzio/mezzio-hal</code></p>
+<h3 id="psr-14-event-dispatcher">PSR-14: Event Dispatcher</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/event-dispatcher">php-fig/event-dispatcher</a></p>
+<p>Mechanism for event-based extension and collaboration between components.</p>
+<p><strong>Usage</strong>: Triggering events on user actions, logging events, notifications
+<strong>Implemented in</strong>: Third-party packages as needed</p>
+<h3 id="psr-17-http-factories">PSR-17: HTTP Factories</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-factory">php-fig/http-factory</a></p>
+<p>Standard for factories that create PSR-7 compliant HTTP objects.</p>
+<p><strong>Usage</strong>: Creating requests, responses, and streams programmatically
+<strong>Implemented in</strong>: <code>Laminas\Diactoros</code></p>
+<h3 id="psr-18-http-client">PSR-18: HTTP Client</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-client">php-fig/http-client</a></p>
+<p>Interface for sending HTTP requests and receiving HTTP responses.</p>
+<p><strong>Usage</strong>: Calling external APIs from your Dotkernel API
+<strong>Implemented in</strong>: <code>symfony/http-client</code> or similar packages</p>
+<h3 id="psr-20-clock">PSR-20: Clock</h3>
+<p><strong>Repository</strong>: <a href="https://github.com/php-fig/clock">php-fig/clock</a></p>
+<p>Provides a standard interface for reading the system clock.</p>
+<p><strong>Usage</strong>: Getting current time in a testable way
+<strong>Implemented in</strong>: Third-party packages as needed</p>
+<h3 id="psr-implementation-hierarchy">PSR Implementation Hierarchy</h3>
+<pre class="highlight"><code class="language-quote">┌───────────────────────────────────────────┐
+│  PSR-7: HTTP Messages (Requests/Responses)│
+└───────────────────────────────────────────┘
+                    ▲
+                    │
+┌───────────────────────────────────────────┐
+│ PSR-15: Handlers &amp; Middleware             │
+│ (Process PSR-7 messages)                  │
+└───────────────────────────────────────────┘
+                    ▲
+                    │
+┌───────────────────────────────────────────┐
+│ PSR-11: Container                         │
+│ (Manages services for handlers)           │
+└───────────────────────────────────────────┘
+                    ▲
+                    │
+┌───────────────────────────────────────────┐
+│ PSR-4: Autoloader                         │
+│ (Loads services automatically)            │
+└───────────────────────────────────────────┘</code></pre>
 
 
 

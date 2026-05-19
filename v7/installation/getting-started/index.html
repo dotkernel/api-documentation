@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1041,7 +1047,11 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#recommended-development-environment" class="toc__link nav-link">Recommended development environment</a>
+                    <a href="#clone-the-project_1" class="toc__link nav-link">Clone the Project</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#set-file-and-folder-permissions" class="toc__link nav-link">Set File and Folder Permissions</a>
                 </li>
             
             </ul>
@@ -1063,14 +1073,37 @@
     
 
     <h1 id="clone-the-project">Clone the project</h1>
-<h2 id="recommended-development-environment">Recommended development environment</h2>
+<p>In this step you will:</p>
+<ul>
+<li><a href="#clone-the-project">Clone the Dotkernel API project</a>.</li>
+<li><a href="#set-file-and-folder-permissions">Set file permissions</a>.</li>
+</ul>
 <blockquote>
-<p>If you are using Windows as an OS on your machine, you can use WSL2 as a development environment.
-Read more here: <a href="https://www.dotkernel.com/php-development/almalinux-9-in-wsl2-install-php-apache-mariadb-composer-phpmyadmin/">PHP-Mariadb-on-WLS2</a></p>
+<p>If you are using the Microsoft Windows Operating System on your machine, you can use WSL2 as a development environment.
+Read more about <a href="https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin//">installing and using WLS2</a>.</p>
+<p>Make sure to review the <a href="prerequisites.md">prerequisites</a> before proceeding.</p>
 </blockquote>
-<p>Using your terminal, navigate inside the directory you want to download the project files into.
-Make sure that the directory is empty before proceeding to the download process. Once there, run the following command:</p>
+<h2 id="clone-the-project_1">Clone the Project</h2>
+<p>Using your terminal, navigate inside the directory where you want to download the project files.</p>
+<blockquote>
+<p>Make sure that the directory is empty before running the command below.</p>
+</blockquote>
+<p>Run this command to clone the project files.</p>
 <pre class="highlight"><code class="language-shell">git clone https://github.com/dotkernel/api.git .</code></pre>
+<h2 id="set-file-and-folder-permissions">Set File and Folder Permissions</h2>
+<p>To prevent future permission errors, certain folders must have their permissions set to 777.
+This way they assign everyone (owner, group, and other users) permissions to read, write, and execute.</p>
+<blockquote>
+<p>It is safe to set these permissions as accessing the application files is dictated by the <code>.htaccess</code> file.
+The <code>public</code> folder is publicly accessible by design, so those files are served directly.
+Everything else is routed to the <code>index.php</code> file.</p>
+</blockquote>
+<pre class="highlight"><code class="language-shell">chmod -R 777 data
+chmod -R 777 public/uploads
+chmod -R 777 log</code></pre>
+<blockquote>
+<p>The <code>-R</code> parameter is used to recursively apply the permissions to all subdirectories and files.</p>
+</blockquote>
 
 
 

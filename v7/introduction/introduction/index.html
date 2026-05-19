@@ -287,6 +287,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1034,6 +1040,18 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#what-is-dotkernel-api" class="toc__link nav-link">What is Dotkernel API?</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#when-to-use-dotkernel-api" class="toc__link nav-link">When to Use Dotkernel API</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#feature-matrix" class="toc__link nav-link">Feature Matrix</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#doctrine-3-orm" class="toc__link nav-link">Doctrine 3 ORM</a>
                 </li>
             
@@ -1077,6 +1095,14 @@
                     <a href="#tests" class="toc__link nav-link">Tests</a>
                 </li>
             
+                <li class="toc__entry">
+                    <a href="#common-pitfalls" class="toc__link nav-link">Common Pitfalls</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#next-steps" class="toc__link nav-link">Next Steps</a>
+                </li>
+            
             </ul>
         </div>
     
@@ -1094,21 +1120,67 @@
     
 
     <h1 id="introduction">Introduction</h1>
-<p>Below is a quick overview of features in Dotkernel API.</p>
+<h2 id="what-is-dotkernel-api">What is Dotkernel API?</h2>
+<p>Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.2+.
+It is a Headless Platform with built-in OAuth2 authentication, RBAC authorization, and content negotiation.</p>
+<h2 id="when-to-use-dotkernel-api">When to Use Dotkernel API</h2>
+<p>Dotkernel API is especially useful when you want a clean, enterprise-ready API architecture.
+Below are some practical use cases (it's by no means an exhaustive list).</p>
+<ul>
+<li>REST APIs with microservices architecture.</li>
+<li>Headless CMS backends.</li>
+<li>Projects that require strict RBAC authorization.</li>
+<li>APIs that need standardized error handling &amp; OpenAPI docs.</li>
+<li>Teams that prefer PSR standards compliance.</li>
+<li>E-commerce Backends.</li>
+<li>Data Processing &amp; Reporting APIs.</li>
+<li>SaaS Platforms.</li>
+</ul>
+<h2 id="feature-matrix">Feature Matrix</h2>
+<p>Below is a quick overview of features in Dotkernel API and how they interconnect.</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Purpose</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OAuth2</td>
+<td>Authentication</td>
+<td>config/autoload/local.php</td>
+</tr>
+<tr>
+<td>RBAC</td>
+<td>Authorization</td>
+<td>config/autoload/authorization.global.php</td>
+</tr>
+<tr>
+<td>Content Negotiation</td>
+<td>Request/response format validation</td>
+<td>config/autoload/content-negotiation.global.php</td>
+</tr>
+<tr>
+<td>OpenAPI/Swagger</td>
+<td>API documentation</td>
+<td>Auto-generated</td>
+</tr>
+</tbody>
+</table></div>
 <h2 id="doctrine-3-orm">Doctrine 3 ORM</h2>
 <p>For the persistence in a relational database management system we chose Doctrine ORM (object-relational mapper).</p>
 <p>The benefit of Doctrine for the programmer is the ability to focus on the object-oriented business logic and worry about persistence only as a secondary priority.</p>
 <h2 id="documentation">Documentation</h2>
 <h3 id="openapi-using-swagger-ui">OpenAPI using Swagger UI</h3>
 <p>See the <a href="../../openapi/introduction/">OpenAPI specification</a> for more information.</p>
-<h3 id="postman">Postman</h3>
-<p>The following files store information about every available endpoint ready to be tested:</p>
-<ul>
-<li><code>documentation/Dotkernel_API.postman_collection.json</code></li>
-<li><code>documentation/Dotkernel_API.postman_environment.json</code></li>
-</ul>
+<h3 id="bruno">Bruno</h3>
+<p>Each project should contain a separate Git repository for the <a href="https://www.usebruno.com/">Bruno</a> files.
+Bruno's <code>.bru</code> files define the endpoint collections and their parameters.
+By having them in a Git repository, you can share them with your team and keep them up to date.</p>
 <h2 id="hypertext-application-language">Hypertext Application Language</h2>
-<p>For our API payloads (a value object for describing the API resource, its relational links and any embedded/child resources related to it) we use <a href="https://github.com/mezzio/mezzio-hal">mezzio/mezzio-hal</a>.</p>
+<p>For our API payloads (a value object for describing the API resource, its relational links, and any embedded/child resources related to it) we use <a href="https://github.com/mezzio/mezzio-hal">mezzio/mezzio-hal</a>.</p>
 <h2 id="cors">CORS</h2>
 <p>By using <code>MezzioCorsMiddlewareCorsMiddleware</code>, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
 The Router is used to detect every allowed request method by executing a route match with all possible request methods.
@@ -1123,18 +1195,21 @@ Using <code>DotMailServiceMailService</code> provided by <a href="https://github
 <h2 id="configuration">Configuration</h2>
 <p>From authorization at request route level to API keys for your application, you can find every configuration variable in the <code>config</code> directory.</p>
 <p>Registering a new module can be done by including its <code>ConfigProvider.php</code> in <code>config.php</code>.</p>
-<p>Brand new middlewares should go into <code>pipeline.php</code>. Here you can edit the order in which they run and find more info about the currently included ones.</p>
+<p>Brand new middlewares should go into <code>pipeline.php</code>.
+Here you can edit the order in which they run and find more info about the currently included ones.</p>
 <p>You can further customize your api within the <code>autoload</code> directory that holds configuration files for each category.</p>
 <h2 id="routing">Routing</h2>
 <p>Each module has a <code>RoutesDelegator.php</code> file for managing existing routes inside that specific module.
-It also allows a quick way of adding new routes by providing the route path, Middlewares that the route will use and the route name.</p>
+It also allows a quick way of adding new routes by providing the route path, Middlewares that the route will use, and the route name.</p>
 <p>You can allocate permissions per route name to restrict access for a user role to a specific route in <code>config/autoload/authorization.global.php</code>.</p>
 <h2 id="commands">Commands</h2>
 <p>For registering new commands first make sure your command class extends <code>Symfony\Component\Console\Command\Command</code>.
 Then you can enable it by registering it in <code>config/autoload/cli.global.php</code>.</p>
 <h2 id="file-locker">File locker</h2>
 <p>Here you will also find our file locker configuration, so you can enable and disable it (by default: <code>'enabled' =&gt; true</code>).</p>
-<p>Note: The File Locker System will create a <code>command-{command-default-name}.lock</code> file which will not let another instance of the same command to run until the previous one has finished.</p>
+<blockquote>
+<p>The File Locker System will create a <code>command-{command-default-name}.lock</code> file which will not let another instance of the same command to run until the previous one has finished.</p>
+</blockquote>
 <h2 id="tests">Tests</h2>
 <p>One of the best ways to ensure the quality of your product is to create and run functional and unit tests.
 You can find factory-made tests in the <code>test</code> folder, and you can also register your own.</p>
@@ -1144,6 +1219,20 @@ You can run both types at the same type by executing this command:</p>
 <p>Alternatively, you can run each test category separately with these commands:</p>
 <pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
 vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
+<h2 id="common-pitfalls">Common Pitfalls</h2>
+<blockquote>
+<p>[!IMPORTANT]
+Remember:</p>
+</blockquote>
+<ul>
+<li>Change default OAuth2 client credentials in production.</li>
+<li>Enable development mode only locally.</li>
+<li>Configure CORS origins before deployment.</li>
+<li>Run migrations and fixtures before accessing the API.</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p>Ready to get started?
+Jump to the <a href="https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/">Installation Guide</a> to set up your first Dotkernel API application.</p>
 
 
 

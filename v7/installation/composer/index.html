@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1041,7 +1047,7 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#install-dependencies" class="toc__link nav-link">Install dependencies</a>
+                    <a href="#install-dependencies-using-composer" class="toc__link nav-link">Install Dependencies Using Composer</a>
                 </li>
             
                 <li class="toc__entry">
@@ -1067,27 +1073,59 @@
     
 
     <h1 id="composer-installation-of-packages">Composer Installation of Packages</h1>
-<p>Composer is required to install Dotkernel <code>api</code>. You can install Composer from the <a href="https://getcomposer.org/">official site</a>.</p>
+<p>In this step you will:</p>
+<ul>
+<li><a href="#install-dependencies-using-composer">Install dependencies</a>.</li>
+<li><a href="#development-mode">Enable development mode</a>.</li>
+</ul>
 <blockquote>
-<p>First, make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.</p>
+<p>Composer is required to install Dotkernel <code>api</code>.
+You can install Composer from the <a href="https://getcomposer.org/">official site</a>.</p>
+<p>Before you begin, make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.</p>
 </blockquote>
-<h2 id="install-dependencies">Install dependencies</h2>
+<h2 id="install-dependencies-using-composer">Install Dependencies Using Composer</h2>
 <p>Run this command in the command prompt.</p>
 <blockquote>
-<p>Use the <strong>CLI</strong> to ensure interactivity for proper configuration.</p>
+<p>Use the <strong>CLI</strong> to ensure interactivity for proper configuration.
+In some IDEs, Composer may not be able to prompt for configuration settings.</p>
 </blockquote>
 <pre class="highlight"><code class="language-shell">composer install</code></pre>
-<p>You should see this text below, along with a long list of packages to be installed instead of the <code>[...]</code>.
-In this example there are 164 packages, though the number can change in future updates.
-You will find the packages in the <code>vendor</code> folder.</p>
+<p>The automatic setup script performs these tasks:</p>
+<ul>
+<li>Installs the packages listed in the <code>composer.json</code> file and their dependencies into the <code>vendor</code> folder.</li>
+<li>Creates the <code>composer.lock</code> file that locks all dependencies to exact versions (you can still run <code>composer update</code> to replace them with newer versions, if available and installable without conflicts).</li>
+<li>Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.</li>
+<li>Generate and save the OAuth2 keys in the <code>data/oauth</code> folder.<ul>
+<li>Performed by this script <code>./bin/generate-oauth2-keys.php</code>.</li>
+</ul>
+</li>
+<li>Creates the initial <code>config/autoload</code> configuration files.<ul>
+<li>Performed by this script <code>./bin/composer-post-install-script.php</code>.</li>
+<li>These files are created:<ul>
+<li>config/autoload/local.php</li>
+<li>config/autoload/local.test.php</li>
+<li>config/autoload/mail.global.php</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>The post install commands are run automatically on every <code>composer install</code> and <code>composer update</code>.
+The scripts check if the files exist to prevent overwriting them.</p>
+</blockquote>
+<p>You should see this text below, along with a long list of packages to be installed instead of the <code>[...]</code>.</p>
+<blockquote>
+<p>In this example there are 146 packages, though the number can change in future updates.</p>
+</blockquote>
 <pre class="highlight"><code class="language-shell">No composer.lock file present. Updating dependencies to latest instead of installing from lock file. See https://getcomposer.org/install for more information.
 Loading composer repositories with package information
 Updating dependencies
-Lock file operations: 164 installs, 0 updates, 0 removals
+Lock file operations: 146 installs, 0 updates, 0 removals
 [...]
 Writing lock file
 Installing dependencies from lock file (including require-dev)
-Package operations: 164 installs, 0 updates, 0 removals
+Package operations: 146 installs, 0 updates, 0 removals
 [...]</code></pre>
 <p>The setup script may prompt for some configuration settings, for example, the lines below.
 If you don't see them, you can skip to the next section.</p>
@@ -1097,19 +1135,23 @@ If you don't see them, you can skip to the next section.</p>
   Make your selection (default is 1):</code></pre>
 <p>Type <code>0</code> to select <code>[0] Do not inject</code>.</p>
 <blockquote>
-<p>We choose <code>0</code> because Dotkernel includes its own ConfigProvider, which already contains the prompted configurations.
-If you choose <code>[1] config/config.php</code>, an extra <code>ConfigProvider</code> will be injected.</p>
+<p>If you choose <code>1</code>, an extra <code>ConfigProvider</code> will be injected, which may return an error for packages you add in the future.
+Choosing <code>0</code> prevents duplicate ConfigProvider registrations, as Dotkernel already includes its own.</p>
 </blockquote>
 <p>The next question is:</p>
 <p><code>Remember this option for other packages of the same type? (y/N)</code></p>
 <p>Type <code>y</code> here, and hit <code>enter</code> to complete this stage.</p>
 <h2 id="development-mode">Development mode</h2>
-<p>If you're installing the project for development, make sure you have development mode enabled by running:</p>
+<p>Normally, a new project starts in development mode to prevent caching certain files in the <code>data/cache</code> folder.
+Enable development mode by running:</p>
 <pre class="highlight"><code class="language-shell">composer development-enable</code></pre>
-<p>You can disable the development mode by running:</p>
+<p>The confirmation message should read:</p>
+<pre class="highlight"><code class="language-shell">You are now in development mode.</code></pre>
+<p>If you ever need to disable the development mode, run:</p>
 <pre class="highlight"><code class="language-shell">composer development-disable</code></pre>
-<p>You can check if you have development mode enabled by running:</p>
+<p>This command displays the development mode status:</p>
 <pre class="highlight"><code class="language-shell">composer development-status</code></pre>
+<p>You should see the message <code>Development mode is ENABLED</code> or <code>Development mode is DISABLED</code>.</p>
 
 
 

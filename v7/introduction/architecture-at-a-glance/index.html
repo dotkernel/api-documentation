@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v7/openapi/render-documentation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v7/introduction/architecture-at-a-glance/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Render Documentation - api - Dotkernel Documentation</title>
+        <title>Architecture at a Glance - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -155,7 +155,7 @@
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
                 
                 
-                <a href="../../introduction/introduction/" class="dropdown-item active">
+                <a href="../introduction/" class="dropdown-item active">
                     
                         v7 (latest)
                     
@@ -217,12 +217,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">OpenAPI</li>
+                                <li class="breadcrumb-item">Overview</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Render Documentation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Architecture at a Glance</li>
                 
             
         </ol>
@@ -250,7 +250,7 @@
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
                     
@@ -282,31 +282,31 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+    <a href="../server-requirements/" class="subnavigation__link">Server Requirements</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+    <a href="../file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Architecture at a Glance</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+    <a href="../packages/" class="subnavigation__link">Packages</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
+    <a href="../psr/" class="subnavigation__link">PSRs</a>
 </li>
 
         
@@ -868,43 +868,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
+    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../write-documentation/" class="subnavigation__link">Write Documentation</a>
+    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../generate-documentation/" class="subnavigation__link">Generate Documentation</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Render Documentation</a>
+    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../use-documentation/" class="subnavigation__link">Use Documentation</a>
+    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../getting-help/" class="subnavigation__link">Getting Help</a>
+    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
 </li>
 
         
@@ -1047,11 +1047,43 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#using-swagger-ui" class="toc__link nav-link">Using Swagger UI</a>
+                    <a href="#the-core-vs-app-split-since-v60" class="toc__link nav-link">The Core vs App Split (Since v6.0)</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#using-redoc" class="toc__link nav-link">Using Redoc</a>
+                    <a href="#headless-cms-architecture" class="toc__link nav-link">Headless CMS Architecture</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#modular-design" class="toc__link nav-link">Modular Design</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#key-components" class="toc__link nav-link">Key Components</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#configuration-organization" class="toc__link nav-link">Configuration Organization</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#dependency-injection" class="toc__link nav-link">Dependency Injection</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#data-flow-architecture" class="toc__link nav-link">Data Flow Architecture</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#standards-psrs" class="toc__link nav-link">Standards &amp; PSRs</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#security-layers" class="toc__link nav-link">Security Layers</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#when-to-use-each-layer" class="toc__link nav-link">When to Use Each Layer</a>
                 </li>
             
             </ul>
@@ -1069,69 +1101,270 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">OpenAPI</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Overview</h2>-->
     
 
-    <h1 id="rendering-the-documentation-file">Rendering the documentation file</h1>
-<p>At this step, you only have a static documentation file.
-You will need an interface that can render it so that you will be able to interact with your Dotkernel API.</p>
-<p>To do this, we recommend using either of:</p>
+    <h1 id="architecture-at-a-glance">Architecture at a Glance</h1>
+<p>Dotkernel API follows a modular, middleware-based architecture designed for scalability and maintainability.
+Understanding the core structure is essential before diving into development.</p>
+<h2 id="the-core-vs-app-split-since-v60">The Core vs App Split (Since v6.0)</h2>
+<p>Since version 6.0, Dotkernel API is organized into two distinct layers:</p>
+<h3 id="core-layer">Core Layer</h3>
+<p>The <strong>Core</strong> is the backbone of your application—system-level infrastructure that handles fundamental concerns:</p>
 <ul>
-<li><a href="https://github.com/swagger-api/swagger-ui">swagger-api/swagger-ui</a></li>
-<li><a href="https://github.com/Redocly/redoc">Redocly/redoc</a></li>
+<li>Authentication &amp; Authorization: OAuth2-based authentication with RBAC (Role-Based Access Control)</li>
+<li>Database Setup: Doctrine ORM configuration, entity definitions, and repositories</li>
+<li>Common Services: Mail service, error reporting, caching</li>
+<li>Shared Entities: Admin/User entities, roles, permissions</li>
 </ul>
-<h2 id="using-swagger-ui">Using Swagger UI</h2>
-<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>swagger.html</code>, the name is up to you) and place the following HTML content in it:</p>
-<pre class="highlight"><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8" /&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
-    &lt;meta name="description" content="Dotkernel API Documentation" /&gt;
-    &lt;title&gt;Dotkernel API Documentation&lt;/title&gt;
-    &lt;link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" /&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="swagger-ui"&gt;&lt;/div&gt;
-    &lt;script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin&gt;&lt;/script&gt;
-    &lt;script&gt;
-      window.onload = () =&gt; {
-        window.ui = SwaggerUIBundle({url: 'PATH_TO_YOUR_OPENAPI_FILE', dom_id: '#swagger-ui'});
-      };
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file
-(openapi.json/openapi.yaml). The line should look similar to this:</p>
-<pre class="highlight"><code class="language-js">window.ui = SwaggerUIBundle({url: './openapi.yaml', dom_id: '#swagger-ui'});</code></pre>
-<p>Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append <code>/swagger.html</code> to it.
-You should see the Redoc interface with your documentation file loaded in it.
-From here, you can inspect each endpoint, see its URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
-<h2 id="using-redoc">Using Redoc</h2>
-<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>redoc.html</code>,
-the name is up to you) and place the following HTML content in it:</p>
-<pre class="highlight"><code class="language-html">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8" /&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
-    &lt;meta name="description" content="Dotkernel API Documentation" /&gt;
-    &lt;title&gt;Dotkernel API Documentation&lt;/title&gt;
-    &lt;script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="redoc-container"&gt;&lt;/div&gt;
-    &lt;script&gt;
-      Redoc.init('PATH_TO_YOUR_OPENAPI_FILE', {}, document.getElementById('redoc-container'));
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file (openapi.json/openapi.yaml).
-The line should look similar to this:</p>
-<pre class="highlight"><code class="language-js">Redoc.init('./openapi.yaml', {}, document.getElementById('redoc-container'));</code></pre>
-<p>Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append <code>/redoc.html</code> to it.
-You should see the Redoc interface with your documentation file loaded in it.
-From here, you can inspect each endpoint, see its URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
+<p>Location: <code>src/Core/src/</code></p>
+<p>You typically don't modify Core unless you're updating system behavior or adding shared infrastructure features.</p>
+<h3 id="app-layer">App Layer</h3>
+<p>The <strong>App</strong> is where you build your project-specific features—the "business logic" of your application:</p>
+<ul>
+<li>Routes: Endpoint definitions specific to your use case</li>
+<li>Handlers: PSR-15 request handlers (like controllers, but single-action focused)</li>
+<li>Custom Services: Business logic and data processing</li>
+<li>Input Filters: Request validation rules</li>
+<li>Custom Middleware: Application-specific middleware</li>
+<li>Error Reporting: Frontend error collection endpoints</li>
+</ul>
+<p>Location: <code>src/App/src/</code></p>
+<p>You spend most development time here, implementing your API's features and business logic.</p>
+<h2 id="headless-cms-architecture">Headless CMS Architecture</h2>
+<p>Dotkernel API is built toward a Headless Platform architecture.
+Out of the box, it is a modular monolith that can be split into modules and microservices.</p>
+<pre class="highlight"><code class="language-quote">┌──────────────────────────────────────────────────────────┐
+│                    Multiple Frontends                    │
+│        (Web, Mobile, Desktop, Voice, etc.)               │
+└────────────┬────────────────────────────┬────────────────┘
+             │                            │
+             └────────────┬───────────────┘
+                          │ (REST/JSON APIs)
+┌─────────────────────────▼──────────────────────────────┐
+│           Dotkernel API (Headless Backend)             │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Core Layer (Infrastructure)                      │  │
+│  │ • Authentication (OAuth2)                        │  │
+│  │ • Authorization (RBAC)                           │  │
+│  │ • Database (Doctrine ORM)                        │  │
+│  │ • Middleware Pipeline                            │  │
+│  └──────────────────────────────────────────────────┘  │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ App Layer (Business Logic)                       │  │
+│  │ • Endpoints &amp; Routes                             │  │
+│  │ • Handlers &amp; Services                            │  │
+│  │ • Custom Logic                                   │  │
+│  └──────────────────────────────────────────────────┘  │
+└─────────────────────────────────────┬──────────────────┘
+                                      │
+                    ┌─────────────────▼─────────────────┐
+                    │   Database                        │
+                    │ (MariaDB / PostgreSQL)            │
+                    └───────────────────────────────────┘</code></pre>
+<h2 id="modular-design">Modular Design</h2>
+<p>Applications are organized into modules, each handling a specific domain.</p>
+<p><strong>Built-in Modules:</strong></p>
+<ul>
+<li>Admin: Admin account management (superuser/admin roles)</li>
+<li>User: Regular user management (user/guest roles)</li>
+<li>Security: OAuth2 token generation and refresh</li>
+<li>App: Error reporting and general endpoints</li>
+<li>Core: Shared infrastructure and base classes</li>
+</ul>
+<p>Custom Modules: You can create your own modules (e.g., Book, Product, Article) following the same pattern.</p>
+<h3 id="request-flow">Request Flow</h3>
+<p>Here's how a typical request flows through Dotkernel API:</p>
+<pre class="highlight"><code class="language-quote">1. HTTP Request
+   ↓
+2. Middleware Pipeline (config/pipeline.php)
+   ├─ CorsMiddleware (handle CORS)
+   ├─ AuthenticationMiddleware (identify user)
+   ├─ AuthorizationMiddleware (check permissions)
+   ├─ ContentNegotiationMiddleware (validate Accept/Content-Type)
+   └─ RouteMiddleware (match route)
+   ↓
+3. Handler (PSR-15 RequestHandler)
+   ├─ Receive ServerRequestInterface
+   ├─ Execute business logic
+   └─ Return ResponseInterface
+   ↓
+4. Response Middleware (if any)
+   ├─ ProblemDetailsMiddleware (handle exceptions)
+   ├─ DeprecationMiddleware (add deprecation headers)
+   └─ Response Header Middleware (set custom headers)
+   ↓
+5. HTTP Response</code></pre>
+<h2 id="key-components">Key Components</h2>
+<h3 id="handlers-psr-15">Handlers (PSR-15)</h3>
+<p>Single-action request handlers instead of multi-action controllers:</p>
+<pre class="highlight"><code class="language-quote">src/User/src/Handler/
+├─ GetUserCollectionHandler.php      (GET /user)
+├─ GetUserResourceHandler.php        (GET /user/{id})
+├─ PostUserResourceHandler.php       (POST /user)
+├─ PatchUserResourceHandler.php      (PATCH /user/{id})
+└─ DeleteUserResourceHandler.php     (DELETE /user/{id})</code></pre>
+<p>Benefits: Separation of concerns, easier testing, clearer intent.</p>
+<h3 id="services">Services</h3>
+<p>The Business logic layer sits between the handlers and repositories:</p>
+<pre class="highlight"><code class="language-quote">Handler → Service → Repository → Database</code></pre>
+<p>Services handle:</p>
+<ul>
+<li>Business rules validation</li>
+<li>Data transformation</li>
+<li>Cross-cutting concerns (caching, logging)</li>
+</ul>
+<h3 id="repositories">Repositories</h3>
+<p>Data access layer using Doctrine ORM:</p>
+<ul>
+<li>Query building</li>
+<li>Entity persistence</li>
+<li>Database abstraction</li>
+</ul>
+<h3 id="input-filters">Input Filters</h3>
+<p>Request validation using Laminas InputFilter:</p>
+<pre class="highlight"><code class="language-quote">Request → InputFilter → Validation → Handler</code></pre>
+<h3 id="entities">Entities</h3>
+<p>Doctrine ORM entities representing database tables:</p>
+<pre class="highlight"><code class="language-php">#[ORM\Entity]
+#[ORM\Table(name: 'user')]
+class User { ... }</code></pre>
+<h2 id="configuration-organization">Configuration Organization</h2>
+<pre class="highlight"><code class="language-quote">config/
+├─ config.php                     (Main entry point)
+├─ pipeline.php                   (Middleware stack)
+├─ container.php                  (Dependency injection)
+└─ autoload/
+├─ dependencies.global.php        (Service definitions)
+├─ authorization.global.php       (RBAC rules)
+├─ content-negotiation.global.php (Accept/Content-Type)
+├─ doctrine.global.php            (ORM configuration)
+└─ local.php                      (Environment-specific, ignored by VCS, private config)</code></pre>
+<h2 id="dependency-injection">Dependency Injection</h2>
+<p>Dotkernel API uses constructor injection with attributes:</p>
+<pre class="highlight"><code class="language-quote">use Dot\DependencyInjection\Attribute\Inject;
+
+class UserHandler
+{
+    #[Inject(
+        UserService::class,
+        "config"
+    )]
+    public function __construct(
+        protected UserService $userService,
+        protected array $config
+    ) {}
+}</code></pre>
+<p>Services are automatically resolved and injected by AttributedServiceFactory.</p>
+<h2 id="data-flow-architecture">Data Flow Architecture</h2>
+<pre class="highlight"><code class="language-quote">┌─────────────────────────────────────────┐
+│    Incoming HTTP Request (PSR-7)        │
+└────────────┬────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────┐
+│    Middleware Pipeline                  │
+│  (Auth, Validation, Negotiation)        │
+└────────────┬────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────┐
+│    Handler (Business Logic)             │
+│  • Extract request data                 │
+│  • Validate with InputFilter            │
+│  • Call Service layer                   │
+└────────────┬────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────┐
+│    Service Layer (Domain Logic)         │
+│  • Business rules                       │
+│  • Data transformation                  │
+│  • Call Repository layer                │
+└────────────┬────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────┐
+│    Repository Layer (Data Access)       │
+│  • Doctrine queries                     │
+│  • Entity persistence                   │
+└────────────┬────────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────────┐
+│    Database (MariaDB / PostgreSQL)      │
+└─────────────────────────────────────────┘</code></pre>
+<h2 id="standards-psrs">Standards &amp; PSRs</h2>
+<p>Dotkernel API adheres to PHP standards for interoperability:
+Core PSRs</p>
+<ul>
+<li><strong>PSR-7</strong>: HTTP Message Interfaces (Requests/Responses)</li>
+<li><strong>PSR-11</strong>: Container Interface (Dependency Injection)</li>
+<li><strong>PSR-15</strong>: HTTP Handlers and Middleware (Request processing)</li>
+</ul>
+<p>Supporting PSRs, installed by dependencies:</p>
+<ul>
+<li><strong>PSR-3</strong>: Logger Interface (Requests/Responses)</li>
+<li><strong>PSR-4</strong>: Autoloading (File organization)</li>
+<li><strong>PSR-6</strong>: Caching Interface</li>
+<li><strong>PSR-13</strong>: Link Definition Interfaces</li>
+<li><strong>PSR-14</strong>: Event Dispatcher</li>
+<li><strong>PSR-17</strong>: HTTP Factories</li>
+<li><strong>PSR-18</strong>: HTTP Client</li>
+<li><strong>PSR-20</strong>: Clock</li>
+</ul>
+<p>This ensures your code can integrate with other PSR-compliant libraries.</p>
+<h2 id="security-layers">Security Layers</h2>
+<pre class="highlight"><code class="language-quote">┌─────────────────────────────┐
+│  1. Authentication          │
+│  (OAuth2 tokens)            │
+├─────────────────────────────┤
+│  2. Authorization           │
+│  (RBAC permissions)         │
+├─────────────────────────────┤
+│  3. Input Validation        │
+│  (InputFilter)              │
+├─────────────────────────────┤
+│  4. Content Negotiation     │
+│  (Accept/Content-Type)      │
+└─────────────────────────────┘</code></pre>
+<h2 id="when-to-use-each-layer">When to Use Each Layer</h2>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th style="text-align: center;">Purpose</th>
+<th style="text-align: right;">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core</td>
+<td style="text-align: center;">System infrastructure</td>
+<td style="text-align: right;">Authentication, database setup</td>
+</tr>
+<tr>
+<td>App</td>
+<td style="text-align: center;">Project features</td>
+<td style="text-align: right;">User CRUD operations, custom logic</td>
+</tr>
+<tr>
+<td>Handler</td>
+<td style="text-align: center;">Request/response mapping</td>
+<td style="text-align: right;">Extract user ID, call service</td>
+</tr>
+<tr>
+<td>Service</td>
+<td style="text-align: center;">Business rules</td>
+<td style="text-align: right;">Validate user data, calculate totals</td>
+</tr>
+<tr>
+<td>Repository</td>
+<td style="text-align: center;">Data queries</td>
+<td style="text-align: right;">Find users, save entity</td>
+</tr>
+</tbody>
+</table></div>
 
 
 
@@ -1141,9 +1374,9 @@ From here, you can inspect each endpoint, see its URL, check if it needs authent
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../generate-documentation/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../file-structure/">
                     <i class="bi bi-chevron-left"></i>
-                    Generate Documentation
+                    File Structure
                 </a>
             
         </li>
@@ -1151,8 +1384,8 @@ From here, you can inspect each endpoint, see its URL, check if it needs authent
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../use-documentation/">
-                    Use Documentation
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../packages/">
+                    Packages
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

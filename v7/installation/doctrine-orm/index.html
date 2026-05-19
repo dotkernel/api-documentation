@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1063,10 +1069,20 @@
     
 
     <h1 id="doctrine-orm">Doctrine ORM</h1>
-<p>This step saves the database connection credentials in an API configuration file.
-We do not cover the creation steps of the database itself.</p>
+<p>In this step you will:</p>
+<ul>
+<li><a href="#setup-database">Save the database connection credentials in the API configuration file</a>.</li>
+<li><a href="#understanding-table-names-prefixing">Learn about table names prefixing</a>.</li>
+<li><a href="#creating-migrations">Create a migration</a>.</li>
+<li><a href="#running-migrations">Run a migration</a>.</li>
+<li><a href="#executing-fixtures">Executing fixtures to populate your database</a>.</li>
+</ul>
+<blockquote>
+<p>We do not cover the creation steps of the database itself.</p>
+</blockquote>
 <h2 id="setup-database">Setup database</h2>
-<p>Create a new <strong>MariaDB</strong>/<strong>PostgreSQL</strong> database and set its collation to <code>utf8mb4_general_ci</code>.</p>
+<p>Create a new <strong>MariaDB</strong> or <strong>PostgreSQL</strong> database.
+We recommend using a character set that supports UTF-8.</p>
 <p>Make sure you fill out the database credentials in <code>config/autoload/local.php</code> under <code>$databases['mariadb']</code> or <code>$databases['postgresql']</code>.
 Below is the item you need to focus on:</p>
 <pre class="highlight"><code class="language-php">$databases = [
@@ -1091,49 +1107,25 @@ Below is the item you need to focus on:</p>
         'table_prefix' =&gt; '',
     ],
 ];</code></pre>
-<p><code>my_database</code>, <code>my_user</code>, <code>my_password</code> are provided only as an example.</p>
 <blockquote>
-<p>You can add more database connections to this array.
-Only one active connection is allowed at a time.
-By default, the application uses the 'mariadb' connection.
-You can switch to another connection by activating it under <code>doctrine</code> -&gt; <code>connection</code> -&gt; <code>orm_default</code> -&gt; <code>params</code>.</p>
+<p>The database <code>dotkernel</code> is provided as an example, but you can use any name you like.
+Make sure to use the same database name when you create the database in the next step.</p>
+<p>If needed, you can add more database connections to this array.
+Only <strong>one active database connection</strong> is allowed at a time, decided by the <code>doctrine.connection.orm_default.params</code> key in <code>config/autoload/local.php</code>.</p>
 </blockquote>
-<h3 id="creating-migrations">Creating migrations</h3>
-<p>Create a database migration by executing the following command:</p>
-<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations diff</code></pre>
-<p>The new migration file will be placed in <code>src/Core/src/App/src/Migration/</code>.</p>
-<h3 id="running-migrations">Running migrations</h3>
-<p>Run the database migrations by executing the following command:</p>
-<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations migrate</code></pre>
-<blockquote>
-<p>If you have already run the migrations, you may get the below message:</p>
-</blockquote>
-<pre class="highlight"><code class="language-text">WARNING! You have x previously executed migrations in the database that are not registered migrations.
-  {migration list}
-Are you sure you wish to continue? (y/n)</code></pre>
-<blockquote>
-<p>In this case, you should double-check to make sure the new migrations are ok to run.</p>
-</blockquote>
-<p>When using an empty database, you will get this confirmation message:</p>
-<pre class="highlight"><code class="language-text">WARNING! You are about to execute a migration in database "&lt;your_database_name&gt;" that could result in schema changes and data loss. Are you sure you wish to continue? (yes/no)</code></pre>
-<p>Hit <code>Enter</code> to confirm the operation.
-This will run all the migrations in chronological order.
-Each migration will be logged in the <code>migrations</code> table to prevent running the same migration more than once, which is often not desirable.</p>
-<p>If everything ran correctly, you will get this confirmation.</p>
-<pre class="highlight"><code class="language-text">[OK] Successfully migrated to version: Core\App\Migration\VersionYYYYMMDDHHMMSS</code></pre>
-<h3 id="executing-fixtures">Executing fixtures</h3>
-<p><strong>Fixtures are used to seed the database with initial values and should be executed after migrating the database.</strong></p>
-<p>To list all the fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:list</code></pre>
-<p>This will output all the fixtures in the order of execution.</p>
-<p>To execute all fixtures, run:</p>
-<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute</code></pre>
-<p>To execute a specific fixture, run:</p>
-<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute --class=FixtureClassName</code></pre>
-<p>More details on how fixtures work can be found on <a href="https://github.com/dotkernel/dot-data-fixtures#creating-fixtures">dot-data-fixtures documentation</a></p>
-<h3 id="prefixing-table-names">Prefixing table names</h3>
-<p>The database configuration array contains the key called <code>table_prefix</code>.
-By default, it is an empty string, which means that all the tables will use the names specified in their respective entities.</p>
+<p>By default, the application uses the <code>mariadb</code> connection, as seen in the <code>config/autoload/local.php</code> file below.
+You can switch to the 'postgresql' connection by commenting <code>'params' =&gt; $databases['mariadb']</code> and uncommenting <code>'params' =&gt; $databases['postgresql']</code>.</p>
+<pre class="highlight"><code class="language-php">'doctrine'            =&gt; [
+    'connection' =&gt; [
+        'orm_default' =&gt; [
+            'params' =&gt; $databases['mariadb'],
+//                'params' =&gt; $databases['postgresql'],
+        ],
+    ],
+],</code></pre>
+<h3 id="understanding-table-names-prefixing">Understanding Table Names Prefixing</h3>
+<p>The database configuration array contains an optional key called <code>table_prefix</code>.
+By default, it is an empty string, which means that all the tables will use the names specified in their respective entities, like below.</p>
 <pre class="highlight"><code class="language-text">├─ admin
 ├─ admin_login
 ├─ admin_role
@@ -1153,7 +1145,8 @@ By default, it is an empty string, which means that all the tables will use the 
 ├─ user_reset_password
 ├─ user_role
 └─ user_roles </code></pre>
-<p>By adding a prefix, for example <code>dot_</code>, all the table names will have the prefix appended to the table names specified in the entities.</p>
+<p>By adding a prefix, for example <code>dot_</code>, all the table names will have the prefix appended to the table names specified in the entities.
+This feature helps organize databases and prevent naming conflicts if you plan on installing multiple applications in a single database.</p>
 <pre class="highlight"><code class="language-text">├─ dot_admin
 ├─ dot_admin_login
 ├─ dot_admin_role
@@ -1177,6 +1170,86 @@ By default, it is an empty string, which means that all the tables will use the 
 <p>The configured prefix is prepended as is, no intermediary character will be added.</p>
 <p><code>doctrine_migration_versions</code> is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.</p>
 </blockquote>
+<h3 id="creating-migrations">Creating Migrations</h3>
+<p>When first installing the application, you will need to create a database migration.
+Migrations are used to create and update the database schema based on the entities defined in the application.
+Later, when you need to update the database schema (e.g., add/remove/edit columns), you will need to create new migrations to reflect the changes.</p>
+<blockquote>
+<p>Using migration files is recommended compared to manually editing the database schema because they make database changes repeatable, trackable, and safe across environments.</p>
+</blockquote>
+<p>Create a database migration by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations diff</code></pre>
+<p>You can expect a message like this:</p>
+<pre class="highlight"><code class="language-shell"> Generated new migration class to "src/Core/src/App/src/Migration/Version20260327154303.php"
+
+ To run just this migration for testing purposes, you can use migrations:execute --up "Core\\App\\Migration\\Version20260327154303"
+
+ To revert the migration you can use migrations:execute --down "Core\\App\\Migration\\Version20260327154303"</code></pre>
+<h3 id="running-migrations">Running Migrations</h3>
+<p>Running migrations is the process of applying the changes defined in the migration files to the database.</p>
+<blockquote>
+<p>Make sure to double-check changes before running migrations, especially when removing columns as this can result in data loss.
+The first migration should be safe, since the database is empty.</p>
+</blockquote>
+<p>Run the database migrations by executing the following command:</p>
+<pre class="highlight"><code class="language-shell">php ./vendor/bin/doctrine-migrations migrate</code></pre>
+<blockquote>
+<p>If you have already run the migrations, you may get the below message:</p>
+</blockquote>
+<pre class="highlight"><code class="language-text">WARNING! You have x previously executed migrations in the database that are not registered migrations.
+  {migration list}
+Are you sure you wish to continue? (y/n)</code></pre>
+<blockquote>
+<p>In this case, you should double-check to make sure the new migrations are ok to run.</p>
+</blockquote>
+<p>When using an empty database, you will get this confirmation message:</p>
+<pre class="highlight"><code class="language-text">WARNING! You are about to execute a migration in database "&lt;your_database_name&gt;" that could result in schema changes and data loss. Are you sure you wish to continue? (yes/no)</code></pre>
+<p>Hit <code>Enter</code> to confirm the operation.
+This will run all the migrations in chronological order.
+Each migration will be logged in the <code>migrations</code> table to prevent running the same migration more than once, which is often not desirable.</p>
+<p>If everything ran correctly, you will get this confirmation.</p>
+<pre class="highlight"><code class="language-text">[OK] Successfully migrated to version: Core\App\Migration\VersionYYYYMMDDHHMMSS</code></pre>
+<blockquote>
+<p>The version number <code>YYYYMMDDHHMMSS</code> is the timestamp of the migration.</p>
+</blockquote>
+<h3 id="executing-fixtures">Executing Fixtures</h3>
+<p>Fixtures are used to seed the database with initial values.
+This basically creates the first records in the database.</p>
+<blockquote>
+<p>Fixtures should be executed after migrating the database to ensure the tables are created.</p>
+<p>You can edit the initial records if your application demands it, even after running the fixtures.
+For example, you can edit the user roles or the initial users.</p>
+<p><strong>Important</strong></p>
+<p>Edit the names and passwords of the initial users to prevent unauthorized users from logging into your application.
+Make sure to do so in these files:</p>
+<ul>
+<li><code>src/Core/src/App/Fixture/UserLoader.php</code>.</li>
+<li><code>src/Core/src/App/Fixture/AdminLoader.php</code>.</li>
+</ul>
+<p>Check for these methods and change their default parameters:</p>
+<ul>
+<li><code>setIdentity</code>.</li>
+<li><code>usePassword</code>.</li>
+<li>And optionally <code>setFirstName</code> and <code>setLastName</code>.</li>
+</ul>
+</blockquote>
+<p>To execute fixtures, run:</p>
+<pre class="highlight"><code class="language-shell">php ./bin/doctrine fixtures:execute</code></pre>
+<p>If everything ran correctly, you will get this confirmation:</p>
+<pre class="highlight"><code class="language-shell">Executing Core\App\Fixture\AdminRoleLoader
+Executing Core\App\Fixture\OAuthClientLoader
+Executing Core\App\Fixture\OAuthScopeLoader
+Executing Core\App\Fixture\UserRoleLoader
+Executing Core\App\Fixture\AdminLoader
+Executing Core\App\Fixture\UserLoader
+Fixtures have been loaded.
+                .''
+      ._.-.___.' (`\
+     //(        ( `'
+    '/ )\ ).__. )
+    ' &lt;' `\ ._/'\
+       `   \     \</code></pre>
+<p>More details on how fixtures work can be found on <a href="https://github.com/dotkernel/dot-data-fixtures#usage">dot-data-fixtures documentation</a></p>
 
 
 

@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1063,30 +1069,38 @@
     
 
     <h1 id="configuration-files">Configuration Files</h1>
+<p>The post-update scripts from <code>composer.json</code> (under the key <code>post-update-cmd</code>) should have already created the files mentioned on this page.</p>
 <blockquote>
-<p>The installation script should have already created the files mentioned on this page.
-We mention them explicitly because you will need to visit them to fully configure your development environment.</p>
+<p>We mention these files explicitly because you will need to visit them to fully configure your development environment.
+You will need to do the same for the production environment when you deploy your application.</p>
 </blockquote>
 <h2 id="prepare-config-files">Prepare config files</h2>
+<p>The installation script will duplicate the following files:</p>
 <ul>
-<li>duplicate <code>config/autoload/cors.local.php.dist</code> as <code>config/autoload/cors.local.php</code></li>
+<li><code>config/autoload/cors.local.php.dist</code> as <code>config/autoload/cors.local.php</code>.</li>
 </ul>
 <blockquote>
-<p>If your API is consumed by another application, make sure to configure the <code>allowed_origins</code> variable.</p>
+<p>If your API is consumed by another application, make sure to configure the <code>allowed_origins</code> variable.
+Normally, the other configuration items in <code>cors.local.php</code> should be left as-is.
+If you need to tweak them, visit the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/">CORS tutorial</a>.</p>
 </blockquote>
 <ul>
-<li>
-<p>duplicate <code>config/autoload/local.php.dist</code> as <code>config/autoload/local.php</code></p>
-</li>
-<li>
-<p>duplicate <code>config/autoload/mail.local.php.dist</code> as <code>config/autoload/mail.local.php</code></p>
-</li>
+<li><code>config/autoload/local.php.dist</code> as <code>config/autoload/local.php</code>.</li>
 </ul>
 <blockquote>
-<p>If your API sends emails, make sure to fill in SMTP connection params</p>
+<p><code>local.php</code> is the main configuration file for your application.
+It contains the database connection parameters, the API key, and other configuration items.</p>
 </blockquote>
 <ul>
-<li><strong>optional</strong>: to run/create tests, duplicate <code>config/autoload/local.test.php.dist</code> as <code>config/autoload/local.test.php</code></li>
+<li><code>config/autoload/mail.local.php</code> from the <code>dot-mail</code> package installed in the <code>vendor</code> folder.</li>
+</ul>
+<blockquote>
+<p>If your API sends emails, you also need to configure the <code>mail</code> key.
+Most often, you will be using either <code>Sendmail</code> or <code>SMTP</code> to send emails.
+If you opt for <code>SMTP</code>, ake sure to configure the SMTP connection parameters under the <code>smtp_options</code> key.</p>
+</blockquote>
+<ul>
+<li><code>config/autoload/local.test.php.dist</code> as <code>config/autoload/local.test.php</code> to run and create tests.</li>
 </ul>
 <blockquote>
 <p>This creates a new in-memory database that your tests will run on.</p>

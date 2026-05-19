@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../introduction/architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1041,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#running-the-application" class="toc__link nav-link">Running the application</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#old-way-of-doing-things-using-php-built-in-server" class="toc__link nav-link">Old way of doing things, using PHP built-in server</a>
                 </li>
             
@@ -1075,13 +1085,27 @@
     
 
     <h1 id="test-the-installation">Test the installation</h1>
+<p>In this final step you will:</p>
+<ul>
+<li><a href="#running-the-application">Test the installation of your virtual host</a>.</li>
+<li><a href="#old-way-of-doing-things-using-php-built-in-server">Optionally, run a PHP built-in server</a>.</li>
+</ul>
 <blockquote>
 <p>If you are getting server error 500, make sure to check the folder permissions covered in the <a href="https://docs.dotkernel.org/api-documentation/v7/installation/faq/">FAQ page</a></p>
 </blockquote>
-<p>Sending a GET request to the <a href="http://0.0.0.0:8080/">home page</a> should output the following message:</p>
+<h2 id="running-the-application">Running the application</h2>
+<p>Send a GET request to the home page.
+You can do so by opening a browser and navigating to your virtual host URL.
+Alternatively, you can use a tool like <a href="https://www.usebruno.com/">Bruno</a>.</p>
+<p>The browser should output the following message:</p>
 <pre class="highlight"><code class="language-json">{"message": "Dotkernel API version 7"}</code></pre>
+<p>From this point on, you are ready to add custom code to your application.</p>
 <h2 id="old-way-of-doing-things-using-php-built-in-server">Old way of doing things, using PHP built-in server</h2>
+<p>This is an alternative way of accessing the API, without using a virtual host.
+Run this command from the project root:</p>
 <pre class="highlight"><code class="language-shell">php -S 0.0.0.0:8080 -t public</code></pre>
+<p>You should see something like this:</p>
+<pre class="highlight"><code class="language-shell">[Mon Mar 30 14:53:50 2026] PHP 8.4.15 Development Server (http://0.0.0.0:8080) started</code></pre>
 <h2 id="running-tests">Running tests</h2>
 <p>The project has two types of tests: functional and unit tests, you can run both types at the same type by executing this command:</p>
 <pre class="highlight"><code class="language-shell">php vendor/bin/phpunit</code></pre>

@@ -294,6 +294,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../packages/" class="subnavigation__link">Packages</a>
 </li>
 
@@ -1041,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#operating-system" class="toc__link nav-link">Operating System</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#webserver" class="toc__link nav-link">Webserver</a>
                 </li>
             
@@ -1053,11 +1063,19 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#rdbms" class="toc__link nav-link">RDBMS</a>
+                    <a href="#relational-database-management-system-rdbms" class="toc__link nav-link">Relational Database Management System (RDBMS)</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#recommended-extensions" class="toc__link nav-link">Recommended extensions</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#composer" class="toc__link nav-link">Composer</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#security-considerations" class="toc__link nav-link">Security Considerations</a>
                 </li>
             
             </ul>
@@ -1079,7 +1097,25 @@
     
 
     <h1 id="server-requirements">Server Requirements</h1>
-<p>For production, we highly recommend a *nix-based system.</p>
+<p>For production environments, we highly recommend a Linux-based system.
+Windows is supported for development via WSL2.</p>
+<h2 id="operating-system">Operating System</h2>
+<h3 id="production">Production</h3>
+<ul>
+<li>Linux (AlmaLinux, Debian)</li>
+<li>BSD (FreeBSD)</li>
+<li>macOS (Intel or Apple Silicon)</li>
+</ul>
+<h3 id="development">Development</h3>
+<ul>
+<li>Windows 10/11 (via WSL2 - see our <a href="https://docs.dotkernel.org/development/v2/setup/installation/">WSL2 Setup Guide</a>)</li>
+<li>macOS</li>
+<li>Linux</li>
+</ul>
+<blockquote>
+<p>We recommend a Linux-based environment for production because of its improved performance, stability, and security hardening options compared to Windows Server.
+It should also work on Microsoft's IIS server with minimal modifications, but we have not tested this setup in our projects.</p>
+</blockquote>
 <h2 id="webserver">Webserver</h2>
 <h3 id="apache-22">Apache &gt;= 2.2</h3>
 <ul>
@@ -1092,7 +1128,24 @@
 <h3 id="nginx">Nginx</h3>
 <p>You need to convert the provided Apache related <code>.htaccess</code> file into Nginx configuration instructions.</p>
 <h2 id="php-82">PHP &gt;= 8.2</h2>
-<p>Both mod_php and FCGI (FPM) are supported.</p>
+<p>Dotkernel API v7 requires PHP 8.2 or higher.
+Earlier PHP versions are not supported.</p>
+<h3 id="supported-php-configurations">Supported PHP Configurations</h3>
+<ul>
+<li>FPM (FastCGI Process Manager) - Recommended for production, better performance and security isolation</li>
+<li>FastCGI - Obsolete but still in use by some hosting providers</li>
+<li>CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures</li>
+</ul>
+<h3 id="why-php-82">Why PHP 8.2+?</h3>
+<p>Dotkernel API leverages modern PHP features:</p>
+<ul>
+<li>Named Arguments: Clearer function calls</li>
+<li>Match Expressions: More readable than switch statements</li>
+<li>Attributes: Metadata for dependency injection and OpenAPI documentation</li>
+<li>Union Types: Better type safety</li>
+<li>Nullsafe Operator: Safer null handling</li>
+<li>Constructor Property Promotion: Cleaner code</li>
+</ul>
 <h2 id="required-settings-and-modules-extensions">Required Settings and Modules &amp; Extensions</h2>
 <ul>
 <li>memory_limit &gt;= 128M</li>
@@ -1101,14 +1154,33 @@
 <li>CLI SAPI (for Cron Jobs)</li>
 <li>Composer (added to $PATH)</li>
 </ul>
-<h2 id="rdbms">RDBMS</h2>
+<h2 id="relational-database-management-system-rdbms">Relational Database Management System (RDBMS)</h2>
+<blockquote>
+<p>MySQL is NOT supported because it lacks native UUID support (required by Dotkernel API v7).
+MariaDB and PostgreSQL both have native UUID types and functions.</p>
+</blockquote>
+<h3 id="mariadb">MariaDB</h3>
+<p>Tested with:</p>
 <ul>
-<li>Tested with MariaDB 10.7, 10.11 LTS, 11.4 LTS, and 11.8 LTS</li>
-<li>Tested with PostgreSQL 13 and above</li>
+<li>MariaDB 10.7</li>
+<li>MariaDB 10.11 LTS (Long-Term Support)</li>
+<li>MariaDB 11.4 LTS</li>
+<li>MariaDB 11.8 LTS</li>
 </ul>
 <blockquote>
-<p>MySQL is not supported because of missing UUID support.</p>
+<p>It's recommended to use LTS versions for stability and security updates.</p>
 </blockquote>
+<h3 id="postgresql">PostgreSQL</h3>
+<p>Tested with:</p>
+<ul>
+<li>PostgreSQL 13 and above</li>
+</ul>
+<h3 id="database-collation">Database Collation</h3>
+<p>When creating databases, use:</p>
+<ul>
+<li>MariaDB: utf8mb4_general_ci or utf8mb4_unicode_ci</li>
+<li>PostgreSQL: C.UTF-8 or en_US.UTF-8</li>
+</ul>
 <h2 id="recommended-extensions">Recommended extensions</h2>
 <ul>
 <li><code>opcache</code></li>
@@ -1119,6 +1191,16 @@
 <li><code>zlib</code>, <code>zip</code>, <code>bz2</code> - if compressing files</li>
 <li><code>curl</code> (required if APIs are used)</li>
 <li><code>sqlite3</code> - for tests</li>
+</ul>
+<h2 id="composer">Composer</h2>
+<p>Dotkernel API requires Composer &gt;= 2.0 for managing PHP dependencies.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<ul>
+<li><strong>Firewall</strong>: Only expose ports 80 (HTTP) and 443 (HTTPS)</li>
+<li><strong>PHP</strong>: Disable dangerous functions: exec, shell_exec, passthru, system</li>
+<li><strong>Database</strong>: Use strong passwords, restrict user permissions</li>
+<li><strong>Files</strong>: Set proper permissions (644 for files, 755 for directories)</li>
+<li><strong>Updates</strong>: Keep PHP, web server, and database updated with security patches</li>
 </ul>
 
 
