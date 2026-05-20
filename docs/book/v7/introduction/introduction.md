@@ -54,7 +54,7 @@ For our API payloads (a value object for describing the API resource, its relati
 
 ## CORS
 
-By using `MezzioCorsMiddlewareCorsMiddleware`, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
+By using `Mezzio\Cors\Middleware\CorsMiddleware`, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
 The Router is used to detect every allowed request method by executing a route match with all possible request methods.
 Therefore, for every preflight request, there is at least one Router request.
 
@@ -67,7 +67,7 @@ We use [mezzio/mezzio-authentication-oauth2](https://github.com/mezzio/mezzio-au
 
 It is not unlikely for an API to send emails depending on the use case.
 Here is another area where Dotkernel API shines.
-Using `DotMailServiceMailService` provided by [dotkernel/dot-mail](https://github.com/dotkernel/dot-mail) you can send custom email templates.
+Using `Dot\Mail\Service\MailService` provided by [dotkernel/dot-mail](https://github.com/dotkernel/dot-mail) you can send custom email templates.
 
 ## Configuration
 
@@ -119,7 +119,7 @@ vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 
 ## Common Pitfalls
 
-> [!IMPORTANT]
+> !IMPORTANT
 > Remember:
 
 - Change default OAuth2 client credentials in production.
@@ -130,4 +130,9 @@ vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 ## Next Steps
 
 Ready to get started?
-Jump to the [Installation Guide](https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/) to set up your first Dotkernel API application.
+
+- Jump to the [Installation Guide](https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/) to set up your first Dotkernel API application.
+- Learn the [Upgrade Procedure](https://docs.dotkernel.org/api-documentation/v7/upgrading/upgrading/) between different versions of Dotkernel API.
+- Check out the [Architecture at a Glance](https://docs.dotkernel.org/api-documentation/v7/introduction/architecture-at-a-glance/).
+- Review the [Core Features](https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/).
+- Run through the [Tutorials](https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/) for step-by-step instructions on how to use Dotkernel API.
