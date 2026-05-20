@@ -7,10 +7,10 @@ Understanding the core structure is essential before diving into development.
 
 Since version 6.0, Dotkernel API is organized into two distinct layers: Core and App.
 
-| Layer       |                                               Purpose                                               | Items                                                                      |        Location |
-|-------------|---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|----------------|
-| Core        | The backbone of your application, the system-level infrastructure that handles fundamental concerns | Authentication & Authorization, Database, Common Services, Shared Entities |  src/Core/src/ |
-| App         |              The project-specific features, "business logic" of your application               | Routes, Handlers, Custom Services, Input Filters, Custom Middleware, Error Reporting      |   src/App/src/ |
+| Layer | Purpose                                                                                             | Items                                                                                | Location      |
+|-------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|---------------|
+| Core  | The backbone of your application, the system-level infrastructure that handles fundamental concerns | Authentication & Authorization, Database, Common Services, Shared Entities           | src/Core/src/ |
+| App   | The project-specific features, "business logic" of your application                                 | Routes, Handlers, Custom Services, Input Filters, Custom Middleware, Error Reporting | src/App/src/  |
 
 ## Architecture
 
@@ -91,13 +91,13 @@ Here's how a typical request flows through Dotkernel API:
 
 ## Key Components
 
-| Component             | Purpose                                                             | Example                                                                    | Notes                                                                           |
-|-----------------------|---------------------------------------------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| Handlers<br>(PSR-15) | Single-action request handlers instead of multi-action controllers  | `GetUserResourceHandler.php`<br>`PostUserResourceHandler.php`                  | Some of the benefits are separation of concerns, easier testing, clearer intent |
-| Services              | The Business logic layer sits between the handlers and repositories | Business rules validation<br>Data transformation<br>Cross-cutting concerns | Execution flow:<br>Handler → Service → Repository → Database                    |
-| Repositories          | Data access layer using Doctrine ORM                                | Query building<br>Entity persistence<br>Database abstraction               | Only componenet that interacts with the database                                | 
-| Input Filters         | Request validation using Laminas InputFilter                        | Filter and validate all forms and other user inputs                        | Execution flow:<br>Request → InputFilter → Validation → Handler                 |
-| Entities              | Representing database tables using Doctrine ORM            | `class User { ... }`                                                       | Ensure consistency between database and application data                                        |
+| Component         | Purpose                                                                                             | Example                                                                 | Notes                                                                            |
+|-------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Handlers (PSR-15) | Process incoming HTTP requests, coordinate application logic/services, and return the HTTP response | `GetUserResourceHandler.php`, `PostUserResourceHandler.php`             | Some of the benefits are: separation of concerns, easier testing, clearer intent |
+| Services          | Contains the business logic layer that sits between the handlers and repositories                   | Business rules validation, Data transformation, Cross-cutting concerns  | Execution flow: `Handler → Service → Repository → Database`                      |
+| Repositories      | Data access layer using Doctrine ORM                                                                | Query building, Entity persistence, Database abstraction                | The only component that interacts with the database                              | 
+| Input Filters     | Filter and validate requests using Laminas InputFilter                                              | Login form, contact us form, `$_GET` and `$_POST` values, CLI arguments | Execution flow: `Request → InputFilter → Validation → Handler`                   |
+| Entities          | Represent database tables using Doctrine ORM                                                        | `class User { ... }`                                                    | Ensure consistency between database and application data                         |
 
 ## Configuration Organization
 
