@@ -248,6 +248,12 @@
 
                     
                         
+<li class="subnavigation__list-item ">
+    <a href="../../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+                    
+                        
 
 
 
@@ -282,12 +288,6 @@
         
 <li class="subnavigation__list-item ">
     <a href="../file-structure/" class="subnavigation__link">File Structure</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
 </li>
 
         
@@ -1182,7 +1182,7 @@ By having them in a Git repository, you can share them with your team and keep t
 <h2 id="hypertext-application-language">Hypertext Application Language</h2>
 <p>For our API payloads (a value object for describing the API resource, its relational links, and any embedded/child resources related to it) we use <a href="https://github.com/mezzio/mezzio-hal">mezzio/mezzio-hal</a>.</p>
 <h2 id="cors">CORS</h2>
-<p>By using <code>MezzioCorsMiddlewareCorsMiddleware</code>, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
+<p>By using <code>Mezzio\Cors\Middleware\CorsMiddleware</code>, the CORS preflight will be recognized and the middleware will start to detect the proper CORS configuration.
 The Router is used to detect every allowed request method by executing a route match with all possible request methods.
 Therefore, for every preflight request, there is at least one Router request.</p>
 <h2 id="oauth-20">OAuth 2.0</h2>
@@ -1191,7 +1191,7 @@ We use <a href="https://github.com/mezzio/mezzio-authentication-oauth2">mezzio/m
 <h2 id="email">Email</h2>
 <p>It is not unlikely for an API to send emails depending on the use case.
 Here is another area where Dotkernel API shines.
-Using <code>DotMailServiceMailService</code> provided by <a href="https://github.com/dotkernel/dot-mail">dotkernel/dot-mail</a> you can send custom email templates.</p>
+Using <code>Dot\Mail\Service\MailService</code> provided by <a href="https://github.com/dotkernel/dot-mail">dotkernel/dot-mail</a> you can send custom email templates.</p>
 <h2 id="configuration">Configuration</h2>
 <p>From authorization at request route level to API keys for your application, you can find every configuration variable in the <code>config</code> directory.</p>
 <p>Registering a new module can be done by including its <code>ConfigProvider.php</code> in <code>config.php</code>.</p>
@@ -1221,7 +1221,7 @@ You can run both types at the same type by executing this command:</p>
 vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
 <h2 id="common-pitfalls">Common Pitfalls</h2>
 <blockquote>
-<p>[!IMPORTANT]
+<p>!IMPORTANT
 Remember:</p>
 </blockquote>
 <ul>
@@ -1231,8 +1231,14 @@ Remember:</p>
 <li>Run migrations and fixtures before accessing the API.</li>
 </ul>
 <h2 id="next-steps">Next Steps</h2>
-<p>Ready to get started?
-Jump to the <a href="https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/">Installation Guide</a> to set up your first Dotkernel API application.</p>
+<p>Ready to get started?</p>
+<ul>
+<li>Jump to the <a href="https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/">Installation Guide</a> to set up your first Dotkernel API application.</li>
+<li>Learn the <a href="https://docs.dotkernel.org/api-documentation/v7/upgrading/upgrading/">Upgrade Procedure</a> between different versions of Dotkernel API.</li>
+<li>Check out the <a href="https://docs.dotkernel.org/api-documentation/v7/architecture-at-a-glance/">Architecture at a Glance</a>.</li>
+<li>Review the <a href="https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/">Core Features</a>.</li>
+<li>Run through the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/">Tutorials</a> for step-by-step instructions on how to use Dotkernel API.</li>
+</ul>
 
 
 
@@ -1252,8 +1258,8 @@ Jump to the <a href="https://docs.dotkernel.org/api-documentation/v7/installatio
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../server-requirements/">
-                    Server Requirements
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../architecture-at-a-glance/">
+                    Architecture at a Glance
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
