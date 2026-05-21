@@ -6,9 +6,9 @@ In this step you will:
 - [Set file permissions](#set-file-and-folder-permissions).
 
 > If you are using the Microsoft Windows Operating System on your machine, you can use WSL2 as a development environment.
-> Read more about [installing and using WLS2](https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin//).
+> Read more about [installing and using WLS2](https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin/).
 
-> Make sure to review the [prerequisites](prerequisites.md) before proceeding.
+> Make sure to review the [prerequisites](https://docs.dotkernel.org/api-documentation/v7/introduction/server-requirements/) before proceeding.
 
 ## Clone the Project
 
