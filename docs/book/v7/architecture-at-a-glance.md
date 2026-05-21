@@ -5,39 +5,16 @@ Understanding the core structure is essential before diving into development.
 
 ## The Core vs App Split (Since v6.0)
 
-Since version 6.0, Dotkernel API is organized into two distinct layers:
+Since version 6.0, Dotkernel API is organized into two distinct layers: Core and App.
 
-### Core Layer
+| Layer | Purpose                                                                                             | Items                                                                                | Location      |
+|-------|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|---------------|
+| Core  | The backbone of your application, the system-level infrastructure that handles fundamental concerns | Authentication & Authorization, Database, Common Services, Shared Entities           | src/Core/src/ |
+| App   | The project-specific features, "business logic" of your application                                 | Routes, Handlers, Custom Services, Input Filters, Custom Middleware, Error Reporting | src/App/src/  |
 
-The **Core** is the backbone of your application—system-level infrastructure that handles fundamental concerns:
+## Architecture
 
-- Authentication & Authorization: OAuth2-based authentication with RBAC (Role-Based Access Control)
-- Database Setup: Doctrine ORM configuration, entity definitions, and repositories
-- Common Services: Mail service, error reporting, caching
-- Shared Entities: Admin/User entities, roles, permissions
-
-Location: `src/Core/src/`
-
-You typically don't modify Core unless you're updating system behavior or adding shared infrastructure features.
-
-### App Layer
-
-The **App** is where you build your project-specific features—the "business logic" of your application:
-
-- Routes: Endpoint definitions specific to your use case
-- Handlers: PSR-15 request handlers (like controllers, but single-action focused)
-- Custom Services: Business logic and data processing
-- Input Filters: Request validation rules
-- Custom Middleware: Application-specific middleware
-- Error Reporting: Frontend error collection endpoints
-
-Location: `src/App/src/`
-
-You spend most development time here, implementing your API's features and business logic.
-
-## Headless CMS Architecture
-
-Dotkernel API is built toward a Headless Platform architecture.
+Dotkernel API is built toward a **Headless Platform** architecture.
 Out of the box, it is a modular monolith that can be split into modules and microservices.
 
 ```quote
@@ -71,7 +48,7 @@ Out of the box, it is a modular monolith that can be split into modules and micr
                     └───────────────────────────────────┘
 ```
 
-## Modular Design
+## Modular Monolith Architecture
 
 Applications are organized into modules, each handling a specific domain.
 
@@ -114,60 +91,13 @@ Here's how a typical request flows through Dotkernel API:
 
 ## Key Components
 
-### Handlers (PSR-15)
-
-Single-action request handlers instead of multi-action controllers:
-
-```quote
-src/User/src/Handler/
-├─ GetUserCollectionHandler.php      (GET /user)
-├─ GetUserResourceHandler.php        (GET /user/{id})
-├─ PostUserResourceHandler.php       (POST /user)
-├─ PatchUserResourceHandler.php      (PATCH /user/{id})
-└─ DeleteUserResourceHandler.php     (DELETE /user/{id})
-```
-
-Benefits: Separation of concerns, easier testing, clearer intent.
-
-### Services
-
-The Business logic layer sits between the handlers and repositories:
-
-```quote
-Handler → Service → Repository → Database
-```
-
-Services handle:
-
-- Business rules validation
-- Data transformation
-- Cross-cutting concerns (caching, logging)
-
-### Repositories
-
-Data access layer using Doctrine ORM:
-
-- Query building
-- Entity persistence
-- Database abstraction
-
-### Input Filters
-
-Request validation using Laminas InputFilter:
-
-```quote
-Request → InputFilter → Validation → Handler
-```
-
-### Entities
-
-Doctrine ORM entities representing database tables:
-
-```php
-#[ORM\Entity]
-#[ORM\Table(name: 'user')]
-class User { ... }
-```
+| Component         | Purpose                                                                                             | Example                                                                 | Notes                                                                            |
+|-------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Handlers (PSR-15) | Process incoming HTTP requests, coordinate application logic/services, and return the HTTP response | `GetUserResourceHandler.php`, `PostUserResourceHandler.php`             | Some of the benefits are: separation of concerns, easier testing, clearer intent |
+| Services          | Contains the business logic layer that sits between the handlers and repositories                   | Business rules validation, Data transformation, Cross-cutting concerns  | Execution flow: `Handler → Service → Repository → Database`                      |
+| Repositories      | Data access layer using Doctrine ORM                                                                | Query building, Entity persistence, Database abstraction                | The only component that interacts with the database                              |
+| Input Filters     | Filter and validate requests using Laminas InputFilter                                              | Login form, contact us form, `$_GET` and `$_POST` values, CLI arguments | Execution flow: `Request → InputFilter → Validation → Handler`                   |
+| Entities          | Represent database tables using Doctrine ORM                                                        | `class User { ... }`                                                    | Ensure consistency between database and application data                         |
 
 ## Configuration Organization
 
@@ -177,11 +107,11 @@ config/
 ├─ pipeline.php                   (Middleware stack)
 ├─ container.php                  (Dependency injection)
 └─ autoload/
-├─ dependencies.global.php        (Service definitions)
-├─ authorization.global.php       (RBAC rules)
-├─ content-negotiation.global.php (Accept/Content-Type)
-├─ doctrine.global.php            (ORM configuration)
-└─ local.php                      (Environment-specific, ignored by VCS, private config)
+    ├─ dependencies.global.php        (Service definitions)
+    ├─ authorization.global.php       (RBAC rules)
+    ├─ content-negotiation.global.php (Accept/Content-Type)
+    ├─ doctrine.global.php            (ORM configuration)
+    └─ local.php                      (Environment-specific, ignored by VCS, private config)
 ```
 
 ## Dependency Injection
@@ -250,25 +180,24 @@ Services are automatically resolved and injected by AttributedServiceFactory.
 
 ## Standards & PSRs
 
-Dotkernel API adheres to PHP standards for interoperability:
-Core PSRs
+Dotkernel API adheres to PHP standards for interoperability.
+They ensure that your code can integrate with other PSR-compliant libraries.
 
-- **PSR-7**: HTTP Message Interfaces (Requests/Responses)
-- **PSR-11**: Container Interface (Dependency Injection)
-- **PSR-15**: HTTP Handlers and Middleware (Request processing)
+| PSR and Specifications                       | Git Implementation                                                                                                                                                 | Level      | Description                                       |
+|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------------------------------------------------|
+| [PSR-7](https://www.php-fig.org/psr/psr-7)   | [php-fig/http-message](https://github.com/php-fig/http-message)                                                                                                    | Core       | HTTP Message Interfaces (Requests/Responses)      |
+| [PSR-11](https://www.php-fig.org/psr/psr-11) | [php-fig/container](https://github.com/php-fig/container)                                                                                                          | Core       | Container Interface (Dependency Injection)        |
+| [PSR-15](https://www.php-fig.org/psr/psr-15) | [php-fig/http-server-handler](https://github.com/php-fig/http-server-handler), [php-fig/http-server-middleware](https://github.com/php-fig/http-server-middleware) | Core       | HTTP Handlers and Middleware (Request processing) |
+| [PSR-3](https://www.php-fig.org/psr/psr-3)   | [php-fig/log](https://github.com/php-fig/log)                                                                                                                      | Supporting | Logger Interface (Requests/Responses)             |
+| [PSR-4](https://www.php-fig.org/psr/psr-4)   | [php-fig/log](https://github.com/php-fig/log)                                                                                                                      | Supporting | Autoloading (File organization)                   |
+| [PSR-6](https://www.php-fig.org/psr/psr-6)   | [php-fig/cache](https://github.com/php-fig/cache)                                                                                                                  | Supporting | Caching Interface                                 |
+| [PSR-13](https://www.php-fig.org/psr/psr-13) | [php-fig/link](https://github.com/php-fig/link)                                                                                                                    | Supporting | Link Definition Interfaces                        |
+| [PSR-14](https://www.php-fig.org/psr/psr-14) | [php-fig/event-dispatcher](https://github.com/php-fig/event-dispatcher)                                                                                            | Supporting | Event Dispatcher                                  |
+| [PSR-17](https://www.php-fig.org/psr/psr-17) | [php-fig/http-factory](https://github.com/php-fig/http-factory)                                                                                                    | Supporting | HTTP Factories                                    |
+| [PSR-18](https://www.php-fig.org/psr/psr-18) | [php-fig/http-client](https://github.com/php-fig/http-client)                                                                                                      | Supporting | HTTP Client                                       |
+| [PSR-20](https://www.php-fig.org/psr/psr-20) | [php-fig/clock](https://github.com/php-fig/clock)                                                                                                                  | Supporting | Clock                                             |
 
-Supporting PSRs, installed by dependencies:
-
-- **PSR-3**: Logger Interface (Requests/Responses)
-- **PSR-4**: Autoloading (File organization)
-- **PSR-6**: Caching Interface
-- **PSR-13**: Link Definition Interfaces
-- **PSR-14**: Event Dispatcher
-- **PSR-17**: HTTP Factories
-- **PSR-18**: HTTP Client
-- **PSR-20**: Clock
-
-This ensures your code can integrate with other PSR-compliant libraries.
+> Supporting PSRs are installed by dependencies.
 
 ## Security Layers
 

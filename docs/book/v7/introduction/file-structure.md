@@ -1,8 +1,7 @@
 # File structure
 
-Dotkernel API follows the [PSR-4](https://www.php-fig.org/psr/psr-4/) standards.
-
-It is a good practice to standardize the file structure of projects.
+The Dotkernel API file structure follows the [PSR-4](https://www.php-fig.org/psr/psr-4/) standards.
+Standardizing the file structure of your project is considered good practice because it makes it easier to find and navigate the code.
 
 When using Dotkernel API, the following structure is installed by default:
 

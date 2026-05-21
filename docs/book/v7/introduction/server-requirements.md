@@ -8,8 +8,6 @@ Windows is supported for development via WSL2.
 ### Production
 
 - Linux (AlmaLinux, Debian)
-- BSD (FreeBSD)
-- macOS (Intel or Apple Silicon)
 
 ### Development
 
