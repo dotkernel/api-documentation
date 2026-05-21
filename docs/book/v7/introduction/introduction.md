@@ -133,6 +133,6 @@ Ready to get started?
 
 - Jump to the [Installation Guide](https://docs.dotkernel.org/api-documentation/v7/installation/getting-started/) to set up your first Dotkernel API application.
 - Learn the [Upgrade Procedure](https://docs.dotkernel.org/api-documentation/v7/upgrading/upgrading/) between different versions of Dotkernel API.
-- Check out the [Architecture at a Glance](https://docs.dotkernel.org/api-documentation/v7/introduction/architecture-at-a-glance/).
+- Check out the [Architecture at a Glance](https://docs.dotkernel.org/api-documentation/v7/architecture-at-a-glance/).
 - Review the [Core Features](https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/).
 - Run through the [Tutorials](https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/) for step-by-step instructions on how to use Dotkernel API.

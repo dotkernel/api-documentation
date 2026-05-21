@@ -7,8 +7,8 @@ Because of that, your platform needs to be flexible and allow growth in the long
 
 Our purpose is to reach a **Headless Platform** architecture for easier scalability.
 
-> The Headless Platform is a backend-only content management system that acts primarily as a content repository.
-> Compared to traditional CMS platforms (e.g., WordPress) that tightly couple the front end and back end, a Headless Platform decouples the content management from the presentation layer.
+> The Headless Platform is a backend system that provides data and functionality via an API, completely decoupled from any frontend presentation layer.
+> Unlike monolithic platforms like WordPress that bundle the backend and frontend together, a Headless Platform separates content delivery from the presentation layer.
 > The content is delivered through APIs allowing any frontend to fetch and display it, which also enables working in parallel on the backend and potentially multiple frontends.
 
 ## What is "App" and what is "Core"?

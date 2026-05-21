@@ -12,7 +12,7 @@ nav:
   - Home: index.md
   - v7:
       - Introduction: v7/introduction/introduction.md
-      - "Architecture at a Glance": v7/introduction/architecture-at-a-glance.md
+      - "Architecture at a Glance": v7/architecture-at-a-glance.md
       - Overview:
           - "Server Requirements": v7/introduction/server-requirements.md
           - "File Structure": v7/introduction/file-structure.md
