@@ -21,6 +21,28 @@ The browser should output the following message:
 
 From this point on, you are ready to add custom code to your application.
 
+### Importing the Bruno Collection
+
+[Bruno](https://www.usebruno.com/) is a Git-native API client we recommend using for working with the API.
+
+The endpoint collection is found in `documentation/Dotkernel_API.zip`.
+Import it in Bruno by following these steps:
+
+- Open the `My Workspace` dropdown and select `Import workspace`.
+- Either click-and-drag the `Dotkernel_API.zip` over the form or navigate to it via the `choose a file` link.
+- Click the `Import` button.
+
+The collection will be saved locally under the `Exact Location` field.
+
+Once it is imported, you can save it to one of your Git repositories to make it easier to share with your teammates.
+To do this:
+
+- Hover over the collection name until you see the `...` symbol.
+- Click `...` and select `Share`.
+- Share the collection in one of two ways:
+    - Select `Initialize Git Repository` and follow the instructions (recommended).
+    - **Alternativelly** select `Export` to save to `.zip` or `.yaml` files to share them manually.
+
 ## Old way of doing things, using PHP built-in server
 
 This is an alternative way of accessing the API, without using a virtual host.
