@@ -25,23 +25,35 @@ From this point on, you are ready to add custom code to your application.
 
 [Bruno](https://www.usebruno.com/) is a Git-native API client we recommend using for working with the API.
 
-The endpoint collection is found in `documentation/Dotkernel_API.zip`.
+The endpoint collection is found in `documentation/Dotkernel_API_Bruno.zip`.
 Import it in Bruno by following these steps:
 
 - Open the `My Workspace` dropdown and select `Import workspace`.
-- Either click-and-drag the `Dotkernel_API.zip` over the form or navigate to it via the `choose a file` link.
+- Either click-and-drag the `Dotkernel_API_Bruno.zip` file over the form or navigate to it via the `choose a file` link.
 - Click the `Import` button.
 
 The collection will be saved locally under the `Exact Location` field.
 
-Once it is imported, you can save it to one of your Git repositories to make it easier to share with your teammates.
+> Bruno also supports the Postman files included in the repository.
+> If you have already imported the collection using the `Dotkernel_API_Bruno.zip` file, you can skip this step.
+
+**Alternatively** import the collection into Bruno by using the Postman files:
+
+- Click on `+` next to `Collection` and select `Import Collection`.
+- Import [Dotkernel_API.postman_collection.json](/documentation/Dotkernel_API.postman_collection.json) to save the endpoints.
+- Select the new collection, then click on `0 collection environments`.
+- Either click-and-drag the [Dotkernel_API.postman_environment.json](/documentation/Dotkernel_API.postman_environment.json) file over the form or navigate to it via the `Import your environments` link to save it to the collection.
+
+### Sharing the Bruno Collection
+
+Once the collection is imported, you can save it to one of your Git repositories to make it easier to share with your teammates.
 To do this:
 
 - Hover over the collection name until you see the `...` symbol.
 - Click `...` and select `Share`.
 - Share the collection in one of two ways:
     - Select `Initialize Git Repository` and follow the instructions (recommended).
-    - **Alternativelly** select `Export` to save to `.zip` or `.yaml` files to share them manually.
+    - **Alternatively** select `Export` to save to `.zip` or `.yaml` files to share them manually.
 
 ## Old way of doing things, using PHP built-in server
 
