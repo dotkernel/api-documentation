@@ -1100,6 +1100,39 @@ Alternatively, you can use a tool like <a href="https://www.usebruno.com/">Bruno
 <p>The browser should output the following message:</p>
 <pre class="highlight"><code class="language-json">{"message": "Dotkernel API version 7"}</code></pre>
 <p>From this point on, you are ready to add custom code to your application.</p>
+<h3 id="importing-the-bruno-collection">Importing the Bruno Collection</h3>
+<p><a href="https://www.usebruno.com/">Bruno</a> is a Git-native API client we recommend using for working with the API.</p>
+<p>The endpoint collection is found in <code>documentation/Dotkernel_API_Bruno.zip</code>.
+Import it in Bruno by following these steps:</p>
+<ul>
+<li>Open the <code>My Workspace</code> dropdown and select <code>Import workspace</code>.</li>
+<li>Either click-and-drag the <code>Dotkernel_API_Bruno.zip</code> file over the form or navigate to it via the <code>choose a file</code> link.</li>
+<li>Click the <code>Import</code> button.</li>
+</ul>
+<p>The collection will be saved locally under the <code>Exact Location</code> field.</p>
+<blockquote>
+<p>Bruno also supports the Postman files included in the repository.
+If you have already imported the collection using the <code>Dotkernel_API_Bruno.zip</code> file, you can skip this step.</p>
+</blockquote>
+<p><strong>Alternatively</strong> import the collection into Bruno by using the Postman files:</p>
+<ul>
+<li>Click on <code>+</code> next to <code>Collection</code> and select <code>Import Collection</code>.</li>
+<li>Import <a href="/documentation/Dotkernel_API.postman_collection.json">Dotkernel_API.postman_collection.json</a> to save the endpoints.</li>
+<li>Select the new collection, then click on <code>0 collection environments</code>.</li>
+<li>Either click-and-drag the <a href="/documentation/Dotkernel_API.postman_environment.json">Dotkernel_API.postman_environment.json</a> file over the form or navigate to it via the <code>Import your environments</code> link to save it to the collection.</li>
+</ul>
+<h3 id="sharing-the-bruno-collection">Sharing the Bruno Collection</h3>
+<p>Once the collection is imported, you can save it to one of your Git repositories to make it easier to share with your teammates.
+To do this:</p>
+<ul>
+<li>Hover over the collection name until you see the <code>...</code> symbol.</li>
+<li>Click <code>...</code> and select <code>Share</code>.</li>
+<li>Share the collection in one of two ways:<ul>
+<li>Select <code>Initialize Git Repository</code> and follow the instructions (recommended).</li>
+<li><strong>Alternatively</strong> select <code>Export</code> to save to <code>.zip</code> or <code>.yaml</code> files to share them manually.</li>
+</ul>
+</li>
+</ul>
 <h2 id="old-way-of-doing-things-using-php-built-in-server">Old way of doing things, using PHP built-in server</h2>
 <p>This is an alternative way of accessing the API, without using a virtual host.
 Run this command from the project root:</p>
