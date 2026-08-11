@@ -1,5 +1,12 @@
 # API Evolution pattern
 
+## Summary
+
+Dotkernel API lets you evolve endpoints without breaking existing consumers by marking a handler with the `ResourceDeprecation` attribute.
+The `DeprecationMiddleware` then adds `Sunset` and `Link` response headers, telling consumers when the resource may stop responding and where the change is documented.
+
+## Details
+
 API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.
 
 ## How it works
@@ -63,3 +70,41 @@ Vary: Origin
 > Deprecations can only be attached to handler classes that implement `RequestHandlerInterface`.
 
 > The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value is provided and are `Link` related parts.
+
+## FAQ
+
+**Q: What do the `Sunset` and `Link` headers mean?**
+
+A: `Sunset` is the date on which the deprecated resource may stop responding; `Link` points to documentation describing the change.
+They are independent, so either can be used alone.
+
+**Q: What do I need in place before deprecations work?**
+
+A: `DeprecationMiddleware::class` must be present in your pipeline — in the default project, `config/pipeline.php`.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: Can I deprecate a single method rather than a whole resource?**
+
+A: The `ResourceDeprecation` attribute is applied to the handler class, so the unit of deprecation is the handler.
+Since each handler serves one method and route, deprecating the handler deprecates that method.
+
+**Q: What happens if I leave `Sunset` or `Link` empty?**
+
+A: The corresponding header is simply omitted from the response.
+
+**Q: What if the `Sunset` date is invalid?**
+
+A: It throws an error.
+The value has to be a valid date.
+
+**Q: Are `rel` and `type` required?**
+
+A: No. They default to `sunset` and `text/html`, and both relate to the `Link` header.
+
+**Q: Which classes can carry a deprecation?**
+
+A: Only handler classes implementing `RequestHandlerInterface`.
+
+**Q: How do I check that the headers are being sent?**
+
+A: Request the endpoint with `curl --head` and inspect the response headers.

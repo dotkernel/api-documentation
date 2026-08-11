@@ -1,5 +1,11 @@
 # Test the installation
 
+## Summary
+
+The final installation step: confirm the API answers on your virtual host, optionally serve it with PHP's built-in server instead, import the Bruno collection to explore the endpoints, and run the unit and functional test suites.
+
+## Details
+
 In this final step you will:
 
 - [Test the installation of your virtual host](#running-the-application).
@@ -89,3 +95,42 @@ vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
 ```shell
 vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 ```
+
+## FAQ
+
+**Q: How do I know the installation succeeded?**
+
+A: A GET request to the home page returns `{"message": "Dotkernel API version 7"}`.
+
+**Q: I get a 500 error instead. What should I check first?**
+
+A: Folder permissions on `data`, `public/uploads` and `log`.
+The [FAQ page](faq.md) lists the exact error messages and their fixes.
+
+**Q: Do I need a virtual host?**
+
+A: No. `php -S 0.0.0.0:8080 -t public` serves the application without one, which is convenient for a quick check.
+
+**Q: What is Bruno and why use it?**
+
+A: Bruno is a Git-native API client.
+The repository ships a ready-made collection of every endpoint in `documentation/Dotkernel_API_Bruno.zip`, so you can exercise the API without writing requests by hand.
+
+**Q: Can I import the collection from the Postman files instead?**
+
+A: Yes — Bruno also reads the included Postman collection and environment files.
+If you already imported the `.zip`, there is no need.
+
+**Q: How do I share the collection with my team?**
+
+A: From the collection's `...` menu choose `Share`, then either initialize a Git repository (recommended) or export to `.zip` or `.yaml`.
+
+**Q: How do I run only one kind of test?**
+
+A: Pass the suite name: `--testsuite=UnitTests` or `--testsuite=FunctionalTests`.
+Running `php vendor/bin/phpunit` with no arguments runs both.
+
+**Q: Which database do the tests use?**
+
+A: The in-memory database configured in `config/autoload/local.test.php`, not your development database.
+See [Configuration files](configuration-files.md).

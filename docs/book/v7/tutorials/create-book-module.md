@@ -1,5 +1,10 @@
 # Implementing a book module in Dotkernel API
 
+## Summary
+
+A complete, hand-written walkthrough of adding a `Book` module: the file layout split between the `Api\Book` and `Core\Book` namespaces, then the code for the entity, repository, collection, service and interface, the reusable inputs and their input filter, the list, view and create handlers, both `ConfigProvider` classes and the `RoutesDelegator`.
+It closes with registering the module and its namespaces, granting route permissions, generating and running the migration, and exercising the endpoints with curl.
+
 ## Folder and files structure
 
 The below files structure is what we will have at the end of this tutorial and is just an example; you can have multiple components such as event listeners, wrappers, etc.
@@ -894,3 +899,66 @@ The link should have the following format:
 ```shell
 curl http://0.0.0.0:8080/book/{id}
 ```
+
+## FAQ
+
+**Q: Why is the module split across two namespaces?**
+
+A: `Api\Book` holds what serves requests — handlers, service, input filters, routes — while `Core\Book` holds the persistence layer: the entity, its repository and the Doctrine configuration.
+See [Core and App](../extended-features/core-and-app.md).
+
+**Q: What are the three steps to register the module?**
+
+A: Add `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` to `config/config.php`, map both namespaces under `autoload.psr-4` in `composer.json`, and run `composer dump-autoload`.
+
+**Q: What does each `ConfigProvider` do?**
+
+A: The `Api` one registers the handlers, service and input filter as factories and declares the HAL resource and collection metadata.
+The `Core` one registers the repository and points Doctrine's attribute driver at the module's `Entity` folder.
+
+**Q: Why does `GetBookResourceHandler` need no constructor?**
+
+A: The `#[Resource(entity: Book::class)]` attribute makes the middleware load the entity and place it on the request, so the handler only reads the request attribute and renders it.
+
+**Q: How does the create handler validate input?**
+
+A: It fills the injected `CreateBookInputFilter` from the parsed body and, if validation fails, throws `BadRequestException` with the filter's messages in the `errors` field.
+See [Injectable input filters](../extended-features/injectable-input-filters.md).
+
+**Q: Why are the inputs separate classes?**
+
+A: To keep `CreateBookInputFilter` readable and let the same input be reused by other filters.
+Defining them inline works too — the page shows that version.
+
+**Q: What is `BookCollection` for?**
+
+A: It wraps the query builder returned by the service so the list endpoint renders as a HAL collection with embedded items and links.
+
+**Q: Why does `BookService` restrict the sortable columns?**
+
+A: Because the sort field comes from the query string.
+Only `book.name`, `book.author`, `book.releaseDate` and `book.created` are accepted, and anything else falls back to `book.created`.
+
+**Q: Where do the route names come from and why do they matter?**
+
+A: They are the third argument in `RoutesDelegator` — `book::create-book`, `book::view-book` and `book::list-books`.
+A permission in Dotkernel API *is* a route name, so these are the values you grant.
+See [Authorization](../core-features/authorization.md).
+
+**Q: My endpoints return 403 even though the code is in place. What is missing?**
+
+A: The three route names under `UserRoleEnum::Guest->value` in `config/autoload/authorization.global.php`.
+
+**Q: Why does `RoutesDelegator` use a UUID regexp for the id?**
+
+A: Because entities identify themselves with UUIDs via `UuidIdentifierTrait`, so `/book/{id}` should only match a UUID-shaped segment.
+
+**Q: When do I create the database table?**
+
+A: After the entity is finished: validate the mapping with `php ./bin/doctrine orm:validate-schema`, then run `doctrine-migrations diff` and `migrate`.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: Is there a faster way to produce all these files?**
+
+A: Yes — `dotkernel/dot-maker` generates the same skeleton.
+See [Creating a book module using DotMaker](create-book-module-via-dot-maker.md).

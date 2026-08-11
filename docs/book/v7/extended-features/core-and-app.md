@@ -1,5 +1,12 @@
 # Core and App code structure
 
+## Summary
+
+From version 6.0 onward the project is split into **Core**, which holds the low-level business logic and infrastructure, and **App**, where you build your own features.
+The split supports a Headless Platform architecture and keeps project-specific code separate from the framework's foundations.
+
+## Details
+
 Since version 6.0, the project is split into two main parts: **App** and **Core**.
 
 When you start a new project, there are chances that the requirements are not defined well.
@@ -36,3 +43,35 @@ The **App** is where you build your actual project — the "body" of your applic
     - Error reporting
 
 If you're building features for the project, you're mostly working here.
+
+## FAQ
+
+**Q: Which part should my new feature go into?**
+
+A: App.
+Put routes, handlers and feature-specific logic there, and only touch Core when you need to change how the system works underneath.
+
+**Q: Why was the codebase split this way?**
+
+A: To keep project code decoupled from the platform's foundations, so requirements can change without rewriting infrastructure.
+This is what makes a Headless Platform architecture practical.
+
+**Q: What does "Headless Platform" mean here?**
+
+A: A backend that exposes data and functionality purely through an API, with no bundled frontend.
+Any number of frontends can consume it, and backend and frontend work can proceed in parallel.
+
+**Q: Can Core code depend on App code?**
+
+A: No — the dependency runs one way.
+App builds on Core; Core must remain independent of any particular project's features.
+
+**Q: Where do entities and repositories live?**
+
+A: Shared, low-level persistence concerns belong in Core, while entities and repositories specific to your own modules belong in App.
+See [File structure](../introduction/file-structure.md).
+
+**Q: Was this split present before version 6.0?**
+
+A: No. It was introduced in 6.0 when common logic was moved into the Core module.
+See [Upgrading from 5.x to 6.0](../upgrading/UPGRADE-6.0.md).

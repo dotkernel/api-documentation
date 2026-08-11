@@ -1,5 +1,12 @@
 # Composer Installation of Packages
 
+## Summary
+
+Running `composer install` pulls in the dependencies and also runs the project's setup scripts, which generate the OAuth2 keys and the initial `config/autoload` files.
+This page covers the prompts you will be asked during installation and how to enable, disable and check development mode afterwards.
+
+## Details
+
 In this step you will:
 
 - [Install dependencies](#install-dependencies-using-composer).
@@ -103,3 +110,48 @@ composer development-status
 ```
 
 You should see the message `Development mode is ENABLED` or `Development mode is DISABLED`.
+
+## FAQ
+
+**Q: Why should I run `composer install` from the CLI rather than an IDE?**
+
+A: The setup script asks interactive questions, and some IDEs cannot display those prompts.
+Answering them incorrectly — or not at all — leaves the project misconfigured.
+
+**Q: What does the installation do besides downloading packages?**
+
+A: It writes `composer.lock`, configures PHP CodeSniffer, generates the OAuth2 keys into `data/oauth`, and creates the initial `config/autoload` files.
+
+**Q: Will re-running `composer install` overwrite my configuration?**
+
+A: No. The post-install scripts run on every `composer install` and `composer update`, but they check whether each file already exists before writing it.
+
+**Q: Composer asks where to inject `Laminas\Diactoros\ConfigProvider`. What do I answer?**
+
+A: `0` — do not inject.
+Dotkernel already registers its own ConfigProvider, and a duplicate registration can break packages you add later.
+
+**Q: Should I answer `y` to remembering that choice?**
+
+A: Yes.
+It applies the same answer to other packages of the same type, so the rest of the installation runs without further prompts.
+
+**Q: Why does the package count differ from the documentation?**
+
+A: The number changes as dependencies are updated.
+The example figure is only indicative.
+
+**Q: What does development mode actually change?**
+
+A: It stops certain files from being cached in `data/cache` and activates the development error handlers, so code and configuration changes take effect immediately.
+
+**Q: How do I check or change development mode later?**
+
+A: `composer development-status` reports the state, `composer development-enable` turns it on and `composer development-disable` turns it off.
+Never leave it enabled in production.
+See [Basic security](../security/basic-security.md).
+
+**Q: What is the next installation step?**
+
+A: Reviewing the generated configuration files.
+See [Configuration files](configuration-files.md).

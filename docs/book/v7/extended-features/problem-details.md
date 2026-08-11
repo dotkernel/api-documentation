@@ -1,5 +1,12 @@
 # Problem details
 
+## Summary
+
+Dotkernel API returns errors as RFC 9457 Problem Details documents via `mezzio/mezzio-problem-details`, so a failed request carries a title, type, status and detail instead of an opaque message.
+This page shows the response shape, the middleware that produces it, the slimmed-down exceptions behind it, and where to map status codes to documentation links.
+
+## Details
+
 With the usage of `mezzio/mezzio-problem-details` we have implemented a way to help the developers understand better the errors that they are getting from their APIs based on the [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html) standards.
 
 Example of a response with details:
@@ -76,3 +83,34 @@ return [
     ],
 ];
 ```
+
+## FAQ
+
+**Q: Which standard do the error responses follow?**
+
+A: [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html), the Problem Details format for HTTP APIs.
+
+**Q: What fields does a problem details response contain?**
+
+A: At minimum a title, a type, the HTTP status and a detail message.
+You can add further fields when a specific error needs more context.
+
+**Q: Where are the middlewares registered?**
+
+A: `ProblemDetailsMiddleware` and `ProblemDetailsNotFoundHandler` are wired into `config/pipeline.php`.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: How do I change the `type` link for a status code?**
+
+A: Edit `default_types_map` in `config/autoload/problem-details.global.php` and point the status code at your own URL.
+
+**Q: How do I raise a problem details error from my own code?**
+
+A: Throw one of the project exceptions, for example `BadRequestException::create($detail)`.
+The middleware converts it into the response.
+See [Exceptions](../core-features/exceptions.md).
+
+**Q: Can I attach extra data to an error response?**
+
+A: Yes.
+Pass the `additional` array to the exception's `create()` method and those fields appear alongside the standard ones.

@@ -1,5 +1,11 @@
 # File structure
 
+## Summary
+
+A tour of the directories a default Dotkernel API installation ships with — `bin` for CLI entry points, `config` and `config/autoload` for application and service configuration, `data` for caches, migrations and OAuth keys, `log` for daily logs, `public` as the web entry point, and `src` for the modules — plus the folders and files each module is expected to contain.
+
+## Details
+
 The Dotkernel API file structure follows the [PSR-4](https://www.php-fig.org/psr/psr-4/) standards.
 Standardizing the file structure of your project is considered good practice because it makes it easier to find and navigate the code.
 
@@ -113,3 +119,53 @@ This folder contains the template files, used, for example, to help render e-mai
 
 > `twig` is used as Templating Engine.
 > All template files have the extension `.html.twig`
+
+## FAQ
+
+**Q: Which standard does the structure follow?**
+
+A: [PSR-4](https://www.php-fig.org/psr/psr-4/) autoloading, so a class's namespace maps directly onto its path.
+
+**Q: Where does my own code go?**
+
+A: In a new folder under `src`, alongside the default `Admin`, `App`, `Core`, `Security` and `User` modules.
+See [Core and App](../extended-features/core-and-app.md).
+
+**Q: Which files must every module have?**
+
+A: `ConfigProvider.php` for its configuration, `RoutesDelegator.php` for its routes and `OpenAPI.php` for its endpoint documentation.
+
+**Q: What folders does a module typically contain?**
+
+A: `Handler`, `Entity`, `Service` and `Repository`, omitting any that would be empty.
+Modules commonly also add `InputFilter`, `EventListener`, `Helper`, `Command` and `Factory`.
+
+**Q: Which directories need to be writable?**
+
+A: `data`, `log` and `public/uploads`.
+See [Clone the project](../installation/getting-started.md).
+
+**Q: What is the application's entry point?**
+
+A: `public/index.php`.
+Only the `public` folder is served directly; everything else is routed through it by the `.htaccess` rewrite rules.
+
+**Q: Where is the middleware pipeline defined?**
+
+A: `config/pipeline.php`, which lists the middlewares in execution order.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: What is the difference between `config` and `config/autoload`?**
+
+A: `config` holds application-level wiring — the container, the pipeline, the config aggregator.
+`config/autoload` holds per-service configuration, split into `*.global.php` files that are committed and `*.local.php` files that are not.
+
+**Q: Where are the OAuth2 keys kept?**
+
+A: In `data/oauth`.
+They are generated during installation and must never be committed.
+See [OAuth2 security](../security/oauth2-security.md).
+
+**Q: Why is `robots.txt` shipped as `robots.txt.dist`?**
+
+A: So you can activate it deliberately: copy it to `robots.txt` and comment out the lines that do not match your environment.
