@@ -1,0 +1,91 @@
+# Test the installation
+
+In this final step you will:
+
+- [Test the installation of your virtual host](#running-the-application).
+- [Optionally, run a PHP built-in server](#old-way-of-doing-things-using-php-built-in-server).
+
+> If you are getting server error 500, make sure to check the folder permissions covered in the [FAQ page](https://docs.dotkernel.org/api-documentation/v7/installation/faq/)
+
+## Running the application
+
+Send a GET request to the home page.
+You can do so by opening a browser and navigating to your virtual host URL.
+Alternatively, you can use a tool like [Bruno](https://www.usebruno.com/).
+
+The browser should output the following message:
+
+```json
+{"message": "Dotkernel API version 7"}
+```
+
+From this point on, you are ready to add custom code to your application.
+
+### Importing the Bruno Collection
+
+[Bruno](https://www.usebruno.com/) is a Git-native API client we recommend using for working with the API.
+
+The endpoint collection is found in `documentation/Dotkernel_API_Bruno.zip`.
+Import it in Bruno by following these steps:
+
+- Open the `My Workspace` dropdown and select `Import workspace`.
+- Either click-and-drag the `Dotkernel_API_Bruno.zip` file over the form or navigate to it via the `choose a file` link.
+- Click the `Import` button.
+
+The collection will be saved locally under the `Exact Location` field.
+
+> Bruno also supports the Postman files included in the repository.
+> If you have already imported the collection using the `Dotkernel_API_Bruno.zip` file, you can skip this step.
+
+**Alternatively** import the collection into Bruno by using the Postman files:
+
+- Click on `+` next to `Collection` and select `Import Collection`.
+- Import [Dotkernel_API.postman_collection.json](/documentation/Dotkernel_API.postman_collection.json) to save the endpoints.
+- Select the new collection, then click on `0 collection environments`.
+- Either click-and-drag the [Dotkernel_API.postman_environment.json](/documentation/Dotkernel_API.postman_environment.json) file over the form or navigate to it via the `Import your environments` link to save it to the collection.
+
+### Sharing the Bruno Collection
+
+Once the collection is imported, you can save it to one of your Git repositories to make it easier to share with your teammates.
+To do this:
+
+- Hover over the collection name until you see the `...` symbol.
+- Click `...` and select `Share`.
+- Share the collection in one of two ways:
+    - Select `Initialize Git Repository` and follow the instructions (recommended).
+    - **Alternatively** select `Export` to save to `.zip` or `.yaml` files to share them manually.
+
+## Old way of doing things, using PHP built-in server
+
+This is an alternative way of accessing the API, without using a virtual host.
+Run this command from the project root:
+
+```shell
+php -S 0.0.0.0:8080 -t public
+```
+
+You should see something like this:
+
+```shell
+[Mon Mar 30 14:53:50 2026] PHP 8.4.15 Development Server (http://0.0.0.0:8080) started
+```
+
+## Running tests
+
+The project has two types of tests: functional and unit tests, you can run both types at the same type by executing this command:
+
+```shell
+php vendor/bin/phpunit
+```
+
+## Running unit tests
+
+```shell
+vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
+```
+
+## Running functional tests
+
+```shell
+vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
+```
