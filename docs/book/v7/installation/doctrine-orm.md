@@ -184,6 +184,20 @@ If everything ran correctly, you will get this confirmation.
 
 > The version number `YYYYMMDDHHMMSS` is the timestamp of the migration.
 
+### Important Security Concern
+
+The following section deals with fixtures which create the first user and role records in the database.
+We recommend you **edit the names and passwords** found in the files below to prevent unauthorized users from logging into your application:
+
+- `src/Core/src/App/Fixture/UserLoader.php`.
+- `src/Core/src/App/Fixture/AdminLoader.php`.
+
+Look for these methods and change their current parameters:
+
+- `setIdentity` for the **username**,
+- `usePassword` for the **password**,
+- and optionally `setFirstName` and `setLastName`.
+
 ### Executing Fixtures
 
 Fixtures are used to seed the database with initial values.
@@ -193,20 +207,6 @@ This basically creates the first records in the database.
 
 > You can edit the initial records if your application demands it, even after running the fixtures.
 > For example, you can edit the user roles or the initial users.
-
-> **Important**
->
-> Edit the names and passwords of the initial users to prevent unauthorized users from logging into your application.
-> Make sure to do so in these files:
->
-> - `src/Core/src/App/Fixture/UserLoader.php`.
-> - `src/Core/src/App/Fixture/AdminLoader.php`.
->
-> Check for these methods and change their default parameters:
->
-> - `setIdentity`.
-> - `usePassword`.
-> - And optionally `setFirstName` and `setLastName`.
 
 To execute fixtures, run:
 
