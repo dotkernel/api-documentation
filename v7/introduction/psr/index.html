@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#why-psrs-matter-for-dotkernel-api" class="toc__link nav-link">Why PSRs Matter for Dotkernel API</a>
                 </li>
             
@@ -1060,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#supporting-psrs-installed-via-dependencies" class="toc__link nav-link">Supporting PSRs (Installed via Dependencies)</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1129,9 @@
     
 
     <h1 id="psrs">PSRs</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API is built on the PHP-FIG standards, which keep your code portable and let PSR-compliant libraries drop in without adapters.
+PSR-7 (HTTP messages), PSR-15 (handlers and middleware) and PSR-11 (container) are architectural foundations; PSR-3, PSR-4, PSR-6, PSR-13, PSR-14, PSR-17, PSR-18 and PSR-20 arrive through dependencies.</p>
 <h2 id="why-psrs-matter-for-dotkernel-api">Why PSRs Matter for Dotkernel API</h2>
 <ul>
 <li><strong>Vendor Lock-In Prevention</strong>: By following PSRs, you're not locked into Dotkernel API. Your code can be reused in other PSR-compliant frameworks.</li>
@@ -1226,6 +1237,32 @@
 │ PSR-4: Autoloader                         │
 │ (Loads services automatically)            │
 └───────────────────────────────────────────┘</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which PSRs are essential to the architecture?</strong></p>
+<p>A: PSR-7, PSR-15 and PSR-11.
+Everything else is supporting, arriving through dependencies rather than shaping the design.</p>
+<p><strong>Q: What does building on PSRs buy me in practice?</strong></p>
+<p>A: Portability.
+Because your handlers and services depend on standard interfaces rather than framework classes, they can be reused in any other PSR-compliant framework, and third-party PSR libraries integrate without custom adapters.</p>
+<p><strong>Q: What implements PSR-7 here?</strong></p>
+<p>A: <code>Laminas\Diactoros</code>, which also provides the PSR-17 HTTP factories.</p>
+<p><strong>Q: How does PSR-15 show up in the code I write?</strong></p>
+<p>A: Every handler implements <code>RequestHandlerInterface</code> and serves a single action, and requests travel through a middleware pipeline.
+See <a href="../../extended-features/handler-structure/">The new handler structure</a>.</p>
+<p><strong>Q: Which container is used?</strong></p>
+<p>A: <code>Laminas\ServiceManager</code>, behind the PSR-11 interface.
+See <a href="../../core-features/dependency-injection/">Dependency injection</a>.</p>
+<p><strong>Q: Which PSR governs the file layout?</strong></p>
+<p>A: PSR-4 autoloading, which maps namespaces to paths.
+See <a href="../file-structure/">File structure</a>.</p>
+<p><strong>Q: Do I need to install anything to use PSR-3 logging or PSR-6 caching?</strong></p>
+<p>A: No. They come with <code>dotkernel/dot-errorhandler</code> and <code>dotkernel/dot-cache</code> respectively.
+See <a href="../packages/">Packages</a>.</p>
+<p><strong>Q: How do I call an external API from Dotkernel API?</strong></p>
+<p>A: Through a PSR-18 HTTP client such as <code>symfony/http-client</code>, so your calling code depends on the interface rather than a specific client.</p>
+<p><strong>Q: Are PSR-14 events and PSR-20 clock available out of the box?</strong></p>
+<p>A: Not by default.
+Both are supplied by third-party packages when a project needs them.</p>
 
 
 

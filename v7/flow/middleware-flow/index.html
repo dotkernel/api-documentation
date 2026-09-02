@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,8 +1117,26 @@
     
 
     <h1 id="middleware-flow">Middleware flow</h1>
+<h2 id="summary">Summary</h2>
+<p>A diagram of the default middleware pipeline in Dotkernel API, showing the order in which middlewares process an incoming request and the response on the way back out.</p>
+<h2 id="details">Details</h2>
 <p>The graph below demonstrates a default flow between Dotkernel's middlewares.</p>
 <p><img alt="Dotkernel API Middleware Flow!" src="https://docs.dotkernel.org/img/api/v7/dotkernel-middleware-flow.png" class="img-responsive"/></p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why does middleware order matter?</strong></p>
+<p>A: Each middleware may short-circuit the request or add attributes the next one relies on.
+For example, authentication must run before authorization, because authorization needs the resolved identity.</p>
+<p><strong>Q: Where is the pipeline defined?</strong></p>
+<p>A: In <code>config/pipeline.php</code>.
+That file is the authoritative order; the diagram is a visual summary of it.</p>
+<p><strong>Q: How do I add my own middleware?</strong></p>
+<p>A: Register it in the container, then insert it into <code>config/pipeline.php</code> at the position where it needs to run, or attach it to a specific route.</p>
+<p><strong>Q: Which middlewares are responsible for authentication and authorization?</strong></p>
+<p>A: <code>AuthenticationMiddleware</code> and <code>AuthorizationMiddleware</code>.
+See <a href="../../core-features/authentication/">Authentication</a> and <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: What happens when a middleware throws?</strong></p>
+<p>A: The error handling middleware at the top of the pipeline converts it into a Problem Details response.
+See <a href="../../extended-features/problem-details/">Problem Details</a>.</p>
 
 
 

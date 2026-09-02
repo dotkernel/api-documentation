@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#configuration" class="toc__link nav-link">Configuration</a>
                 </li>
             
@@ -1064,6 +1072,10 @@
             
                 <li class="toc__entry">
                     <a href="#security-best-practices" class="toc__link nav-link">Security Best Practices</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1125,6 +1137,11 @@
     
 
     <h1 id="authentication">Authentication</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API authenticates with the OAuth2 password grant through <code>mezzio/mezzio-authentication-oauth2</code>.
+Clients exchange credentials at <code>POST /security/generate-token</code> for an access token and a refresh token, then send the access token in the <code>Authorization</code> header; <code>POST /security/refresh-token</code> renews it.
+Requests without an <code>Authorization</code> header get a default <code>guest</code> identity, which can reach only public endpoints.</p>
+<h2 id="details">Details</h2>
 <p>Authentication is the process by which an identity is presented to the application.
 It ensures that the entity making the request has the proper credentials to access the API.</p>
 <p><strong>Dotkernel API</strong> identities are delivered to the application from the client through the <code>Authorization</code> request.
@@ -1334,6 +1351,40 @@ Get new Access Token  ───────────────────�
 <li><strong>Token expiration</strong>: Access tokens expire (default 1 day). Implement refresh logic in clients.</li>
 <li><strong>Never expose refresh tokens</strong>: Refresh tokens should only be stored client-side, never in logs or public code.</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What happens if a request sends no <code>Authorization</code> header?</strong></p>
+<p>A: The application assigns a default <code>guest</code> identity, an instance of <code>Mezzio\Authentication\UserInterface</code>.
+Guests can reach public endpoints but not protected ones.</p>
+<p><strong>Q: Which OAuth2 grant does the API use?</strong></p>
+<p>A: The password grant: credentials are exchanged once for tokens, and subsequent requests carry the access token instead of the credentials.</p>
+<p><strong>Q: What must I run before authenticating for the first time?</strong></p>
+<p>A: The migrations and fixtures — <code>php ./vendor/bin/doctrine-migrations migrate</code> followed by <code>php ./bin/doctrine fixtures:execute</code> — which create the OAuth tables and seed the initial credentials.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: What are the seeded credentials?</strong></p>
+<p>A: <code>admin</code> / <code>dotadmin</code> for the admin account and <code>test@dotkernel.com</code> / <code>dotkernel</code> for the user account.
+Remove or change them before production.
+See <a href="../../security/basic-security/">Basic security</a>.</p>
+<p><strong>Q: Why are admins and users in separate tables?</strong></p>
+<p>A: To keep application users away from data that only administrators should reach.
+Authenticated identities therefore come from either the <code>admin</code> or the <code>user</code> table.</p>
+<p><strong>Q: Which parameters does the token request need?</strong></p>
+<p>A: <code>grant_type</code>, <code>client_id</code>, <code>client_secret</code>, <code>scope</code>, <code>username</code> and <code>password</code>.
+The client values come from <code>oauth_clients</code> and the scope from <code>oauth_scopes</code>.</p>
+<p><strong>Q: How long do the tokens last?</strong></p>
+<p>A: Access tokens expire after one day and refresh tokens after one month, both configurable under the <code>authentication</code> key in <code>config/autoload/local.php</code>.</p>
+<p><strong>Q: How do I renew an expired access token?</strong></p>
+<p>A: Post the <code>refresh_token</code> to <code>/security/refresh-token</code> with <code>grant_type</code> set to <code>refresh_token</code>.
+If the refresh token has expired too, authenticate again with credentials.</p>
+<p><strong>Q: I get an "Invalid scope" error. What is wrong?</strong></p>
+<p>A: <code>scope</code> must be <code>"api"</code> — it is the only configured scope.</p>
+<p><strong>Q: I get "Invalid credentials" even though the password is right. What else could it be?</strong></p>
+<p>A: A mismatched <code>client_id</code> or <code>client_secret</code> against the <code>oauth_clients</code> table, or an account that does not exist or is inactive.</p>
+<p><strong>Q: Which middleware performs authentication?</strong></p>
+<p>A: <code>Api\App\Middleware\AuthenticationMiddleware</code>, which runs before authorization in the pipeline.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: Is authenticating enough to access an endpoint?</strong></p>
+<p>A: No. Authentication establishes the identity; the role still needs permission for the route.
+See <a href="../authorization/">Authorization</a>.</p>
 
 
 

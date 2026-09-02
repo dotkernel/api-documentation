@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="packages">Packages</h1>
+<h2 id="summary">Summary</h2>
+<p>The third-party and Dotkernel packages Dotkernel API depends on, with the version constraint and purpose of each.
+They fall into a few groups: Doctrine for persistence, Laminas components for configuration, hydration, validation and the service container, Mezzio for the PSR-15 pipeline with OAuth2, RBAC, CORS, HAL and problem details, the <code>dotkernel/dot-*</code> libraries, and <code>zircote/swagger-php</code> for API documentation.</p>
+<h2 id="details">Details</h2>
 <ul>
 <li><code>doctrine/dbal</code>:<code>^4.4</code> - Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.</li>
 <li><code>doctrine/orm</code>:<code>^3.6</code> - Object-Relational-Mapper for PHP</li>
@@ -1131,6 +1154,27 @@
 <li><code>symfony/filesystem</code>:<code>^7.4</code> - Provides basic utilities for the filesystem</li>
 <li><code>zircote/swagger-php</code>:<code>^5.8</code> - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Is this list authoritative?</strong></p>
+<p>A: The authoritative source is the <code>require</code> section of the project's <code>composer.json</code>.
+This page mirrors it with a short explanation of each entry.</p>
+<p><strong>Q: Which package provides the framework itself?</strong></p>
+<p>A: <code>mezzio/mezzio</code>, a PSR-15 middleware microframework.
+See <a href="../psr/">PSRs</a>.</p>
+<p><strong>Q: Which packages handle authentication and authorization?</strong></p>
+<p>A: <code>mezzio/mezzio-authentication-oauth2</code> for OAuth2 authentication, and <code>mezzio/mezzio-authorization-rbac</code> for role-based authorization.
+See <a href="../../core-features/authentication/">Authentication</a> and <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: Why are both <code>doctrine/dbal</code> and <code>doctrine/orm</code> listed?</strong></p>
+<p>A: DBAL is the database abstraction and schema layer; ORM maps entities on top of it.
+The ORM requires DBAL underneath.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: What are the <code>dotkernel/dot-*</code> packages for?</strong></p>
+<p>A: They are Dotkernel's own components — CLI, cache, mail, router, error handler, dependency injection and data fixtures — reused across Dotkernel projects rather than duplicated in each one.</p>
+<p><strong>Q: Can I remove a package I don't use?</strong></p>
+<p>A: Some can be removed, but many are wired into the default configuration and pipeline.
+Remove the corresponding configuration and pipeline entries first, then verify the application and tests still run.</p>
+<p><strong>Q: Why are both the ACL and RBAC authorization adapters present?</strong></p>
+<p>A: RBAC is what Dotkernel API uses by default; the ACL adapter is available if your project needs access-control-list semantics instead.</p>
 
 
 

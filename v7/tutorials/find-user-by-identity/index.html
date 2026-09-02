@@ -1047,11 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#our-goal" class="toc__link nav-link">Our goal</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#what-we-have" class="toc__link nav-link">What we have</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1121,9 @@
     
 
     <h1 id="a-practical-example-find-a-user-by-identity">A practical example: Find a user by identity</h1>
+<h2 id="summary">Summary</h2>
+<p>A worked example of adding an endpoint by following an existing one.
+Starting from <code>user.view</code>, which fetches a user by UUID, it builds an <code>IdentityHandler</code> that looks a user up by identity, registers it in the module's <code>ConfigProvider</code> and <code>RoutesDelegator</code>, grants the route a permission, and covers it with functional tests.</p>
 <h2 id="our-goal">Our goal</h2>
 <p>Create a new endpoint that fetches a user record by its identity column.</p>
 <p>We already have an endpoint that retrieves a user based on their UUID, so we can review it and create something similar.</p>
@@ -1280,6 +1291,33 @@ class IdentityTest extends AbstractFunctionalTest
     }
 }</code></pre>
 <p>Planning and coding a new feature can be challenging at times, but reviewing our existing code or tutorials can serve as a source of inspiration.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: How do I find the code behind an existing endpoint?</strong></p>
+<p>A: List the routes with <code>php ./bin/cli.php route:list</code>, then search for the route name in the module's <code>RoutesDelegator.php</code> to find the handler it points to.
+See <a href="../../commands/display-available-endpoints/">Displaying Dotkernel API endpoints</a>.</p>
+<p><strong>Q: What are the steps to add an endpoint?</strong></p>
+<p>A: Create the handler, register it in the module's <code>ConfigProvider</code> under <code>factories</code>, declare the route in <code>RoutesDelegator.php</code>, and grant the route name a permission in <code>config/autoload/authorization.global.php</code>.</p>
+<p><strong>Q: Why must the new route be registered last?</strong></p>
+<p>A: Because <code>/user/{identity}</code> and <code>/user/{id}</code> match the same shape.
+Registering the new route last stops it from shadowing the existing ones.</p>
+<p><strong>Q: Which factory do I register the handler with?</strong></p>
+<p>A: <code>AttributedServiceFactory::class</code>, which resolves the dependencies declared by the handler's <code>#[Inject]</code> attribute.
+See <a href="../../core-features/dependency-injection/">Dependency injection</a>.</p>
+<p><strong>Q: Why does the handler throw two different exceptions?</strong></p>
+<p>A: <code>BadRequestException</code> covers a missing identity in the request (a client error in the input), while <code>NotFoundException</code> covers a valid identity with no matching record.
+They map to 400 and 404 respectively.
+See <a href="../../core-features/exceptions/">Exceptions</a>.</p>
+<p><strong>Q: Why is the route added under <code>UserRole::ROLE_GUEST</code>?</strong></p>
+<p>A: Only to keep the example simple — it lets everyone, including guests, view accounts.
+Real deployments should grant it to the narrowest role that needs it.
+See <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: Will the endpoint work without an authorization entry?</strong></p>
+<p>A: No. A route with no permission granted to the caller's role is refused, even though the handler and route exist.</p>
+<p><strong>Q: What should the tests cover?</strong></p>
+<p>A: The three outcomes: an empty identity, an identity with no matching user, and a valid identity returning the expected record.</p>
+<p><strong>Q: Where do functional tests live?</strong></p>
+<p>A: In the <code>test/Functional</code> folder, extending <code>AbstractFunctionalTest</code>.
+See <a href="../../installation/test-the-installation/">Test the installation</a>.</p>
 
 
 

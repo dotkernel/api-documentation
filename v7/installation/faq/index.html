@@ -1047,7 +1047,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#how-do-i-fix-common-permission-issues" class="toc__link nav-link">How do I fix common permission issues?</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1117,9 @@
     
 
     <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+<h2 id="summary">Summary</h2>
+<p>Solutions to the permission errors most often seen right after installation.
+Each one comes from a directory the application needs to write to — <code>data</code>, <code>data/cache</code>, <code>public/uploads</code> or <code>log</code> — and is fixed by granting write access to that directory.</p>
 <h2 id="how-do-i-fix-common-permission-issues">How do I fix common permission issues?</h2>
 <p>If running your project, you encounter some permission issues, follow the below steps.</p>
 <h3 id="errors">Errors</h3>
@@ -1131,6 +1142,22 @@
 </blockquote>
 <p><strong>Fix:</strong></p>
 <pre class="highlight"><code class="language-shell">chmod -R 777 log</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why do these errors appear right after installation?</strong></p>
+<p>A: The application writes caches to <code>data</code>, uploaded files to <code>public/uploads</code> and log files to <code>log</code>.
+If those directories are not writable by the web server user, the first request that needs them fails.</p>
+<p><strong>Q: Which directories need write access?</strong></p>
+<p>A: <code>data</code> (including <code>data/cache</code> and <code>data/cache/doctrine</code>), <code>public/uploads</code> and <code>log</code>.
+Applying the permissions recursively with <code>-R</code> covers the subdirectories.</p>
+<p><strong>Q: Is granting <code>777</code> safe?</strong></p>
+<p>A: Access to application files is governed by the <code>.htaccess</code> rules: only <code>public</code> is served directly and everything else is routed through <code>index.php</code>, so these writable folders are not reachable from the web.
+See <a href="../getting-started/">Clone the project</a>.</p>
+<p><strong>Q: I get a blank <code>500</code> response with no message. Where do I look?</strong></p>
+<p>A: Check the web server error log first, since a log directory that is not writable prevents the application from recording the error itself.
+Fixing the <code>log</code> permissions usually makes the real message appear.</p>
+<p><strong>Q: Are there other common installation problems besides permissions?</strong></p>
+<p>A: Yes — missing configuration files and an unmigrated database.
+See <a href="../configuration-files/">Configuration files</a> and <a href="../doctrine-orm/">Doctrine ORM</a>.</p>
 
 
 

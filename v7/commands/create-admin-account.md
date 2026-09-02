@@ -1,5 +1,10 @@
 # Creating admin accounts in Dotkernel API
 
+## Summary
+
+The `admin:create-admin` CLI command creates an administrator account from the command line, taking an identity, a password and a first and last name.
+Accounts created this way always receive the `admin` role.
+
 ## Usage
 
 Run the following command in your application’s root directory:
@@ -35,3 +40,31 @@ You can get more help with this command by running:
 ```shell
 php ./bin/cli.php help admin:create
 ```
+
+## FAQ
+
+**Q: Can I choose the role of the created account?**
+
+A: No. The command always assigns the `admin` role; other roles must be set afterwards.
+See [Authorization](../core-features/authorization.md).
+
+**Q: What can I use as the identity?**
+
+A: Either a username or an email address, as long as it is not already taken.
+
+**Q: My name or password contains special characters and the command fails. What do I do?**
+
+A: Surround the value in double quotes so the shell passes it through unchanged.
+
+**Q: Are the short and long option forms equivalent?**
+
+A: Yes.
+`-i`, `-p`, `-f` and `-l` are shorthand for `--identity`, `--password`, `--firstName` and `--lastName`.
+
+**Q: How do I know the account was created?**
+
+A: The command prints `Admin account has been created.` and the account is immediately usable.
+
+**Q: Where do I see the full command help?**
+
+A: Run `php ./bin/cli.php help admin:create`.

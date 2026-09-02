@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#configuration" class="toc__link nav-link">Configuration</a>
                 </li>
             
@@ -1060,6 +1068,10 @@
             
                 <li class="toc__entry">
                     <a href="#the-request-response-validation" class="toc__link nav-link">The Request &lt;-&gt; Response validation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1133,10 @@
     
 
     <h1 id="content-negotiation">Content Negotiation</h1>
+<h2 id="summary">Summary</h2>
+<p>Content negotiation matches what a client says it is sending and what it wants back against what the API can actually handle.
+Dotkernel API validates the <code>Accept</code> and <code>Content-Type</code> headers in middleware, per route or from a mandatory <code>default</code> entry in <code>config/autoload/content-negotiation.global.php</code>, returning <code>406 Not Acceptable</code> or <code>415 Unsupported Media Type</code> when a format is not supported.</p>
+<h2 id="details">Details</h2>
 <blockquote>
 <p>Introduced in Dotkernel API 5.0.0</p>
 </blockquote>
@@ -1195,6 +1211,29 @@ The server will check if the format in the <code>Accept</code> header for the re
 <p>The way <strong>Dotkernel API</strong> returns a response in handler means a content type is always set.
 This cannot be the case in any custom response, but the server will always check the  <code>Content-Type</code> for the response and will try to validate that against the <code>Accept</code> header of the request.
 If the validation fails, a status code <code>406 - Not Acceptable</code> will be returned.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What is the difference between a 406 and a 415 response?</strong></p>
+<p>A: <code>406 Not Acceptable</code> means the API cannot produce the format the client asked for in <code>Accept</code>.
+<code>415 Unsupported Media Type</code> means the API cannot consume the format the client sent in <code>Content-Type</code>.</p>
+<p><strong>Q: Which configuration keys are required?</strong></p>
+<p>A: <code>default</code> is mandatory, and every entry — including <code>default</code> — must define both <code>Accept</code> and <code>Content-Type</code>.</p>
+<p><strong>Q: How do I configure negotiation for one specific route?</strong></p>
+<p>A: Add a key matching the route name, for example <code>admin.list</code>, alongside <code>default</code>.
+Routes without their own key fall back to <code>default</code>.</p>
+<p><strong>Q: What happens when the client sends <code>Accept: */*</code>?</strong></p>
+<p>A: Any format the API can produce is acceptable, so the check passes.</p>
+<p><strong>Q: What if the request has no <code>Content-Type</code> header?</strong></p>
+<p>A: The server attempts to deserialize the body as best it can, rather than rejecting the request outright.</p>
+<p><strong>Q: Will <code>application/vnd.api+json</code> be rejected if I only configured <code>application/json</code>?</strong></p>
+<p>A: No. Validation resolves to the more generic media type, so the request is served as JSON.</p>
+<p><strong>Q: How do I configure a file upload endpoint?</strong></p>
+<p>A: Set that route's <code>Content-Type</code> to <code>multipart/form-data</code>.
+Clients sending <code>application/json</code> to it will then receive a 415.</p>
+<p><strong>Q: What is the third validation pass for?</strong></p>
+<p>A: It confirms that the response's <code>Content-Type</code> satisfies the request's <code>Accept</code> header.
+Handler responses always set a content type, but a custom response may not, and a mismatch results in a 406.</p>
+<p><strong>Q: Since which version is this available?</strong></p>
+<p>A: Dotkernel API 5.0.0.</p>
 
 
 

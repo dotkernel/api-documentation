@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="laminas-api-tools-compared-to-dotkernel-api">Laminas API Tools compared to Dotkernel API</h1>
+<h2 id="summary">Summary</h2>
+<p>A side-by-side comparison of Laminas API Tools (formerly Apigility) and Dotkernel API across architecture, PHP support, database layer, authentication, authorization, documentation and tooling.
+API Tools is archived and MVC/event-driven; Dotkernel API is actively maintained and middleware-based.</p>
+<h2 id="details">Details</h2>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1194,6 +1217,24 @@
 </tr>
 </tbody>
 </table></div>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Is Dotkernel API a drop-in replacement for API Tools?</strong></p>
+<p>A: No. The two projects differ in architecture, components and functionality, so a transition is a rewrite rather than a swap.
+See <a href="../transition-approach/">Transition approach</a>.</p>
+<p><strong>Q: What is the biggest architectural difference?</strong></p>
+<p>A: API Tools is MVC and event-driven; Dotkernel API is a PSR-15 middleware pipeline.
+Request handling, routing and extension points all work differently as a result.</p>
+<p><strong>Q: Does Dotkernel API support RPC-style endpoints?</strong></p>
+<p>A: No. Dotkernel API is REST only, while API Tools supported both REST and RPC.</p>
+<p><strong>Q: How is versioning handled without API Tools' version support?</strong></p>
+<p>A: Dotkernel API uses deprecation rather than parallel versioned namespaces.
+See <a href="../../tutorials/api-evolution/">API evolution</a>.</p>
+<p><strong>Q: Is there a code generator like API Tools' Admin UI?</strong></p>
+<p>A: There is no web UI, but <a href="https://www.dotkernel.com/headless-platform/dotmaker-generate-common-code-in-dotkernel/">dotkernel/dot-maker</a> generates common code from the command line.
+See <a href="../../tutorials/create-book-module-via-dot-maker/">Creating a book module using DotMaker</a>.</p>
+<p><strong>Q: Why should I move off API Tools at all?</strong></p>
+<p>A: API Tools is archived, so it receives no further development.
+Dotkernel API targets current PHP versions and is actively maintained.</p>
 
 
 

@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#prepare-config-files" class="toc__link nav-link">Prepare config files</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,10 @@
     
 
     <h1 id="configuration-files">Configuration Files</h1>
+<h2 id="summary">Summary</h2>
+<p>Composer's <code>post-update-cmd</code> scripts create the local configuration files your installation needs: <code>cors.local.php</code>, <code>local.php</code>, <code>mail.local.php</code> and <code>local.test.php</code>.
+Each one must be reviewed before the application will run correctly, in development and again in production.</p>
+<h2 id="details">Details</h2>
 <p>The post-update scripts from <code>composer.json</code> (under the key <code>post-update-cmd</code>) should have already created the files mentioned on this page.</p>
 <blockquote>
 <p>We mention these files explicitly because you will need to visit them to fully configure your development environment.
@@ -1145,6 +1161,25 @@ If you opt for <code>SMTP</code>, ake sure to configure the SMTP connection para
 <blockquote>
 <p>This creates a new in-memory database that your tests will run on.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: The configuration files are missing. What went wrong?</strong></p>
+<p>A: The <code>post-update-cmd</code> scripts did not run.
+Run <code>composer update</code> (or <code>composer install</code> without a lock file) from the project root to trigger them.</p>
+<p><strong>Q: Which file holds the database connection?</strong></p>
+<p>A: <code>config/autoload/local.php</code>, which is also where the API key and other environment-specific settings live.</p>
+<p><strong>Q: Should I commit these files to version control?</strong></p>
+<p>A: No. The <code>*.local.php</code> files hold environment-specific values and are excluded from the repository; only the <code>.dist</code> templates are tracked.</p>
+<p><strong>Q: When do I need to edit <code>cors.local.php</code>?</strong></p>
+<p>A: Whenever another application consumes your API — set <code>allowed_origins</code> to the consuming origins.
+The remaining options can normally stay as shipped.
+See the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/">CORS tutorial</a>.</p>
+<p><strong>Q: Where does <code>mail.local.php</code> come from?</strong></p>
+<p>A: It is copied from the <code>dot-mail</code> package in <code>vendor</code>.
+Configure the <code>mail</code> key, and the <code>smtp_options</code> sub-key if you send through SMTP.
+See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
+<p><strong>Q: Do tests use my development database?</strong></p>
+<p>A: No. <code>local.test.php</code> points the test suite at a separate in-memory database.
+See <a href="../test-the-installation/">Test the installation</a>.</p>
 
 
 

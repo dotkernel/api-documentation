@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#notes" class="toc__link nav-link">Notes</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,10 @@
     
 
     <h1 id="api-evolution-pattern">API Evolution pattern</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API lets you evolve endpoints without breaking existing consumers by marking a handler with the <code>ResourceDeprecation</code> attribute.
+The <code>DeprecationMiddleware</code> then adds <code>Sunset</code> and <code>Link</code> response headers, telling consumers when the resource may stop responding and where the change is documented.</p>
+<h2 id="details">Details</h2>
 <p>API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.</p>
 <h2 id="how-it-works">How it works</h2>
 <p>In Dotkernel API we can mark an endpoint as deprecated using attributes on handlers.
@@ -1163,6 +1179,27 @@ Vary: Origin</code></pre>
 <p>Deprecations can only be attached to handler classes that implement <code>RequestHandlerInterface</code>.</p>
 <p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value is provided and are <code>Link</code> related parts.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What do the <code>Sunset</code> and <code>Link</code> headers mean?</strong></p>
+<p>A: <code>Sunset</code> is the date on which the deprecated resource may stop responding; <code>Link</code> points to documentation describing the change.
+They are independent, so either can be used alone.</p>
+<p><strong>Q: What do I need in place before deprecations work?</strong></p>
+<p>A: <code>DeprecationMiddleware::class</code> must be present in your pipeline — in the default project, <code>config/pipeline.php</code>.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: Can I deprecate a single method rather than a whole resource?</strong></p>
+<p>A: The <code>ResourceDeprecation</code> attribute is applied to the handler class, so the unit of deprecation is the handler.
+Since each handler serves one method and route, deprecating the handler deprecates that method.</p>
+<p><strong>Q: What happens if I leave <code>Sunset</code> or <code>Link</code> empty?</strong></p>
+<p>A: The corresponding header is simply omitted from the response.</p>
+<p><strong>Q: What if the <code>Sunset</code> date is invalid?</strong></p>
+<p>A: It throws an error.
+The value has to be a valid date.</p>
+<p><strong>Q: Are <code>rel</code> and <code>type</code> required?</strong></p>
+<p>A: No. They default to <code>sunset</code> and <code>text/html</code>, and both relate to the <code>Link</code> header.</p>
+<p><strong>Q: Which classes can carry a deprecation?</strong></p>
+<p>A: Only handler classes implementing <code>RequestHandlerInterface</code>.</p>
+<p><strong>Q: How do I check that the headers are being sent?</strong></p>
+<p>A: Request the endpoint with <code>curl --head</code> and inspect the response headers.</p>
 
 
 

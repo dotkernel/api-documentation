@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,10 @@
     
 
     <h1 id="generating-tokens-in-dotkernel-api">Generating tokens in Dotkernel API</h1>
+<h2 id="summary">Summary</h2>
+<p><code>token:generate</code> is a multipurpose CLI command that issues the tokens different parts of the API require.
+Currently it supports the <code>error-reporting</code> type, whose generated value is pasted into <code>config/autoload/error-handling.global.php</code>.</p>
+<h2 id="details">Details</h2>
 <p>This is a multipurpose command that allows creating tokens required by different parts of the API.</p>
 <h2 id="usage">Usage</h2>
 <p>Go to your application's root directory.</p>
@@ -1144,6 +1160,23 @@
 <p>If your application is NOT in development mode, make sure you clear your config cache by executing:</p>
 </blockquote>
 <pre class="highlight"><code class="language-shell">php ./bin/clear-config-cache.php</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which token types can the command generate?</strong></p>
+<p>A: <code>error-reporting</code>.
+Run <code>php ./bin/cli.php token:generate --help</code> to see the current list.</p>
+<p><strong>Q: What is the error reporting token for?</strong></p>
+<p>A: It authorizes calls to the error reporting endpoint, so only clients holding the token can submit error reports.
+See <a href="../../core-features/error-reporting/">Error reporting</a>.</p>
+<p><strong>Q: Where do I put the generated token?</strong></p>
+<p>A: In the <code>tokens</code> array under <code>ErrorReportServiceInterface::class</code> in <code>config/autoload/error-handling.global.php</code>.</p>
+<p><strong>Q: Can I configure more than one token?</strong></p>
+<p>A: Yes.
+<code>tokens</code> is an array, so several valid tokens can coexist — useful when rotating a token without downtime.</p>
+<p><strong>Q: The token has no effect after I saved the config. Why?</strong></p>
+<p>A: Outside development mode the configuration is cached.
+Clear it with <code>php ./bin/clear-config-cache.php</code>.</p>
+<p><strong>Q: Does the command store the token for me?</strong></p>
+<p>A: No. It only prints the value; copying it into the configuration file is a manual step.</p>
 
 
 

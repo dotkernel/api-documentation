@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#premise" class="toc__link nav-link">Premise</a>
                 </li>
             
@@ -1056,6 +1060,10 @@
             
                 <li class="toc__entry">
                     <a href="#process" class="toc__link nav-link">Process</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1125,9 @@
     
 
     <h1 id="account-anonymization">Account anonymization</h1>
+<h2 id="summary">Summary</h2>
+<p>Anonymization is the GDPR-compliant alternative to deleting a user's personal data.
+Dotkernel API replaces the stored first name, last name and email with timestamp-based placeholders and deletes the avatar, optionally appending a domain configured through <code>userAnonymizeAppend</code>.</p>
 <h2 id="premise">Premise</h2>
 <p>According to the GDPR, companies that record personal data from EU citizens must delete said data if its owner requests its deletion.
 An alternative is to anonymize the data, according to <a href="https://commission.europa.eu/law/law-topic/data-protection/reform/rules-business-and-organisations/dealing-citizens/do-we-always-have-delete-personal-data-if-person-asks_en">this article</a>.</p>
@@ -1149,6 +1160,24 @@ This personal data is used for emails related to password reset and account acti
 <blockquote>
 <p>Using an email domain for <code>userAnonymizeAppend</code> would work as a catch-all email, if your email service provider has this option enabled.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why anonymize instead of delete?</strong></p>
+<p>A: The GDPR requires that personal data stop identifying the individual; anonymizing satisfies that while leaving the surrounding records intact, so related data does not have to be removed as well.</p>
+<p><strong>Q: Which personal data does Dotkernel API store by default?</strong></p>
+<p>A: The user's first name, last name and email (used as the identity).
+These are needed for password reset and account activation emails.</p>
+<p><strong>Q: What do the anonymized values look like?</strong></p>
+<p>A: The name fields become <code>anonymous</code> plus the current UNIX timestamp, for example <code>anonymous1725980747</code>, and the email becomes that value plus the configured append value, for example <code>anonymous1725980747@example.com</code>.</p>
+<p><strong>Q: Where do I configure <code>userAnonymizeAppend</code>?</strong></p>
+<p>A: In <code>config/autoload/local.php</code>.
+It may also be left empty.
+See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
+<p><strong>Q: What should I set <code>userAnonymizeAppend</code> to?</strong></p>
+<p>A: A domain you control works well, because anonymized addresses then land in a catch-all mailbox if your provider supports it.</p>
+<p><strong>Q: What happens to the user's avatar?</strong></p>
+<p>A: Both the image file and its database record are deleted.</p>
+<p><strong>Q: Is anonymization reversible?</strong></p>
+<p>A: No. The original values are overwritten, so keep your own backup policy in mind before running it.</p>
 
 
 

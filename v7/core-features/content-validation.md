@@ -1,5 +1,12 @@
 # Content Negotiation
 
+## Summary
+
+Content negotiation matches what a client says it is sending and what it wants back against what the API can actually handle.
+Dotkernel API validates the `Accept` and `Content-Type` headers in middleware, per route or from a mandatory `default` entry in `config/autoload/content-negotiation.global.php`, returning `406 Not Acceptable` or `415 Unsupported Media Type` when a format is not supported.
+
+## Details
+
 > Introduced in Dotkernel API 5.0.0
 
 An application performs **Content Negotiation** to:
@@ -95,3 +102,45 @@ The server will check if the format in the `Accept` header for the request can b
 The way **Dotkernel API** returns a response in handler means a content type is always set.
 This cannot be the case in any custom response, but the server will always check the  `Content-Type` for the response and will try to validate that against the `Accept` header of the request.
 If the validation fails, a status code `406 - Not Acceptable` will be returned.
+
+## FAQ
+
+**Q: What is the difference between a 406 and a 415 response?**
+
+A: `406 Not Acceptable` means the API cannot produce the format the client asked for in `Accept`.
+`415 Unsupported Media Type` means the API cannot consume the format the client sent in `Content-Type`.
+
+**Q: Which configuration keys are required?**
+
+A: `default` is mandatory, and every entry — including `default` — must define both `Accept` and `Content-Type`.
+
+**Q: How do I configure negotiation for one specific route?**
+
+A: Add a key matching the route name, for example `admin.list`, alongside `default`.
+Routes without their own key fall back to `default`.
+
+**Q: What happens when the client sends `Accept: */*`?**
+
+A: Any format the API can produce is acceptable, so the check passes.
+
+**Q: What if the request has no `Content-Type` header?**
+
+A: The server attempts to deserialize the body as best it can, rather than rejecting the request outright.
+
+**Q: Will `application/vnd.api+json` be rejected if I only configured `application/json`?**
+
+A: No. Validation resolves to the more generic media type, so the request is served as JSON.
+
+**Q: How do I configure a file upload endpoint?**
+
+A: Set that route's `Content-Type` to `multipart/form-data`.
+Clients sending `application/json` to it will then receive a 415.
+
+**Q: What is the third validation pass for?**
+
+A: It confirms that the response's `Content-Type` satisfies the request's `Accept` header.
+Handler responses always set a content type, but a custom response may not, and a mismatch results in a 406.
+
+**Q: Since which version is this available?**
+
+A: Dotkernel API 5.0.0.

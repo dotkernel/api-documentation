@@ -1,5 +1,11 @@
 # Architecture at a Glance
 
+## Summary
+
+A single-page map of how Dotkernel API is put together: the Core/App split introduced in 6.0, the Headless Platform and modular-monolith layout, the path a request takes through the middleware pipeline into a handler, the roles of handlers, services, repositories, input filters and entities, how configuration and dependency injection are organized, the PSRs behind it all, and the four security layers.
+
+## Details
+
 Dotkernel API follows a modular, middleware-based architecture designed for scalability and maintainability.
 Understanding the core structure is essential before diving into development.
 
@@ -226,3 +232,63 @@ They ensure that your code can integrate with other PSR-compliant libraries.
 | Handler    | Request/response mapping |        Extract user ID, call service |
 | Service    |      Business rules      | Validate user data, calculate totals |
 | Repository |       Data queries       |              Find users, save entity |
+
+## FAQ
+
+**Q: Where should I put a new feature?**
+
+A: In the App layer, under `src/App/src/` or your own module.
+Core (`src/Core/src/`) is reserved for infrastructure such as authentication, database access and shared entities.
+See [Core and App](extended-features/core-and-app.md).
+
+**Q: What is the execution order from request to database?**
+
+A: `Handler → Service → Repository → Database`.
+The handler maps the request, the service holds business rules, and the repository is the only layer that touches the database.
+
+**Q: Which middlewares run before my handler?**
+
+A: CORS, authentication, authorization, content negotiation and routing, in that order, as defined in `config/pipeline.php`.
+See [Middleware flow](flow/middleware-flow.md).
+
+**Q: What runs after the handler returns?**
+
+A: The response-side middlewares: problem details for exceptions, the deprecation headers, and any custom response headers.
+
+**Q: What are the built-in modules?**
+
+A: `Admin`, `User`, `Security`, `App` and `Core`.
+Your own modules — `Book`, `Product`, `Article` and so on — follow the same pattern.
+
+**Q: Is this a monolith or microservices?**
+
+A: Out of the box it is a modular monolith, structured so that individual modules can later be split into separate services.
+
+**Q: Where is business logic supposed to live?**
+
+A: In services, not handlers or repositories.
+Handlers extract and validate request data and delegate; repositories only query and persist.
+
+**Q: How do dependencies reach my classes?**
+
+A: Through constructor injection declared with the `#[Inject]` attribute and resolved by `AttributedServiceFactory`.
+See [Dependency injection](core-features/dependency-injection.md).
+
+**Q: Which configuration file does what?**
+
+A: `config.php` is the entry point, `pipeline.php` the middleware stack, `container.php` the DI container, and `config/autoload/` holds per-concern files — with `local.php` for environment-specific values that stay out of version control.
+
+**Q: What are the four security layers?**
+
+A: Authentication with OAuth2 tokens, authorization with RBAC permissions, input validation with input filters, and content negotiation on `Accept` and `Content-Type`.
+See [Basic security](security/basic-security.md).
+
+**Q: Which databases are supported?**
+
+A: MariaDB and PostgreSQL.
+See [Server requirements](introduction/server-requirements.md).
+
+**Q: Which PSRs are core rather than supporting?**
+
+A: PSR-7, PSR-11 and PSR-15 are core to the architecture; the rest arrive through dependencies.
+See [PSRs](introduction/psr.md).

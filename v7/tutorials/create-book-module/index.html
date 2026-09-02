@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#folder-and-files-structure" class="toc__link nav-link">Folder and files structure</a>
                 </li>
             
@@ -1060,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#checking-endpoints" class="toc__link nav-link">Checking endpoints</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1129,9 @@
     
 
     <h1 id="implementing-a-book-module-in-dotkernel-api">Implementing a book module in Dotkernel API</h1>
+<h2 id="summary">Summary</h2>
+<p>A complete, hand-written walkthrough of adding a <code>Book</code> module: the file layout split between the <code>Api\Book</code> and <code>Core\Book</code> namespaces, then the code for the entity, repository, collection, service and interface, the reusable inputs and their input filter, the list, view and create handlers, both <code>ConfigProvider</code> classes and the <code>RoutesDelegator</code>.
+It closes with registering the module and its namespaces, granting route permissions, generating and running the migration, and exercising the endpoints with curl.</p>
 <h2 id="folder-and-files-structure">Folder and files structure</h2>
 <p>The below files structure is what we will have at the end of this tutorial and is just an example; you can have multiple components such as event listeners, wrappers, etc.</p>
 <pre class="highlight"><code class="language-markdown">.
@@ -1935,6 +1946,42 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
 <p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why is the module split across two namespaces?</strong></p>
+<p>A: <code>Api\Book</code> holds what serves requests — handlers, service, input filters, routes — while <code>Core\Book</code> holds the persistence layer: the entity, its repository and the Doctrine configuration.
+See <a href="../../extended-features/core-and-app/">Core and App</a>.</p>
+<p><strong>Q: What are the three steps to register the module?</strong></p>
+<p>A: Add <code>Api\Book\ConfigProvider::class</code> and <code>Core\Book\ConfigProvider::class</code> to <code>config/config.php</code>, map both namespaces under <code>autoload.psr-4</code> in <code>composer.json</code>, and run <code>composer dump-autoload</code>.</p>
+<p><strong>Q: What does each <code>ConfigProvider</code> do?</strong></p>
+<p>A: The <code>Api</code> one registers the handlers, service and input filter as factories and declares the HAL resource and collection metadata.
+The <code>Core</code> one registers the repository and points Doctrine's attribute driver at the module's <code>Entity</code> folder.</p>
+<p><strong>Q: Why does <code>GetBookResourceHandler</code> need no constructor?</strong></p>
+<p>A: The <code>#[Resource(entity: Book::class)]</code> attribute makes the middleware load the entity and place it on the request, so the handler only reads the request attribute and renders it.</p>
+<p><strong>Q: How does the create handler validate input?</strong></p>
+<p>A: It fills the injected <code>CreateBookInputFilter</code> from the parsed body and, if validation fails, throws <code>BadRequestException</code> with the filter's messages in the <code>errors</code> field.
+See <a href="../../extended-features/injectable-input-filters/">Injectable input filters</a>.</p>
+<p><strong>Q: Why are the inputs separate classes?</strong></p>
+<p>A: To keep <code>CreateBookInputFilter</code> readable and let the same input be reused by other filters.
+Defining them inline works too — the page shows that version.</p>
+<p><strong>Q: What is <code>BookCollection</code> for?</strong></p>
+<p>A: It wraps the query builder returned by the service so the list endpoint renders as a HAL collection with embedded items and links.</p>
+<p><strong>Q: Why does <code>BookService</code> restrict the sortable columns?</strong></p>
+<p>A: Because the sort field comes from the query string.
+Only <code>book.name</code>, <code>book.author</code>, <code>book.releaseDate</code> and <code>book.created</code> are accepted, and anything else falls back to <code>book.created</code>.</p>
+<p><strong>Q: Where do the route names come from and why do they matter?</strong></p>
+<p>A: They are the third argument in <code>RoutesDelegator</code> — <code>book::create-book</code>, <code>book::view-book</code> and <code>book::list-books</code>.
+A permission in Dotkernel API <em>is</em> a route name, so these are the values you grant.
+See <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: My endpoints return 403 even though the code is in place. What is missing?</strong></p>
+<p>A: The three route names under <code>UserRoleEnum::Guest-&gt;value</code> in <code>config/autoload/authorization.global.php</code>.</p>
+<p><strong>Q: Why does <code>RoutesDelegator</code> use a UUID regexp for the id?</strong></p>
+<p>A: Because entities identify themselves with UUIDs via <code>UuidIdentifierTrait</code>, so <code>/book/{id}</code> should only match a UUID-shaped segment.</p>
+<p><strong>Q: When do I create the database table?</strong></p>
+<p>A: After the entity is finished: validate the mapping with <code>php ./bin/doctrine orm:validate-schema</code>, then run <code>doctrine-migrations diff</code> and <code>migrate</code>.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: Is there a faster way to produce all these files?</strong></p>
+<p>A: Yes — <code>dotkernel/dot-maker</code> generates the same skeleton.
+See <a href="../create-book-module-via-dot-maker/">Creating a book module using DotMaker</a>.</p>
 
 
 

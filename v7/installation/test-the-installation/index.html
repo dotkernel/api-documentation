@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#running-the-application" class="toc__link nav-link">Running the application</a>
                 </li>
             
@@ -1064,6 +1072,10 @@
             
                 <li class="toc__entry">
                     <a href="#running-functional-tests" class="toc__link nav-link">Running functional tests</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1125,6 +1137,9 @@
     
 
     <h1 id="test-the-installation">Test the installation</h1>
+<h2 id="summary">Summary</h2>
+<p>The final installation step: confirm the API answers on your virtual host, optionally serve it with PHP's built-in server instead, import the Bruno collection to explore the endpoints, and run the unit and functional test suites.</p>
+<h2 id="details">Details</h2>
 <p>In this final step you will:</p>
 <ul>
 <li><a href="#running-the-application">Test the installation of your virtual host</a>.</li>
@@ -1186,6 +1201,28 @@ Run this command from the project root:</p>
 <pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always</code></pre>
 <h2 id="running-functional-tests">Running functional tests</h2>
 <pre class="highlight"><code class="language-shell">vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: How do I know the installation succeeded?</strong></p>
+<p>A: A GET request to the home page returns <code>{"message": "Dotkernel API version 7"}</code>.</p>
+<p><strong>Q: I get a 500 error instead. What should I check first?</strong></p>
+<p>A: Folder permissions on <code>data</code>, <code>public/uploads</code> and <code>log</code>.
+The <a href="../faq/">FAQ page</a> lists the exact error messages and their fixes.</p>
+<p><strong>Q: Do I need a virtual host?</strong></p>
+<p>A: No. <code>php -S 0.0.0.0:8080 -t public</code> serves the application without one, which is convenient for a quick check.</p>
+<p><strong>Q: What is Bruno and why use it?</strong></p>
+<p>A: Bruno is a Git-native API client.
+The repository ships a ready-made collection of every endpoint in <code>documentation/Dotkernel_API_Bruno.zip</code>, so you can exercise the API without writing requests by hand.</p>
+<p><strong>Q: Can I import the collection from the Postman files instead?</strong></p>
+<p>A: Yes — Bruno also reads the included Postman collection and environment files.
+If you already imported the <code>.zip</code>, there is no need.</p>
+<p><strong>Q: How do I share the collection with my team?</strong></p>
+<p>A: From the collection's <code>...</code> menu choose <code>Share</code>, then either initialize a Git repository (recommended) or export to <code>.zip</code> or <code>.yaml</code>.</p>
+<p><strong>Q: How do I run only one kind of test?</strong></p>
+<p>A: Pass the suite name: <code>--testsuite=UnitTests</code> or <code>--testsuite=FunctionalTests</code>.
+Running <code>php vendor/bin/phpunit</code> with no arguments runs both.</p>
+<p><strong>Q: Which database do the tests use?</strong></p>
+<p>A: The in-memory database configured in <code>config/autoload/local.test.php</code>, not your development database.
+See <a href="../configuration-files/">Configuration files</a>.</p>
 
 
 

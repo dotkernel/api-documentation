@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#methods-of-generating-a-documentation-file" class="toc__link nav-link">Methods of generating a documentation file</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,9 @@
     
 
     <h1 id="generating-the-documentation-file">Generating the documentation file</h1>
+<h2 id="summary">Summary</h2>
+<p>How to run <code>zircote/swagger-php</code> against the <code>src</code> directory to produce your OpenAPI file: printing it to the terminal, writing it to a chosen location, and selecting the OpenAPI version (<code>3.0.0</code> or <code>3.1.0</code>) and output format (<code>yaml</code> or <code>json</code>).</p>
+<h2 id="details">Details</h2>
 <blockquote>
 <p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of your instance of <strong>Dotkernel API</strong>.</p>
 </blockquote>
@@ -1132,6 +1147,27 @@
 <p>Or be specific about the format by appending the <code>--format</code> argument:</p>
 <pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.json --format json</code></pre>
 <p>These will place the generated file <code>openapi.json</code> in the <code>public</code> directory.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What must I configure before generating?</strong></p>
+<p>A: The <code>url</code> value on the <code>#[OA\Server</code> line in <code>src/App/src/OpenAPI.php</code>, which has to point at your own instance.
+Otherwise the generated file advertises the wrong server.</p>
+<p><strong>Q: Why is <code>./src</code> the path passed to the command?</strong></p>
+<p>A: Because Dotkernel API keeps its OpenAPI attributes in the <code>src</code> directory.
+The generator scans that path for annotated classes.</p>
+<p><strong>Q: Which OpenAPI versions can I generate?</strong></p>
+<p>A: <code>3.0.0</code> (the default) and <code>3.1.0</code>, selected with <code>--version</code>.</p>
+<p><strong>Q: YAML or JSON?</strong></p>
+<p>A: YAML is the default.
+Use a <code>.json</code> output filename and the generator picks JSON, or state it explicitly with <code>--format json</code>.</p>
+<p><strong>Q: Where should the generated file live?</strong></p>
+<p>A: Anywhere your renderer can read it; <code>public/openapi.yaml</code> is the common choice, since it can then be served directly.
+See <a href="../render-documentation/">Render documentation</a>.</p>
+<p><strong>Q: Do I have to regenerate after changing annotations?</strong></p>
+<p>A: Yes.
+The file is a static snapshot, so re-run the command whenever the annotations change.</p>
+<p><strong>Q: The command runs but my endpoint is missing. Why?</strong></p>
+<p>A: Its class is most likely outside the scanned path, or its attributes are incomplete.
+See <a href="../write-documentation/">Write documentation</a> and <a href="../getting-help/">Getting help</a>.</p>
 
 
 

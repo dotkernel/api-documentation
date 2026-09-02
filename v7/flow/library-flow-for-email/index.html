@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,8 +1117,24 @@
     
 
     <h1 id="library-flow-for-email">Library Flow for Email</h1>
+<h2 id="summary">Summary</h2>
+<p>A simplified diagram of the libraries involved when Dotkernel API sends an email, from the service that triggers the message through template rendering to the mail transport.</p>
+<h2 id="details">Details</h2>
 <p>The graph below demonstrates the simplified flow between Dotkernel's libraries for sending an email.</p>
 <p><img alt="Dotkernel API Default Library Flow!" src="https://docs.dotkernel.org/img/api/v7/dotkernel-library-flow-email.png" class="img-responsive"/></p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which libraries handle email in Dotkernel API?</strong></p>
+<p>A: <code>dot-mail</code> handles composing and transporting the message, while the templating layer renders the message body.
+See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
+<p><strong>Q: Where do I configure the mail transport?</strong></p>
+<p>A: In the mail configuration under <code>config/autoload/</code>.
+See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
+<p><strong>Q: Can I send email without using the template renderer?</strong></p>
+<p>A: Yes.
+The renderer is only needed when the message body comes from a template; you can also set the body directly on the message.</p>
+<p><strong>Q: Why is the email flow shown separately from the default library flow?</strong></p>
+<p>A: Because sending email is a side flow triggered from a service rather than part of the request pipeline.
+Keeping it separate makes both diagrams easier to read.</p>
 
 
 

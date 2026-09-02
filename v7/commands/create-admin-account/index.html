@@ -1047,7 +1047,15 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1117,9 @@
     
 
     <h1 id="creating-admin-accounts-in-dotkernel-api">Creating admin accounts in Dotkernel API</h1>
+<h2 id="summary">Summary</h2>
+<p>The <code>admin:create-admin</code> CLI command creates an administrator account from the command line, taking an identity, a password and a first and last name.
+Accounts created this way always receive the <code>admin</code> role.</p>
 <h2 id="usage">Usage</h2>
 <p>Run the following command in your application’s root directory:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create-admin -i {IDENTITY} -p {PASSWORD} -f {FIRST_NAME} -l {LAST_NAME}</code></pre>
@@ -1128,6 +1139,21 @@
 <p>The new admin account is ready to use.</p>
 <p>You can get more help with this command by running:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php help admin:create</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Can I choose the role of the created account?</strong></p>
+<p>A: No. The command always assigns the <code>admin</code> role; other roles must be set afterwards.
+See <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: What can I use as the identity?</strong></p>
+<p>A: Either a username or an email address, as long as it is not already taken.</p>
+<p><strong>Q: My name or password contains special characters and the command fails. What do I do?</strong></p>
+<p>A: Surround the value in double quotes so the shell passes it through unchanged.</p>
+<p><strong>Q: Are the short and long option forms equivalent?</strong></p>
+<p>A: Yes.
+<code>-i</code>, <code>-p</code>, <code>-f</code> and <code>-l</code> are shorthand for <code>--identity</code>, <code>--password</code>, <code>--firstName</code> and <code>--lastName</code>.</p>
+<p><strong>Q: How do I know the account was created?</strong></p>
+<p>A: The command prints <code>Admin account has been created.</code> and the account is immediately usable.</p>
+<p><strong>Q: Where do I see the full command help?</strong></p>
+<p>A: Run <code>php ./bin/cli.php help admin:create</code>.</p>
 
 
 

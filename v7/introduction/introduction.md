@@ -1,5 +1,9 @@
 # Introduction
 
+## Summary
+
+A tour of Dotkernel API: a PSR-15 middleware REST framework on PHP 8.2+ acting as a Headless Platform, with OAuth2 authentication, RBAC authorization, content negotiation, Doctrine ORM persistence, HAL payloads, CORS handling, email through `dot-mail`, OpenAPI and Bruno documentation, per-module routing and configuration, CLI commands with a file locker, and unit and functional test suites — closing with the pitfalls to avoid and where to go next.
+
 ## What is Dotkernel API?
 
 Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.2+.
@@ -136,3 +140,54 @@ Ready to get started?
 - Check out the [Architecture at a Glance](https://docs.dotkernel.org/api-documentation/v7/architecture-at-a-glance/).
 - Review the [Core Features](https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/).
 - Run through the [Tutorials](https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/) for step-by-step instructions on how to use Dotkernel API.
+
+## FAQ
+
+**Q: What kind of projects is Dotkernel API a good fit for?**
+
+A: REST APIs in a microservices setup, headless CMS backends, e-commerce and SaaS backends, reporting APIs, and any project that needs strict RBAC, standardized errors and OpenAPI documentation.
+
+**Q: Where do I configure each feature?**
+
+A: OAuth2 in `config/autoload/local.php`, RBAC in `config/autoload/authorization.global.php`, content negotiation in `config/autoload/content-negotiation.global.php`; the OpenAPI documentation is generated rather than configured.
+
+**Q: How do I register a new module?**
+
+A: Add its `ConfigProvider.php` to `config.php`.
+Routes then live in the module's own `RoutesDelegator.php`.
+
+**Q: Where do I add a middleware?**
+
+A: To `config/pipeline.php`, which also determines the order middlewares run in.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: How do I register a CLI command?**
+
+A: Extend `Symfony\Component\Console\Command\Command` and register the class in `config/autoload/cli.global.php`.
+
+**Q: What does the file locker do?**
+
+A: It writes a `command-{command-default-name}.lock` file so a second instance of the same command cannot start until the first finishes.
+It is enabled by default.
+
+**Q: Why Doctrine ORM?**
+
+A: So you can work with objects and business logic and treat persistence as a secondary concern.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: What is HAL used for?**
+
+A: `mezzio/mezzio-hal` shapes API payloads, describing each resource together with its relational links and any embedded child resources.
+
+**Q: Why keep Bruno files in their own Git repository?**
+
+A: So the endpoint collections can be shared with the team and kept current independently of the API's own history.
+See [Test the installation](../installation/test-the-installation.md).
+
+**Q: How do I run the tests?**
+
+A: `php vendor/bin/phpunit` runs both suites; add `--testsuite=UnitTests` or `--testsuite=FunctionalTests` to run one.
+
+**Q: What are the most common mistakes to avoid?**
+
+A: Leaving the default OAuth2 client credentials in production, enabling development mode outside local work, deploying without configuring CORS origins, and accessing the API before running migrations and fixtures.

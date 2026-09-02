@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#what-is-a-handler" class="toc__link nav-link">What is a handler?</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#mapping-of-the-handlers" class="toc__link nav-link">Mapping of the handlers</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,10 @@
     
 
     <h1 id="the-new-handler-structure">The new handler structure</h1>
+<h2 id="summary">Summary</h2>
+<p>Since version 6.0 Dotkernel API uses PSR-15 handlers instead of multi-action controllers, with each handler responsible for a single request.
+This page explains what a handler is, the naming pattern that encodes method, resource and action into the class name, and where to find the full handler mapping.</p>
+<h2 id="details">Details</h2>
 <p>Since version 6.0, Dotkernel API contains some new architectural changes compared to its older version that uses controllers.
 The goal of this update is to implement PSR-15 handlers into Dotkernel API.</p>
 <h2 id="what-is-a-handler">What is a handler?</h2>
@@ -1148,6 +1164,23 @@ This follows the first of the <a href="https://www.digitalocean.com/community/co
 <h2 id="mapping-of-the-handlers">Mapping of the handlers</h2>
 <p>The full mapping of the handlers and their current paths and actions can be found in the full <a href="https://docs.dotkernel.org/img/api/v7/naming-convention.png">naming convention table</a>.</p>
 <p><a href="https://docs.dotkernel.org/img/api/v7/naming-convention.png"><img alt="naming-convention-thumbnail" src="https://docs.dotkernel.org/img/api/v7/naming-convention-thumbnail.png" /></a></p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: How is a handler different from a controller?</strong></p>
+<p>A: A controller groups several actions in one class; a handler deals with a single request and returns a response.
+Splitting them keeps each class to one responsibility, following the single-responsibility principle.</p>
+<p><strong>Q: What should I name a handler that creates an admin via POST?</strong></p>
+<p>A: Follow the pattern of method, resource, action and the <code>Handler</code> suffix — for example <code>PostAdminResourceHandler</code>.
+The name alone should tell a reader what the class does.</p>
+<p><strong>Q: When is <code>Form</code> part of the name?</strong></p>
+<p>A: Only when the handler returns a form that will trigger another action on submission.</p>
+<p><strong>Q: Do handlers have to extend a base class?</strong></p>
+<p>A: Dotkernel's handlers extend <code>AbstractHandler</code>, which supplies shared response helpers.
+Implementing <code>RequestHandlerInterface</code> directly also works.</p>
+<p><strong>Q: Where do I see all existing handlers and their routes?</strong></p>
+<p>A: In the <a href="https://docs.dotkernel.org/img/api/v7/naming-convention.png">naming convention table</a>.</p>
+<p><strong>Q: How do handlers receive their dependencies?</strong></p>
+<p>A: Through constructor injection, declared with the <code>#[Inject]</code> attribute.
+See <a href="../injectable-input-filters/">Injectable input filters</a> and <a href="../../core-features/dependency-injection/">Dependency injection</a>.</p>
 
 
 

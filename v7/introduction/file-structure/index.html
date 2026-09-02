@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
                 </li>
             
@@ -1072,6 +1080,10 @@
             
                 <li class="toc__entry">
                     <a href="#src-folder" class="toc__link nav-link">src folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1133,6 +1145,9 @@
     
 
     <h1 id="file-structure">File structure</h1>
+<h2 id="summary">Summary</h2>
+<p>A tour of the directories a default Dotkernel API installation ships with — <code>bin</code> for CLI entry points, <code>config</code> and <code>config/autoload</code> for application and service configuration, <code>data</code> for caches, migrations and OAuth keys, <code>log</code> for daily logs, <code>public</code> as the web entry point, and <code>src</code> for the modules — plus the folders and files each module is expected to contain.</p>
+<h2 id="details">Details</h2>
 <p>The Dotkernel API file structure follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.
 Standardizing the file structure of your project is considered good practice because it makes it easier to find and navigate the code.</p>
 <p>When using Dotkernel API, the following structure is installed by default:</p>
@@ -1233,6 +1248,35 @@ Other classes the <code>src</code> folder may include are <code>InputFilter</cod
 <p><code>twig</code> is used as Templating Engine.
 All template files have the extension <code>.html.twig</code></p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which standard does the structure follow?</strong></p>
+<p>A: <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloading, so a class's namespace maps directly onto its path.</p>
+<p><strong>Q: Where does my own code go?</strong></p>
+<p>A: In a new folder under <code>src</code>, alongside the default <code>Admin</code>, <code>App</code>, <code>Core</code>, <code>Security</code> and <code>User</code> modules.
+See <a href="../../extended-features/core-and-app/">Core and App</a>.</p>
+<p><strong>Q: Which files must every module have?</strong></p>
+<p>A: <code>ConfigProvider.php</code> for its configuration, <code>RoutesDelegator.php</code> for its routes and <code>OpenAPI.php</code> for its endpoint documentation.</p>
+<p><strong>Q: What folders does a module typically contain?</strong></p>
+<p>A: <code>Handler</code>, <code>Entity</code>, <code>Service</code> and <code>Repository</code>, omitting any that would be empty.
+Modules commonly also add <code>InputFilter</code>, <code>EventListener</code>, <code>Helper</code>, <code>Command</code> and <code>Factory</code>.</p>
+<p><strong>Q: Which directories need to be writable?</strong></p>
+<p>A: <code>data</code>, <code>log</code> and <code>public/uploads</code>.
+See <a href="../../installation/getting-started/">Clone the project</a>.</p>
+<p><strong>Q: What is the application's entry point?</strong></p>
+<p>A: <code>public/index.php</code>.
+Only the <code>public</code> folder is served directly; everything else is routed through it by the <code>.htaccess</code> rewrite rules.</p>
+<p><strong>Q: Where is the middleware pipeline defined?</strong></p>
+<p>A: <code>config/pipeline.php</code>, which lists the middlewares in execution order.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: What is the difference between <code>config</code> and <code>config/autoload</code>?</strong></p>
+<p>A: <code>config</code> holds application-level wiring — the container, the pipeline, the config aggregator.
+<code>config/autoload</code> holds per-service configuration, split into <code>*.global.php</code> files that are committed and <code>*.local.php</code> files that are not.</p>
+<p><strong>Q: Where are the OAuth2 keys kept?</strong></p>
+<p>A: In <code>data/oauth</code>.
+They are generated during installation and must never be committed.
+See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
+<p><strong>Q: Why is <code>robots.txt</code> shipped as <code>robots.txt.dist</code>?</strong></p>
+<p>A: So you can activate it deliberately: copy it to <code>robots.txt</code> and comment out the lines that do not match your environment.</p>
 
 
 

@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#oainfo" class="toc__link nav-link">OA\Info</a>
                 </li>
             
@@ -1064,6 +1072,10 @@
             
                 <li class="toc__entry">
                     <a href="#oaschema" class="toc__link nav-link">OA\Schema</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1125,6 +1137,10 @@
     
 
     <h1 id="initialized-openapi-components">Initialized OpenAPI components</h1>
+<h2 id="summary">Summary</h2>
+<p>The OpenAPI components Dotkernel API already defines in <code>src/App/src/OpenAPI.php</code>: <code>OA\Info</code> for API metadata, <code>OA\Server</code> for instance URLs, <code>OA\SecurityScheme</code> for the <code>AuthToken</code> and <code>ErrorReportingToken</code> headers, <code>OA\ExternalDocumentation</code>, and reusable schemas.
+It also shows how to turn an entity or a collection into an <code>OA\Schema</code> and reference it with <code>ref</code> instead of repeating the definition.</p>
+<h2 id="details">Details</h2>
 <p>Below you will find details on some prepopulated OpenAPI components we added to Dotkernel API.</p>
 <h2 id="oainfo">OA\Info</h2>
 <p>Defined in <code>src/App/src/OpenAPI.php</code>, this object provides general info about the API:</p>
@@ -1315,6 +1331,29 @@ This way we do not need to repeat code by describing again the same object, and 
 <li><code>#/components/schemas/ErrorMessage</code>: describes an operation that resulted in an error—may contain multiple messages</li>
 <li><code>#/components/schemas/InfoMessage</code>: describes an operation that completed successfully—may contain multiple messages</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Where are these components defined?</strong></p>
+<p>A: All of them in <code>src/App/src/OpenAPI.php</code>.</p>
+<p><strong>Q: What must I edit before generating documentation?</strong></p>
+<p>A: The <code>url</code> on the <code>#[OA\Server</code> line, which has to point at your own instance and must not have a trailing slash.</p>
+<p><strong>Q: Can I document more than one environment?</strong></p>
+<p>A: Yes.
+Duplicate the <code>OA\Server</code> entry — one per instance — and use <code>description</code> to label each as <code>Dev</code>, <code>Staging</code>, <code>Production</code> or similar.</p>
+<p><strong>Q: Which security schemes are predefined?</strong></p>
+<p>A: <code>AuthToken</code> for the OAuth2 bearer token and <code>ErrorReportingToken</code> for the <code>/error-report</code> header.
+Naming one in an endpoint's <code>security</code> parameter marks that endpoint as protected.</p>
+<p><strong>Q: What is the difference between an entity and a schema?</strong></p>
+<p>A: The entity is the PHP class Doctrine maps to a table; the schema is the OpenAPI description of how that object appears in requests and responses.
+You write the schema separately, referencing the entity with a <code>@see</code> annotation.</p>
+<p><strong>Q: How do I avoid describing the same object twice?</strong></p>
+<p>A: Reference the existing schema with <code>ref: '#/components/schemas/UserRole'</code>.
+Later changes then happen in one place only.</p>
+<p><strong>Q: How do I describe a collection?</strong></p>
+<p>A: Define a schema whose <code>_embedded</code> property holds an array of <code>OA\Items</code> referencing the item schema, and combine it with <code>#/components/schemas/Collection</code> through <code>allOf</code>.</p>
+<p><strong>Q: What do the shipped common schemas provide?</strong></p>
+<p>A: <code>Collection</code> gives collections their default HAL structure, while <code>ErrorMessage</code> and <code>InfoMessage</code> describe failed and successful operations, each able to carry several messages.</p>
+<p><strong>Q: Where do I look up the fields of an OpenAPI object?</strong></p>
+<p>A: In the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a>, linked per object throughout this page.</p>
 
 
 

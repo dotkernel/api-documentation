@@ -1047,11 +1047,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#install-dependencies-using-composer" class="toc__link nav-link">Install Dependencies Using Composer</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#development-mode" class="toc__link nav-link">Development mode</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1125,10 @@
     
 
     <h1 id="composer-installation-of-packages">Composer Installation of Packages</h1>
+<h2 id="summary">Summary</h2>
+<p>Running <code>composer install</code> pulls in the dependencies and also runs the project's setup scripts, which generate the OAuth2 keys and the initial <code>config/autoload</code> files.
+This page covers the prompts you will be asked during installation and how to enable, disable and check development mode afterwards.</p>
+<h2 id="details">Details</h2>
 <p>In this step you will:</p>
 <ul>
 <li><a href="#install-dependencies-using-composer">Install dependencies</a>.</li>
@@ -1192,6 +1208,32 @@ Enable development mode by running:</p>
 <p>This command displays the development mode status:</p>
 <pre class="highlight"><code class="language-shell">composer development-status</code></pre>
 <p>You should see the message <code>Development mode is ENABLED</code> or <code>Development mode is DISABLED</code>.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why should I run <code>composer install</code> from the CLI rather than an IDE?</strong></p>
+<p>A: The setup script asks interactive questions, and some IDEs cannot display those prompts.
+Answering them incorrectly — or not at all — leaves the project misconfigured.</p>
+<p><strong>Q: What does the installation do besides downloading packages?</strong></p>
+<p>A: It writes <code>composer.lock</code>, configures PHP CodeSniffer, generates the OAuth2 keys into <code>data/oauth</code>, and creates the initial <code>config/autoload</code> files.</p>
+<p><strong>Q: Will re-running <code>composer install</code> overwrite my configuration?</strong></p>
+<p>A: No. The post-install scripts run on every <code>composer install</code> and <code>composer update</code>, but they check whether each file already exists before writing it.</p>
+<p><strong>Q: Composer asks where to inject <code>Laminas\Diactoros\ConfigProvider</code>. What do I answer?</strong></p>
+<p>A: <code>0</code> — do not inject.
+Dotkernel already registers its own ConfigProvider, and a duplicate registration can break packages you add later.</p>
+<p><strong>Q: Should I answer <code>y</code> to remembering that choice?</strong></p>
+<p>A: Yes.
+It applies the same answer to other packages of the same type, so the rest of the installation runs without further prompts.</p>
+<p><strong>Q: Why does the package count differ from the documentation?</strong></p>
+<p>A: The number changes as dependencies are updated.
+The example figure is only indicative.</p>
+<p><strong>Q: What does development mode actually change?</strong></p>
+<p>A: It stops certain files from being cached in <code>data/cache</code> and activates the development error handlers, so code and configuration changes take effect immediately.</p>
+<p><strong>Q: How do I check or change development mode later?</strong></p>
+<p>A: <code>composer development-status</code> reports the state, <code>composer development-enable</code> turns it on and <code>composer development-disable</code> turns it off.
+Never leave it enabled in production.
+See <a href="../../security/basic-security/">Basic security</a>.</p>
+<p><strong>Q: What is the next installation step?</strong></p>
+<p>A: Reviewing the generated configuration files.
+See <a href="../configuration-files/">Configuration files</a>.</p>
 
 
 

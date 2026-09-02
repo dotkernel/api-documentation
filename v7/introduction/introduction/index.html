@@ -1040,6 +1040,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#what-is-dotkernel-api" class="toc__link nav-link">What is Dotkernel API?</a>
                 </li>
             
@@ -1103,6 +1107,10 @@
                     <a href="#next-steps" class="toc__link nav-link">Next Steps</a>
                 </li>
             
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
             </ul>
         </div>
     
@@ -1160,6 +1168,8 @@
     
 
     <h1 id="introduction">Introduction</h1>
+<h2 id="summary">Summary</h2>
+<p>A tour of Dotkernel API: a PSR-15 middleware REST framework on PHP 8.2+ acting as a Headless Platform, with OAuth2 authentication, RBAC authorization, content negotiation, Doctrine ORM persistence, HAL payloads, CORS handling, email through <code>dot-mail</code>, OpenAPI and Bruno documentation, per-module routing and configuration, CLI commands with a file locker, and unit and functional test suites — closing with the pitfalls to avoid and where to go next.</p>
 <h2 id="what-is-dotkernel-api">What is Dotkernel API?</h2>
 <p>Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.2+.
 It is a Headless Platform with built-in OAuth2 authentication, RBAC authorization, and content negotiation.</p>
@@ -1279,6 +1289,34 @@ Remember:</p>
 <li>Review the <a href="https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/">Core Features</a>.</li>
 <li>Run through the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/">Tutorials</a> for step-by-step instructions on how to use Dotkernel API.</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What kind of projects is Dotkernel API a good fit for?</strong></p>
+<p>A: REST APIs in a microservices setup, headless CMS backends, e-commerce and SaaS backends, reporting APIs, and any project that needs strict RBAC, standardized errors and OpenAPI documentation.</p>
+<p><strong>Q: Where do I configure each feature?</strong></p>
+<p>A: OAuth2 in <code>config/autoload/local.php</code>, RBAC in <code>config/autoload/authorization.global.php</code>, content negotiation in <code>config/autoload/content-negotiation.global.php</code>; the OpenAPI documentation is generated rather than configured.</p>
+<p><strong>Q: How do I register a new module?</strong></p>
+<p>A: Add its <code>ConfigProvider.php</code> to <code>config.php</code>.
+Routes then live in the module's own <code>RoutesDelegator.php</code>.</p>
+<p><strong>Q: Where do I add a middleware?</strong></p>
+<p>A: To <code>config/pipeline.php</code>, which also determines the order middlewares run in.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: How do I register a CLI command?</strong></p>
+<p>A: Extend <code>Symfony\Component\Console\Command\Command</code> and register the class in <code>config/autoload/cli.global.php</code>.</p>
+<p><strong>Q: What does the file locker do?</strong></p>
+<p>A: It writes a <code>command-{command-default-name}.lock</code> file so a second instance of the same command cannot start until the first finishes.
+It is enabled by default.</p>
+<p><strong>Q: Why Doctrine ORM?</strong></p>
+<p>A: So you can work with objects and business logic and treat persistence as a secondary concern.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: What is HAL used for?</strong></p>
+<p>A: <code>mezzio/mezzio-hal</code> shapes API payloads, describing each resource together with its relational links and any embedded child resources.</p>
+<p><strong>Q: Why keep Bruno files in their own Git repository?</strong></p>
+<p>A: So the endpoint collections can be shared with the team and kept current independently of the API's own history.
+See <a href="../../installation/test-the-installation/">Test the installation</a>.</p>
+<p><strong>Q: How do I run the tests?</strong></p>
+<p>A: <code>php vendor/bin/phpunit</code> runs both suites; add <code>--testsuite=UnitTests</code> or <code>--testsuite=FunctionalTests</code> to run one.</p>
+<p><strong>Q: What are the most common mistakes to avoid?</strong></p>
+<p>A: Leaving the default OAuth2 client credentials in production, enabling development mode outside local work, deploying without configuring CORS origins, and accessing the API before running migrations and fixtures.</p>
 
 
 

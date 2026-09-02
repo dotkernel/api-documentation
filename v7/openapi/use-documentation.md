@@ -1,5 +1,11 @@
 # Using the documentation
 
+## Summary
+
+How to drive your API from Swagger UI: recognising which endpoints are protected, generating an access token from `/security/generate-token` and pasting it into the `Authorize` modal, refreshing an expired token via `/security/refresh-token`, supplying an error reporting token for `/error-report`, and executing requests against your own instance.
+
+## Details
+
 Since Redoc is readonly, in the following section we will focus only on using Swagger UI.
 
 ## Protected endpoints
@@ -114,3 +120,56 @@ Once finished, you will see the response as the first item under `Responses`, in
 You can repeat the request by clicking again on the `Execute` button.
 This will first clear the previous output and display the new response in the same place.
 Additionally, between two executions, you can manually clear any previous output using the `Clear` button next to the `Execute` button.
+
+## FAQ
+
+**Q: Why does this page cover only Swagger UI?**
+
+A: Redoc is read-only, so it cannot send requests.
+Only Swagger UI lets you authenticate and execute calls.
+See [Render documentation](render-documentation.md).
+
+**Q: What does the lock symbol next to an endpoint mean?**
+
+A: The endpoint is protected: it requires authentication with an account that holds the right permissions.
+
+**Q: How do I tell whether an endpoint needs admin or user privileges?**
+
+A: From its description.
+"Admin lists user accounts" needs a `(super)admin` token, while "User fetches their own account" needs a `user` token.
+
+**Q: How do I authenticate in the UI?**
+
+A: Generate a token with `/security/generate-token`, copy the `access_token` value without the surrounding quotes, then paste it as `AuthToken` in the `Authorize` modal and click **Authorize**.
+
+**Q: How long does the UI keep me logged in?**
+
+A: Until you close or refresh the browser tab.
+After that you have to authorize again.
+
+**Q: My token expired. Do I have to log in again?**
+
+A: Not necessarily.
+Call `/security/refresh-token` with the `refresh_token` you saved when generating the token, then authorize with the new `access_token`.
+Access tokens last one day by default.
+
+**Q: How do I switch to an account with different privileges?**
+
+A: Open the `Authorize` modal, click **Logout** for `AuthToken`, paste the new token and authorize again.
+
+**Q: What is the `ErrorReportingToken` for?**
+
+A: It authorizes the `/error-report` endpoint only, which third-party applications and frontends use to report errors back to the API.
+That endpoint does not need an `AuthToken`.
+See [Generating tokens](../commands/generate-tokens.md).
+
+**Q: Are requests sent from the UI real?**
+
+A: Yes — they hit your actual instance, and there is no confirmation prompt.
+Check any destructive operation before clicking `Execute`.
+
+**Q: Where do I find the demo credentials?**
+
+A: In the [Token authentication](../tutorials/token-authentication.md) tutorial.
+Remove or change these accounts before production.
+See [Basic security](../security/basic-security.md).

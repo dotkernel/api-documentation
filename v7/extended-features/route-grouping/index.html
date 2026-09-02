@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="route-grouping">Route grouping</h1>
+<h2 id="summary">Summary</h2>
+<p>The <code>dot-router</code> package lets you declare routes that share a common path prefix as a single group instead of repeating the prefix on every line.
+The result is less duplication, easier refactoring, and routes that belong together staying together in the code.</p>
+<h2 id="details">Details</h2>
 <p>In Dotkernel API with the help of the new <a href="https://docs.dotkernel.org/dot-router/v1/overview/">dot-router</a> package, we have managed to implement a nicer way of creating routes.
 A lot of the times developers need to create sets of routes that have a similar format. As an example:</p>
 <pre class="highlight"><code class="language-php">$app-&gt;post('/product/create', CreateProductHandler::class, 'product:create');
@@ -1117,6 +1140,23 @@ $app-&gt;get('/product/view/{id}', GetProductHandler::class, 'product:view');</c
 <li><strong>easy path refactoring</strong>: modify all routes at once by changing only the prefix</li>
 <li><strong>easy copying/moving</strong>: copying/moving an entire group makes sure that you don't accidentally omit a route</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which package provides route grouping?</strong></p>
+<p>A: <a href="https://docs.dotkernel.org/dot-router/v1/overview/">dot-router</a>, which builds on <code>mezzio/mezzio-fastroute</code>.</p>
+<p><strong>Q: Where do I declare my routes?</strong></p>
+<p>A: In your module's <code>RoutesDelegator.php</code>, for example <code>src/User/src/RoutesDelegator.php</code>.</p>
+<p><strong>Q: Do I still name each route individually?</strong></p>
+<p>A: Yes.
+Grouping shares the path prefix, not the route name, so every route keeps its own name such as <code>user::view-user</code>.</p>
+<p><strong>Q: Can I nest groups?</strong></p>
+<p>A: Groups are built around a shared base path, so a nested group extends its parent's prefix.
+Keep nesting shallow, otherwise the effective path of a route becomes hard to read.</p>
+<p><strong>Q: Is the older per-route style still supported?</strong></p>
+<p>A: Yes.
+Calls like <code>$app-&gt;get(...)</code> continue to work; grouping is an additional option, not a replacement.</p>
+<p><strong>Q: What happens to the path when the route part is an empty string?</strong></p>
+<p>A: The group prefix becomes the full path.
+That is why <code>-&gt;get('', ...)</code> inside <code>group('/user/' . $id)</code> maps to <code>/user/{id}</code>.</p>
 
 
 

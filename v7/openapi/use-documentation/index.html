@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#protected-endpoints" class="toc__link nav-link">Protected endpoints</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#making-api-calls" class="toc__link nav-link">Making API calls</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,9 @@
     
 
     <h1 id="using-the-documentation">Using the documentation</h1>
+<h2 id="summary">Summary</h2>
+<p>How to drive your API from Swagger UI: recognising which endpoints are protected, generating an access token from <code>/security/generate-token</code> and pasting it into the <code>Authorize</code> modal, refreshing an expired token via <code>/security/refresh-token</code>, supplying an error reporting token for <code>/error-report</code>, and executing requests against your own instance.</p>
+<h2 id="details">Details</h2>
 <p>Since Redoc is readonly, in the following section we will focus only on using Swagger UI.</p>
 <h2 id="protected-endpoints">Protected endpoints</h2>
 <p>Now that you have a UI for the documentation, you can see all the endpoints. You will see that some of them have a lock symbol right before the collapse/expand arrow.
@@ -1214,6 +1229,38 @@ Once finished, you will see the response as the first item under <code>Responses
 <p>You can repeat the request by clicking again on the <code>Execute</code> button.
 This will first clear the previous output and display the new response in the same place.
 Additionally, between two executions, you can manually clear any previous output using the <code>Clear</code> button next to the <code>Execute</code> button.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why does this page cover only Swagger UI?</strong></p>
+<p>A: Redoc is read-only, so it cannot send requests.
+Only Swagger UI lets you authenticate and execute calls.
+See <a href="../render-documentation/">Render documentation</a>.</p>
+<p><strong>Q: What does the lock symbol next to an endpoint mean?</strong></p>
+<p>A: The endpoint is protected: it requires authentication with an account that holds the right permissions.</p>
+<p><strong>Q: How do I tell whether an endpoint needs admin or user privileges?</strong></p>
+<p>A: From its description.
+"Admin lists user accounts" needs a <code>(super)admin</code> token, while "User fetches their own account" needs a <code>user</code> token.</p>
+<p><strong>Q: How do I authenticate in the UI?</strong></p>
+<p>A: Generate a token with <code>/security/generate-token</code>, copy the <code>access_token</code> value without the surrounding quotes, then paste it as <code>AuthToken</code> in the <code>Authorize</code> modal and click <strong>Authorize</strong>.</p>
+<p><strong>Q: How long does the UI keep me logged in?</strong></p>
+<p>A: Until you close or refresh the browser tab.
+After that you have to authorize again.</p>
+<p><strong>Q: My token expired. Do I have to log in again?</strong></p>
+<p>A: Not necessarily.
+Call <code>/security/refresh-token</code> with the <code>refresh_token</code> you saved when generating the token, then authorize with the new <code>access_token</code>.
+Access tokens last one day by default.</p>
+<p><strong>Q: How do I switch to an account with different privileges?</strong></p>
+<p>A: Open the <code>Authorize</code> modal, click <strong>Logout</strong> for <code>AuthToken</code>, paste the new token and authorize again.</p>
+<p><strong>Q: What is the <code>ErrorReportingToken</code> for?</strong></p>
+<p>A: It authorizes the <code>/error-report</code> endpoint only, which third-party applications and frontends use to report errors back to the API.
+That endpoint does not need an <code>AuthToken</code>.
+See <a href="../../commands/generate-tokens/">Generating tokens</a>.</p>
+<p><strong>Q: Are requests sent from the UI real?</strong></p>
+<p>A: Yes — they hit your actual instance, and there is no confirmation prompt.
+Check any destructive operation before clicking <code>Execute</code>.</p>
+<p><strong>Q: Where do I find the demo credentials?</strong></p>
+<p>A: In the <a href="../../tutorials/token-authentication/">Token authentication</a> tutorial.
+Remove or change these accounts before production.
+See <a href="../../security/basic-security/">Basic security</a>.</p>
 
 
 

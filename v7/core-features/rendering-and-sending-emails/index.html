@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="rendering-and-sending-emails">Rendering and sending emails</h1>
+<h2 id="summary">Summary</h2>
+<p>Email bodies are no longer rendered inside the mail service with Twig.
+A lightweight custom renderer (<code>Api\App\Template\Renderer</code>) renders <code>phtml</code> templates in the handler, and the resulting body is passed to the core <code>MailService</code>, which is responsible only for sending.</p>
+<h2 id="details">Details</h2>
 <p>In the previous versions of Dotkernel API we have been composing email bodies using <strong>Twig</strong> from the <code>mezzio/mezzio-twigrenderer</code> package.
 In the current version of Dotkernel API, we introduced the core mail service <code>Core/src/App/src/Service/MailService</code> which is responsible for sending all emails.</p>
 <p>Being a core service, <code>MailService</code> is used across all projects implementing the Core architecture.
@@ -1127,6 +1150,24 @@ $this-&gt;mailService-&gt;sendWelcomeMail($user, $body);</code></pre>
 <blockquote>
 <p>Other Dotkernel applications implementing the Core architecture do the same in the handlers but keep using Twig as the template renderer.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why was Twig replaced?</strong></p>
+<p>A: Dotkernel API mostly returns JSON rendered by a different renderer, so pulling in a full templating engine solely for email bodies was unnecessary weight.
+A lightweight renderer for <code>phtml</code> files covers the need.</p>
+<p><strong>Q: What template format does the custom renderer use?</strong></p>
+<p>A: Files combining PHP and HTML with the <code>.phtml</code> extension.</p>
+<p><strong>Q: Does <code>MailService</code> still need a renderer injected?</strong></p>
+<p>A: No. Rendering happens in the handler, and the finished body is passed to the mail service as a parameter.</p>
+<p><strong>Q: How do I render a template and send it?</strong></p>
+<p>A: Inject <code>MailService</code> and <code>RendererInterface</code> into your handler, call <code>$this-&gt;renderer-&gt;render('user::welcome', [...])</code>, then pass the result to the relevant <code>MailService</code> method.</p>
+<p><strong>Q: What does the <code>user::welcome</code> syntax mean?</strong></p>
+<p>A: It is a namespaced template name: <code>user</code> is the registered template namespace and <code>welcome</code> the template within it.</p>
+<p><strong>Q: Can I keep using Twig?</strong></p>
+<p>A: Other Dotkernel applications on the Core architecture do exactly that — the pattern in the handler is the same, only the renderer differs.
+Within Dotkernel API the custom renderer is the default.</p>
+<p><strong>Q: Where is the mail transport configured?</strong></p>
+<p>A: In <code>config/autoload/mail.local.php</code>, under the <code>mail</code> key.
+See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
 
 
 

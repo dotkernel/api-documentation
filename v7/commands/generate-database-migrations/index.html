@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
                 </li>
             
@@ -1060,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#help" class="toc__link nav-link">Help</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1129,9 @@
     
 
     <h1 id="generate-a-database-migration-without-dropping-custom-tables">Generate a database migration without dropping custom tables</h1>
+<h2 id="summary">Summary</h2>
+<p><code>doctrine-migrations diff</code> generates migrations from your entity mappings, but it also emits <code>DROP TABLE</code> statements for unmapped tables such as <code>oauth_*</code>.
+Passing a <code>filter-expression</code> excludes those prefixes so the generated migration leaves them alone.</p>
 <h2 id="usage">Usage</h2>
 <p>Run the following command in your application’s root directory:</p>
 <pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff</code></pre>
@@ -1153,6 +1164,24 @@ In this case, we recommend running the command:</p>
 <h2 id="help">Help</h2>
 <p>You can get more help with this command by running:</p>
 <pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations help diff</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why does the generated migration try to drop my <code>oauth_*</code> tables?</strong></p>
+<p>A: Because no Doctrine entity describes them.
+From the ORM's point of view they are not part of the schema, so <code>diff</code> proposes removing them.</p>
+<p><strong>Q: What should I do with a migration that already contains those DROP queries?</strong></p>
+<p>A: Delete that migration file and regenerate it with a <code>filter-expression</code>, rather than editing the queries out by hand.</p>
+<p><strong>Q: Why do the quotes differ between platforms?</strong></p>
+<p>A: Windows shells require double quotes around the expression, while Linux and macOS shells require single quotes to prevent the pattern from being interpreted.</p>
+<p><strong>Q: How do I exclude more than one prefix?</strong></p>
+<p>A: Concatenate the prefixes with a pipe inside the negative lookahead, for example <code>/^(?!foo_|bar_)/</code>.</p>
+<p><strong>Q: The filter is ignored in PowerShell. What is happening?</strong></p>
+<p>A: PowerShell treats <code>^</code> as a special character and strips it, so the expression arrives without the anchor.
+Escaping does not help — run the command from your IDE, a Linux shell, or the Command Prompt instead.</p>
+<p><strong>Q: Where do generated migrations end up?</strong></p>
+<p>A: Under <code>data/doctrine/migrations/</code>.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: How do I see all options for the command?</strong></p>
+<p>A: Run <code>vendor/bin/doctrine-migrations help diff</code>.</p>
 
 
 

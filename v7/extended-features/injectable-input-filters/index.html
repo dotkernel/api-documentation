@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="injectable-input-filters">Injectable input filters</h1>
+<h2 id="summary">Summary</h2>
+<p>Input filters are injected into handler constructors rather than instantiated inside <code>handle()</code>.
+The page contrasts the old inline approach with the current one and shows how injection makes handlers easier to test, since the filter can be replaced with a mock.</p>
+<h2 id="details">Details</h2>
 <p>In the current version of Dotkernel API has an Injectable Input Filter system into the constructors of our handlers.</p>
 <p>When building APIs or backend applications in PHP, especially within frameworks that support dependency injection, input validation is a critical concern.
 Many developers instinctively instantiate input filters or validators inside their handlers or controllers.
@@ -1153,6 +1176,25 @@ $mockFilter-&gt;method('isValid')-&gt;willReturn(true);
 $handler = new PostAdminResourceHandler($adminService, $mockFilter);
 $response = $handler-&gt;handle($request);</code></pre>
 <p>You're no longer tied to the real filter logic in your handler tests.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why is injecting an input filter better than creating one in the handler?</strong></p>
+<p>A: Inline instantiation couples the handler to a concrete filter class, which makes the logic harder to reuse and impossible to substitute in tests.
+Injection moves that decision to the container.</p>
+<p><strong>Q: How does the container know which filter to inject?</strong></p>
+<p>A: From the <code>#[Inject]</code> attribute on the constructor, which lists the services to resolve in order.
+See <a href="../../core-features/dependency-injection/">Dependency injection</a>.</p>
+<p><strong>Q: Is an injected filter shared between requests?</strong></p>
+<p>A: Each request gets a handler instance with its own filter, and <code>setData()</code> is called per request.
+Do not rely on data set during an earlier call.</p>
+<p><strong>Q: What happens when validation fails?</strong></p>
+<p>A: The handler throws a <code>BadRequestException</code> carrying the filter's messages, which is rendered as a Problem Details response.
+See <a href="../problem-details/">Problem details</a>.</p>
+<p><strong>Q: Do I still call <code>setData()</code> and <code>isValid()</code> myself?</strong></p>
+<p>A: Yes.
+Injection only supplies the filter; populating it from the request body and checking validity remain the handler's job.</p>
+<p><strong>Q: Can one handler use more than one input filter?</strong></p>
+<p>A: Yes.
+List each of them in the <code>#[Inject]</code> attribute and accept them as separate constructor parameters.</p>
 
 
 

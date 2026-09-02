@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,8 +1117,24 @@
     
 
     <h1 id="default-library-flow">Default Library Flow</h1>
+<h2 id="summary">Summary</h2>
+<p>An overview diagram of how Dotkernel's libraries interact with each other during a typical request, showing which packages depend on which and where your application code plugs in.</p>
+<h2 id="details">Details</h2>
 <p>The graph below demonstrates a default flow between Dotkernel's libraries.</p>
 <p><img alt="Dotkernel API Default Library Flow!" src="https://docs.dotkernel.org/img/api/v7/dotkernel-library-flow.png" class="img-responsive"/></p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What is this diagram useful for?</strong></p>
+<p>A: It gives you a mental map of the stack.
+When you need to extend or debug behaviour, the diagram shows which library owns that responsibility so you know where to look first.</p>
+<p><strong>Q: Does the flow include third-party packages?</strong></p>
+<p>A: The diagram focuses on Dotkernel's own <code>dot-*</code> libraries and the Mezzio/Laminas components they build on.
+See <a href="../../introduction/packages/">Packages</a> for the full dependency list.</p>
+<p><strong>Q: Where does my own module fit in?</strong></p>
+<p>A: Your modules sit on top of this flow: they consume the services the libraries provide through the DI container.
+See <a href="../../core-features/dependency-injection/">Dependency Injection</a>.</p>
+<p><strong>Q: Is there a separate diagram for the request lifecycle?</strong></p>
+<p>A: Yes.
+The middleware pipeline is documented separately in <a href="../middleware-flow/">Middleware flow</a>.</p>
 
 
 

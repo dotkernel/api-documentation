@@ -1,5 +1,10 @@
 # A practical example: Find a user by identity
 
+## Summary
+
+A worked example of adding an endpoint by following an existing one.
+Starting from `user.view`, which fetches a user by UUID, it builds an `IdentityHandler` that looks a user up by identity, registers it in the module's `ConfigProvider` and `RoutesDelegator`, grants the route a permission, and covers it with functional tests.
+
 ## Our goal
 
 Create a new endpoint that fetches a user record by its identity column.
@@ -210,3 +215,49 @@ class IdentityTest extends AbstractFunctionalTest
 ```
 
 Planning and coding a new feature can be challenging at times, but reviewing our existing code or tutorials can serve as a source of inspiration.
+
+## FAQ
+
+**Q: How do I find the code behind an existing endpoint?**
+
+A: List the routes with `php ./bin/cli.php route:list`, then search for the route name in the module's `RoutesDelegator.php` to find the handler it points to.
+See [Displaying Dotkernel API endpoints](../commands/display-available-endpoints.md).
+
+**Q: What are the steps to add an endpoint?**
+
+A: Create the handler, register it in the module's `ConfigProvider` under `factories`, declare the route in `RoutesDelegator.php`, and grant the route name a permission in `config/autoload/authorization.global.php`.
+
+**Q: Why must the new route be registered last?**
+
+A: Because `/user/{identity}` and `/user/{id}` match the same shape.
+Registering the new route last stops it from shadowing the existing ones.
+
+**Q: Which factory do I register the handler with?**
+
+A: `AttributedServiceFactory::class`, which resolves the dependencies declared by the handler's `#[Inject]` attribute.
+See [Dependency injection](../core-features/dependency-injection.md).
+
+**Q: Why does the handler throw two different exceptions?**
+
+A: `BadRequestException` covers a missing identity in the request (a client error in the input), while `NotFoundException` covers a valid identity with no matching record.
+They map to 400 and 404 respectively.
+See [Exceptions](../core-features/exceptions.md).
+
+**Q: Why is the route added under `UserRole::ROLE_GUEST`?**
+
+A: Only to keep the example simple — it lets everyone, including guests, view accounts.
+Real deployments should grant it to the narrowest role that needs it.
+See [Authorization](../core-features/authorization.md).
+
+**Q: Will the endpoint work without an authorization entry?**
+
+A: No. A route with no permission granted to the caller's role is refused, even though the handler and route exist.
+
+**Q: What should the tests cover?**
+
+A: The three outcomes: an empty identity, an identity with no matching user, and a valid identity returning the expected record.
+
+**Q: Where do functional tests live?**
+
+A: In the `test/Functional` folder, extending `AbstractFunctionalTest`.
+See [Test the installation](../installation/test-the-installation.md).

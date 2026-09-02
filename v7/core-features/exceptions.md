@@ -1,5 +1,10 @@
 # Exceptions
 
+## Summary
+
+Dotkernel API expresses error conditions through a small set of problem-specific exceptions — `BadRequestException`, `ConflictException`, `ExpiredException`, `ForbiddenException`, `MethodNotAllowedException`, `NotFoundException` and `UnauthorizedException` — each mapped to an HTTP status code.
+The page lists when to throw each one and walks through adding a custom exception with its own status code.
+
 ## What are exceptions?
 
 Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
@@ -125,3 +130,44 @@ Save and close the file.
 
 Access your API's home page URL, which should return the same content.
 Notice that this time it returns `418 I'm a teapot` HTTP status code.
+
+## FAQ
+
+**Q: Which exception should I throw for invalid request data?**
+
+A: `BadRequestException`, which produces a `400 Bad Request`.
+It is what input filter failures raise.
+See [Injectable input filters](../extended-features/injectable-input-filters.md).
+
+**Q: What is the difference between `UnauthorizedException` and `ForbiddenException`?**
+
+A: `UnauthorizedException` (401) means the client is not authenticated at all; `ForbiddenException` (403) means it is authenticated but its role does not grant access.
+See [Authorization](authorization.md).
+
+**Q: When do I use `ConflictException`?**
+
+A: When a resource cannot be created because one with the same identifier exists, or cannot change state because it is already in that state.
+It returns `409 Conflict`.
+
+**Q: What does `ExpiredException` cover?**
+
+A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
+It returns `410 Gone`.
+
+**Q: What happens to an exception I do not handle?**
+
+A: Generic exceptions, along with `MailException` and `RuntimeException`, produce a `500 Internal Server Error`.
+
+**Q: How do I map a custom exception to a specific status code?**
+
+A: Create the exception class, then add a `catch` block for it in the `handle` method of `HandlerTrait.php` that returns `errorResponse()` with your chosen status code.
+
+**Q: Why does my custom exception return 500 before I touch `HandlerTrait`?**
+
+A: Because nothing catches it yet, so it falls through to the generic handler.
+Adding the catch block is what changes the status code.
+
+**Q: How do exceptions relate to problem details responses?**
+
+A: The exceptions carry the title, type, status, detail and any additional fields that the problem details middleware renders.
+See [Problem details](../extended-features/problem-details.md).

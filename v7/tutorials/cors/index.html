@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#what-is-cors" class="toc__link nav-link">What is CORS?</a>
                 </li>
             
@@ -1056,6 +1060,10 @@
             
                 <li class="toc__entry">
                     <a href="#how-to-fix" class="toc__link nav-link">How to fix?</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1125,9 @@
     
 
     <h1 id="cors">CORS</h1>
+<h2 id="summary">Summary</h2>
+<p>Browsers block cross-origin requests unless the API says otherwise.
+This tutorial explains the mechanism, then walks through enabling it in Dotkernel API with <code>mezzio/mezzio-cors</code>: installing the package, registering its <code>ConfigProvider</code>, piping its middleware before routing, and configuring allowed origins, headers, cache duration and credentials in <code>config/autoload/cors.local.php</code>.</p>
 <h2 id="what-is-cors">What is CORS?</h2>
 <p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP header-based mechanism that allows a server to indicate any other
 origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
@@ -1176,6 +1187,28 @@ return [
 <p>On the <strong>production</strong> environment, make sure you allow only specific origins by adding them to the <code>allowed_origins</code> array and removing the current value of <code>ConfigurationInterface::ANY_ORIGIN</code>.</p>
 </blockquote>
 <p>For more info, see <a href="https://docs.mezzio.dev/mezzio-cors/v1/middleware/#configuration">mezzio/mezzio-cors documentation</a>.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why do I get a "No 'Access-Control-Allow-Origin' header" error?</strong></p>
+<p>A: The API is not configured to accept requests from the calling origin.
+Add that origin to <code>allowed_origins</code>.</p>
+<p><strong>Q: Where must the CORS middleware sit in the pipeline?</strong></p>
+<p>A: Before <code>RouteMiddleware::class</code>, so preflight requests are answered without needing to match a route.</p>
+<p><strong>Q: Which origins should production allow?</strong></p>
+<p>A: Only the ones that genuinely consume the API.
+Replace <code>ConfigurationInterface::ANY_ORIGIN</code> with an explicit list before deploying.</p>
+<p><strong>Q: What does <code>credentials_allowed</code> control?</strong></p>
+<p>A: Whether the browser may send cookies with cross-origin requests.
+Enable it only if your clients rely on cookie-based state.</p>
+<p><strong>Q: What is <code>allowed_max_age</code> for?</strong></p>
+<p>A: It sets how long a client may cache the preflight response, in seconds.
+A higher value means fewer preflight round trips.</p>
+<p><strong>Q: When do I need to change <code>allowed_headers</code>?</strong></p>
+<p>A: Whenever clients send a header not already listed — the defaults cover <code>Accept</code>, <code>Content-Type</code> and <code>Authorization</code>.</p>
+<p><strong>Q: What is <code>exposed_headers</code> for?</strong></p>
+<p>A: It lists response headers the browser should make readable to client-side code; by default only a small set of standard headers is exposed.</p>
+<p><strong>Q: Do I need to install the package on a fresh Dotkernel API?</strong></p>
+<p>A: No. <code>mezzio/mezzio-cors</code> ships with the project and <code>cors.local.php</code> is created during installation — you only need to review its values.
+See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
 
 
 

@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#operating-system" class="toc__link nav-link">Operating System</a>
                 </li>
             
@@ -1076,6 +1084,10 @@
             
                 <li class="toc__entry">
                     <a href="#security-considerations" class="toc__link nav-link">Security Considerations</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1137,6 +1149,10 @@
     
 
     <h1 id="server-requirements">Server Requirements</h1>
+<h2 id="summary">Summary</h2>
+<p>What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with <code>mod_rewrite</code> or an Nginx equivalent, PHP 8.2 or newer with <code>mbstring</code> and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
+Recommended extensions and baseline server hardening are listed as well.</p>
+<h2 id="details">Details</h2>
 <p>For production environments, we highly recommend a Linux-based system.
 Windows is supported for development via WSL2.</p>
 <h2 id="operating-system">Operating System</h2>
@@ -1240,6 +1256,31 @@ MariaDB and PostgreSQL both have native UUID types and functions.</p>
 <li><strong>Files</strong>: Set proper permissions (644 for files, 755 for directories)</li>
 <li><strong>Updates</strong>: Keep PHP, web server, and database updated with security patches</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why is MySQL not supported?</strong></p>
+<p>A: Dotkernel API v7 stores identifiers as native UUIDs, and MySQL has no native UUID type or functions.
+MariaDB and PostgreSQL both do.</p>
+<p><strong>Q: Which database versions are tested?</strong></p>
+<p>A: MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and PostgreSQL 13 and above.
+LTS releases are recommended for stability and security updates.</p>
+<p><strong>Q: What collation should I create the database with?</strong></p>
+<p>A: <code>utf8mb4_general_ci</code> or <code>utf8mb4_unicode_ci</code> on MariaDB, and <code>C.UTF-8</code> or <code>en_US.UTF-8</code> on PostgreSQL.</p>
+<p><strong>Q: What is the minimum PHP version?</strong></p>
+<p>A: PHP 8.2.
+Earlier versions are not supported, because the project relies on named arguments, match expressions, attributes, union types, the nullsafe operator and constructor property promotion.</p>
+<p><strong>Q: Do I need the CLI SAPI as well as FPM?</strong></p>
+<p>A: Yes.
+FPM (or FastCGI) serves web requests, while the CLI SAPI is required for cron jobs, migrations and fixtures.</p>
+<p><strong>Q: Can I run this on Nginx?</strong></p>
+<p>A: Yes, but the shipped <code>.htaccess</code> in <code>public</code> is Apache-specific — you must translate its rewrite rules into Nginx configuration.</p>
+<p><strong>Q: Can I develop on Windows?</strong></p>
+<p>A: Yes, through WSL2. macOS and Linux are also supported for development; production should be Linux.</p>
+<p><strong>Q: Which PHP extensions are actually required?</strong></p>
+<p>A: <code>mbstring</code> plus the PDO driver for your database.
+The rest — <code>opcache</code>, <code>gd</code>, <code>curl</code>, <code>zip</code>, <code>dom</code>, <code>simplexml</code>, <code>sqlite3</code> and others — depend on what your application does, with <code>sqlite3</code> needed to run the tests.</p>
+<p><strong>Q: What are the baseline hardening steps?</strong></p>
+<p>A: Expose only ports 80 and 443, disable <code>exec</code>, <code>shell_exec</code>, <code>passthru</code> and <code>system</code> in PHP, use strong database passwords with restricted permissions, set 644 on files and 755 on directories, and keep the stack patched.
+See <a href="../../security/basic-security/">Basic security</a>.</p>
 
 
 

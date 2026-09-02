@@ -1,5 +1,11 @@
 # Discovery phase for a current system built using API Tools [WIP]
 
+## Summary
+
+A checklist of what to inventory in an existing api-tools system before migrating it: the database and its access layer, the authentication and authorization schemes, each module's configuration, routes, response formats and validation rules, and any custom code that was written by hand rather than generated.
+
+## Details
+
 To transition a system built using api-tools to Dotkernel API, we need to analyze the core components of it.
 
 ## Database
@@ -35,3 +41,37 @@ For instance:
 - jobs and queues
 - third-parties
 - tests
+
+## FAQ
+
+**Q: Why is a discovery phase necessary?**
+
+A: Because api-tools generated much of its behaviour from configuration, the working system contains decisions that are not obvious from the code alone.
+Documenting them first prevents discovering missing requirements mid-migration.
+
+**Q: What if the current API uses a database library other than Doctrine?**
+
+A: Plan on mapping the schema to Doctrine entities.
+Dotkernel API's default data layer is Doctrine ORM, so laminas-db or Eloquent code does not carry over.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: Which database versions can I target?**
+
+A: Dotkernel API version 7 is tested with MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and with PostgreSQL 13 and above.
+See [Server requirements](../introduction/server-requirements.md).
+
+**Q: My api-tools API uses HTTP Basic authentication. What is the equivalent?**
+
+A: Dotkernel API authenticates with OAuth2.
+Basic and Digest schemes have no direct equivalent, so consumers need to be updated.
+See [Authentication](../core-features/authentication.md).
+
+**Q: How do I document existing response formats?**
+
+A: Record which endpoints return JSON, HAL or other representations, then map them onto Dotkernel API's content negotiation.
+See [Content validation](../core-features/content-validation.md).
+
+**Q: What counts as "custom functionality"?**
+
+A: Anything that could not be produced by the api-tools Admin UI — caching, event listeners, services, queues, third-party integrations and tests.
+These always need manual reimplementation.

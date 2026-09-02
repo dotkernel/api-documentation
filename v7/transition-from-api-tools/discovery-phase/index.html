@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#database" class="toc__link nav-link">Database</a>
                 </li>
             
@@ -1060,6 +1068,10 @@
             
                 <li class="toc__entry">
                     <a href="#custom-functionalities" class="toc__link nav-link">Custom functionalities</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1133,9 @@
     
 
     <h1 id="discovery-phase-for-a-current-system-built-using-api-tools-wip">Discovery phase for a current system built using API Tools [WIP]</h1>
+<h2 id="summary">Summary</h2>
+<p>A checklist of what to inventory in an existing api-tools system before migrating it: the database and its access layer, the authentication and authorization schemes, each module's configuration, routes, response formats and validation rules, and any custom code that was written by hand rather than generated.</p>
+<h2 id="details">Details</h2>
 <p>To transition a system built using api-tools to Dotkernel API, we need to analyze the core components of it.</p>
 <h2 id="database">Database</h2>
 <ul>
@@ -1155,6 +1170,27 @@
 <li>third-parties</li>
 <li>tests</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why is a discovery phase necessary?</strong></p>
+<p>A: Because api-tools generated much of its behaviour from configuration, the working system contains decisions that are not obvious from the code alone.
+Documenting them first prevents discovering missing requirements mid-migration.</p>
+<p><strong>Q: What if the current API uses a database library other than Doctrine?</strong></p>
+<p>A: Plan on mapping the schema to Doctrine entities.
+Dotkernel API's default data layer is Doctrine ORM, so laminas-db or Eloquent code does not carry over.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: Which database versions can I target?</strong></p>
+<p>A: Dotkernel API version 7 is tested with MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and with PostgreSQL 13 and above.
+See <a href="../../introduction/server-requirements/">Server requirements</a>.</p>
+<p><strong>Q: My api-tools API uses HTTP Basic authentication. What is the equivalent?</strong></p>
+<p>A: Dotkernel API authenticates with OAuth2.
+Basic and Digest schemes have no direct equivalent, so consumers need to be updated.
+See <a href="../../core-features/authentication/">Authentication</a>.</p>
+<p><strong>Q: How do I document existing response formats?</strong></p>
+<p>A: Record which endpoints return JSON, HAL or other representations, then map them onto Dotkernel API's content negotiation.
+See <a href="../../core-features/content-validation/">Content validation</a>.</p>
+<p><strong>Q: What counts as "custom functionality"?</strong></p>
+<p>A: Anything that could not be produced by the api-tools Admin UI — caching, event listeners, services, queues, third-party integrations and tests.
+These always need manual reimplementation.</p>
 
 
 

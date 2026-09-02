@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,8 +1117,24 @@
     
 
     <h1 id="openapi-documentation">OpenAPI documentation</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API ships with <code>zircote/swagger-php</code>, letting you describe endpoints with PHP attributes and auto-generate an interactive OpenAPI specification from them.</p>
+<h2 id="details">Details</h2>
 <p>To provide an interactive documentation, Dotkernel API implemented <a href="https://github.com/zircote/swagger-php">zircote/swagger-php</a>.</p>
 <p>Developers can use this library to auto-generate documentation that outlines available endpoints, their request details, and their response formats.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What is OpenAPI?</strong></p>
+<p>A: OpenAPI is a standard, machine-readable format for describing HTTP APIs.
+Tools can consume the specification to render documentation, generate clients, or drive tests.</p>
+<p><strong>Q: Do I write the specification by hand?</strong></p>
+<p>A: No. You annotate your handlers and models with <code>zircote/swagger-php</code> attributes, then generate the specification file from them.
+See <a href="../write-documentation/">Write documentation</a>.</p>
+<p><strong>Q: Which OpenAPI version is used?</strong></p>
+<p>A: The version supported by the installed release of <code>zircote/swagger-php</code>.
+Consult the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a> for the object reference.</p>
+<p><strong>Q: How do I view the generated documentation?</strong></p>
+<p>A: Generate the specification, then serve it through a renderer.
+See <a href="../generate-documentation/">Generate documentation</a> and <a href="../render-documentation/">Render documentation</a>.</p>
 
 
 

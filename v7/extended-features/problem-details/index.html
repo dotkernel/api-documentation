@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#our-changes" class="toc__link nav-link">Our changes</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,10 @@
     
 
     <h1 id="problem-details">Problem details</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API returns errors as RFC 9457 Problem Details documents via <code>mezzio/mezzio-problem-details</code>, so a failed request carries a title, type, status and detail instead of an opaque message.
+This page shows the response shape, the middleware that produces it, the slimmed-down exceptions behind it, and where to map status codes to documentation links.</p>
+<h2 id="details">Details</h2>
 <p>With the usage of <code>mezzio/mezzio-problem-details</code> we have implemented a way to help the developers understand better the errors that they are getting from their APIs based on the <a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457</a> standards.</p>
 <p>Example of a response with details:</p>
 <pre class="highlight"><code class="language-json">{
@@ -1170,6 +1186,24 @@ Here the statuses of the API calls are being attributed to a link.</p>
         ],
     ],
 ];</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which standard do the error responses follow?</strong></p>
+<p>A: <a href="https://www.rfc-editor.org/rfc/rfc9457.html">RFC 9457</a>, the Problem Details format for HTTP APIs.</p>
+<p><strong>Q: What fields does a problem details response contain?</strong></p>
+<p>A: At minimum a title, a type, the HTTP status and a detail message.
+You can add further fields when a specific error needs more context.</p>
+<p><strong>Q: Where are the middlewares registered?</strong></p>
+<p>A: <code>ProblemDetailsMiddleware</code> and <code>ProblemDetailsNotFoundHandler</code> are wired into <code>config/pipeline.php</code>.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: How do I change the <code>type</code> link for a status code?</strong></p>
+<p>A: Edit <code>default_types_map</code> in <code>config/autoload/problem-details.global.php</code> and point the status code at your own URL.</p>
+<p><strong>Q: How do I raise a problem details error from my own code?</strong></p>
+<p>A: Throw one of the project exceptions, for example <code>BadRequestException::create($detail)</code>.
+The middleware converts it into the response.
+See <a href="../../core-features/exceptions/">Exceptions</a>.</p>
+<p><strong>Q: Can I attach extra data to an error response?</strong></p>
+<p>A: Yes.
+Pass the <code>additional</code> array to the exception's <code>create()</code> method and those fields appear alongside the standard ones.</p>
 
 
 

@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#default-oauth-clients" class="toc__link nav-link">Default OAuth Clients</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#autogeneration-of-cryptographic-keys" class="toc__link nav-link">Autogeneration of Cryptographic Keys</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,9 @@
     
 
     <h1 id="oauth2-security">OAuth2 Security</h1>
+<h2 id="summary">Summary</h2>
+<p>The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default <code>admin</code> and <code>frontend</code> OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is regenerated and where it must be kept.</p>
+<h2 id="details">Details</h2>
 <p>Dotkernel API uses the <a href="https://github.com/mezzio/mezzio-authentication-oauth2">mezzio/mezzio-authentication-oauth2</a> component to provide the OAuth2 authentication service.
 As a security stating point, when developing an application using this project, make sure you go over the following steps.</p>
 <h2 id="default-oauth-clients">Default OAuth Clients</h2>
@@ -1139,6 +1154,24 @@ This process is done after each <code>composer update</code> (or <code>composer 
 <p>Autogeneration of keys can be disabled by simply removing the <code>php ./vendor/bin/generate-oauth2-keys</code> command from the mentioned key.</p>
 <p>While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What is the single most important step before going live?</strong></p>
+<p>A: Deleting or re-passwording the default <code>admin</code> and <code>frontend</code> OAuth clients.
+They ship with passwords equal to their names, so leaving them in place hands anyone a valid client.</p>
+<p><strong>Q: Where do I change token lifetimes?</strong></p>
+<p>A: Under the <code>authentication</code> key in <code>config/autoload/local.php</code>.
+Defaults are one day for access tokens and one month for refresh tokens; shorter values are generally safer.</p>
+<p><strong>Q: Can I invalidate a user's tokens before they expire?</strong></p>
+<p>A: Yes, via the <code>revokeTokens</code> method of <code>UserService</code>.</p>
+<p><strong>Q: When are the OAuth2 keys regenerated?</strong></p>
+<p>A: After every <code>composer update</code>, and after <code>composer install</code> when there is no lock file, through the <code>php ./vendor/bin/generate-oauth2-keys</code> script in <code>composer.json</code>.</p>
+<p><strong>Q: How do I stop the keys from being regenerated?</strong></p>
+<p>A: Remove <code>php ./vendor/bin/generate-oauth2-keys</code> from the <code>scripts.post-update-cmd</code> key in <code>composer.json</code>.
+This matters on servers where regenerating keys would invalidate tokens already issued.</p>
+<p><strong>Q: Should the key pair be committed?</strong></p>
+<p>A: No. The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.</p>
+<p><strong>Q: Where are the OAuth2 flows themselves documented?</strong></p>
+<p>A: In <a href="../../core-features/authentication/">Authentication</a> and the <a href="../../tutorials/token-authentication/">Token authentication</a> tutorial.</p>
 
 
 

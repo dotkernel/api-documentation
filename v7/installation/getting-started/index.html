@@ -1047,11 +1047,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#clone-the-project_1" class="toc__link nav-link">Clone the Project</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#set-file-and-folder-permissions" class="toc__link nav-link">Set File and Folder Permissions</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1125,9 @@
     
 
     <h1 id="clone-the-project">Clone the project</h1>
+<h2 id="summary">Summary</h2>
+<p>The first installation step: clone the Dotkernel API repository into an empty directory, then grant write permissions on the <code>data</code>, <code>public/uploads</code> and <code>log</code> folders so the application can write caches, uploads and logs.</p>
+<h2 id="details">Details</h2>
 <p>In this step you will:</p>
 <ul>
 <li><a href="#clone-the-project">Clone the Dotkernel API project</a>.</li>
@@ -1144,6 +1159,22 @@ chmod -R 777 log</code></pre>
 <blockquote>
 <p>The <code>-R</code> parameter is used to recursively apply the permissions to all subdirectories and files.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why must the target directory be empty?</strong></p>
+<p>A: <code>git clone &lt;url&gt; .</code> clones into the current directory and refuses to run if that directory already contains files.</p>
+<p><strong>Q: Is setting <code>777</code> on those folders safe?</strong></p>
+<p>A: Access to application files is controlled by the <code>.htaccess</code> rules: only the <code>public</code> folder is served directly and everything else is routed through <code>index.php</code>.
+The three writable folders sit outside the served path.</p>
+<p><strong>Q: Which folders need write access, and why?</strong></p>
+<p>A: <code>data</code> for caches and generated files, <code>public/uploads</code> for uploaded content, and <code>log</code> for the error log.</p>
+<p><strong>Q: I hit permission errors after installing. What now?</strong></p>
+<p>A: Re-run the <code>chmod</code> commands, and see the <a href="../faq/">FAQ</a> page, which lists the specific error messages and their fixes.</p>
+<p><strong>Q: Can I develop on Windows?</strong></p>
+<p>A: Yes, using WSL2 as the development environment.
+See the <a href="https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin/">WSL2 setup guide</a>.</p>
+<p><strong>Q: What comes after cloning?</strong></p>
+<p>A: Install dependencies with Composer, then configure the local files.
+See <a href="../composer/">Composer</a> and <a href="../configuration-files/">Configuration files</a>.</p>
 
 
 

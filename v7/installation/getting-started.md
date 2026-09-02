@@ -1,5 +1,11 @@
 # Clone the project
 
+## Summary
+
+The first installation step: clone the Dotkernel API repository into an empty directory, then grant write permissions on the `data`, `public/uploads` and `log` folders so the application can write caches, uploads and logs.
+
+## Details
+
 In this step you will:
 
 - [Clone the Dotkernel API project](#clone-the-project).
@@ -38,3 +44,32 @@ chmod -R 777 log
 ```
 
 > The `-R` parameter is used to recursively apply the permissions to all subdirectories and files.
+
+## FAQ
+
+**Q: Why must the target directory be empty?**
+
+A: `git clone <url> .` clones into the current directory and refuses to run if that directory already contains files.
+
+**Q: Is setting `777` on those folders safe?**
+
+A: Access to application files is controlled by the `.htaccess` rules: only the `public` folder is served directly and everything else is routed through `index.php`.
+The three writable folders sit outside the served path.
+
+**Q: Which folders need write access, and why?**
+
+A: `data` for caches and generated files, `public/uploads` for uploaded content, and `log` for the error log.
+
+**Q: I hit permission errors after installing. What now?**
+
+A: Re-run the `chmod` commands, and see the [FAQ](faq.md) page, which lists the specific error messages and their fixes.
+
+**Q: Can I develop on Windows?**
+
+A: Yes, using WSL2 as the development environment.
+See the [WSL2 setup guide](https://www.dotkernel.com/how-to/installing-almalinux-10-in-wsl2-php-mariadb-composer-phpmyadmin/).
+
+**Q: What comes after cloning?**
+
+A: Install dependencies with Composer, then configure the local files.
+See [Composer](composer.md) and [Configuration files](configuration-files.md).

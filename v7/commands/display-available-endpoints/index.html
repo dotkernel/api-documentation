@@ -1047,11 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#filtering-results" class="toc__link nav-link">Filtering results</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1121,9 @@
     
 
     <h1 id="displaying-dotkernel-api-endpoints-using-dot-cli">Displaying Dotkernel API endpoints using dot-cli</h1>
+<h2 id="summary">Summary</h2>
+<p>The <code>route:list</code> CLI command inspects the application's routes at runtime and prints every endpoint's request method, route name and path.
+Results can be filtered by name, path or method.</p>
 <h2 id="usage">Usage</h2>
 <p>Run the following command in your application’s root directory:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php route:list</code></pre>
@@ -1170,6 +1181,24 @@ The output should be similar to the following:</p>
 <p>The filters are case-insensitive and can be combined.</p>
 <p>Get more help by running this command:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php route:list --help</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Is the output generated from a static file?</strong></p>
+<p>A: No. The command walks the application's registered routes in realtime, so it always reflects the current configuration.</p>
+<p><strong>Q: Which filters are available?</strong></p>
+<p>A: <code>-i|--name</code>, <code>-p|--path</code> and <code>-m|--method</code>.
+They are case-insensitive and can be combined.</p>
+<p><strong>Q: Why do route names matter beyond documentation?</strong></p>
+<p>A: Because a permission in Dotkernel API is a route name, so this listing is also the list of permissions you can grant.
+See <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: My new route does not appear. What should I check?</strong></p>
+<p>A: That its module's <code>RoutesDelegator</code> is registered and the route is declared there.
+See <a href="../../extended-features/route-grouping/">Route grouping</a>.</p>
+<p><strong>Q: How is this different from the OpenAPI documentation?</strong></p>
+<p>A: <code>route:list</code> reports what the application actually routes; the OpenAPI file describes the documented contract.
+Comparing the two is a quick way to spot undocumented endpoints.
+See <a href="../../openapi/introduction/">OpenAPI documentation</a>.</p>
+<p><strong>Q: Where do I see the full command help?</strong></p>
+<p>A: Run <code>php ./bin/cli.php route:list --help</code>.</p>
 
 
 

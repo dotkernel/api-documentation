@@ -1047,11 +1047,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#upgrade-procedure" class="toc__link nav-link">Upgrade procedure</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#version-to-version-upgrading" class="toc__link nav-link">Version to version upgrading</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1125,10 @@
     
 
     <h1 id="upgrades">Upgrades</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API has no automatic upgrade path.
+You upgrade by applying the changes from each release to your own project by hand, using the project <code>CHANGELOG.md</code> to track which version your copy corresponds to.</p>
+<h2 id="details">Details</h2>
 <p>Dotkernel API does not provide an automatic upgrade path.
 Instead, the recommended procedure is to manually implement each modification listed in <a href="https://github.com/dotkernel/api/releases">releases</a>.
 Additionally, release info can also be accessed as an <a href="https://github.com/dotkernel/api/releases.atom">RSS</a> feed.</p>
@@ -1125,6 +1141,20 @@ It is recommended to copy the release info into your project's CHANGELOG.md file
 This allows you to track your API's version and keep your project up to date with future releases.</p>
 <h2 id="version-to-version-upgrading">Version to version upgrading</h2>
 <p>Starting from <a href="../UPGRADE-6.0/">version 5.3</a> the upgrading procedure is detailed version to version.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why is there no automatic upgrade path?</strong></p>
+<p>A: Dotkernel API is a project skeleton you own and modify, not a dependency you bump.
+Because your code lives alongside the skeleton's, only you can decide how each upstream change applies to it.</p>
+<p><strong>Q: How do I tell which version my project is based on?</strong></p>
+<p>A: Compare the entries in your project's <code>CHANGELOG.md</code> with the upstream one.
+The last upstream entry you have applied is your effective version.</p>
+<p><strong>Q: Do I have to apply every release in order?</strong></p>
+<p>A: Applying them in order is strongly recommended, since later changes often build on earlier ones.
+Skipping releases means reconciling several sets of changes at once.</p>
+<p><strong>Q: How do I stay informed about new releases?</strong></p>
+<p>A: Watch the <a href="https://github.com/dotkernel/api/releases">releases page</a> or subscribe to the <a href="https://github.com/dotkernel/api/releases.atom">RSS feed</a>.</p>
+<p><strong>Q: Where do I find instructions for a specific major version jump?</strong></p>
+<p>A: Version-to-version pages exist from 5.3 onward, for example <a href="../UPGRADE-6.0/">Upgrading from 5.x to 6.0</a> and <a href="../UPGRADE-7.0/">Upgrading from 6.x to 7.0</a>.</p>
 
 
 

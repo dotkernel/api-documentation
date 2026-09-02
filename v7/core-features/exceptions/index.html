@@ -1047,6 +1047,10 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#what-are-exceptions" class="toc__link nav-link">What are exceptions?</a>
                 </li>
             
@@ -1060,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#how-to-extend" class="toc__link nav-link">How to extend</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1121,6 +1129,9 @@
     
 
     <h1 id="exceptions">Exceptions</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API expresses error conditions through a small set of problem-specific exceptions — <code>BadRequestException</code>, <code>ConflictException</code>, <code>ExpiredException</code>, <code>ForbiddenException</code>, <code>MethodNotAllowedException</code>, <code>NotFoundException</code> and <code>UnauthorizedException</code> — each mapped to an HTTP status code.
+The page lists when to throw each one and walks through adding a custom exception with its own status code.</p>
 <h2 id="what-are-exceptions">What are exceptions?</h2>
 <p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
 They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.</p>
@@ -1217,6 +1228,30 @@ Insert the following lines of code before the first catch statement:</p>
 <h3 id="step-5-test-for-success">Step 5: Test for success</h3>
 <p>Access your API's home page URL, which should return the same content.
 Notice that this time it returns <code>418 I'm a teapot</code> HTTP status code.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which exception should I throw for invalid request data?</strong></p>
+<p>A: <code>BadRequestException</code>, which produces a <code>400 Bad Request</code>.
+It is what input filter failures raise.
+See <a href="../../extended-features/injectable-input-filters/">Injectable input filters</a>.</p>
+<p><strong>Q: What is the difference between <code>UnauthorizedException</code> and <code>ForbiddenException</code>?</strong></p>
+<p>A: <code>UnauthorizedException</code> (401) means the client is not authenticated at all; <code>ForbiddenException</code> (403) means it is authenticated but its role does not grant access.
+See <a href="../authorization/">Authorization</a>.</p>
+<p><strong>Q: When do I use <code>ConflictException</code>?</strong></p>
+<p>A: When a resource cannot be created because one with the same identifier exists, or cannot change state because it is already in that state.
+It returns <code>409 Conflict</code>.</p>
+<p><strong>Q: What does <code>ExpiredException</code> cover?</strong></p>
+<p>A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
+It returns <code>410 Gone</code>.</p>
+<p><strong>Q: What happens to an exception I do not handle?</strong></p>
+<p>A: Generic exceptions, along with <code>MailException</code> and <code>RuntimeException</code>, produce a <code>500 Internal Server Error</code>.</p>
+<p><strong>Q: How do I map a custom exception to a specific status code?</strong></p>
+<p>A: Create the exception class, then add a <code>catch</code> block for it in the <code>handle</code> method of <code>HandlerTrait.php</code> that returns <code>errorResponse()</code> with your chosen status code.</p>
+<p><strong>Q: Why does my custom exception return 500 before I touch <code>HandlerTrait</code>?</strong></p>
+<p>A: Because nothing catches it yet, so it falls through to the generic handler.
+Adding the catch block is what changes the status code.</p>
+<p><strong>Q: How do exceptions relate to problem details responses?</strong></p>
+<p>A: The exceptions carry the title, type, status, detail and any additional fields that the problem details middleware renders.
+See <a href="../../extended-features/problem-details/">Problem details</a>.</p>
 
 
 

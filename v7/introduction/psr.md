@@ -1,5 +1,10 @@
 # PSRs
 
+## Summary
+
+Dotkernel API is built on the PHP-FIG standards, which keep your code portable and let PSR-compliant libraries drop in without adapters.
+PSR-7 (HTTP messages), PSR-15 (handlers and middleware) and PSR-11 (container) are architectural foundations; PSR-3, PSR-4, PSR-6, PSR-13, PSR-14, PSR-17, PSR-18 and PSR-20 arrive through dependencies.
+
 ## Why PSRs Matter for Dotkernel API
 
 - **Vendor Lock-In Prevention**: By following PSRs, you're not locked into Dotkernel API. Your code can be reused in other PSR-compliant frameworks.
@@ -154,3 +159,48 @@ Provides a standard interface for reading the system clock.
 │ (Loads services automatically)            │
 └───────────────────────────────────────────┘
 ```
+
+## FAQ
+
+**Q: Which PSRs are essential to the architecture?**
+
+A: PSR-7, PSR-15 and PSR-11.
+Everything else is supporting, arriving through dependencies rather than shaping the design.
+
+**Q: What does building on PSRs buy me in practice?**
+
+A: Portability.
+Because your handlers and services depend on standard interfaces rather than framework classes, they can be reused in any other PSR-compliant framework, and third-party PSR libraries integrate without custom adapters.
+
+**Q: What implements PSR-7 here?**
+
+A: `Laminas\Diactoros`, which also provides the PSR-17 HTTP factories.
+
+**Q: How does PSR-15 show up in the code I write?**
+
+A: Every handler implements `RequestHandlerInterface` and serves a single action, and requests travel through a middleware pipeline.
+See [The new handler structure](../extended-features/handler-structure.md).
+
+**Q: Which container is used?**
+
+A: `Laminas\ServiceManager`, behind the PSR-11 interface.
+See [Dependency injection](../core-features/dependency-injection.md).
+
+**Q: Which PSR governs the file layout?**
+
+A: PSR-4 autoloading, which maps namespaces to paths.
+See [File structure](file-structure.md).
+
+**Q: Do I need to install anything to use PSR-3 logging or PSR-6 caching?**
+
+A: No. They come with `dotkernel/dot-errorhandler` and `dotkernel/dot-cache` respectively.
+See [Packages](packages.md).
+
+**Q: How do I call an external API from Dotkernel API?**
+
+A: Through a PSR-18 HTTP client such as `symfony/http-client`, so your calling code depends on the interface rather than a specific client.
+
+**Q: Are PSR-14 events and PSR-20 clock available out of the box?**
+
+A: Not by default.
+Both are supplied by third-party packages when a project needs them.

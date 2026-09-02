@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,10 @@
     
 
     <h1 id="dependency-injection">Dependency Injection</h1>
+<h2 id="summary">Summary</h2>
+<p>Dotkernel API resolves dependencies through the <code>dot-dependency-injection</code> package, which supports constructor injection only.
+You declare the services a class needs with the <code>#[Inject]</code> attribute on its constructor, then register the class in a <code>ConfigProvider</code> using <code>AttributedServiceFactory</code>.</p>
+<h2 id="details">Details</h2>
 <p>Dependency injection is a design pattern used in software development to implement inversion of control.
 In simpler terms, it's the act of providing dependencies for an object during instantiation.</p>
 <p>In PHP, dependency injection can be implemented in various ways, including through constructor injection, setter injection and property injection.</p>
@@ -1153,6 +1169,24 @@ When your object is instantiated from the container, it will automatically have 
 <p>Dependency injection is available to any object within Dotkernel API.
 For example, you can inject dependencies in a service, a handler and so on, simply by registering it in the <code>ConfigProvider</code>.</p>
 </blockquote>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which injection styles are supported?</strong></p>
+<p>A: Constructor injection only.
+<code>dot-dependency-injection</code> deliberately leaves out setter and property injection.</p>
+<p><strong>Q: What are the two steps to make a class injectable?</strong></p>
+<p>A: Add the <code>#[Inject]</code> attribute to its constructor listing the dependencies in order, then register the class in the <code>ConfigProvider</code> under <code>factories</code> with <code>AttributedServiceFactory::class</code>.</p>
+<p><strong>Q: Must the <code>#[Inject]</code> arguments match the constructor parameters?</strong></p>
+<p>A: Yes, in the same order.
+Each entry in the attribute maps to the parameter at that position.</p>
+<p><strong>Q: How do I inject configuration instead of a service?</strong></p>
+<p>A: Pass <code>"config"</code> to receive the whole configuration array, or use dot notation such as <code>config.example</code> to receive a single key's value.</p>
+<p><strong>Q: Can I inject an interface rather than a concrete class?</strong></p>
+<p>A: Yes, provided the interface is registered in the container and resolves to an implementation.
+Typing the parameter against the interface keeps your class decoupled from the implementation.</p>
+<p><strong>Q: Which classes can use this?</strong></p>
+<p>A: Any object in Dotkernel API — handlers, services, filters and others — as long as it is registered in a <code>ConfigProvider</code>.</p>
+<p><strong>Q: Since which version is this available?</strong></p>
+<p>A: Dotkernel API 5.0.0.</p>
 
 
 

@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="upgrading-from-6x-to-70">Upgrading from 6.x to 7.0</h1>
+<h2 id="summary">Summary</h2>
+<p>The changes you need to port into your project when moving from Dotkernel API 6.x to 7.0, each linked to the pull request that introduced it.
+The headline items are native UUIDs in the database, PostgreSQL support, and the removal of the <code>MethodDeprecation</code> implementation.</p>
+<h2 id="details">Details</h2>
 <blockquote>
 <p>You can find a complete list in <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">Changelog</a></p>
 </blockquote>
@@ -1108,6 +1131,19 @@
 <li>Remove <code>MethodDeprecation</code> implementation <a href="https://github.com/dotkernel/api/pull/470">https://github.com/dotkernel/api/pull/470</a></li>
 <li>Clarify instructions regarding multiple connections in <code>config/autoload/local.php.dist</code> <a href="https://github.com/dotkernel/api/pull/472">https://github.com/dotkernel/api/pull/472</a></li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Is there an automated upgrade from 6.x to 7.0?</strong></p>
+<p>A: No. You implement each listed change manually in your own project.
+See <a href="../upgrading/">Upgrades</a> for the recommended procedure.</p>
+<p><strong>Q: What does the switch to native UUIDs mean for my database?</strong></p>
+<p>A: Identifiers are stored using the database's own UUID handling via <code>ramsey/uuid</code> rather than a generic column type, so existing tables need a migration.
+Review pull request 456 before touching production data.</p>
+<p><strong>Q: Do I have to move to PostgreSQL in 7.0?</strong></p>
+<p>A: No. PostgreSQL is now supported in addition to MariaDB; either is a valid choice.</p>
+<p><strong>Q: <code>MethodDeprecation</code> was removed — how do I deprecate an endpoint now?</strong></p>
+<p>A: Use the deprecation approach described in <a href="../../tutorials/api-evolution/">API evolution</a>.</p>
+<p><strong>Q: Where do I find the complete list of changes?</strong></p>
+<p>A: In the project <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">CHANGELOG.md</a>.</p>
 
 
 

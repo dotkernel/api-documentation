@@ -1,5 +1,12 @@
 # Packages
 
+## Summary
+
+The third-party and Dotkernel packages Dotkernel API depends on, with the version constraint and purpose of each.
+They fall into a few groups: Doctrine for persistence, Laminas components for configuration, hydration, validation and the service container, Mezzio for the PSR-15 pipeline with OAuth2, RBAC, CORS, HAL and problem details, the `dotkernel/dot-*` libraries, and `zircote/swagger-php` for API documentation.
+
+## Details
+
 * `doctrine/dbal`:`^4.4` - Powerful PHP database abstraction layer (DBAL) with many features for database schema introspection and management.
 * `doctrine/orm`:`^3.6` - Object-Relational-Mapper for PHP
 * `dotkernel/dot-cache`:`^4.4` - Cache component extending symfony-cache
@@ -31,3 +38,39 @@
 * `roave/psr-container-doctrine`:`^5.2` || `^6.1` - Doctrine Factories for PSR-11 Containers
 * `symfony/filesystem`:`^7.4` - Provides basic utilities for the filesystem
 * `zircote/swagger-php`:`^5.8` - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations
+
+## FAQ
+
+**Q: Is this list authoritative?**
+
+A: The authoritative source is the `require` section of the project's `composer.json`.
+This page mirrors it with a short explanation of each entry.
+
+**Q: Which package provides the framework itself?**
+
+A: `mezzio/mezzio`, a PSR-15 middleware microframework.
+See [PSRs](psr.md).
+
+**Q: Which packages handle authentication and authorization?**
+
+A: `mezzio/mezzio-authentication-oauth2` for OAuth2 authentication, and `mezzio/mezzio-authorization-rbac` for role-based authorization.
+See [Authentication](../core-features/authentication.md) and [Authorization](../core-features/authorization.md).
+
+**Q: Why are both `doctrine/dbal` and `doctrine/orm` listed?**
+
+A: DBAL is the database abstraction and schema layer; ORM maps entities on top of it.
+The ORM requires DBAL underneath.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: What are the `dotkernel/dot-*` packages for?**
+
+A: They are Dotkernel's own components — CLI, cache, mail, router, error handler, dependency injection and data fixtures — reused across Dotkernel projects rather than duplicated in each one.
+
+**Q: Can I remove a package I don't use?**
+
+A: Some can be removed, but many are wired into the default configuration and pipeline.
+Remove the corresponding configuration and pipeline entries first, then verify the application and tests still run.
+
+**Q: Why are both the ACL and RBAC authorization adapters present?**
+
+A: RBAC is what Dotkernel API uses by default; the ACL adapter is available if your project needs access-control-list semantics instead.

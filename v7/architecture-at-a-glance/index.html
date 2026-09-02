@@ -1040,6 +1040,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#the-core-vs-app-split-since-v60" class="toc__link nav-link">The Core vs App Split (Since v6.0)</a>
                 </li>
             
@@ -1077,6 +1085,10 @@
             
                 <li class="toc__entry">
                     <a href="#when-to-use-each-layer" class="toc__link nav-link">When to Use Each Layer</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1136,6 +1148,9 @@
     
 
     <h1 id="architecture-at-a-glance">Architecture at a Glance</h1>
+<h2 id="summary">Summary</h2>
+<p>A single-page map of how Dotkernel API is put together: the Core/App split introduced in 6.0, the Headless Platform and modular-monolith layout, the path a request takes through the middleware pipeline into a handler, the roles of handlers, services, repositories, input filters and entities, how configuration and dependency injection are organized, the PSRs behind it all, and the four security layers.</p>
+<h2 id="details">Details</h2>
 <p>Dotkernel API follows a modular, middleware-based architecture designed for scalability and maintainability.
 Understanding the core structure is essential before diving into development.</p>
 <h2 id="the-core-vs-app-split-since-v60">The Core vs App Split (Since v6.0)</h2>
@@ -1471,6 +1486,41 @@ They ensure that your code can integrate with other PSR-compliant libraries.</p>
 </tr>
 </tbody>
 </table></div>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Where should I put a new feature?</strong></p>
+<p>A: In the App layer, under <code>src/App/src/</code> or your own module.
+Core (<code>src/Core/src/</code>) is reserved for infrastructure such as authentication, database access and shared entities.
+See <a href="../extended-features/core-and-app/">Core and App</a>.</p>
+<p><strong>Q: What is the execution order from request to database?</strong></p>
+<p>A: <code>Handler → Service → Repository → Database</code>.
+The handler maps the request, the service holds business rules, and the repository is the only layer that touches the database.</p>
+<p><strong>Q: Which middlewares run before my handler?</strong></p>
+<p>A: CORS, authentication, authorization, content negotiation and routing, in that order, as defined in <code>config/pipeline.php</code>.
+See <a href="../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: What runs after the handler returns?</strong></p>
+<p>A: The response-side middlewares: problem details for exceptions, the deprecation headers, and any custom response headers.</p>
+<p><strong>Q: What are the built-in modules?</strong></p>
+<p>A: <code>Admin</code>, <code>User</code>, <code>Security</code>, <code>App</code> and <code>Core</code>.
+Your own modules — <code>Book</code>, <code>Product</code>, <code>Article</code> and so on — follow the same pattern.</p>
+<p><strong>Q: Is this a monolith or microservices?</strong></p>
+<p>A: Out of the box it is a modular monolith, structured so that individual modules can later be split into separate services.</p>
+<p><strong>Q: Where is business logic supposed to live?</strong></p>
+<p>A: In services, not handlers or repositories.
+Handlers extract and validate request data and delegate; repositories only query and persist.</p>
+<p><strong>Q: How do dependencies reach my classes?</strong></p>
+<p>A: Through constructor injection declared with the <code>#[Inject]</code> attribute and resolved by <code>AttributedServiceFactory</code>.
+See <a href="../core-features/dependency-injection/">Dependency injection</a>.</p>
+<p><strong>Q: Which configuration file does what?</strong></p>
+<p>A: <code>config.php</code> is the entry point, <code>pipeline.php</code> the middleware stack, <code>container.php</code> the DI container, and <code>config/autoload/</code> holds per-concern files — with <code>local.php</code> for environment-specific values that stay out of version control.</p>
+<p><strong>Q: What are the four security layers?</strong></p>
+<p>A: Authentication with OAuth2 tokens, authorization with RBAC permissions, input validation with input filters, and content negotiation on <code>Accept</code> and <code>Content-Type</code>.
+See <a href="../security/basic-security/">Basic security</a>.</p>
+<p><strong>Q: Which databases are supported?</strong></p>
+<p>A: MariaDB and PostgreSQL.
+See <a href="../introduction/server-requirements/">Server requirements</a>.</p>
+<p><strong>Q: Which PSRs are core rather than supporting?</strong></p>
+<p>A: PSR-7, PSR-11 and PSR-15 are core to the architecture; the rest arrive through dependencies.
+See <a href="../introduction/psr/">PSRs</a>.</p>
 
 
 

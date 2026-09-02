@@ -1047,7 +1047,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#business-cases" class="toc__link nav-link">Business cases</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1109,6 +1121,10 @@
     
 
     <h1 id="transition-approach-wip">Transition approach  [WIP]</h1>
+<h2 id="summary">Summary</h2>
+<p>How to think about moving an api-tools project onto Dotkernel API.
+Because the two are not equivalent, the transition means recreating functionality — either by rebuilding all endpoints and entities one-to-one, or by running a new Dotkernel API platform alongside the old one until api-tools is retired.</p>
+<h2 id="details">Details</h2>
 <p>Dotkernel API is not a one-to-one replacement of api-tools (former Apigility), but is only a potential solution to migrate to.</p>
 <p>Functionalities, components and architecture are different.</p>
 <p>See the <a href="https://docs.dotkernel.org/api-documentation/v4/transition-from-api-tools/api-tools-vs-dotkernel-api/">Comparison between Dotkernel APi and api-tools</a>.</p>
@@ -1118,6 +1134,22 @@
 <li>Clone 1:1 and recreate all endpoints and entities</li>
 <li>Build a new version of the current API using Dotkernel API and keep it running as separate platforms until the sunset of the current version of api-tools</li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which of the two approaches should I choose?</strong></p>
+<p>A: A one-to-one clone suits small APIs with a stable contract and few consumers.
+Running both platforms in parallel suits larger APIs, because it lets you migrate consumers gradually instead of coordinating a single cutover.</p>
+<p><strong>Q: Can I reuse my api-tools code in Dotkernel API?</strong></p>
+<p>A: Business logic and validation rules usually transfer with adjustment, but controllers, routing and module configuration do not, since Dotkernel API uses a middleware architecture.
+See <a href="../api-tools-vs-dotkernel-api/">Laminas API Tools compared to Dotkernel API</a>.</p>
+<p><strong>Q: What should I do before starting the transition?</strong></p>
+<p>A: Inventory the existing system first — database, authentication, modules, routes and custom code.
+The <a href="../discovery-phase/">Discovery phase</a> page lists the questions to answer.</p>
+<p><strong>Q: Can I keep my existing database?</strong></p>
+<p>A: Often yes, but Dotkernel API uses Doctrine ORM rather than laminas-db, so you will need to map your existing schema to entities.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: Can the two platforms share authentication while running in parallel?</strong></p>
+<p>A: Only if both issue and accept the same tokens.
+Dotkernel API uses OAuth2, so an api-tools installation using HTTP Basic or Digest cannot share sessions with it directly.</p>
 
 
 

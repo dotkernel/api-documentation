@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#folder-and-files-structure" class="toc__link nav-link">Folder and files structure</a>
                 </li>
             
@@ -1064,6 +1072,10 @@
             
                 <li class="toc__entry">
                     <a href="#checking-endpoints" class="toc__link nav-link">Checking endpoints</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1125,6 +1137,10 @@
     
 
     <h1 id="implementing-a-book-module-in-dotkernel-api-using-dotmaker">Implementing a book module in Dotkernel API using DotMaker</h1>
+<h2 id="summary">Summary</h2>
+<p>Builds the same <code>Book</code> module as the manual tutorial, but generates the scaffolding with <code>dotkernel/dot-maker</code>.
+It covers the resulting file layout across the <code>Api</code> and <code>Core</code> namespaces, the prompts <code>dot-maker</code> asks, the registration steps it leaves to you, the entity, service and input filter code you then fill in, and finally the migration, authorization entries and curl calls that prove the endpoints work.</p>
+<h2 id="details">Details</h2>
 <p>The <code>dotkernel/dot-maker</code> library can be used to programmatically generate project files and directories.
 It can be added to your API installation by following the <a href="https://docs.dotkernel.org/dot-maker/">official documentation</a>.</p>
 <h2 id="folder-and-files-structure">Folder and files structure</h2>
@@ -1525,6 +1541,43 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
 <p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: What does <code>dot-maker</code> do that I would otherwise do by hand?</strong></p>
+<p>A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both <code>ConfigProvider</code> classes and the <code>OpenAPI.php</code> documentation — and splits the files between the <code>Api</code> and <code>Core</code> namespaces without being told to.</p>
+<p><strong>Q: How do I invoke it?</strong></p>
+<p>A: <code>./vendor/bin/dot-maker module</code>, or <code>composer make</code> if you added the optional script.
+Enter <code>book</code> when prompted for the module name.</p>
+<p><strong>Q: What do I answer to the component prompts?</strong></p>
+<p>A: Yes to entity and repository, service and service interface, and handler; no to command and middleware.
+Under the handler prompts, yes to listing, viewing and creating, and no to deleting, editing and replacing.</p>
+<p><strong>Q: What is left for me to do after generation?</strong></p>
+<p>A: Register <code>Api\Book\ConfigProvider::class</code> and <code>Core\Book\ConfigProvider::class</code> in <code>config/config.php</code>, add both namespaces to <code>autoload.psr-4</code> in <code>composer.json</code>, run <code>composer dump</code>, then fill in the custom logic.</p>
+<p><strong>Q: Why defer the migration that <code>dot-maker</code> offers to generate?</strong></p>
+<p>A: Because the generated entity has no <code>name</code>, <code>author</code> or <code>releaseDate</code> yet.
+Generating the migration after editing the entity means the table matches the finished mapping.</p>
+<p><strong>Q: Which generated files need editing for this tutorial?</strong></p>
+<p>A: <code>Book.php</code> to add the three properties with their accessors and constructor, <code>BookService.php</code> to handle those properties in <code>getBooks()</code> and <code>saveBook()</code>, and <code>CreateBookInputFilter.php</code> to register the inputs.</p>
+<p><strong>Q: Does <code>dot-maker</code> create the <code>Input</code> classes as part of the module?</strong></p>
+<p>A: No. Generate them separately with <code>./vendor/bin/dot-maker input</code>, entering <code>Author</code>, <code>Name</code> and <code>ReleaseDate</code>.
+As generated they need no further changes.</p>
+<p><strong>Q: Can I define the inputs inline instead?</strong></p>
+<p>A: Yes — the page shows the equivalent inline definitions.
+<code>dot-maker</code> will not write them into the constructor for you, so that approach is manual.</p>
+<p><strong>Q: How do I verify the mapping before migrating?</strong></p>
+<p>A: Run <code>php ./bin/doctrine orm:validate-schema</code>, then <code>php ./vendor/bin/doctrine-migrations diff</code> and <code>migrate</code>.
+See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
+<p><strong>Q: Why do the route names differ from the manual tutorial?</strong></p>
+<p>A: <code>dot-maker</code> uses its own naming, producing <code>book::list-books</code>, <code>book::view-book</code> and <code>book::create-book</code>.
+Those are the names to grant permissions to.</p>
+<p><strong>Q: The endpoints return 403. What did I miss?</strong></p>
+<p>A: The authorization entries.
+Add the three route names under <code>UserRoleEnum::Guest-&gt;value</code> in <code>config/autoload/authorization.global.php</code>.
+See <a href="../../core-features/authorization/">Authorization</a>.</p>
+<p><strong>Q: Where do I get the URL for a single book?</strong></p>
+<p>A: From the list response, under <code>_embedded</code>, <code>books</code>, then each item's <code>_links</code>, <code>self</code>, <code>href</code>.</p>
+<p><strong>Q: Should I use this tutorial or the manual one?</strong></p>
+<p>A: Use this one to build modules quickly.
+Work through <a href="../create-book-module/">Creating a book module</a> first if you want to understand what each generated file is for.</p>
 
 
 

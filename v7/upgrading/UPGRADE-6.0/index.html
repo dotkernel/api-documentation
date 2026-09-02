@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,6 +1117,10 @@
     
 
     <h1 id="upgrading-from-5x-to-60">Upgrading from 5.x to 6.0</h1>
+<h2 id="summary">Summary</h2>
+<p>The changes you need to port into your project when moving from Dotkernel API 5.x to 6.0, each linked to the pull request that introduced it.
+This release reorganised shared logic into the Core module, refactored handlers and services, introduced route grouping, and replaced Twig with a custom templating solution.</p>
+<h2 id="details">Details</h2>
 <blockquote>
 <p>You can find a complete list in <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">Changelog</a></p>
 </blockquote>
@@ -1123,6 +1146,24 @@
 <li>Increased <code>PHPStan</code> level to 8 <a href="https://github.com/dotkernel/api/pull/421">https://github.com/dotkernel/api/pull/421</a></li>
 <li>Split the <code>/security/token</code> endpoint into two separate endpoints <a href="https://github.com/dotkernel/api/pull/423">https://github.com/dotkernel/api/pull/423</a></li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Which change in 6.0 is most likely to break my code?</strong></p>
+<p>A: Moving common logic into the Core module, together with the handler and service refactoring.
+Namespaces and constructor signatures changed, so your own handlers and services need updating.
+See <a href="../../extended-features/core-and-app/">Core and App</a>.</p>
+<p><strong>Q: What replaced Twig for templating?</strong></p>
+<p>A: A custom templating solution shipped with Dotkernel.
+Templates that relied on Twig syntax need to be rewritten.
+See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
+<p><strong>Q: Why was the <code>/security/token</code> endpoint split in two?</strong></p>
+<p>A: To separate issuing a token from refreshing one, which makes each endpoint's request and response contract explicit.
+See <a href="../../tutorials/token-authentication/">Token authentication</a>.</p>
+<p><strong>Q: What does "inject <code>InputFilters</code> in handlers" change for me?</strong></p>
+<p>A: Input filters are now resolved from the container and injected rather than constructed inside the handler.
+See <a href="../../extended-features/injectable-input-filters/">Injectable input filters</a>.</p>
+<p><strong>Q: Do I need to regenerate my OAuth2 keys?</strong></p>
+<p>A: Keys are generated automatically when cloning the project from 6.0 onward.
+Existing installations can keep their current keys.</p>
 
 
 

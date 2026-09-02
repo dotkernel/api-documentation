@@ -1,5 +1,13 @@
 # Error reporting endpoint
 
+## Summary
+
+The `/error-report` endpoint lets frontend applications post their own errors back to your API.
+Access is controlled by an `Error-Reporting-Token` header plus a domain or IP whitelist, all configured in `config/autoload/error-handling.global.php`.
+Accepted reports are appended to a log file that records the token, so you can tell which application sent each message.
+
+## Details
+
 The error reporting endpoint was designed to allow the **frontend developers** of your API to report any bugs they encounter securely that are fully under your control.
 To prevent unauthorized usage, the endpoint is protected by a token in the request's header.
 
@@ -123,3 +131,50 @@ Whenever an error is found, the frontend will call `postError()` with a relevant
 ```javascript
 apiService.postError({message: 'ERROR MESSAGE'})
 ```
+
+## FAQ
+
+**Q: Who is this endpoint for?**
+
+A: Frontend and third-party applications that need to report their own errors back to an API you control, rather than to an external service.
+
+**Q: How do I generate a token?**
+
+A: Run `php ./bin/cli.php token:generate error-reporting` and copy the value into the `tokens` array under `ErrorReportServiceInterface::class`.
+See [Generating tokens](../commands/generate-tokens.md).
+
+**Q: Which headers must the reporting application send?**
+
+A: `Error-Reporting-Token` with a configured token, and `Origin` set to the reporting application's URL.
+
+**Q: Which configuration keys are required?**
+
+A: All of `enabled`, `path`, `tokens`, `domain_whitelist` and `ip_whitelist` must exist under `ErrorReportServiceInterface::class`, with `enabled` set to `true`, `path` set to a value, at least one token, and at least one entry across the two whitelists.
+
+**Q: Why is my report rejected with a `403`?**
+
+A: Because `checkRequest()` in `ErrorReportService` matched neither the domain whitelist nor the IP whitelist, so a `ForbiddenException` was thrown and nothing was stored.
+
+**Q: Can I override the settings per environment?**
+
+A: Yes.
+The keys live in `error-handling.global.php` but can be set or overridden in `config/autoload/local.php`, which is not committed.
+
+**Q: How do I tell which application sent a report?**
+
+A: The log entry includes the token used, and tokens can be defined as key-value pairs — an alias such as `frontend` mapped to the token — so each application gets its own identifiable token.
+
+**Q: Do these tokens expire?**
+
+A: No. Because they are indefinite, rotate them manually from time to time.
+See [Basic security](../security/basic-security.md).
+
+**Q: Where do the reports end up?**
+
+A: In the file named by `ErrorReportServiceInterface::class`, `path`.
+If it does not exist, it is created automatically.
+
+**Q: Does this endpoint need an auth token as well?**
+
+A: No. It is authorized solely by the error reporting token.
+See [Using the documentation](../openapi/use-documentation.md).

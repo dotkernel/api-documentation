@@ -1042,6 +1042,25 @@
 
     
     
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
 
                     
                 </div>
@@ -1098,12 +1117,27 @@
     
 
     <h1 id="getting-help">Getting help</h1>
+<h2 id="summary">Summary</h2>
+<p>Where to look when an OpenAPI annotation does not behave as expected: the specification itself, <code>zircote/swagger-php</code>'s examples and documentation, and the library's built-in help output.</p>
+<h2 id="details">Details</h2>
 <ul>
 <li>consult the OpenAPI <a href="https://spec.openapis.org/oas/latest.html">specs</a> for a complete reference of the presented objects</li>
 <li>see more examples of OpenAPI object representations in <code>zircote/swagger-php</code>'s <a href="https://zircote.github.io/swagger-php/guide/examples.html">GitHub repository</a></li>
 <li>consult <code>zircote/swagger-php</code>'s <a href="http://zircote.github.io/swagger-php/guide/generating-openapi-documents.html">online documentation</a> or run the following command to see their help page:</li>
 </ul>
 <pre class="highlight"><code class="language-shell">./vendor/bin/openapi --help</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: My annotation is ignored in the generated output. What should I check first?</strong></p>
+<p>A: Check that the annotated class is inside a path scanned by the generator, and that the attribute is spelled and nested correctly.
+Running the generator usually reports the offending file.</p>
+<p><strong>Q: Where do I find the meaning of a specific OpenAPI object?</strong></p>
+<p>A: In the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a>.
+It is the authoritative reference for every object and field name.</p>
+<p><strong>Q: How do I see the available generator options?</strong></p>
+<p>A: Run <code>./vendor/bin/openapi --help</code>.</p>
+<p><strong>Q: Should I report annotation problems to Dotkernel or to swagger-php?</strong></p>
+<p>A: If the problem is in how Dotkernel API is annotated or configured, report it to Dotkernel.
+If the generator itself misbehaves, report it upstream to <code>zircote/swagger-php</code>.</p>
 
 
 

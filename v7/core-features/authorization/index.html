@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#how-it-works" class="toc__link nav-link">How it works</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#usage" class="toc__link nav-link">Usage</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,10 @@
     
 
     <h1 id="authorization">Authorization</h1>
+<h2 id="summary">Summary</h2>
+<p>Authorization decides whether an already-authenticated identity may reach a given resource.
+Dotkernel API implements it with role-based access control through <code>Mezzio\Authorization\Rbac\LaminasRbac</code>, applied by <code>AuthorizationMiddleware</code> and configured in <code>config/autoload/authorization.global.php</code>, where each permission is a route name and roles inherit from their parents.</p>
+<h2 id="details">Details</h2>
 <p>Authorization is the process by which a system takes a validated identity and checks if that identity has access to a given resource.</p>
 <p><strong>Dotkernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of Role-Based Access Control (RBAC).</p>
 <h2 id="how-it-works">How it works</h2>
@@ -1173,6 +1189,28 @@ for more information.</p>
 A permission in Dotkernel API is basically a route name.</p>
 <p>As you can see, the <code>superuser</code> does not have its own permissions, because it gains all the permissions from <code>admin</code>, no need to define explicit permissions.</p>
 <p>The <code>user</code> role, gains all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but <code>guest</code> cannot access user-specific routes.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: How does authorization differ from authentication?</strong></p>
+<p>A: Authentication establishes who the caller is; authorization checks what that established identity is allowed to do.
+See <a href="../authentication/">Authentication</a>.</p>
+<p><strong>Q: What exactly is a permission in Dotkernel API?</strong></p>
+<p>A: A route name.
+Granting a role a permission means granting it access to the route of that name.</p>
+<p><strong>Q: Where do I add permissions for a route I just created?</strong></p>
+<p>A: To the relevant role's array in <code>config/autoload/authorization.global.php</code>.
+A route with no permission entry is unreachable for that role.</p>
+<p><strong>Q: Which access control model is used?</strong></p>
+<p>A: RBAC, via <code>mezzio-authorization-rbac</code> backed by <code>laminas-permissions-rbac</code>.</p>
+<p><strong>Q: How does role inheritance work here?</strong></p>
+<p>A: A role listed inside another role's entry is its parent's beneficiary: because <code>admin</code> lists <code>superuser</code>, <code>superuser</code> receives everything granted to <code>admin</code>.
+That is why <code>superuser</code> needs no explicit permissions of its own.</p>
+<p><strong>Q: Where are roles stored?</strong></p>
+<p>A: Each authenticatable entity — admin or user — has its own <code>roles</code> table where its roles are defined.</p>
+<p><strong>Q: Which middleware enforces this?</strong></p>
+<p>A: <code>Api\App\Middleware\AuthorizationMiddleware</code>.
+See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: Can I use ACL instead of RBAC?</strong></p>
+<p>A: The ACL adapter ships with the project, but RBAC is what Dotkernel API is configured for; switching means replacing the authorization configuration.</p>
 
 
 

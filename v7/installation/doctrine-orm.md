@@ -1,5 +1,11 @@
 # Doctrine ORM
 
+## Summary
+
+The database step of the installation: enter your MariaDB or PostgreSQL credentials in `config/autoload/local.php`, decide whether to prefix table names, then generate a migration from the entities, run it to build the schema, and execute the fixtures to seed the initial roles, OAuth clients and accounts.
+
+## Details
+
 In this step you will:
 
 - [Save the database connection credentials in the API configuration file](#setup-database).
@@ -233,3 +239,62 @@ Fixtures have been loaded.
 ```
 
 More details on how fixtures work can be found on [dot-data-fixtures documentation](https://github.com/dotkernel/dot-data-fixtures#usage)
+
+## FAQ
+
+**Q: Where do I put the database credentials?**
+
+A: In `config/autoload/local.php`, under `$databases['mariadb']` or `$databases['postgresql']`.
+
+**Q: How do I switch from MariaDB to PostgreSQL?**
+
+A: Comment out `'params' => $databases['mariadb']` and uncomment the `postgresql` line under `doctrine.connection.orm_default`.
+Only one active connection is allowed at a time, even if the array defines several.
+
+**Q: Do I have to name the database `dotkernel`?**
+
+A: No. That is only an example — use any name, as long as the configuration and the database you create agree.
+
+**Q: What is `table_prefix` for?**
+
+A: It prepends a string to every table name from the entities, which keeps table sets apart when several applications share one database.
+The prefix is applied verbatim, with no separator added, and `doctrine_migration_versions` is left untouched because Doctrine Migrations owns it.
+
+**Q: Why use migrations instead of editing the schema by hand?**
+
+A: Migrations make schema changes repeatable, trackable and safe to apply across environments.
+
+**Q: Which command creates a migration, and which applies it?**
+
+A: `php ./vendor/bin/doctrine-migrations diff` generates one from the current entities; `php ./vendor/bin/doctrine-migrations migrate` applies all pending migrations in chronological order.
+
+**Q: Migrating warns about previously executed migrations that are not registered. Should I continue?**
+
+A: Check what the listed migrations would do first.
+The warning means the database records migrations the codebase does not know about, which is worth understanding before proceeding.
+
+**Q: Will migrating drop tables I created outside Doctrine?**
+
+A: `diff` proposes dropping unmapped tables such as the `oauth_*` ones.
+Use a filter expression to exclude them.
+See [Generate a database migration without dropping custom tables](../commands/generate-database-migrations.md).
+
+**Q: What do the fixtures create?**
+
+A: The admin and user roles, the OAuth clients and scopes, and the initial admin and user accounts.
+
+**Q: Must fixtures run after migrations?**
+
+A: Yes.
+The tables have to exist before they can be populated.
+
+**Q: How do I change the seeded credentials?**
+
+A: Edit `setIdentity`, `usePassword` and optionally `setFirstName` and `setLastName` in `src/Core/src/App/Fixture/UserLoader.php` and `AdminLoader.php` before running the fixtures.
+Leaving the defaults in place lets anyone log in.
+See [Basic security](../security/basic-security.md).
+
+**Q: Can I still change the seeded records afterwards?**
+
+A: Yes.
+Roles and initial users can be edited after the fixtures have run.

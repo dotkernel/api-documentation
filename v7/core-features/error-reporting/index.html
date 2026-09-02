@@ -1047,6 +1047,14 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#example-case-usage" class="toc__link nav-link">Example case usage</a>
                 </li>
             
@@ -1056,6 +1064,10 @@
             
                 <li class="toc__entry">
                     <a href="#how-to-use-it-on-the-frontend-side-angular-example" class="toc__link nav-link">How to use it on the Frontend side (Angular example)</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1117,6 +1129,11 @@
     
 
     <h1 id="error-reporting-endpoint">Error reporting endpoint</h1>
+<h2 id="summary">Summary</h2>
+<p>The <code>/error-report</code> endpoint lets frontend applications post their own errors back to your API.
+Access is controlled by an <code>Error-Reporting-Token</code> header plus a domain or IP whitelist, all configured in <code>config/autoload/error-handling.global.php</code>.
+Accepted reports are appended to a log file that records the token, so you can tell which application sent each message.</p>
+<h2 id="details">Details</h2>
 <p>The error reporting endpoint was designed to allow the <strong>frontend developers</strong> of your API to report any bugs they encounter securely that are fully under your control.
 To prevent unauthorized usage, the endpoint is protected by a token in the request's header.</p>
 <h2 id="example-case-usage">Example case usage</h2>
@@ -1219,6 +1236,32 @@ From then on, it's the frontend developer's job to set up an error reporting fun
   }</code></pre>
 <p>Whenever an error is found, the frontend will call <code>postError()</code> with a relevant description under <code>message</code>.</p>
 <pre class="highlight"><code class="language-javascript">apiService.postError({message: 'ERROR MESSAGE'})</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Who is this endpoint for?</strong></p>
+<p>A: Frontend and third-party applications that need to report their own errors back to an API you control, rather than to an external service.</p>
+<p><strong>Q: How do I generate a token?</strong></p>
+<p>A: Run <code>php ./bin/cli.php token:generate error-reporting</code> and copy the value into the <code>tokens</code> array under <code>ErrorReportServiceInterface::class</code>.
+See <a href="../../commands/generate-tokens/">Generating tokens</a>.</p>
+<p><strong>Q: Which headers must the reporting application send?</strong></p>
+<p>A: <code>Error-Reporting-Token</code> with a configured token, and <code>Origin</code> set to the reporting application's URL.</p>
+<p><strong>Q: Which configuration keys are required?</strong></p>
+<p>A: All of <code>enabled</code>, <code>path</code>, <code>tokens</code>, <code>domain_whitelist</code> and <code>ip_whitelist</code> must exist under <code>ErrorReportServiceInterface::class</code>, with <code>enabled</code> set to <code>true</code>, <code>path</code> set to a value, at least one token, and at least one entry across the two whitelists.</p>
+<p><strong>Q: Why is my report rejected with a <code>403</code>?</strong></p>
+<p>A: Because <code>checkRequest()</code> in <code>ErrorReportService</code> matched neither the domain whitelist nor the IP whitelist, so a <code>ForbiddenException</code> was thrown and nothing was stored.</p>
+<p><strong>Q: Can I override the settings per environment?</strong></p>
+<p>A: Yes.
+The keys live in <code>error-handling.global.php</code> but can be set or overridden in <code>config/autoload/local.php</code>, which is not committed.</p>
+<p><strong>Q: How do I tell which application sent a report?</strong></p>
+<p>A: The log entry includes the token used, and tokens can be defined as key-value pairs — an alias such as <code>frontend</code> mapped to the token — so each application gets its own identifiable token.</p>
+<p><strong>Q: Do these tokens expire?</strong></p>
+<p>A: No. Because they are indefinite, rotate them manually from time to time.
+See <a href="../../security/basic-security/">Basic security</a>.</p>
+<p><strong>Q: Where do the reports end up?</strong></p>
+<p>A: In the file named by <code>ErrorReportServiceInterface::class</code>, <code>path</code>.
+If it does not exist, it is created automatically.</p>
+<p><strong>Q: Does this endpoint need an auth token as well?</strong></p>
+<p>A: No. It is authorized solely by the error reporting token.
+See <a href="../../openapi/use-documentation/">Using the documentation</a>.</p>
 
 
 

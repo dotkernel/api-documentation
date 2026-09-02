@@ -1047,11 +1047,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#common-objects" class="toc__link nav-link">Common objects</a>
                 </li>
             
                 <li class="toc__entry">
                     <a href="#conclusion" class="toc__link nav-link">Conclusion</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
             </ul>
@@ -1113,6 +1125,10 @@
     
 
     <h1 id="writing-documentation">Writing documentation</h1>
+<h2 id="summary">Summary</h2>
+<p>OpenAPI attributes live in a dedicated <code>OpenAPI.php</code> file per module rather than in the handlers themselves.
+This page lists the request attributes (<code>OA\Get</code>, <code>OA\Post</code>, <code>OA\Patch</code>, <code>OA\Put</code>, <code>OA\Delete</code>), the component objects that describe payloads (<code>OA\Schema</code>, <code>OA\Parameter</code>, <code>OA\RequestBody</code>), and the parameters each request attribute should define.</p>
+<h2 id="details">Details</h2>
 <blockquote>
 <p>To avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them in separate files, called <code>OpenAPI.php</code>, one for each module.</p>
 </blockquote>
@@ -1202,6 +1218,30 @@ This is easier than it sounds because in most cases you will do the same: add a 
 <li>create file <code>OpenAPI.php</code> in the new module and describe each new endpoint</li>
 <li>generate the latest version of a documentation file as described <a href="../generate-documentation/">in this tutorial</a></li>
 </ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Why are the attributes not placed on the handlers?</strong></p>
+<p>A: A fully documented endpoint can run to hundreds of lines of attributes.
+Keeping them in a per-module <code>OpenAPI.php</code> leaves the handlers readable.</p>
+<p><strong>Q: Where do I start when documenting a new module?</strong></p>
+<p>A: Copy the shape of an existing module's <code>OpenAPI.php</code>.
+All the endpoints shipped with Dotkernel API are documented there and serve as working examples.</p>
+<p><strong>Q: Which parameters should every request attribute define?</strong></p>
+<p>A: <code>path</code>, <code>description</code>, <code>summary</code>, <code>tags</code>, <code>parameters</code> and <code>responses</code>, plus <code>requestBody</code> for the methods that accept a body, and <code>security</code> when the endpoint is protected.</p>
+<p><strong>Q: How do I document an unprotected endpoint?</strong></p>
+<p>A: Omit the <code>security</code> parameter.</p>
+<p><strong>Q: What is the difference between <code>description</code> and <code>summary</code>?</strong></p>
+<p>A: <code>summary</code> is a short one-line label; <code>description</code> is the verbose explanation.
+Renderers display them in different places.</p>
+<p><strong>Q: What are <code>tags</code> used for?</strong></p>
+<p>A: Grouping related endpoints in the rendered documentation — for example tagging every user endpoint with <code>User</code>.</p>
+<p><strong>Q: When do I use <code>OA\Post</code> versus <code>OA\Put</code>?</strong></p>
+<p>A: <code>OA\Post</code> creates a new resource, while <code>OA\Put</code> creates it and overwrites an existing one.</p>
+<p><strong>Q: Where do I find attributes not covered here?</strong></p>
+<p>A: In the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a> and <code>zircote/swagger-php</code>'s examples.
+See <a href="../getting-help/">Getting help</a>.</p>
+<p><strong>Q: What is the order of work when adding a documented feature?</strong></p>
+<p>A: Create the module, build its functionality, describe the endpoints in its <code>OpenAPI.php</code>, then regenerate the documentation file.
+See <a href="../generate-documentation/">Generate documentation</a>.</p>
 
 
 
