@@ -1,5 +1,13 @@
 # Authentication
 
+## Summary
+
+Dotkernel API authenticates with the OAuth2 password grant through `mezzio/mezzio-authentication-oauth2`.
+Clients exchange credentials at `POST /security/generate-token` for an access token and a refresh token, then send the access token in the `Authorization` header; `POST /security/refresh-token` renews it.
+Requests without an `Authorization` header get a default `guest` identity, which can reach only public endpoints.
+
+## Details
+
 Authentication is the process by which an identity is presented to the application.
 It ensures that the entity making the request has the proper credentials to access the API.
 
@@ -185,3 +193,62 @@ Get new Access Token  ───────────────────�
 - **Rotate credentials**: Change default OAuth client secrets in production.
 - **Token expiration**: Access tokens expire (default 1 day). Implement refresh logic in clients.
 - **Never expose refresh tokens**: Refresh tokens should only be stored client-side, never in logs or public code.
+
+## FAQ
+
+**Q: What happens if a request sends no `Authorization` header?**
+
+A: The application assigns a default `guest` identity, an instance of `Mezzio\Authentication\UserInterface`.
+Guests can reach public endpoints but not protected ones.
+
+**Q: Which OAuth2 grant does the API use?**
+
+A: The password grant: credentials are exchanged once for tokens, and subsequent requests carry the access token instead of the credentials.
+
+**Q: What must I run before authenticating for the first time?**
+
+A: The migrations and fixtures — `php ./vendor/bin/doctrine-migrations migrate` followed by `php ./bin/doctrine fixtures:execute` — which create the OAuth tables and seed the initial credentials.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: What are the seeded credentials?**
+
+A: `admin` / `dotadmin` for the admin account and `test@dotkernel.com` / `dotkernel` for the user account.
+Remove or change them before production.
+See [Basic security](../security/basic-security.md).
+
+**Q: Why are admins and users in separate tables?**
+
+A: To keep application users away from data that only administrators should reach.
+Authenticated identities therefore come from either the `admin` or the `user` table.
+
+**Q: Which parameters does the token request need?**
+
+A: `grant_type`, `client_id`, `client_secret`, `scope`, `username` and `password`.
+The client values come from `oauth_clients` and the scope from `oauth_scopes`.
+
+**Q: How long do the tokens last?**
+
+A: Access tokens expire after one day and refresh tokens after one month, both configurable under the `authentication` key in `config/autoload/local.php`.
+
+**Q: How do I renew an expired access token?**
+
+A: Post the `refresh_token` to `/security/refresh-token` with `grant_type` set to `refresh_token`.
+If the refresh token has expired too, authenticate again with credentials.
+
+**Q: I get an "Invalid scope" error. What is wrong?**
+
+A: `scope` must be `"api"` — it is the only configured scope.
+
+**Q: I get "Invalid credentials" even though the password is right. What else could it be?**
+
+A: A mismatched `client_id` or `client_secret` against the `oauth_clients` table, or an account that does not exist or is inactive.
+
+**Q: Which middleware performs authentication?**
+
+A: `Api\App\Middleware\AuthenticationMiddleware`, which runs before authorization in the pipeline.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: Is authenticating enough to access an endpoint?**
+
+A: No. Authentication establishes the identity; the role still needs permission for the route.
+See [Authorization](authorization.md).

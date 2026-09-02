@@ -1,5 +1,11 @@
 # OAuth2 Security
 
+## Summary
+
+The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default `admin` and `frontend` OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is regenerated and where it must be kept.
+
+## Details
+
 Dotkernel API uses the [mezzio/mezzio-authentication-oauth2](https://github.com/mezzio/mezzio-authentication-oauth2) component to provide the OAuth2 authentication service.
 As a security stating point, when developing an application using this project, make sure you go over the following steps.
 
@@ -31,3 +37,36 @@ While hidden to the VCS by default, keep in mind not to commit any local keys.
 > Autogeneration of keys can be disabled by simply removing the `php ./vendor/bin/generate-oauth2-keys` command from the mentioned key.
 >
 > While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.
+
+## FAQ
+
+**Q: What is the single most important step before going live?**
+
+A: Deleting or re-passwording the default `admin` and `frontend` OAuth clients.
+They ship with passwords equal to their names, so leaving them in place hands anyone a valid client.
+
+**Q: Where do I change token lifetimes?**
+
+A: Under the `authentication` key in `config/autoload/local.php`.
+Defaults are one day for access tokens and one month for refresh tokens; shorter values are generally safer.
+
+**Q: Can I invalidate a user's tokens before they expire?**
+
+A: Yes, via the `revokeTokens` method of `UserService`.
+
+**Q: When are the OAuth2 keys regenerated?**
+
+A: After every `composer update`, and after `composer install` when there is no lock file, through the `php ./vendor/bin/generate-oauth2-keys` script in `composer.json`.
+
+**Q: How do I stop the keys from being regenerated?**
+
+A: Remove `php ./vendor/bin/generate-oauth2-keys` from the `scripts.post-update-cmd` key in `composer.json`.
+This matters on servers where regenerating keys would invalidate tokens already issued.
+
+**Q: Should the key pair be committed?**
+
+A: No. The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.
+
+**Q: Where are the OAuth2 flows themselves documented?**
+
+A: In [Authentication](../core-features/authentication.md) and the [Token authentication](../tutorials/token-authentication.md) tutorial.

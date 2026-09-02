@@ -1,5 +1,12 @@
 # Writing documentation
 
+## Summary
+
+OpenAPI attributes live in a dedicated `OpenAPI.php` file per module rather than in the handlers themselves.
+This page lists the request attributes (`OA\Get`, `OA\Post`, `OA\Patch`, `OA\Put`, `OA\Delete`), the component objects that describe payloads (`OA\Schema`, `OA\Parameter`, `OA\RequestBody`), and the parameters each request attribute should define.
+
+## Details
+
 > To avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them in separate files, called `OpenAPI.php`, one for each module.
 
 We already covered all the endpoints available in Dotkernel API, you can consult the existing documentation in each module's own `OpenAPI.php` file.
@@ -97,3 +104,46 @@ To summarize, the typical scenario on working on your own instance of Dotkernel 
 - add functionality to your new module (routes, entities, repositories, handlers, services, tests etc)
 - create file `OpenAPI.php` in the new module and describe each new endpoint
 - generate the latest version of a documentation file as described [in this tutorial](./generate-documentation.md)
+
+## FAQ
+
+**Q: Why are the attributes not placed on the handlers?**
+
+A: A fully documented endpoint can run to hundreds of lines of attributes.
+Keeping them in a per-module `OpenAPI.php` leaves the handlers readable.
+
+**Q: Where do I start when documenting a new module?**
+
+A: Copy the shape of an existing module's `OpenAPI.php`.
+All the endpoints shipped with Dotkernel API are documented there and serve as working examples.
+
+**Q: Which parameters should every request attribute define?**
+
+A: `path`, `description`, `summary`, `tags`, `parameters` and `responses`, plus `requestBody` for the methods that accept a body, and `security` when the endpoint is protected.
+
+**Q: How do I document an unprotected endpoint?**
+
+A: Omit the `security` parameter.
+
+**Q: What is the difference between `description` and `summary`?**
+
+A: `summary` is a short one-line label; `description` is the verbose explanation.
+Renderers display them in different places.
+
+**Q: What are `tags` used for?**
+
+A: Grouping related endpoints in the rendered documentation — for example tagging every user endpoint with `User`.
+
+**Q: When do I use `OA\Post` versus `OA\Put`?**
+
+A: `OA\Post` creates a new resource, while `OA\Put` creates it and overwrites an existing one.
+
+**Q: Where do I find attributes not covered here?**
+
+A: In the [OpenAPI specification](https://spec.openapis.org/oas/latest.html) and `zircote/swagger-php`'s examples.
+See [Getting help](getting-help.md).
+
+**Q: What is the order of work when adding a documented feature?**
+
+A: Create the module, build its functionality, describe the endpoints in its `OpenAPI.php`, then regenerate the documentation file.
+See [Generate documentation](generate-documentation.md).

@@ -1,5 +1,12 @@
 # Implementing a book module in Dotkernel API using DotMaker
 
+## Summary
+
+Builds the same `Book` module as the manual tutorial, but generates the scaffolding with `dotkernel/dot-maker`.
+It covers the resulting file layout across the `Api` and `Core` namespaces, the prompts `dot-maker` asks, the registration steps it leaves to you, the entity, service and input filter code you then fill in, and finally the migration, authorization entries and curl calls that prove the endpoints work.
+
+## Details
+
 The `dotkernel/dot-maker` library can be used to programmatically generate project files and directories.
 It can be added to your API installation by following the [official documentation](https://docs.dotkernel.org/dot-maker/).
 
@@ -452,3 +459,67 @@ The link should have the following format:
 ```shell
 curl http://0.0.0.0:8080/book/{id}
 ```
+
+## FAQ
+
+**Q: What does `dot-maker` do that I would otherwise do by hand?**
+
+A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both `ConfigProvider` classes and the `OpenAPI.php` documentation — and splits the files between the `Api` and `Core` namespaces without being told to.
+
+**Q: How do I invoke it?**
+
+A: `./vendor/bin/dot-maker module`, or `composer make` if you added the optional script.
+Enter `book` when prompted for the module name.
+
+**Q: What do I answer to the component prompts?**
+
+A: Yes to entity and repository, service and service interface, and handler; no to command and middleware.
+Under the handler prompts, yes to listing, viewing and creating, and no to deleting, editing and replacing.
+
+**Q: What is left for me to do after generation?**
+
+A: Register `Api\Book\ConfigProvider::class` and `Core\Book\ConfigProvider::class` in `config/config.php`, add both namespaces to `autoload.psr-4` in `composer.json`, run `composer dump`, then fill in the custom logic.
+
+**Q: Why defer the migration that `dot-maker` offers to generate?**
+
+A: Because the generated entity has no `name`, `author` or `releaseDate` yet.
+Generating the migration after editing the entity means the table matches the finished mapping.
+
+**Q: Which generated files need editing for this tutorial?**
+
+A: `Book.php` to add the three properties with their accessors and constructor, `BookService.php` to handle those properties in `getBooks()` and `saveBook()`, and `CreateBookInputFilter.php` to register the inputs.
+
+**Q: Does `dot-maker` create the `Input` classes as part of the module?**
+
+A: No. Generate them separately with `./vendor/bin/dot-maker input`, entering `Author`, `Name` and `ReleaseDate`.
+As generated they need no further changes.
+
+**Q: Can I define the inputs inline instead?**
+
+A: Yes — the page shows the equivalent inline definitions.
+`dot-maker` will not write them into the constructor for you, so that approach is manual.
+
+**Q: How do I verify the mapping before migrating?**
+
+A: Run `php ./bin/doctrine orm:validate-schema`, then `php ./vendor/bin/doctrine-migrations diff` and `migrate`.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: Why do the route names differ from the manual tutorial?**
+
+A: `dot-maker` uses its own naming, producing `book::list-books`, `book::view-book` and `book::create-book`.
+Those are the names to grant permissions to.
+
+**Q: The endpoints return 403. What did I miss?**
+
+A: The authorization entries.
+Add the three route names under `UserRoleEnum::Guest->value` in `config/autoload/authorization.global.php`.
+See [Authorization](../core-features/authorization.md).
+
+**Q: Where do I get the URL for a single book?**
+
+A: From the list response, under `_embedded`, `books`, then each item's `_links`, `self`, `href`.
+
+**Q: Should I use this tutorial or the manual one?**
+
+A: Use this one to build modules quickly.
+Work through [Creating a book module](create-book-module.md) first if you want to understand what each generated file is for.

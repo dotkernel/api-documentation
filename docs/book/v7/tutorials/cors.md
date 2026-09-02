@@ -1,5 +1,10 @@
 # CORS
 
+## Summary
+
+Browsers block cross-origin requests unless the API says otherwise.
+This tutorial explains the mechanism, then walks through enabling it in Dotkernel API with `mezzio/mezzio-cors`: installing the package, registering its `ConfigProvider`, piping its middleware before routing, and configuring allowed origins, headers, cache duration and credentials in `config/autoload/cors.local.php`.
+
 ## What is CORS?
 
 **Cross-Origin Resource Sharing** or _CORS_ is an HTTP header-based mechanism that allows a server to indicate any other
@@ -88,3 +93,42 @@ Save and close the file.
 > On the **production** environment, make sure you allow only specific origins by adding them to the `allowed_origins` array and removing the current value of `ConfigurationInterface::ANY_ORIGIN`.
 
 For more info, see [mezzio/mezzio-cors documentation](https://docs.mezzio.dev/mezzio-cors/v1/middleware/#configuration).
+
+## FAQ
+
+**Q: Why do I get a "No 'Access-Control-Allow-Origin' header" error?**
+
+A: The API is not configured to accept requests from the calling origin.
+Add that origin to `allowed_origins`.
+
+**Q: Where must the CORS middleware sit in the pipeline?**
+
+A: Before `RouteMiddleware::class`, so preflight requests are answered without needing to match a route.
+
+**Q: Which origins should production allow?**
+
+A: Only the ones that genuinely consume the API.
+Replace `ConfigurationInterface::ANY_ORIGIN` with an explicit list before deploying.
+
+**Q: What does `credentials_allowed` control?**
+
+A: Whether the browser may send cookies with cross-origin requests.
+Enable it only if your clients rely on cookie-based state.
+
+**Q: What is `allowed_max_age` for?**
+
+A: It sets how long a client may cache the preflight response, in seconds.
+A higher value means fewer preflight round trips.
+
+**Q: When do I need to change `allowed_headers`?**
+
+A: Whenever clients send a header not already listed — the defaults cover `Accept`, `Content-Type` and `Authorization`.
+
+**Q: What is `exposed_headers` for?**
+
+A: It lists response headers the browser should make readable to client-side code; by default only a small set of standard headers is exposed.
+
+**Q: Do I need to install the package on a fresh Dotkernel API?**
+
+A: No. `mezzio/mezzio-cors` ships with the project and `cors.local.php` is created during installation — you only need to review its values.
+See [Configuration files](../installation/configuration-files.md).

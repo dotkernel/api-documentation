@@ -1,5 +1,11 @@
 # Basic Security
 
+## Summary
+
+A checklist of the security tools Dotkernel API ships with and the steps you must take yourself: validating input with input filters, configuring content negotiation and CORS, extending RBAC to your own routes, removing the demo accounts, managing error reporting tokens and whitelists, keeping OpenAPI documentation out of production, tracking dependency vulnerabilities, and keeping secrets out of version control and development mode off.
+
+## Details
+
 Dotkernel API provides all necessary tools to implement safe applications; however, you will need to manually make use of some of them.
 This section will go over the provided tools and any steps you need to follow to use them successfully, as well as a few general considerations.
 
@@ -83,3 +89,46 @@ composer development-status
 - Dotkernel API ships with a [Laminas Continuous Integration](https://github.com/laminas/laminas-continuous-integration-action) GitHub Action, if you are using a public repository, consider keeping it in your custom applications to ensure code quality.
 
 > Read more about using [Laminas Continuous Integration](https://getlaminas.org/blog/2024-08-05-using-laminas-continuous-integration.html).
+
+## FAQ
+
+**Q: What must I change before going to production?**
+
+A: At minimum: update or remove the demo `admin` and `test@dotkernel.com` accounts, restrict `allowed_origins` in the CORS configuration, review the error reporting tokens and whitelists, disable development mode, and keep the OpenAPI documentation private.
+
+**Q: Where do secrets belong?**
+
+A: In `*.local.php` files, which are ignored by version control.
+Never place them in `*.global.php` or `*.php.dist` files, which are committed.
+
+**Q: How do I check whether development mode is enabled?**
+
+A: Run `composer development-status`.
+
+**Q: Do the error reporting tokens expire?**
+
+A: No. Because they never expire, rotate them manually on a schedule of your choosing, and set `ip_whitelist` or `domain_whitelist` in `config/autoload/error-handling.global.php` to limit who can use the endpoint.
+
+**Q: Why is committing error reporting tokens risky?**
+
+A: `error-handling.global.php` is tracked by version control, so a token added locally can reach production — or a public repository — through an ordinary commit.
+
+**Q: The default CORS configuration allows any origin. Is that a problem?**
+
+A: In production, yes.
+Replace `ANY_ORIGIN` with the specific origins that need access.
+See the [CORS](../tutorials/cors.md) tutorial.
+
+**Q: Does adding a route make it protected automatically?**
+
+A: No. Every new route and role needs an entry in `config/autoload/authorization.global.php`.
+See [Authorization](../core-features/authorization.md).
+
+**Q: Why should OpenAPI documentation stay out of production?**
+
+A: It publishes your full endpoint surface, and any examples in it are published too — which is also why sensitive values must never be used as examples.
+See [OpenAPI documentation](../openapi/introduction.md).
+
+**Q: How do I keep dependencies safe over time?**
+
+A: Review published vulnerabilities for the packages you depend on, follow the Dotkernel API changelog, and keep the shipped Laminas Continuous Integration action in place on public repositories.

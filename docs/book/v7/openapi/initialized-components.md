@@ -1,5 +1,12 @@
 # Initialized OpenAPI components
 
+## Summary
+
+The OpenAPI components Dotkernel API already defines in `src/App/src/OpenAPI.php`: `OA\Info` for API metadata, `OA\Server` for instance URLs, `OA\SecurityScheme` for the `AuthToken` and `ErrorReportingToken` headers, `OA\ExternalDocumentation`, and reusable schemas.
+It also shows how to turn an entity or a collection into an `OA\Schema` and reference it with `ref` instead of repeating the definition.
+
+## Details
+
 Below you will find details on some prepopulated OpenAPI components we added to Dotkernel API.
 
 ## OA\Info
@@ -232,3 +239,45 @@ We provided some schemas that are reusable across the entire project. They are d
 - `#/components/schemas/Collection`: provides the default **HAL** structure to all the collections extending it
 - `#/components/schemas/ErrorMessage`: describes an operation that resulted in an error—may contain multiple messages
 - `#/components/schemas/InfoMessage`: describes an operation that completed successfully—may contain multiple messages
+
+## FAQ
+
+**Q: Where are these components defined?**
+
+A: All of them in `src/App/src/OpenAPI.php`.
+
+**Q: What must I edit before generating documentation?**
+
+A: The `url` on the `#[OA\Server` line, which has to point at your own instance and must not have a trailing slash.
+
+**Q: Can I document more than one environment?**
+
+A: Yes.
+Duplicate the `OA\Server` entry — one per instance — and use `description` to label each as `Dev`, `Staging`, `Production` or similar.
+
+**Q: Which security schemes are predefined?**
+
+A: `AuthToken` for the OAuth2 bearer token and `ErrorReportingToken` for the `/error-report` header.
+Naming one in an endpoint's `security` parameter marks that endpoint as protected.
+
+**Q: What is the difference between an entity and a schema?**
+
+A: The entity is the PHP class Doctrine maps to a table; the schema is the OpenAPI description of how that object appears in requests and responses.
+You write the schema separately, referencing the entity with a `@see` annotation.
+
+**Q: How do I avoid describing the same object twice?**
+
+A: Reference the existing schema with `ref: '#/components/schemas/UserRole'`.
+Later changes then happen in one place only.
+
+**Q: How do I describe a collection?**
+
+A: Define a schema whose `_embedded` property holds an array of `OA\Items` referencing the item schema, and combine it with `#/components/schemas/Collection` through `allOf`.
+
+**Q: What do the shipped common schemas provide?**
+
+A: `Collection` gives collections their default HAL structure, while `ErrorMessage` and `InfoMessage` describe failed and successful operations, each able to carry several messages.
+
+**Q: Where do I look up the fields of an OpenAPI object?**
+
+A: In the [OpenAPI specification](https://spec.openapis.org/oas/latest.html), linked per object throughout this page.

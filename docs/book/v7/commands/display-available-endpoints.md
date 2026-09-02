@@ -1,5 +1,10 @@
 # Displaying Dotkernel API endpoints using dot-cli
 
+## Summary
+
+The `route:list` CLI command inspects the application's routes at runtime and prints every endpoint's request method, route name and path.
+Results can be filtered by name, path or method.
+
 ## Usage
 
 Run the following command in your application’s root directory:
@@ -71,3 +76,34 @@ Get more help by running this command:
 ```shell
 php ./bin/cli.php route:list --help
 ```
+
+## FAQ
+
+**Q: Is the output generated from a static file?**
+
+A: No. The command walks the application's registered routes in realtime, so it always reflects the current configuration.
+
+**Q: Which filters are available?**
+
+A: `-i|--name`, `-p|--path` and `-m|--method`.
+They are case-insensitive and can be combined.
+
+**Q: Why do route names matter beyond documentation?**
+
+A: Because a permission in Dotkernel API is a route name, so this listing is also the list of permissions you can grant.
+See [Authorization](../core-features/authorization.md).
+
+**Q: My new route does not appear. What should I check?**
+
+A: That its module's `RoutesDelegator` is registered and the route is declared there.
+See [Route grouping](../extended-features/route-grouping.md).
+
+**Q: How is this different from the OpenAPI documentation?**
+
+A: `route:list` reports what the application actually routes; the OpenAPI file describes the documented contract.
+Comparing the two is a quick way to spot undocumented endpoints.
+See [OpenAPI documentation](../openapi/introduction.md).
+
+**Q: Where do I see the full command help?**
+
+A: Run `php ./bin/cli.php route:list --help`.

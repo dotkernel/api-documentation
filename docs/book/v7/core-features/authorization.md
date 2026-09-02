@@ -1,5 +1,12 @@
 # Authorization
 
+## Summary
+
+Authorization decides whether an already-authenticated identity may reach a given resource.
+Dotkernel API implements it with role-based access control through `Mezzio\Authorization\Rbac\LaminasRbac`, applied by `AuthorizationMiddleware` and configured in `config/autoload/authorization.global.php`, where each permission is a route name and roles inherit from their parents.
+
+## Details
+
 Authorization is the process by which a system takes a validated identity and checks if that identity has access to a given resource.
 
 **Dotkernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of Role-Based Access Control (RBAC).
@@ -70,3 +77,42 @@ A permission in Dotkernel API is basically a route name.
 As you can see, the `superuser` does not have its own permissions, because it gains all the permissions from `admin`, no need to define explicit permissions.
 
 The `user` role, gains all the permission from `guest` so no need to define that `user` can access `home` route, but `guest` cannot access user-specific routes.
+
+## FAQ
+
+**Q: How does authorization differ from authentication?**
+
+A: Authentication establishes who the caller is; authorization checks what that established identity is allowed to do.
+See [Authentication](authentication.md).
+
+**Q: What exactly is a permission in Dotkernel API?**
+
+A: A route name.
+Granting a role a permission means granting it access to the route of that name.
+
+**Q: Where do I add permissions for a route I just created?**
+
+A: To the relevant role's array in `config/autoload/authorization.global.php`.
+A route with no permission entry is unreachable for that role.
+
+**Q: Which access control model is used?**
+
+A: RBAC, via `mezzio-authorization-rbac` backed by `laminas-permissions-rbac`.
+
+**Q: How does role inheritance work here?**
+
+A: A role listed inside another role's entry is its parent's beneficiary: because `admin` lists `superuser`, `superuser` receives everything granted to `admin`.
+That is why `superuser` needs no explicit permissions of its own.
+
+**Q: Where are roles stored?**
+
+A: Each authenticatable entity — admin or user — has its own `roles` table where its roles are defined.
+
+**Q: Which middleware enforces this?**
+
+A: `Api\App\Middleware\AuthorizationMiddleware`.
+See [Middleware flow](../flow/middleware-flow.md).
+
+**Q: Can I use ACL instead of RBAC?**
+
+A: The ACL adapter ships with the project, but RBAC is what Dotkernel API is configured for; switching means replacing the authorization configuration.

@@ -1,5 +1,12 @@
 # Route grouping
 
+## Summary
+
+The `dot-router` package lets you declare routes that share a common path prefix as a single group instead of repeating the prefix on every line.
+The result is less duplication, easier refactoring, and routes that belong together staying together in the code.
+
+## Details
+
 In Dotkernel API with the help of the new [dot-router](https://docs.dotkernel.org/dot-router/v1/overview/) package, we have managed to implement a nicer way of creating routes.
 A lot of the times developers need to create sets of routes that have a similar format. As an example:
 
@@ -27,3 +34,33 @@ The advantages of this new implementation:
 - **encapsulation**: similar routes are grouped in a single block of code (versus each route a separate statement)
 - **easy path refactoring**: modify all routes at once by changing only the prefix
 - **easy copying/moving**: copying/moving an entire group makes sure that you don't accidentally omit a route
+
+## FAQ
+
+**Q: Which package provides route grouping?**
+
+A: [dot-router](https://docs.dotkernel.org/dot-router/v1/overview/), which builds on `mezzio/mezzio-fastroute`.
+
+**Q: Where do I declare my routes?**
+
+A: In your module's `RoutesDelegator.php`, for example `src/User/src/RoutesDelegator.php`.
+
+**Q: Do I still name each route individually?**
+
+A: Yes.
+Grouping shares the path prefix, not the route name, so every route keeps its own name such as `user::view-user`.
+
+**Q: Can I nest groups?**
+
+A: Groups are built around a shared base path, so a nested group extends its parent's prefix.
+Keep nesting shallow, otherwise the effective path of a route becomes hard to read.
+
+**Q: Is the older per-route style still supported?**
+
+A: Yes.
+Calls like `$app->get(...)` continue to work; grouping is an additional option, not a replacement.
+
+**Q: What happens to the path when the route part is an empty string?**
+
+A: The group prefix becomes the full path.
+That is why `->get('', ...)` inside `group('/user/' . $id)` maps to `/user/{id}`.

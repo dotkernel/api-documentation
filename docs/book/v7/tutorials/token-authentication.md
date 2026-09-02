@@ -1,5 +1,10 @@
 # Token authentication
 
+## Summary
+
+A hands-on walkthrough of token authentication in Dotkernel API.
+It explains how the `Authorization` header determines whether a caller is a guest, a user or an admin, lists the shipped credentials and OAuth clients, then shows the curl requests for generating and refreshing both admin and user access tokens, the success and failure responses for each, and a start-to-finish test of both flows.
+
 ## What is token authentication?
 
 Token authentication means making a request to an API endpoint while also sending a special header that contains an access token.
@@ -359,3 +364,51 @@ curl --location 'https://api.dotkernel.net/user/my-account' \
 Replace `<access_token>` with the previously stored access token.
 
 You should get a `200 OK` JSON response with the requested resource in the body.
+
+## FAQ
+
+**Q: Which header carries the access token?**
+
+A: `Authorization`, using the token type from the response — for example `Authorization: Bearer eyJ0e...`.
+
+**Q: What happens if I send no token at all?**
+
+A: The caller is treated as a `guest`.
+Public endpoints still respond; protected ones return `403 Forbidden`.
+
+**Q: Why do admin and user tokens use different clients?**
+
+A: Each account type has its own OAuth client: `admin` for accounts in the `admin` table and `frontend` for accounts in the `user` table.
+The `client_id` and `client_secret` must match the account you are authenticating.
+
+**Q: Do I have to generate a token for every request?**
+
+A: No. Generate it once, store it, and reuse it until it expires — then refresh rather than re-authenticate.
+
+**Q: What is the difference between the generate and refresh requests?**
+
+A: Generating uses `grant_type: password` with a username and password; refreshing uses `grant_type: refresh_token` with the refresh token and no credentials.
+
+**Q: How long is an access token valid?**
+
+A: 86400 seconds — one day — configurable via `authentication`, `access_token_expire` in `config/autoload/local.php`.
+
+**Q: I get `400 Bad Request` with "Invalid credentials". What should I check?**
+
+A: The username and password, and that `client_id` and `client_secret` match a row in `oauth_clients`.
+Both credential fields come from the `admin` or `user` table depending on the account type.
+
+**Q: I get `401 Unauthorized` with "The refresh token is invalid". Why?**
+
+A: The refresh token could not be decrypted — it is malformed, has expired, or was issued for a different client than the one in the request.
+
+**Q: Are the shipped credentials safe to keep?**
+
+A: No. The `admin` / `dotadmin` and `test@dotkernel.com` / `dotkernel` accounts, and the OAuth clients whose secrets equal their names, must be changed or removed before production.
+See [OAuth2 security](../security/oauth2-security.md).
+
+**Q: Where should the tokens be stored on the client?**
+
+A: Somewhere private to the client.
+Never commit them or write them to logs, and send them only over HTTPS.
+See [Authentication](../core-features/authentication.md).

@@ -1,5 +1,10 @@
 # Generate a database migration without dropping custom tables
 
+## Summary
+
+`doctrine-migrations diff` generates migrations from your entity mappings, but it also emits `DROP TABLE` statements for unmapped tables such as `oauth_*`.
+Passing a `filter-expression` excludes those prefixes so the generated migration leaves them alone.
+
 ## Usage
 
 Run the following command in your application’s root directory:
@@ -62,3 +67,36 @@ You can get more help with this command by running:
 ```shell
 vendor/bin/doctrine-migrations help diff
 ```
+
+## FAQ
+
+**Q: Why does the generated migration try to drop my `oauth_*` tables?**
+
+A: Because no Doctrine entity describes them.
+From the ORM's point of view they are not part of the schema, so `diff` proposes removing them.
+
+**Q: What should I do with a migration that already contains those DROP queries?**
+
+A: Delete that migration file and regenerate it with a `filter-expression`, rather than editing the queries out by hand.
+
+**Q: Why do the quotes differ between platforms?**
+
+A: Windows shells require double quotes around the expression, while Linux and macOS shells require single quotes to prevent the pattern from being interpreted.
+
+**Q: How do I exclude more than one prefix?**
+
+A: Concatenate the prefixes with a pipe inside the negative lookahead, for example `/^(?!foo_|bar_)/`.
+
+**Q: The filter is ignored in PowerShell. What is happening?**
+
+A: PowerShell treats `^` as a special character and strips it, so the expression arrives without the anchor.
+Escaping does not help — run the command from your IDE, a Linux shell, or the Command Prompt instead.
+
+**Q: Where do generated migrations end up?**
+
+A: Under `data/doctrine/migrations/`.
+See [Doctrine ORM](../installation/doctrine-orm.md).
+
+**Q: How do I see all options for the command?**
+
+A: Run `vendor/bin/doctrine-migrations help diff`.
