@@ -1257,11 +1257,6 @@ database, see
 <a href="https://www.dotkernel.com/headless-platform/version-7-adds-postgresql-native-uuid-and-php-8-5/">Version 7 adds PostgreSQL, native UUID and PHP 8.5</a>.
 Generating them in the application keeps full control over which UUID version is used and avoids
 depending on a database extension or a particular server version to produce the value.</p>
-<blockquote>
-<p>That article cites MariaDB 10.7 as the minimum, which is the release that introduced the <code>UUID</code>
-data type. 11.4 is the floor documented here because of the byte-swapping behaviour described
-above, which 10.7 does not have fixed.</p>
-</blockquote>
 <h3 id="postgresql">PostgreSQL</h3>
 <p>Tested with:</p>
 <ul>
