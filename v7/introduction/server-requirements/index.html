@@ -1150,7 +1150,7 @@
 
     <h1 id="server-requirements">Server Requirements</h1>
 <h2 id="summary">Summary</h2>
-<p>What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with <code>mod_rewrite</code> or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the <code>gd</code>, <code>json</code> and <code>mbstring</code> extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
+<p>What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with <code>mod_rewrite</code> or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the <code>gd</code>, <code>json</code> and <code>mbstring</code> extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB 11.4 LTS or newer or PostgreSQL 13 or newer — MySQL is not supported because it lacks native UUID types.
 Recommended extensions and baseline server hardening are listed as well.</p>
 <h2 id="details">Details</h2>
 <p>For production environments, we highly recommend a Linux-based system.
@@ -1203,17 +1203,6 @@ explicitly and a newly released PHP version is not assumed to work until it has 
 example in <code>Api\App\Middleware\ContentNegotiationMiddleware</code>:</p>
 <pre class="highlight"><code class="language-php">public const string DEFAULT_HEADERS = 'default';</code></pre>
 <p>The project will not even parse on PHP 8.2.</p>
-<p>Beyond that, Dotkernel API leverages these modern PHP features:</p>
-<ul>
-<li>Typed Class Constants (8.3): Constants carry a declared type</li>
-<li>Readonly Classes (8.2): Immutable value objects such as the deprecation attributes</li>
-<li>Enums (8.1): Roles and statuses are backed enums rather than class constants</li>
-<li>Attributes (8.0): Metadata for dependency injection and OpenAPI documentation</li>
-<li>Named Arguments (8.0): Clearer function calls, used when creating problem-details exceptions</li>
-<li>Match Expressions (8.0): More readable than switch statements</li>
-<li>Constructor Property Promotion (8.0): Cleaner code</li>
-<li>Union Types (8.0) and the Nullsafe Operator (8.0): Better type safety and safer null handling</li>
-</ul>
 <h2 id="required-settings-and-modules-extensions">Required Settings and Modules &amp; Extensions</h2>
 <p>These extensions are declared in the <code>require</code> section of <code>composer.json</code> as <code>ext-gd</code> and
 <code>ext-json</code>, so Composer refuses to install the project without them:</p>
@@ -1236,15 +1225,42 @@ example in <code>Api\App\Middleware\ContentNegotiationMiddleware</code>:</p>
 MariaDB and PostgreSQL both have native UUID types and functions.</p>
 </blockquote>
 <h3 id="mariadb">MariaDB</h3>
+<p><strong>MariaDB 11.4 LTS is the minimum supported version.</strong></p>
 <p>Tested with:</p>
 <ul>
-<li>MariaDB 10.7</li>
-<li>MariaDB 10.11 LTS (Long-Term Support)</li>
-<li>MariaDB 11.4 LTS</li>
+<li>MariaDB 11.4 LTS (Long-Term Support)</li>
 <li>MariaDB 11.8 LTS</li>
+<li>MariaDB 12.3 LTS</li>
 </ul>
+<p>All three are LTS releases, which we recommend for stability and security updates.</p>
+<h4 id="why-114-is-the-minimum">Why 11.4 is the minimum</h4>
+<p>Dotkernel API stores every entity identifier in a MariaDB <code>UUID</code> column and generates the value as a
+<strong>UUIDv7</strong> in PHP, via <code>Ramsey\Uuid\Uuid::uuid7()</code>. UUIDv7 is time-ordered by design, so sequential
+inserts land next to each other in the index.</p>
+<p>MariaDB, however, does not always store a <code>UUID</code> in the order it was given. It rearranges the value
+internally into an index-friendly layout that assumes a UUIDv1 — where the node comes first and the
+timestamp second. Applied to a UUIDv7, that rearrangement scrambles exactly the ordering the type
+was chosen for.</p>
+<p>MariaDB 10.10 changed this: from that release on, UUIDv6 and later are stored in their native order,
+with no byte-swapping. The change did not reach the older maintenance series until 10.10.7 and
+10.11.6, so "MariaDB 10.11" is only correct from 10.11.6 onward.</p>
+<p>11.4 LTS is therefore the earliest LTS series in which <em>every</em> patch release stores UUIDv7 natively,
+which is why it is the published floor.</p>
 <blockquote>
-<p>It's recommended to use LTS versions for stability and security updates.</p>
+<p>On MariaDB 10.7, or on 10.11.0 - 10.11.5, the application still runs: inserts and reads succeed.
+The identifiers are simply stored in scrambled order, so you lose the insert locality UUIDv7 exists
+to provide. It is a silent performance problem rather than an error, which is what makes it worth
+stating explicitly.</p>
+</blockquote>
+<p>For the background on why identifiers are generated as UUIDv7 in PHP rather than delegated to the
+database, see
+<a href="https://www.dotkernel.com/headless-platform/version-7-adds-postgresql-native-uuid-and-php-8-5/">Version 7 adds PostgreSQL, native UUID and PHP 8.5</a>.
+Generating them in the application keeps full control over which UUID version is used and avoids
+depending on a database extension or a particular server version to produce the value.</p>
+<blockquote>
+<p>That article cites MariaDB 10.7 as the minimum, which is the release that introduced the <code>UUID</code>
+data type. 11.4 is the floor documented here because of the byte-swapping behaviour described
+above, which 10.7 does not have fixed.</p>
 </blockquote>
 <h3 id="postgresql">PostgreSQL</h3>
 <p>Tested with:</p>
@@ -1284,8 +1300,9 @@ For the extensions the project itself requires, see the "Required Settings and M
 <p>A: Dotkernel API v7 stores identifiers as native UUIDs, and MySQL has no native UUID type or functions.
 MariaDB and PostgreSQL both do.</p>
 <p><strong>Q: Which database versions are tested?</strong></p>
-<p>A: MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and PostgreSQL 13 and above.
-LTS releases are recommended for stability and security updates.</p>
+<p>A: MariaDB 11.4 LTS, 11.8 LTS and 12.3 LTS, and PostgreSQL 13 and above.
+MariaDB 11.4 is also the minimum: earlier releases byte-swap <code>UUID</code> values and destroy the ordering
+of the UUIDv7 identifiers this project uses. See "Why 11.4 is the minimum" above.</p>
 <p><strong>Q: What collation should I create the database with?</strong></p>
 <p>A: <code>utf8mb4_general_ci</code> or <code>utf8mb4_unicode_ci</code> on MariaDB, and <code>C.UTF-8</code> or <code>en_US.UTF-8</code> on PostgreSQL.</p>
 <p><strong>Q: What is the minimum PHP version?</strong></p>
