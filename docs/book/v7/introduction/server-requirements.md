@@ -2,7 +2,7 @@
 
 ## Summary
 
-What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with `mod_rewrite` or an Nginx equivalent, PHP 8.2 or newer with `mbstring` and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
+What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with `mod_rewrite` or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the `gd`, `json` and `mbstring` extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
 Recommended extensions and baseline server hardening are listed as well.
 
 ## Details
@@ -38,10 +38,21 @@ Windows is supported for development via WSL2.
 
 You need to convert the provided Apache related `.htaccess` file into Nginx configuration instructions.
 
-## PHP >= 8.2
+## PHP 8.3, 8.4 or 8.5
 
-Dotkernel API v7 requires PHP 8.2 or higher.
+Dotkernel API v7 requires PHP 8.3, 8.4 or 8.5, as declared in `composer.json`:
+
+```json
+"require": {
+    "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
+}
+```
+
 Earlier PHP versions are not supported.
+Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.
+
+> The constraint uses `~` per minor version rather than `>=`, so each supported branch is listed
+> explicitly and a newly released PHP version is not assumed to work until it has been tested.
 
 ### Supported PHP Configurations
 
@@ -49,22 +60,42 @@ Earlier PHP versions are not supported.
 - FastCGI - Obsolete but still in use by some hosting providers
 - CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures
 
-### Why PHP 8.2+?
+### Why PHP 8.3+?
 
-Dotkernel API leverages modern PHP features:
+The floor is set by **typed class constants**, a PHP 8.3 feature used throughout the codebase — for
+example in `Api\App\Middleware\ContentNegotiationMiddleware`:
 
-- Named Arguments: Clearer function calls
-- Match Expressions: More readable than switch statements
-- Attributes: Metadata for dependency injection and OpenAPI documentation
-- Union Types: Better type safety
-- Nullsafe Operator: Safer null handling
-- Constructor Property Promotion: Cleaner code
+```php
+public const string DEFAULT_HEADERS = 'default';
+```
+
+The project will not even parse on PHP 8.2.
+
+Beyond that, Dotkernel API leverages these modern PHP features:
+
+- Typed Class Constants (8.3): Constants carry a declared type
+- Readonly Classes (8.2): Immutable value objects such as the deprecation attributes
+- Enums (8.1): Roles and statuses are backed enums rather than class constants
+- Attributes (8.0): Metadata for dependency injection and OpenAPI documentation
+- Named Arguments (8.0): Clearer function calls, used when creating problem-details exceptions
+- Match Expressions (8.0): More readable than switch statements
+- Constructor Property Promotion (8.0): Cleaner code
+- Union Types (8.0) and the Nullsafe Operator (8.0): Better type safety and safer null handling
 
 ## Required Settings and Modules & Extensions
 
+These extensions are declared in the `require` section of `composer.json` as `ext-gd` and
+`ext-json`, so Composer refuses to install the project without them:
+
+- `gd` - must be enabled; this is the one to check on a new server
+- `json` - ships enabled and cannot be disabled on any supported PHP version, so in practice it needs no action
+
+Also required:
+
+- mbstring
+- the PDO driver for your database - `pdo_mysql` for MariaDB or `pdo_pgsql` for PostgreSQL
 - memory_limit >= 128M
 - upload_max_filesize and post_max_size >= 100 M (depending on your data)
-- mbstring
 - CLI SAPI (for Cron Jobs)
 - Composer (added to $PATH)
 
@@ -99,11 +130,13 @@ When creating databases, use:
 
 ## Recommended extensions
 
+These are optional and depend on what your application does.
+For the extensions the project itself requires, see the "Required Settings and Modules & Extensions" section above.
+
 - `opcache`
-- `pdo_mysql`, `pdo_pgsql` or `mysqli` (if using MariaDB or PostgreSQL as RDBMS)
 - `dom` - if working with markup files structure (HTML, XML, etc.)
 - `simplexml` - working with XML files
-- `gd`, `exif` - if working with images
+- `exif` - additional image metadata handling (`gd` itself is required, not optional)
 - `zlib`, `zip`, `bz2` - if compressing files
 - `curl` (required if APIs are used)
 - `sqlite3` - for tests
@@ -138,8 +171,10 @@ A: `utf8mb4_general_ci` or `utf8mb4_unicode_ci` on MariaDB, and `C.UTF-8` or `en
 
 **Q: What is the minimum PHP version?**
 
-A: PHP 8.2.
-Earlier versions are not supported, because the project relies on named arguments, match expressions, attributes, union types, the nullsafe operator and constructor property promotion.
+A: PHP 8.3.
+`composer.json` requires `~8.3.0 || ~8.4.0 || ~8.5.0`, so 8.3, 8.4 and 8.5 are supported and earlier versions are not.
+PHP 8.2 support was dropped in Dotkernel API 7.2.0.
+The hard blocker is typed class constants, a PHP 8.3 feature used throughout the codebase, so the project will not parse on 8.2.
 
 **Q: Do I need the CLI SAPI as well as FPM?**
 
@@ -156,8 +191,9 @@ A: Yes, through WSL2. macOS and Linux are also supported for development; produc
 
 **Q: Which PHP extensions are actually required?**
 
-A: `mbstring` plus the PDO driver for your database.
-The rest — `opcache`, `gd`, `curl`, `zip`, `dom`, `simplexml`, `sqlite3` and others — depend on what your application does, with `sqlite3` needed to run the tests.
+A: `gd` and `json` are declared in `composer.json` as `ext-gd` and `ext-json`, so Composer will not install the project without them.
+Add `mbstring` and the PDO driver for your database — `pdo_mysql` or `pdo_pgsql`.
+The rest — `opcache`, `curl`, `zip`, `dom`, `simplexml`, `exif`, `sqlite3` and others — depend on what your application does, with `sqlite3` needed to run the tests.
 
 **Q: What are the baseline hardening steps?**
 
