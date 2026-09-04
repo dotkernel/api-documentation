@@ -2,11 +2,11 @@
 
 ## Summary
 
-A tour of Dotkernel API: a PSR-15 middleware REST framework on PHP 8.2+ acting as a Headless Platform, with OAuth2 authentication, RBAC authorization, content negotiation, Doctrine ORM persistence, HAL payloads, CORS handling, email through `dot-mail`, OpenAPI and Bruno documentation, per-module routing and configuration, CLI commands with a file locker, and unit and functional test suites — closing with the pitfalls to avoid and where to go next.
+A tour of Dotkernel API: a PSR-15 middleware REST framework on PHP 8.3+ acting as a Headless Platform, with OAuth2 authentication, RBAC authorization, content negotiation, Doctrine ORM persistence, HAL payloads, CORS handling, email through `dot-mail`, OpenAPI and Bruno documentation, per-module routing and configuration, CLI commands with a file locker, and unit and functional test suites — closing with the pitfalls to avoid and where to go next.
 
 ## What is Dotkernel API?
 
-Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.2+.
+Dotkernel API is a modern, PSR-15 middleware-based REST API framework built on PHP 8.3+.
 It is a Headless Platform with built-in OAuth2 authentication, RBAC authorization, and content negotiation.
 
 ## When to Use Dotkernel API
