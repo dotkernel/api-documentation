@@ -13,7 +13,9 @@ Run the following command in your application’s root directory:
 vendor/bin/doctrine-migrations diff
 ```
 
-If you have mapping modifications, this will create a new migration file under `data/doctrine/migrations/` directory.
+If you have mapping modifications, this will create a new migration file under
+`src/Core/src/App/src/Migration/`, in the `Core\App\Migration` namespace.
+The location comes from the `doctrine.migrations.migrations_paths` key in `Core\App\ConfigProvider`.
 Opening the migration file, you will notice that it contains some queries that will drop your `oauth_*` tables because they are unmapped (there is no doctrine entity describing them).
 You should delete your latest migration with the DROP queries in it as we will create another one, without the DROP queries in it.
 To avoid dropping these tables, you need to add a parameter called `filter-expression`.
@@ -94,7 +96,8 @@ Escaping does not help — run the command from your IDE, a Linux shell, or the 
 
 **Q: Where do generated migrations end up?**
 
-A: Under `data/doctrine/migrations/`.
+A: In `src/Core/src/App/src/Migration/`, as classes in the `Core\App\Migration` namespace.
+The path is configured under `doctrine.migrations.migrations_paths` in `Core\App\ConfigProvider`, so change it there if you want migrations elsewhere.
 See [Doctrine ORM](../installation/doctrine-orm.md).
 
 **Q: How do I see all options for the command?**
