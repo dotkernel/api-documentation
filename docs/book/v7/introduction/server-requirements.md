@@ -134,10 +134,6 @@ database, see
 Generating them in the application keeps full control over which UUID version is used and avoids
 depending on a database extension or a particular server version to produce the value.
 
-> That article cites MariaDB 10.7 as the minimum, which is the release that introduced the `UUID`
-> data type. 11.4 is the floor documented here because of the byte-swapping behaviour described
-> above, which 10.7 does not have fixed.
-
 ### PostgreSQL
 
 Tested with:
