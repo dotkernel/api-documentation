@@ -14,7 +14,8 @@ To transition a system built using api-tools to Dotkernel API, we need to analyz
 - which is the connection to a database
 - which library is used for database interaction (laminas-db, doctrine 2, eloquent, or else)?
 
-> Dotkernel API version 7 is tested only with MariaDB version 10.7, 10.11 LTS, 11.4 LTS, 11.8 LTS, and PostgreSQL version 13 and above.
+> Dotkernel API version 7 is tested only with MariaDB version 11.4 LTS, 11.8 LTS, 12.3 LTS, and PostgreSQL version 13 and above.
+> MariaDB 11.4 is the minimum supported version — see [Server requirements](../introduction/server-requirements.md).
 
 ## Authentication and Authorization
 
@@ -57,7 +58,8 @@ See [Doctrine ORM](../installation/doctrine-orm.md).
 
 **Q: Which database versions can I target?**
 
-A: Dotkernel API version 7 is tested with MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and with PostgreSQL 13 and above.
+A: Dotkernel API version 7 is tested with MariaDB 11.4 LTS, 11.8 LTS and 12.3 LTS, and with PostgreSQL 13 and above.
+MariaDB 11.4 is the minimum, because earlier releases byte-swap `UUID` values and lose the ordering of the UUIDv7 identifiers the project generates.
 See [Server requirements](../introduction/server-requirements.md).
 
 **Q: My api-tools API uses HTTP Basic authentication. What is the equivalent?**

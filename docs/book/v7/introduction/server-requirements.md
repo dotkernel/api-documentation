@@ -2,7 +2,7 @@
 
 ## Summary
 
-What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with `mod_rewrite` or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the `gd`, `json` and `mbstring` extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
+What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with `mod_rewrite` or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the `gd`, `json` and `mbstring` extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB 11.4 LTS or newer or PostgreSQL 13 or newer — MySQL is not supported because it lacks native UUID types.
 Recommended extensions and baseline server hardening are listed as well.
 
 ## Details
@@ -71,17 +71,6 @@ public const string DEFAULT_HEADERS = 'default';
 
 The project will not even parse on PHP 8.2.
 
-Beyond that, Dotkernel API leverages these modern PHP features:
-
-- Typed Class Constants (8.3): Constants carry a declared type
-- Readonly Classes (8.2): Immutable value objects such as the deprecation attributes
-- Enums (8.1): Roles and statuses are backed enums rather than class constants
-- Attributes (8.0): Metadata for dependency injection and OpenAPI documentation
-- Named Arguments (8.0): Clearer function calls, used when creating problem-details exceptions
-- Match Expressions (8.0): More readable than switch statements
-- Constructor Property Promotion (8.0): Cleaner code
-- Union Types (8.0) and the Nullsafe Operator (8.0): Better type safety and safer null handling
-
 ## Required Settings and Modules & Extensions
 
 These extensions are declared in the `require` section of `composer.json` as `ext-gd` and
@@ -106,14 +95,48 @@ Also required:
 
 ### MariaDB
 
+**MariaDB 11.4 LTS is the minimum supported version.**
+
 Tested with:
 
-- MariaDB 10.7
-- MariaDB 10.11 LTS (Long-Term Support)
-- MariaDB 11.4 LTS
+- MariaDB 11.4 LTS (Long-Term Support)
 - MariaDB 11.8 LTS
+- MariaDB 12.3 LTS
 
-> It's recommended to use LTS versions for stability and security updates.
+All three are LTS releases, which we recommend for stability and security updates.
+
+#### Why 11.4 is the minimum
+
+Dotkernel API stores every entity identifier in a MariaDB `UUID` column and generates the value as a
+**UUIDv7** in PHP, via `Ramsey\Uuid\Uuid::uuid7()`. UUIDv7 is time-ordered by design, so sequential
+inserts land next to each other in the index.
+
+MariaDB, however, does not always store a `UUID` in the order it was given. It rearranges the value
+internally into an index-friendly layout that assumes a UUIDv1 — where the node comes first and the
+timestamp second. Applied to a UUIDv7, that rearrangement scrambles exactly the ordering the type
+was chosen for.
+
+MariaDB 10.10 changed this: from that release on, UUIDv6 and later are stored in their native order,
+with no byte-swapping. The change did not reach the older maintenance series until 10.10.7 and
+10.11.6, so "MariaDB 10.11" is only correct from 10.11.6 onward.
+
+11.4 LTS is therefore the earliest LTS series in which *every* patch release stores UUIDv7 natively,
+which is why it is the published floor.
+
+> On MariaDB 10.7, or on 10.11.0 - 10.11.5, the application still runs: inserts and reads succeed.
+> The identifiers are simply stored in scrambled order, so you lose the insert locality UUIDv7 exists
+> to provide. It is a silent performance problem rather than an error, which is what makes it worth
+> stating explicitly.
+
+For the background on why identifiers are generated as UUIDv7 in PHP rather than delegated to the
+database, see
+[Version 7 adds PostgreSQL, native UUID and PHP 8.5](https://www.dotkernel.com/headless-platform/version-7-adds-postgresql-native-uuid-and-php-8-5/).
+Generating them in the application keeps full control over which UUID version is used and avoids
+depending on a database extension or a particular server version to produce the value.
+
+> That article cites MariaDB 10.7 as the minimum, which is the release that introduced the `UUID`
+> data type. 11.4 is the floor documented here because of the byte-swapping behaviour described
+> above, which 10.7 does not have fixed.
 
 ### PostgreSQL
 
@@ -162,8 +185,9 @@ MariaDB and PostgreSQL both do.
 
 **Q: Which database versions are tested?**
 
-A: MariaDB 10.7, 10.11 LTS, 11.4 LTS and 11.8 LTS, and PostgreSQL 13 and above.
-LTS releases are recommended for stability and security updates.
+A: MariaDB 11.4 LTS, 11.8 LTS and 12.3 LTS, and PostgreSQL 13 and above.
+MariaDB 11.4 is also the minimum: earlier releases byte-swap `UUID` values and destroy the ordering
+of the UUIDv7 identifiers this project uses. See "Why 11.4 is the minimum" above.
 
 **Q: What collation should I create the database with?**
 
