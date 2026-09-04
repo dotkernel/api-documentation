@@ -1063,7 +1063,7 @@
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#php-82" class="toc__link nav-link">PHP &gt;= 8.2</a>
+                    <a href="#php-83-84-or-85" class="toc__link nav-link">PHP 8.3, 8.4 or 8.5</a>
                 </li>
             
                 <li class="toc__entry">
@@ -1150,7 +1150,7 @@
 
     <h1 id="server-requirements">Server Requirements</h1>
 <h2 id="summary">Summary</h2>
-<p>What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with <code>mod_rewrite</code> or an Nginx equivalent, PHP 8.2 or newer with <code>mbstring</code> and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
+<p>What Dotkernel API v7 needs to run: a Linux host in production (Windows via WSL2 for development), Apache with <code>mod_rewrite</code> or an Nginx equivalent, PHP 8.3, 8.4 or 8.5 with the <code>gd</code>, <code>json</code> and <code>mbstring</code> extensions and CLI SAPI, Composer 2.0 or newer, and MariaDB or PostgreSQL — MySQL is not supported because it lacks native UUID types.
 Recommended extensions and baseline server hardening are listed as well.</p>
 <h2 id="details">Details</h2>
 <p>For production environments, we highly recommend a Linux-based system.
@@ -1181,30 +1181,52 @@ It should also work on Microsoft's IIS server with minimal modifications, but we
 </blockquote>
 <h3 id="nginx">Nginx</h3>
 <p>You need to convert the provided Apache related <code>.htaccess</code> file into Nginx configuration instructions.</p>
-<h2 id="php-82">PHP &gt;= 8.2</h2>
-<p>Dotkernel API v7 requires PHP 8.2 or higher.
-Earlier PHP versions are not supported.</p>
+<h2 id="php-83-84-or-85">PHP 8.3, 8.4 or 8.5</h2>
+<p>Dotkernel API v7 requires PHP 8.3, 8.4 or 8.5, as declared in <code>composer.json</code>:</p>
+<pre class="highlight"><code class="language-json">"require": {
+    "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
+}</code></pre>
+<p>Earlier PHP versions are not supported.
+Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.</p>
+<blockquote>
+<p>The constraint uses <code>~</code> per minor version rather than <code>&gt;=</code>, so each supported branch is listed
+explicitly and a newly released PHP version is not assumed to work until it has been tested.</p>
+</blockquote>
 <h3 id="supported-php-configurations">Supported PHP Configurations</h3>
 <ul>
 <li>FPM (FastCGI Process Manager) - Recommended for production, better performance and security isolation</li>
 <li>FastCGI - Obsolete but still in use by some hosting providers</li>
 <li>CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures</li>
 </ul>
-<h3 id="why-php-82">Why PHP 8.2+?</h3>
-<p>Dotkernel API leverages modern PHP features:</p>
+<h3 id="why-php-83">Why PHP 8.3+?</h3>
+<p>The floor is set by <strong>typed class constants</strong>, a PHP 8.3 feature used throughout the codebase — for
+example in <code>Api\App\Middleware\ContentNegotiationMiddleware</code>:</p>
+<pre class="highlight"><code class="language-php">public const string DEFAULT_HEADERS = 'default';</code></pre>
+<p>The project will not even parse on PHP 8.2.</p>
+<p>Beyond that, Dotkernel API leverages these modern PHP features:</p>
 <ul>
-<li>Named Arguments: Clearer function calls</li>
-<li>Match Expressions: More readable than switch statements</li>
-<li>Attributes: Metadata for dependency injection and OpenAPI documentation</li>
-<li>Union Types: Better type safety</li>
-<li>Nullsafe Operator: Safer null handling</li>
-<li>Constructor Property Promotion: Cleaner code</li>
+<li>Typed Class Constants (8.3): Constants carry a declared type</li>
+<li>Readonly Classes (8.2): Immutable value objects such as the deprecation attributes</li>
+<li>Enums (8.1): Roles and statuses are backed enums rather than class constants</li>
+<li>Attributes (8.0): Metadata for dependency injection and OpenAPI documentation</li>
+<li>Named Arguments (8.0): Clearer function calls, used when creating problem-details exceptions</li>
+<li>Match Expressions (8.0): More readable than switch statements</li>
+<li>Constructor Property Promotion (8.0): Cleaner code</li>
+<li>Union Types (8.0) and the Nullsafe Operator (8.0): Better type safety and safer null handling</li>
 </ul>
 <h2 id="required-settings-and-modules-extensions">Required Settings and Modules &amp; Extensions</h2>
+<p>These extensions are declared in the <code>require</code> section of <code>composer.json</code> as <code>ext-gd</code> and
+<code>ext-json</code>, so Composer refuses to install the project without them:</p>
 <ul>
+<li><code>gd</code> - must be enabled; this is the one to check on a new server</li>
+<li><code>json</code> - ships enabled and cannot be disabled on any supported PHP version, so in practice it needs no action</li>
+</ul>
+<p>Also required:</p>
+<ul>
+<li>mbstring</li>
+<li>the PDO driver for your database - <code>pdo_mysql</code> for MariaDB or <code>pdo_pgsql</code> for PostgreSQL</li>
 <li>memory_limit &gt;= 128M</li>
 <li>upload_max_filesize and post_max_size &gt;= 100 M (depending on your data)</li>
-<li>mbstring</li>
 <li>CLI SAPI (for Cron Jobs)</li>
 <li>Composer (added to $PATH)</li>
 </ul>
@@ -1236,12 +1258,13 @@ MariaDB and PostgreSQL both have native UUID types and functions.</p>
 <li>PostgreSQL: C.UTF-8 or en_US.UTF-8</li>
 </ul>
 <h2 id="recommended-extensions">Recommended extensions</h2>
+<p>These are optional and depend on what your application does.
+For the extensions the project itself requires, see the "Required Settings and Modules &amp; Extensions" section above.</p>
 <ul>
 <li><code>opcache</code></li>
-<li><code>pdo_mysql</code>, <code>pdo_pgsql</code> or <code>mysqli</code> (if using MariaDB or PostgreSQL as RDBMS)</li>
 <li><code>dom</code> - if working with markup files structure (HTML, XML, etc.)</li>
 <li><code>simplexml</code> - working with XML files</li>
-<li><code>gd</code>, <code>exif</code> - if working with images</li>
+<li><code>exif</code> - additional image metadata handling (<code>gd</code> itself is required, not optional)</li>
 <li><code>zlib</code>, <code>zip</code>, <code>bz2</code> - if compressing files</li>
 <li><code>curl</code> (required if APIs are used)</li>
 <li><code>sqlite3</code> - for tests</li>
@@ -1266,8 +1289,10 @@ LTS releases are recommended for stability and security updates.</p>
 <p><strong>Q: What collation should I create the database with?</strong></p>
 <p>A: <code>utf8mb4_general_ci</code> or <code>utf8mb4_unicode_ci</code> on MariaDB, and <code>C.UTF-8</code> or <code>en_US.UTF-8</code> on PostgreSQL.</p>
 <p><strong>Q: What is the minimum PHP version?</strong></p>
-<p>A: PHP 8.2.
-Earlier versions are not supported, because the project relies on named arguments, match expressions, attributes, union types, the nullsafe operator and constructor property promotion.</p>
+<p>A: PHP 8.3.
+<code>composer.json</code> requires <code>~8.3.0 || ~8.4.0 || ~8.5.0</code>, so 8.3, 8.4 and 8.5 are supported and earlier versions are not.
+PHP 8.2 support was dropped in Dotkernel API 7.2.0.
+The hard blocker is typed class constants, a PHP 8.3 feature used throughout the codebase, so the project will not parse on 8.2.</p>
 <p><strong>Q: Do I need the CLI SAPI as well as FPM?</strong></p>
 <p>A: Yes.
 FPM (or FastCGI) serves web requests, while the CLI SAPI is required for cron jobs, migrations and fixtures.</p>
@@ -1276,8 +1301,9 @@ FPM (or FastCGI) serves web requests, while the CLI SAPI is required for cron jo
 <p><strong>Q: Can I develop on Windows?</strong></p>
 <p>A: Yes, through WSL2. macOS and Linux are also supported for development; production should be Linux.</p>
 <p><strong>Q: Which PHP extensions are actually required?</strong></p>
-<p>A: <code>mbstring</code> plus the PDO driver for your database.
-The rest — <code>opcache</code>, <code>gd</code>, <code>curl</code>, <code>zip</code>, <code>dom</code>, <code>simplexml</code>, <code>sqlite3</code> and others — depend on what your application does, with <code>sqlite3</code> needed to run the tests.</p>
+<p>A: <code>gd</code> and <code>json</code> are declared in <code>composer.json</code> as <code>ext-gd</code> and <code>ext-json</code>, so Composer will not install the project without them.
+Add <code>mbstring</code> and the PDO driver for your database — <code>pdo_mysql</code> or <code>pdo_pgsql</code>.
+The rest — <code>opcache</code>, <code>curl</code>, <code>zip</code>, <code>dom</code>, <code>simplexml</code>, <code>exif</code>, <code>sqlite3</code> and others — depend on what your application does, with <code>sqlite3</code> needed to run the tests.</p>
 <p><strong>Q: What are the baseline hardening steps?</strong></p>
 <p>A: Expose only ports 80 and 443, disable <code>exec</code>, <code>shell_exec</code>, <code>passthru</code> and <code>system</code> in PHP, use strong database passwords with restricted permissions, set 644 on files and 755 on directories, and keep the stack patched.
 See <a href="../../security/basic-security/">Basic security</a>.</p>
