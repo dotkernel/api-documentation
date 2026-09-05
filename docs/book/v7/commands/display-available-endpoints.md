@@ -75,8 +75,8 @@ The following filters can be applied when displaying the route list:
 The filters are matched as case-sensitive substrings and can be combined.
 For example, `php ./bin/cli.php route:list -i avatar` lists only the six avatar routes, and adding `-m GET` narrows that to two.
 
-> Case matters. Route names and paths are lowercase and methods are uppercase, so `-i avatar` and
-> `-m GET` match, while `-i Avatar` and `-m get` match nothing and print an empty table.
+> Case matters.
+> Route names and paths are lowercase and methods are uppercase, so `-i avatar` and `-m GET` match, while `-i Avatar` and `-m get` match nothing and print an empty table.
 
 Get more help by running this command:
 
