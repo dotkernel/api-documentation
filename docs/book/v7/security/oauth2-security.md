@@ -23,23 +23,16 @@ By default, the lifetimes of the `access` and `refresh` tokens are set to one da
 Make sure to adjust their values in accordance with your application's needs, with lower values being generally safer.
 
 > If your application requires it, you can revoke a user's OAuth tokens before they expire.
-> `UserService::revokeTokens()` is `private`, so it cannot be called from your own code; it runs as
-> part of the public `UserService::deleteUser()`, which revokes the tokens and then anonymizes the
-> account.
+> `UserService::revokeTokens()` is `private`, so it cannot be called from your own code; it runs as part of the public `UserService::deleteUser()`, which revokes the tokens and then anonymizes the account.
 >
-> To revoke tokens on their own, use the token repositories directly: fetch the user's tokens with
-> `OAuthAccessTokenRepository::findAccessTokens($identity)`, then pass each token to
-> `OAuthAccessTokenRepository::revokeAccessToken()` and
-> `OAuthRefreshTokenRepository::revokeRefreshToken()`.
+> To revoke tokens on their own, use the token repositories directly: fetch the user's tokens with `OAuthAccessTokenRepository::findAccessTokens($identity)`, then pass each token to `OAuthAccessTokenRepository::revokeAccessToken()` and `OAuthRefreshTokenRepository::revokeRefreshToken()`.
 >
 > Read more about the available [configuration options](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration).
 
 ## Autogeneration of Cryptographic Keys
 
-Dotkernel API runs its own `php ./bin/generate-oauth2-keys.php` script to create the public/private
-key pair and the encryption key used to sign and verify the transmitted JWTs.
-It is invoked after each `composer update` (or `composer install` with no lock file), as specified in
-`composer.json` under the `scripts.post-update-cmd` key:
+Dotkernel API runs its own `php ./bin/generate-oauth2-keys.php` script to create the public/private key pair and the encryption key used to sign and verify the transmitted JWTs.
+It is invoked after each `composer update` (or `composer install` with no lock file), as specified in `composer.json` under the `scripts.post-update-cmd` key:
 
 ```json
 "post-update-cmd": [
@@ -48,17 +41,13 @@ It is invoked after each `composer update` (or `composer install` with no lock f
 ]
 ```
 
-**Existing keys are never overwritten.** The script checks for `data/oauth/encryption.key`,
-`data/oauth/private.key` and `data/oauth/public.key`; if all three are present it prints
-`OAuth2 keys already exist. Skipping...` and stops.
-Only when one is missing does it delegate to
-`vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys` to generate the set.
+**Existing keys are never overwritten.**
+The script checks for `data/oauth/encryption.key`, `data/oauth/private.key` and `data/oauth/public.key`; if all three are present it prints `OAuth2 keys already exist. Skipping...` and stops.
+Only when one is missing does it delegate to `vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys` to generate the set.
 
-> This guard matters in production: regenerating the keys invalidates every access token already
-> issued. Preserving them across updates was added in Dotkernel API 7.2.0
-> ([issue #503](https://github.com/dotkernel/api/issues/503)).
-> If you deliberately want to rotate the keys, delete the three files from `data/oauth` and run
-> `composer update` — accepting that existing tokens stop working.
+> This guard matters in production: regenerating the keys invalidates every access token already issued.
+> Preserving them across updates was added in Dotkernel API 7.2.0 ([issue #503](https://github.com/dotkernel/api/issues/503)).
+> If you deliberately want to rotate the keys, delete the three files from `data/oauth` and run `composer update` — accepting that existing tokens stop working.
 
 While hidden to the VCS by default, keep in mind not to commit any local keys.
 
