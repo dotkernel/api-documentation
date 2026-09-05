@@ -2,7 +2,7 @@
 
 ## Summary
 
-The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default `admin` and `frontend` OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is regenerated and where it must be kept.
+The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default `admin` and `frontend` OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is generated, why existing keys are preserved, and where they must be kept.
 
 ## Details
 
@@ -22,19 +22,36 @@ The configuration for OAuth2 tokens can be edited in `config/autoload/local.php`
 By default, the lifetimes of the `access` and `refresh` tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance with your application's needs, with lower values being generally safer.
 
-> If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the `revokeTokens` method of `UserService`.
+> If your application requires it, you can revoke a user's OAuth tokens before they expire.
+> `UserService::revokeTokens()` is `private`, so it cannot be called from your own code; it runs as part of the public `UserService::deleteUser()`, which revokes the tokens and then anonymizes the account.
+>
+> To revoke tokens on their own, use the token repositories directly: fetch the user's tokens with `OAuthAccessTokenRepository::findAccessTokens($identity)`, then pass each token to `OAuthAccessTokenRepository::revokeAccessToken()` and `OAuthRefreshTokenRepository::revokeRefreshToken()`.
 >
 > Read more about the available [configuration options](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration).
 
 ## Autogeneration of Cryptographic Keys
 
-Dotkernel API makes use of the `./vendor/bin/generate-oauth2-keys` command from `mezzio-authentication-oauth2` to automatically regenerate the
-public/private key pair used to verify the transmitted JWTs.
-This process is done after each `composer update` (or `composer install` with no lock file), as specified in `composer.json` under the `scripts.post-update-cmd` key.
+Dotkernel API runs its own `php ./bin/generate-oauth2-keys.php` script to create the public/private key pair and the encryption key used to sign and verify the transmitted JWTs.
+It is invoked after each `composer update` (or `composer install` with no lock file), as specified in `composer.json` under the `scripts.post-update-cmd` key:
+
+```json
+"post-update-cmd": [
+    "php ./bin/generate-oauth2-keys.php",
+    "php ./bin/composer-post-install-script.php"
+]
+```
+
+**Existing keys are never overwritten.**
+The script checks for `data/oauth/encryption.key`, `data/oauth/private.key` and `data/oauth/public.key`; if all three are present it prints `OAuth2 keys already exist. Skipping...` and stops.
+Only when one is missing does it delegate to `vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys` to generate the set.
+
+> This guard matters in production: regenerating the keys invalidates every access token already issued.
+> Preserving them across updates was added in Dotkernel API 7.2.0 ([issue #503](https://github.com/dotkernel/api/issues/503)).
+> If you deliberately want to rotate the keys, delete the three files from `data/oauth` and run `composer update` — accepting that existing tokens stop working.
 
 While hidden to the VCS by default, keep in mind not to commit any local keys.
 
-> Autogeneration of keys can be disabled by simply removing the `php ./vendor/bin/generate-oauth2-keys` command from the mentioned key.
+> Key generation can be disabled by removing the `php ./bin/generate-oauth2-keys.php` entry from the mentioned key.
 >
 > While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.
 
@@ -52,16 +69,25 @@ Defaults are one day for access tokens and one month for refresh tokens; shorter
 
 **Q: Can I invalidate a user's tokens before they expire?**
 
-A: Yes, via the `revokeTokens` method of `UserService`.
+A: Yes, but not via `UserService::revokeTokens()` — that method is `private`.
+It runs as part of the public `UserService::deleteUser()`, which also anonymizes the account.
+To revoke tokens on their own, use the repositories: `OAuthAccessTokenRepository::findAccessTokens($identity)` to list them, then `revokeAccessToken()` and `OAuthRefreshTokenRepository::revokeRefreshToken()` for each.
 
-**Q: When are the OAuth2 keys regenerated?**
+**Q: When are the OAuth2 keys generated?**
 
-A: After every `composer update`, and after `composer install` when there is no lock file, through the `php ./vendor/bin/generate-oauth2-keys` script in `composer.json`.
+A: `php ./bin/generate-oauth2-keys.php` runs after every `composer update`, and after `composer install` when there is no lock file, via `scripts.post-update-cmd` in `composer.json`.
+It only generates keys that are missing: if all three files in `data/oauth` exist it reports `OAuth2 keys already exist. Skipping...` and leaves them alone, so updating dependencies does not invalidate issued tokens.
 
-**Q: How do I stop the keys from being regenerated?**
+**Q: How do I stop the keys from being generated?**
 
-A: Remove `php ./vendor/bin/generate-oauth2-keys` from the `scripts.post-update-cmd` key in `composer.json`.
-This matters on servers where regenerating keys would invalidate tokens already issued.
+A: Remove `php ./bin/generate-oauth2-keys.php` from the `scripts.post-update-cmd` key in `composer.json`.
+Since 7.2.0 this is rarely necessary — the script already preserves existing keys, which is what protects issued tokens on a server.
+
+**Q: How do I deliberately rotate the keys?**
+
+A: Delete `encryption.key`, `private.key` and `public.key` from `data/oauth`, then run `composer update`.
+The script regenerates the missing set.
+Every access token issued under the old keys stops working, so plan for clients to re-authenticate.
 
 **Q: Should the key pair be committed?**
 
