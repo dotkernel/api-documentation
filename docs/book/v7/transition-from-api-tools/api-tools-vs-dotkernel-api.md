@@ -31,7 +31,8 @@ API Tools is archived and MVC/event-driven; Dotkernel API is actively maintained
 
 **Q: Is Dotkernel API a drop-in replacement for API Tools?**
 
-A: No. The two projects differ in architecture, components and functionality, so a transition is a rewrite rather than a swap.
+A: No.
+The two projects differ in architecture, components and functionality, so a transition is a rewrite rather than a swap.
 See [Transition approach](transition-approach.md).
 
 **Q: What is the biggest architectural difference?**
@@ -41,7 +42,8 @@ Request handling, routing and extension points all work differently as a result.
 
 **Q: Does Dotkernel API support RPC-style endpoints?**
 
-A: No. Dotkernel API is REST only, while API Tools supported both REST and RPC.
+A: No.
+Dotkernel API is REST only, while API Tools supported both REST and RPC.
 
 **Q: How is versioning handled without API Tools' version support?**
 

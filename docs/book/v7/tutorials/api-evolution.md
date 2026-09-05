@@ -99,7 +99,8 @@ The value has to be a valid date.
 
 **Q: Are `rel` and `type` required?**
 
-A: No. They default to `sunset` and `text/html`, and both relate to the `Link` header.
+A: No.
+They default to `sunset` and `text/html`, and both relate to the `Link` header.
 
 **Q: Which classes can carry a deprecation?**
 

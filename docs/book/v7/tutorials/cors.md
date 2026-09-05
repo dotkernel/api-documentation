@@ -7,15 +7,13 @@ This tutorial explains the mechanism, then walks through enabling it in Dotkerne
 
 ## What is CORS?
 
-**Cross-Origin Resource Sharing** or _CORS_ is an HTTP header-based mechanism that allows a server to indicate any other
-origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
+**Cross-Origin Resource Sharing** or _CORS_ is an HTTP header-based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
 
 ## Why do we need CORS?
 
 When integrating an API, most developers have encountered the following error message:
 
-> Access to fetch at _RESOURCE_URL_ from origin _ORIGIN_URL_ has been blocked by CORS policy:
-> No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
+> Access to fetch at _RESOURCE_URL_ from origin _ORIGIN_URL_ has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
 
 This happens because the API (_RESOURCE_URL_) is not configured to accept requests from the client (_ORIGIN_URL_).
 
@@ -130,5 +128,6 @@ A: It lists response headers the browser should make readable to client-side cod
 
 **Q: Do I need to install the package on a fresh Dotkernel API?**
 
-A: No. `mezzio/mezzio-cors` ships with the project and `cors.local.php` is created during installation — you only need to review its values.
+A: No.
+`mezzio/mezzio-cors` ships with the project and `cors.local.php` is created during installation — you only need to review its values.
 See [Configuration files](../installation/configuration-files.md).

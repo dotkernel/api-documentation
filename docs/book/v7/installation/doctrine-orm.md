@@ -253,7 +253,8 @@ Only one active connection is allowed at a time, even if the array defines sever
 
 **Q: Do I have to name the database `dotkernel`?**
 
-A: No. That is only an example — use any name, as long as the configuration and the database you create agree.
+A: No.
+That is only an example — use any name, as long as the configuration and the database you create agree.
 
 **Q: What is `table_prefix` for?**
 

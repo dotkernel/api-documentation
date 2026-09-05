@@ -166,7 +166,8 @@ A: The log entry includes the token used, and tokens can be defined as key-value
 
 **Q: Do these tokens expire?**
 
-A: No. Because they are indefinite, rotate them manually from time to time.
+A: No.
+Because they are indefinite, rotate them manually from time to time.
 See [Basic security](../security/basic-security.md).
 
 **Q: Where do the reports end up?**
@@ -176,5 +177,6 @@ If it does not exist, it is created automatically.
 
 **Q: Does this endpoint need an auth token as well?**
 
-A: No. It is authorized solely by the error reporting token.
+A: No.
+It is authorized solely by the error reporting token.
 See [Using the documentation](../openapi/use-documentation.md).
