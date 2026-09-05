@@ -835,7 +835,8 @@ class ConfigProvider
 composer dump-autoload
 ```
 
-That's it. The module is now registered.
+That's it.
+The module is now registered.
 
 We need to configure access to the newly created endpoints.
 Open `config/autoload/authorization.global.php` and append the below route names to the `UserRoleEnum::Guest->value` key:
@@ -892,7 +893,11 @@ To list the books, use:
 curl http://0.0.0.0:8080/book
 ```
 
-To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
+To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` .
+`books` . * .
+`_links` .
+`self` .
+`href`.
 
 The link should have the following format:
 

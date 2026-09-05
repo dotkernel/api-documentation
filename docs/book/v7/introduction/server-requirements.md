@@ -51,8 +51,7 @@ Dotkernel API v7 requires PHP 8.3, 8.4 or 8.5, as declared in `composer.json`:
 Earlier PHP versions are not supported.
 Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.
 
-> The constraint uses `~` per minor version rather than `>=`, so each supported branch is listed
-> explicitly and a newly released PHP version is not assumed to work until it has been tested.
+> The constraint uses `~` per minor version rather than `>=`, so each supported branch is listed explicitly and a newly released PHP version is not assumed to work until it has been tested.
 
 ### Supported PHP Configurations
 
@@ -62,8 +61,7 @@ Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.
 
 ### Why PHP 8.3+?
 
-The floor is set by **typed class constants**, a PHP 8.3 feature used throughout the codebase — for
-example in `Api\App\Middleware\ContentNegotiationMiddleware`:
+The floor is set by **typed class constants**, a PHP 8.3 feature used throughout the codebase — for example in `Api\App\Middleware\ContentNegotiationMiddleware`:
 
 ```php
 public const string DEFAULT_HEADERS = 'default';
@@ -73,8 +71,7 @@ The project will not even parse on PHP 8.2.
 
 ## Required Settings and Modules & Extensions
 
-These extensions are declared in the `require` section of `composer.json` as `ext-gd` and
-`ext-json`, so Composer refuses to install the project without them:
+These extensions are declared in the `require` section of `composer.json` as `ext-gd` and `ext-json`, so Composer refuses to install the project without them:
 
 - `gd` - must be enabled; this is the one to check on a new server
 - `json` - ships enabled and cannot be disabled on any supported PHP version, so in practice it needs no action
@@ -107,32 +104,24 @@ All three are LTS releases, which we recommend for stability and security update
 
 #### Why 11.4 is the minimum
 
-Dotkernel API stores every entity identifier in a MariaDB `UUID` column and generates the value as a
-**UUIDv7** in PHP, via `Ramsey\Uuid\Uuid::uuid7()`. UUIDv7 is time-ordered by design, so sequential
-inserts land next to each other in the index.
+Dotkernel API stores every entity identifier in a MariaDB `UUID` column and generates the value as a **UUIDv7** in PHP, via `Ramsey\Uuid\Uuid::uuid7()`.
+UUIDv7 is time-ordered by design, so sequential inserts land next to each other in the index.
 
-MariaDB, however, does not always store a `UUID` in the order it was given. It rearranges the value
-internally into an index-friendly layout that assumes a UUIDv1 — where the node comes first and the
-timestamp second. Applied to a UUIDv7, that rearrangement scrambles exactly the ordering the type
-was chosen for.
+MariaDB, however, does not always store a `UUID` in the order it was given.
+It rearranges the value internally into an index-friendly layout that assumes a UUIDv1 — where the node comes first and the timestamp second.
+Applied to a UUIDv7, that rearrangement scrambles exactly the ordering the type was chosen for.
 
-MariaDB 10.10 changed this: from that release on, UUIDv6 and later are stored in their native order,
-with no byte-swapping. The change did not reach the older maintenance series until 10.10.7 and
-10.11.6, so "MariaDB 10.11" is only correct from 10.11.6 onward.
+MariaDB 10.10 changed this: from that release on, UUIDv6 and later are stored in their native order, with no byte-swapping.
+The change did not reach the older maintenance series until 10.10.7 and 10.11.6, so "MariaDB 10.11" is only correct from 10.11.6 onward.
 
-11.4 LTS is therefore the earliest LTS series in which *every* patch release stores UUIDv7 natively,
-which is why it is the published floor.
+11.4 LTS is therefore the earliest LTS series in which *every* patch release stores UUIDv7 natively, which is why it is the published floor.
 
 > On MariaDB 10.7, or on 10.11.0 - 10.11.5, the application still runs: inserts and reads succeed.
-> The identifiers are simply stored in scrambled order, so you lose the insert locality UUIDv7 exists
-> to provide. It is a silent performance problem rather than an error, which is what makes it worth
-> stating explicitly.
+> The identifiers are simply stored in scrambled order, so you lose the insert locality UUIDv7 exists to provide.
+> It is a silent performance problem rather than an error, which is what makes it worth stating explicitly.
 
-For the background on why identifiers are generated as UUIDv7 in PHP rather than delegated to the
-database, see
-[Version 7 adds PostgreSQL, native UUID and PHP 8.5](https://www.dotkernel.com/headless-platform/version-7-adds-postgresql-native-uuid-and-php-8-5/).
-Generating them in the application keeps full control over which UUID version is used and avoids
-depending on a database extension or a particular server version to produce the value.
+For the background on why identifiers are generated as UUIDv7 in PHP rather than delegated to the database, see [Version 7 adds PostgreSQL, native UUID and PHP 8.5](https://www.dotkernel.com/headless-platform/version-7-adds-postgresql-native-uuid-and-php-8-5/).
+Generating them in the application keeps full control over which UUID version is used and avoids depending on a database extension or a particular server version to produce the value.
 
 ### PostgreSQL
 
@@ -182,8 +171,8 @@ MariaDB and PostgreSQL both do.
 **Q: Which database versions are tested?**
 
 A: MariaDB 11.4 LTS, 11.8 LTS and 12.3 LTS, and PostgreSQL 13 and above.
-MariaDB 11.4 is also the minimum: earlier releases byte-swap `UUID` values and destroy the ordering
-of the UUIDv7 identifiers this project uses. See "Why 11.4 is the minimum" above.
+MariaDB 11.4 is also the minimum: earlier releases byte-swap `UUID` values and destroy the ordering of the UUIDv7 identifiers this project uses.
+See "Why 11.4 is the minimum" above.
 
 **Q: What collation should I create the database with?**
 

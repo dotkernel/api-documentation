@@ -35,7 +35,8 @@ If you need help, take a look at the existing definitions found in Dotkernel API
 
 ### OA\Delete
 
-Defines a `DELETE` HTTP request. It should specify at least the following parameters:
+Defines a `DELETE` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -47,7 +48,8 @@ Defines a `DELETE` HTTP request. It should specify at least the following parame
 
 ### OA\Get
 
-Defines a `GET` HTTP request. It should specify at least the following parameters:
+Defines a `GET` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to a single or collection of resources (example: `/resource/{id}` for a single resource or `/resource` for a collection of resources)
 - `description`: verbose description of the endpoint's purpose
@@ -59,7 +61,8 @@ Defines a `GET` HTTP request. It should specify at least the following parameter
 
 ### OA\Patch
 
-Defines a `PATCH` HTTP request. It should specify at least the following parameters:
+Defines a `PATCH` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -72,7 +75,8 @@ Defines a `PATCH` HTTP request. It should specify at least the following paramet
 
 ### OA\Post
 
-Defines a `POST` HTTP request. It should specify at least the following parameters:
+Defines a `POST` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -85,7 +89,8 @@ Defines a `POST` HTTP request. It should specify at least the following paramete
 
 ### OA\Put
 
-Defines a `PUT` HTTP request. It should specify at least the following parameters:
+Defines a `PUT` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose

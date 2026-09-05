@@ -56,7 +56,8 @@ php ./bin/cli.php help admin:create
 
 **Q: Can I choose the role of the created account?**
 
-A: No. The command always assigns the `admin` role; other roles must be set afterwards.
+A: No.
+The command always assigns the `admin` role; other roles must be set afterwards.
 See [Authorization](../core-features/authorization.md).
 
 **Q: What can I use as the identity?**

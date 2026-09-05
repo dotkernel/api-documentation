@@ -19,7 +19,8 @@ Tools can consume the specification to render documentation, generate clients, o
 
 **Q: Do I write the specification by hand?**
 
-A: No. You annotate your handlers and models with `zircote/swagger-php` attributes, then generate the specification file from them.
+A: No.
+You annotate your handlers and models with `zircote/swagger-php` attributes, then generate the specification file from them.
 See [Write documentation](write-documentation.md).
 
 **Q: Which OpenAPI version is used?**

@@ -15,7 +15,8 @@ PSR-7 (HTTP messages), PSR-15 (handlers and middleware) and PSR-11 (container) a
 
 ## PHP Standards Recommendations (PSRs)
 
-Dotkernel API adheres to PHP Standards Recommendations (PSRs) established by the PHP-FIG (Framework Interoperability Group). These standards ensure code interoperability and allow Dotkernel API to work seamlessly with other PSR-compliant libraries.
+Dotkernel API adheres to PHP Standards Recommendations (PSRs) established by the PHP-FIG (Framework Interoperability Group).
+These standards ensure code interoperability and allow Dotkernel API to work seamlessly with other PSR-compliant libraries.
 
 Some PSRs are at the **core** of Dotkernel API's architecture, while others are installed as dependencies through third-party packages.
 
@@ -68,8 +69,7 @@ Defines the standard interface for dependency injection containers.
 
 Provides a standard interface for logging libraries.
 
-**Usage**: Error handling, debugging, audit trails
-**Implemented in**: `dotkernel/dot-errorhandler`
+**Usage**: Error handling, debugging, audit trails **Implemented in**: `dotkernel/dot-errorhandler`
 
 ### PSR-4: Autoloader
 
@@ -77,8 +77,7 @@ Provides a standard interface for logging libraries.
 
 Defines how PHP files are automatically loaded based on namespaces and file paths.
 
-**Usage**: Automatic class loading without manual `require` statements
-**Implemented in**: `Laminas\Loader`
+**Usage**: Automatic class loading without manual `require` statements **Implemented in**: `Laminas\Loader`
 
 ### PSR-6: Caching Interface
 
@@ -86,8 +85,7 @@ Defines how PHP files are automatically loaded based on namespaces and file path
 
 Defines standard interfaces for caching systems to improve application performance.
 
-**Usage**: Caching query results, configuration, templates
-**Implemented in**: `dotkernel/dot-cache`
+**Usage**: Caching query results, configuration, templates **Implemented in**: `dotkernel/dot-cache`
 
 ### PSR-13: Link Definition Interfaces
 
@@ -95,8 +93,7 @@ Defines standard interfaces for caching systems to improve application performan
 
 Describes how to represent hypermedia links independently of serialization format.
 
-**Usage**: HAL (Hypertext Application Language) resource links
-**Implemented in**: `mezzio/mezzio-hal`
+**Usage**: HAL (Hypertext Application Language) resource links **Implemented in**: `mezzio/mezzio-hal`
 
 ### PSR-14: Event Dispatcher
 
@@ -104,8 +101,7 @@ Describes how to represent hypermedia links independently of serialization forma
 
 Mechanism for event-based extension and collaboration between components.
 
-**Usage**: Triggering events on user actions, logging events, notifications
-**Implemented in**: Third-party packages as needed
+**Usage**: Triggering events on user actions, logging events, notifications **Implemented in**: Third-party packages as needed
 
 ### PSR-17: HTTP Factories
 
@@ -113,8 +109,7 @@ Mechanism for event-based extension and collaboration between components.
 
 Standard for factories that create PSR-7 compliant HTTP objects.
 
-**Usage**: Creating requests, responses, and streams programmatically
-**Implemented in**: `Laminas\Diactoros`
+**Usage**: Creating requests, responses, and streams programmatically **Implemented in**: `Laminas\Diactoros`
 
 ### PSR-18: HTTP Client
 
@@ -122,8 +117,7 @@ Standard for factories that create PSR-7 compliant HTTP objects.
 
 Interface for sending HTTP requests and receiving HTTP responses.
 
-**Usage**: Calling external APIs from your Dotkernel API
-**Implemented in**: `symfony/http-client` or similar packages
+**Usage**: Calling external APIs from your Dotkernel API **Implemented in**: `symfony/http-client` or similar packages
 
 ### PSR-20: Clock
 
@@ -131,8 +125,7 @@ Interface for sending HTTP requests and receiving HTTP responses.
 
 Provides a standard interface for reading the system clock.
 
-**Usage**: Getting current time in a testable way
-**Implemented in**: Third-party packages as needed
+**Usage**: Getting current time in a testable way **Implemented in**: Third-party packages as needed
 
 ### PSR Implementation Hierarchy
 
@@ -193,7 +186,8 @@ See [File structure](file-structure.md).
 
 **Q: Do I need to install anything to use PSR-3 logging or PSR-6 caching?**
 
-A: No. They come with `dotkernel/dot-errorhandler` and `dotkernel/dot-cache` respectively.
+A: No.
+They come with `dotkernel/dot-errorhandler` and `dotkernel/dot-cache` respectively.
 See [Packages](packages.md).
 
 **Q: How do I call an external API from Dotkernel API?**

@@ -73,5 +73,6 @@ See [File structure](../introduction/file-structure.md).
 
 **Q: Was this split present before version 6.0?**
 
-A: No. It was introduced in 6.0 when common logic was moved into the Core module.
+A: No.
+It was introduced in 6.0 when common logic was moved into the Core module.
 See [Upgrading from 5.x to 6.0](../upgrading/UPGRADE-6.0.md).

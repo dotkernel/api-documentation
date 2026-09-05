@@ -194,7 +194,8 @@ Because the middleware only knows `AuthorizationInterface`, no application code 
 
 **Q: Do the permissions cover every route?**
 
-A: Yes, exactly. The three populated roles grant 38 permissions across the 38 declared routes, with no route ungranted and no permission naming a route that does not exist.
+A: Yes, exactly.
+The three populated roles grant 38 permissions across the 38 declared routes, with no route ungranted and no permission naming a route that does not exist.
 `app::view-index` and `app::create-error-report` are the only two granted to two roles.
 
 **Q: What does a rejected request look like?**

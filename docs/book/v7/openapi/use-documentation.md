@@ -10,21 +10,25 @@ Since Redoc is readonly, in the following section we will focus only on using Sw
 
 ## Protected endpoints
 
-Now that you have a UI for the documentation, you can see all the endpoints. You will see that some of them have a lock symbol right before the collapse/expand arrow.
+Now that you have a UI for the documentation, you can see all the endpoints.
+You will see that some of them have a lock symbol right before the collapse/expand arrow.
 When you see this symbol next to an endpoint, it means that the endpoint is protected and can only be accessed when authenticated with an account with proper permissions.
 
 ## Authentication
 
-In Swagger UI, you will see an `Authorize` button. Clicking it will open a modal where you will find two sections:
+In Swagger UI, you will see an `Authorize` button.
+Clicking it will open a modal where you will find two sections:
 
 - `AuthToken` - where you will have to enter a valid auth token
 - `ErrorReportingToken` - where you will have to enter a valid error reporting token
 
-Below, we will walk you through on how to find both tokens. For now, let's close the modal.
+Below, we will walk you through on how to find both tokens.
+For now, let's close the modal.
 
 ### Generating AuthToken
 
-This token is required with most of the Dotkernel API endpoints. There are two entities that generate this type of token: `(super)admin`s and `user`s.
+This token is required with most of the Dotkernel API endpoints.
+There are two entities that generate this type of token: `(super)admin`s and `user`s.
 Depending on the endpoint description, you will know which one you need to use.
 Examples:
 

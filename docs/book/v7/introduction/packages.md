@@ -50,15 +50,13 @@ Composer refuses to install the project unless all of these are satisfied:
 ### Installed as dependencies
 
 These are used directly by the application but are **not** declared in `composer.json`.
-They are resolved transitively through the packages listed above, so a normal install provides them —
-but the project pins no version of its own for them.
+They are resolved transitively through the packages listed above, so a normal install provides them — but the project pins no version of its own for them.
 
 * `doctrine/orm` - Object-Relational-Mapper for PHP; the persistence layer for every entity and repository
 * `doctrine/dbal` - Database abstraction and schema layer that the ORM is built on; also where the migrations and the custom `UUID` type operate
 * `laminas/laminas-servicemanager` - Factory-driven PSR-11 container; `config/container.php` instantiates it directly
 
-To see which versions you actually have, run `composer show doctrine/orm` (or `composer show --tree`)
-rather than relying on a constraint, since there is none to read.
+To see which versions you actually have, run `composer show doctrine/orm` (or `composer show --tree`) rather than relying on a constraint, since there is none to read.
 
 ### Development requirements
 
