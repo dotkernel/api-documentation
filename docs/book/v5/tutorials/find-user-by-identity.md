@@ -155,8 +155,8 @@ Next, create the route in `src/User/src/RoutesDelegator.php`:
 
 The last step is to set permissions on the newly created route.
 
-Go to `config/autoload/authorization.global.php` and add our route name (`user.view.identity`) under the `UserRole::ROLE_GUEST` key
-This will give access to every user, including guests to view other accounts. (for the sake of simplicity)
+Go to `config/autoload/authorization.global.php` and add our route name (`user.view.identity`) under the `UserRole::ROLE_GUEST` key This will give access to every user, including guests to view other accounts.
+(for the sake of simplicity)
 
 ### Writing tests
 

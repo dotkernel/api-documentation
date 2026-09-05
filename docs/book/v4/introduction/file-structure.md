@@ -26,7 +26,8 @@ When using Dotkernel API, the following structure is installed by default:
 
 ## `src` directory
 
-This directory contains all source code related to the Module. It should contain following directories, if they’re not empty:
+This directory contains all source code related to the Module.
+It should contain following directories, if they’re not empty:
 
 * Handler - Action classes (similar to Controllers but can only perform one action)
 * Entity - For database entities
@@ -47,7 +48,8 @@ The `src` directory should also contain 2 files:
 
 This directory contains the template files, used for example to help render e-mail templates.
 
-> Dotkernel API uses twig as Templating Engine. All template files have the extension .html.twig
+> Dotkernel API uses twig as Templating Engine.
+> All template files have the extension .html.twig
 
 ## `data` directory
 

@@ -1,7 +1,8 @@
 # Route grouping
 
 In Dotkernel 6.0 with the help of the new [dot-router](https://docs.dotkernel.org/dot-router/v1/overview/) package, we have managed to implement a nicer way of creating routes.
-A lot of the times developers need to create sets of routes that have a similar format. As an example:
+A lot of the times developers need to create sets of routes that have a similar format.
+As an example:
 
 ```php
 $app->post('/product/create', CreateProductHandler::class, 'product:create');

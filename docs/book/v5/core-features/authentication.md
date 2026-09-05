@@ -1,41 +1,35 @@
 # Authentication
 
-Authentication is the process by which an identity is presented to the application. It ensures that the entity
-making the request has the proper credentials to access the API.
+Authentication is the process by which an identity is presented to the application.
+It ensures that the entity making the request has the proper credentials to access the API.
 
 **Dotkernel API** identities are delivered to the application from the client through the `Authorization` request.
-If it is present, the application tries to find and assign the identity to the application. If it is not presented,
-Dotkernel API assigns a default `guest` identity, represented by an instance of the class
-`Mezzio\Authentication\UserInterface`.
+If it is present, the application tries to find and assign the identity to the application.
+If it is not presented, Dotkernel API assigns a default `guest` identity, represented by an instance of the class `Mezzio\Authentication\UserInterface`.
 
 ## Configuration
 
-Authentication in Dotkernel API is built around the `mezzio/mezzio-authentication-oauth2` component and is already
-configured out of the box. But if you want to dig more, the configuration is stored in
-`config/autoload/local.php` under the `authentication` key.
+Authentication in Dotkernel API is built around the `mezzio/mezzio-authentication-oauth2` component and is already configured out of the box.
+But if you want to dig more, the configuration is stored in `config/autoload/local.php` under the `authentication` key.
 
-> You can check the
-> [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration)
-> configuration part for more info.
+> You can check the [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) configuration part for more info.
 
 ## How it works
 
-Dotkernels API authentication system can be used for SPAs (single-page applications), mobile applications, and
-simple, token-based APIs. It allows each user of your application to generate API tokens for their accounts.
+Dotkernels API authentication system can be used for SPAs (single-page applications), mobile applications, and simple, token-based APIs.
+It allows each user of your application to generate API tokens for their accounts.
 
 The authentication happens through the middleware in the `Api\App\Middleware\AuthenticationMiddleware`.
 
 ## Database
 
-When you install **Dotkernel API** for the first time, you need to run the migrations and seeders. All the tables
-required for authentication are automatically created and populated.
+When you install **Dotkernel API** for the first time, you need to run the migrations and seeders.
+All the tables required for authentication are automatically created and populated.
 
-In Dotkernel API, authenticated users come from either the `admin` or the `user` table. We choose to keep the admin
-table separated from the users to prevent users of the application from accessing sensitive data, which only the
-administrators of the application should access.
+In Dotkernel API, authenticated users come from either the `admin` or the `user` table.
+We choose to keep the admin table separated from the users to prevent users of the application from accessing sensitive data, which only the administrators of the application should access.
 
-The `oauth_clients` table is pre-populated with the default `admin` and `frontend` clients with the same password as
-their names (**we recommend you change the default passwords**).
+The `oauth_clients` table is pre-populated with the default `admin` and `frontend` clients with the same password as their names (**we recommend you change the default passwords**).
 
 As you guessed each client serves to authenticate `admin` or `user`.
 
@@ -43,8 +37,7 @@ Another table that is pre-populated is the `oauth_scopes` table, with the `api` 
 
 ### Issuing API Tokens
 
-Token generation in Dotkernel API is done using the `password` `grant_type` scenario, which in this case allows
-authentication to an API using the user's credentials (generally a username and password).
+Token generation in Dotkernel API is done using the `password` `grant_type` scenario, which in this case allows authentication to an API using the user's credentials (generally a username and password).
 
 The client sends a POST request to the `/security/generate-token` with the following parameters:
 
@@ -80,8 +73,7 @@ The server responds with a JSON as follows:
 }
 ```
 
-Next time when you make a request to the server to an authenticated endpoint, the client should use
-the `Authorization` header request.
+Next time when you make a request to the server to an authenticated endpoint, the client should use the `Authorization` header request.
 
 ```shell
 GET /users/1 HTTP/1.1

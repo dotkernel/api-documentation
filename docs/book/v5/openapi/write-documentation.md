@@ -1,12 +1,10 @@
 # Writing documentation
 
-> In order to avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them
-> in separate files, called `OpenAPI.php`, one for each module.
+> In order to avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them in separate files, called `OpenAPI.php`, one for each module.
 
-We already covered all the endpoints available in Dotkernel API, you can consult the existing documentation in each
-module's own `OpenAPI.php` file. After you add more functionalities to your API, you will have to document the new
-endpoints. This is easier than it sounds because in most cases you will do the same: add a request by method, describe
-the request payload (if any), add request parameters (if any) and describe the possible responses.
+We already covered all the endpoints available in Dotkernel API, you can consult the existing documentation in each module's own `OpenAPI.php` file.
+After you add more functionalities to your API, you will have to document the new endpoints.
+This is easier than it sounds because in most cases you will do the same: add a request by method, describe the request payload (if any), add request parameters (if any) and describe the possible responses.
 
 ## Common objects
 
@@ -33,7 +31,8 @@ If you need help, take a look at the existing definitions found in Dotkernel API
 
 ### OA\Delete
 
-Defines a `DELETE` HTTP request. It should specify at least the following parameters:
+Defines a `DELETE` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -46,7 +45,8 @@ respective response bodies
 
 ### OA\Get
 
-Defines a `GET` HTTP request. It should specify at least the following parameters:
+Defines a `GET` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to a single or collection of resources (example: `/resource/{uuid}` for a single resource or
 `/resource` for a collection of resources)
@@ -60,7 +60,8 @@ respective response bodies
 
 ### OA\Patch
 
-Defines a `PATCH` HTTP request. It should specify at least the following parameters:
+Defines a `PATCH` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -74,7 +75,8 @@ respective response bodies
 
 ### OA\Post
 
-Defines a `POST` HTTP request. It should specify at least the following parameters:
+Defines a `POST` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose
@@ -88,7 +90,8 @@ respective response bodies
 
 ### OA\Put
 
-Defines a `PUT` HTTP request. It should specify at least the following parameters:
+Defines a `PUT` HTTP request.
+It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{uuid}` - where `uuid` is a path parameter defined below)
 - `description`: verbose description of the endpoint's purpose

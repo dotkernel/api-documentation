@@ -44,9 +44,11 @@ The below files structure is what we will have at the end of this tutorial and i
 
 Firstly we will need the book module, so we will implement and create the basics for a module to be registered and functional.
 
-In `src` folder we will create the `Book` folder and in this we will create the `src` folder. So the final structure will be like this: `src/Book/src`.
+In `src` folder we will create the `Book` folder and in this we will create the `src` folder.
+So the final structure will be like this: `src/Book/src`.
 
-In `src/Book/src` we will create 2 php files: `RoutesDelegator.php` and `ConfigProvider.php`. This files will be updated later with all needed configuration.
+In `src/Book/src` we will create 2 php files: `RoutesDelegator.php` and `ConfigProvider.php`.
+This files will be updated later with all needed configuration.
 
 * `src/Book/src/RoutesDelegator.php`
 
@@ -135,7 +137,8 @@ class ConfigProvider
 composer dump-autoload
 ```
 
-That's it. The module is now registered and, we can continue creating Handlers, Services, Repositories and whatever is needed for out tutorial.
+That's it.
+The module is now registered and, we can continue creating Handlers, Services, Repositories and whatever is needed for out tutorial.
 
 ## File creation and contents
 

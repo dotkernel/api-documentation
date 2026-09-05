@@ -12,8 +12,7 @@ php -S 0.0.0.0:8080 -t public
 
 ## Running tests
 
-The project has 2 types of tests: functional and unit tests, you can run both types at the same type by executing this
-command:
+The project has 2 types of tests: functional and unit tests, you can run both types at the same type by executing this command:
 
 ```shell
 php vendor/bin/phpunit
