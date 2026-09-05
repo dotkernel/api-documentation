@@ -2,7 +2,7 @@
 
 ## Summary
 
-The `route:list` CLI command inspects the application's routes at runtime and prints every endpoint's request method, route name and path.
+The `route:list` CLI command inspects the application's routes at runtime and prints a numbered table of every endpoint's request method, route name and path.
 Results can be filtered by name, path or method.
 
 ## Usage
@@ -14,51 +14,54 @@ php ./bin/cli.php route:list
 ```
 
 The command runs through all routes and extracts endpoint information in realtime.
+Rows are sorted by path, then by request method, and UUID route parameters are shown as `{id}` rather than the full regular expression they are declared with.
+The count in the table header reflects method/path pairs, so a path answering three methods contributes three rows.
+
 The output should be similar to the following:
 
 ```text
-+-------------------- 37 Routes ------+-------------------------------------+
-| Request method | Route name                          | Route path                          |
-+----------------+-------------------------------------+-------------------------------------+
-| GET            | app::view-index                     | /                                   |
-| GET            | admin::list-admin                   | /admin                              |
-| POST           | admin::create-admin                 | /admin                              |
-| GET            | admin::view-account                 | /admin/account                      |
-| PATCH          | admin::update-account               | /admin/account                      |
-| GET            | admin::list-role                    | /admin/role                         |
-| GET            | admin::view-role                    | /admin/role/{id}                    |
-| DELETE         | admin::delete-admin                 | /admin/{id}                         |
-| GET            | admin::view-admin                   | /admin/{id}                         |
-| PATCH          | admin::update-admin                 | /admin/{id}                         |
-| POST           | app::create-error-report            | /error-report                       |
-| POST           | security::token                     | /security/token                     |
-| GET            | user::list-user                     | /user                               |
-| POST           | user::create-user                   | /user                               |
-| DELETE         | user::delete-account                | /user/account                       |
-| GET            | user::view-account                  | /user/account                       |
-| PATCH          | user::update-account                | /user/account                       |
-| POST           | user::create-account                | /user/account                       |
-| POST           | user::request-activate-account      | /user/account/activate              |
-| PATCH          | user::activate-account              | /user/account/activate/{hash}       |
-| DELETE         | user::delete-account-avatar         | /user/account/avatar                |
-| GET            | user::view-account-avatar           | /user/account/avatar                |
-| POST           | user::create-account-avatar         | /user/account/avatar                |
-| POST           | user::recover-account               | /user/account/recover               |
-| POST           | user::create-account-reset-password | /user/account/reset-password        |
-| GET            | user::check-account-reset-password  | /user/account/reset-password/{hash} |
-| PATCH          | user::update-account-reset-password | /user/account/reset-password/{hash} |
-| GET            | user::list-role                     | /user/role                          |
-| GET            | user::view-role                     | /user/role/{id}                     |
-| DELETE         | user::delete-user                   | /user/{id}                          |
-| GET            | user::view-user                     | /user/{id}                          |
-| PATCH          | user::update-user                   | /user/{id}                          |
-| PATCH          | user::activate-user                 | /user/{id}/activate                 |
-| DELETE         | user::delete-user-avatar            | /user/{id}/avatar                   |
-| GET            | user::view-user-avatar              | /user/{id}/avatar                   |
-| POST           | user::create-user-avatar            | /user/{id}/avatar                   |
-| PATCH          | user::deactivate-user               | /user/{id}/deactivate               |
++------+----------------+-------------------- 38 Routes ------+-------------------------------------+
+|    # | Request method | Route name                          | Route path                          |
 +------+----------------+-------------------------------------+-------------------------------------+
-
+|    1 | GET            | app::view-index                     | /                                   |
+|    2 | GET            | admin::list-admin                   | /admin                              |
+|    3 | POST           | admin::create-admin                 | /admin                              |
+|    4 | GET            | admin::view-account                 | /admin/account                      |
+|    5 | PATCH          | admin::update-account               | /admin/account                      |
+|    6 | GET            | admin::list-role                    | /admin/role                         |
+|    7 | GET            | admin::view-role                    | /admin/role/{id}                    |
+|    8 | DELETE         | admin::delete-admin                 | /admin/{id}                         |
+|    9 | GET            | admin::view-admin                   | /admin/{id}                         |
+|   10 | PATCH          | admin::update-admin                 | /admin/{id}                         |
+|   11 | POST           | app::create-error-report            | /error-report                       |
+|   12 | POST           | security::generate-token            | /security/generate-token            |
+|   13 | POST           | security::refresh-token             | /security/refresh-token             |
+|   14 | GET            | user::list-user                     | /user                               |
+|   15 | POST           | user::create-user                   | /user                               |
+|   16 | DELETE         | user::delete-account                | /user/account                       |
+|   17 | GET            | user::view-account                  | /user/account                       |
+|   18 | PATCH          | user::update-account                | /user/account                       |
+|   19 | POST           | user::create-account                | /user/account                       |
+|   20 | POST           | user::request-activate-account      | /user/account/activate              |
+|   21 | PATCH          | user::activate-account              | /user/account/activate/{hash}       |
+|   22 | DELETE         | user::delete-account-avatar         | /user/account/avatar                |
+|   23 | GET            | user::view-account-avatar           | /user/account/avatar                |
+|   24 | POST           | user::create-account-avatar         | /user/account/avatar                |
+|   25 | POST           | user::recover-account               | /user/account/recover               |
+|   26 | POST           | user::create-account-reset-password | /user/account/reset-password        |
+|   27 | GET            | user::check-account-reset-password  | /user/account/reset-password/{hash} |
+|   28 | PATCH          | user::update-account-reset-password | /user/account/reset-password/{hash} |
+|   29 | GET            | user::list-role                     | /user/role                          |
+|   30 | GET            | user::view-role                     | /user/role/{id}                     |
+|   31 | DELETE         | user::delete-user                   | /user/{id}                          |
+|   32 | GET            | user::view-user                     | /user/{id}                          |
+|   33 | PATCH          | user::update-user                   | /user/{id}                          |
+|   34 | PATCH          | user::activate-user                 | /user/{id}/activate                 |
+|   35 | DELETE         | user::delete-user-avatar            | /user/{id}/avatar                   |
+|   36 | GET            | user::view-user-avatar              | /user/{id}/avatar                   |
+|   37 | POST           | user::create-user-avatar            | /user/{id}/avatar                   |
+|   38 | PATCH          | user::deactivate-user               | /user/{id}/deactivate               |
++------+----------------+-------------------------------------+-------------------------------------+
 ```
 
 ## Filtering results
@@ -69,7 +72,11 @@ The following filters can be applied when displaying the route list:
 * Filter routes by path, using: `-p|--path[=PATH]`
 * Filter routes by method, using: `-m|--method[=METHOD]`
 
-The filters are case-insensitive and can be combined.
+The filters are matched as case-sensitive substrings and can be combined.
+For example, `php ./bin/cli.php route:list -i avatar` lists only the six avatar routes, and adding `-m GET` narrows that to two.
+
+> Case matters.
+> Route names and paths are lowercase and methods are uppercase, so `-i avatar` and `-m GET` match, while `-i Avatar` and `-m get` match nothing and print an empty table.
 
 Get more help by running this command:
 
@@ -86,7 +93,8 @@ A: No. The command walks the application's registered routes in realtime, so it 
 **Q: Which filters are available?**
 
 A: `-i|--name`, `-p|--path` and `-m|--method`.
-They are case-insensitive and can be combined.
+Each is a case-sensitive substring match, and they can be combined.
+Use lowercase for names and paths and uppercase for methods — `-m get` matches nothing.
 
 **Q: Why do route names matter beyond documentation?**
 
