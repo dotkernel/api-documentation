@@ -43,7 +43,8 @@ From authorization at request route level to API keys for your application, you 
 
 Registering a new module can be done by including its `ConfigProvider.php` in `config.php`.
 
-Brand new middlewares should go into `pipeline.php`. Here you can edit the order in which they run and find more info about the currently included ones.
+Brand new middlewares should go into `pipeline.php`.
+Here you can edit the order in which they run and find more info about the currently included ones.
 
 You can further customize your api within the `autoload` directory that holds configuration files for each category.
 

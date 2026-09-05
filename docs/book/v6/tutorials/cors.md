@@ -2,15 +2,13 @@
 
 ## What is CORS?
 
-**Cross-Origin Resource Sharing** or _CORS_ is an HTTP-header based mechanism that allows a server to indicate any other
-origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
+**Cross-Origin Resource Sharing** or _CORS_ is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.
 
 ## Why do we need CORS?
 
 When integrating an API, most developers have encountered the following error message:
 
-> Access to fetch at _RESOURCE_URL_ from origin _ORIGIN_URL_ has been blocked by CORS policy:
-> No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
+> Access to fetch at _RESOURCE_URL_ from origin _ORIGIN_URL_ has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
 
 This happens because the API (_RESOURCE_URL_) is not configured to accept requests from the client (_ORIGIN_URL_).
 
@@ -86,7 +84,6 @@ This list explains the above configuration values:
 
 Save and close the file.
 
-> On the **production** environment, make sure you allow only specific origins by adding them to the `allowed_origins`
-> array and removing the current value of `ConfigurationInterface::ANY_ORIGIN`.
+> On the **production** environment, make sure you allow only specific origins by adding them to the `allowed_origins` array and removing the current value of `ConfigurationInterface::ANY_ORIGIN`.
 
 For more info, see [mezzio/mezzio-cors documentation](https://docs.mezzio.dev/mezzio-cors/v1/middleware/#configuration).

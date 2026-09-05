@@ -1,16 +1,13 @@
 # Authorization
 
-Authorization is the process by which a system takes a validated identity and checks if that identity has access to a
-given resource.
+Authorization is the process by which a system takes a validated identity and checks if that identity has access to a given resource.
 
-**Dotkernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of
-Role-Based Access Control (RBAC).
+**Dotkernel API**'s implementation of authorization uses `Mezzio\Authorization\Rbac\LaminasRbac` as a model of Role-Based Access Control (RBAC).
 
 ## How it works
 
-In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define
-roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a
-resource.
+In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define roles for each entity.
+RBAC comes in to ensure that each entity has the appropriate role and permission to access a resource.
 
 The authorization happens through the `Api\App\Middleware\AuthorizationMiddleware` middleware.
 
@@ -53,13 +50,11 @@ The configuration file for the role and permission definitions is `config/autolo
 ],
 ```
 
-> See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/)
-> for more information.
+> See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/) for more information.
 
 ## Usage
 
-Based on the configuration file above, we have 2 admins roles (`superuser`, `admin`) and 2 users
-roles (`user`, `guest`).
+Based on the configuration file above, we have 2 admins roles (`superuser`, `admin`) and 2 users roles (`user`, `guest`).
 
 Roles inherit the permissions from their parents:
 
@@ -68,10 +63,9 @@ Roles inherit the permissions from their parents:
 - `user` has no parent
 - `guest` has `user` as a parent which means `user` also has `guest` permissions
 
-For each role we defined an array of permissions. A permission in Dotkernel API is basically a route name.
+For each role we defined an array of permissions.
+A permission in Dotkernel API is basically a route name.
 
-As you can see, the `superuser` does not have its own permissions, because it gains all the permissions
-from `admin`, no need to define explicit permissions.
+As you can see, the `superuser` does not have its own permissions, because it gains all the permissions from `admin`, no need to define explicit permissions.
 
-The `user` role, gains all the permission from `guest` so no need to define that `user` can access `home` route, but
-`guest` cannot access user-specific routes.
+The `user` role, gains all the permission from `guest` so no need to define that `user` can access `home` route, but `guest` cannot access user-specific routes.

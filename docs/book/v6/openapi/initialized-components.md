@@ -198,9 +198,8 @@ Schema:
 )]
 ```
 
-Using `ref: '#/components/schemas/UserRole',` in our code, we instruct `OpenAPI` to grab the existing schema `UserRole`
-(not the entity, but the schema) that we just described earlier. This way we do not need to repeat code by describing
-again the same object and any future modifications will happen in only one place.
+Using `ref: '#/components/schemas/UserRole',` in our code, we instruct `OpenAPI` to grab the existing schema `UserRole` (not the entity, but the schema) that we just described earlier.
+This way we do not need to repeat code by describing again the same object and any future modifications will happen in only one place.
 
 Then, when generating the documentation file, `OpenAPI` will transform it into the specified format (**json**/**yaml**).
 
@@ -221,8 +220,7 @@ UserRoleCollection:
       type: object
 ```
 
-> Make sure that in `src/App/src/OpenAPI.php`, on the line with `#[OA\Server` the value of `url` is set to the of URL of
-> your instance of **Dotkernel API**.
+> Make sure that in `src/App/src/OpenAPI.php`, on the line with `#[OA\Server` the value of `url` is set to the of URL of your instance of **Dotkernel API**.
 >
 > You can add multiple servers (for staging, production etc) by duplicating the existing one.
 
@@ -230,7 +228,8 @@ For more info, see [this page](https://spec.openapis.org/oas/latest.html#schema)
 
 ### Common schemas
 
-We provided some schemas that are reusable across the entire project. They are defined in `src/App/src/OpenAPI.php`:
+We provided some schemas that are reusable across the entire project.
+They are defined in `src/App/src/OpenAPI.php`:
 
 - `#/components/schemas/Collection`: provides the default **HAL** structure to all the collections extending it
 - `#/components/schemas/ErrorMessage`: describes an operation that resulted in an error - may contain multiple messages

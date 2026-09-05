@@ -7,8 +7,7 @@ As a security stating point, when developing an application using this project m
 
 The project ships with the default OAuth clients `admin` and `frontend` with passwords equal to their names, as described in the [Authentication](https://docs.dotkernel.org/api-documentation/v6/core-features/authentication/) guide.
 
-These clients **must not** remain unchanged in your production environment, as they are a security risk -
-ensure you deleted them or updated the passwords.
+These clients **must not** remain unchanged in your production environment, as they are a security risk - ensure you deleted them or updated the passwords.
 
 ## OAuth Token Lifetime and Refresh Hygiene
 
@@ -23,8 +22,7 @@ Make sure to adjust their values in accordance to your application's needs, with
 
 ## Autogeneration of Cryptographic Keys
 
-Dotkernel API makes use of the `./vendor/bin/generate-oauth2-keys` command from `mezzio-authentication-oauth2` to automatically regenerate the
-public/private key pair used to verify the transmitted JWTs.
+Dotkernel API makes use of the `./vendor/bin/generate-oauth2-keys` command from `mezzio-authentication-oauth2` to automatically regenerate the public/private key pair used to verify the transmitted JWTs.
 This process is done after each `composer update` (or `composer install` with no lock file), as specified in `composer.json` under the `scripts.post-update-cmd` key.
 
 While hidden to the VCS by default, keep in mind not to commit any local keys.
