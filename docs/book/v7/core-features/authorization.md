@@ -25,8 +25,7 @@ Dotkernel API makes use of `mezzio-authorization-rbac` and includes the full con
 
 The configuration file for the role and permission definitions is `config/autoload/authorization.global.php`.
 
-Roles are the backed enums `Core\Admin\Enum\AdminRoleEnum` (`superuser`, `admin`) and
-`Core\User\Enum\UserRoleEnum` (`user`, `guest`), so the array keys are their `->value` strings.
+Roles are the backed enums `Core\Admin\Enum\AdminRoleEnum` (`superuser`, `admin`) and `Core\User\Enum\UserRoleEnum` (`user`, `guest`), so the array keys are their `->value` strings.
 
 ```php
 use Core\Admin\Enum\AdminRoleEnum;
@@ -97,28 +96,21 @@ return [
 ```
 
 That is the complete shipped configuration, not an excerpt.
-Between them the three populated roles grant **38 permissions covering all 38 routes**: every route
-the application declares is reachable by at least one role, and no permission names a route that
-does not exist.
+Between them the three populated roles grant **38 permissions covering all 38 routes**: every route the application declares is reachable by at least one role, and no permission names a route that does not exist.
 Only `app::view-index` and `app::create-error-report` are granted twice, to both `admin` and `guest`.
 
-> See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/)
-> for more information.
+> See [mezzio-authorization-rbac](https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/) for more information.
 
 ## Usage
 
-Based on the configuration file above, we have two admin roles (`superuser`, `admin`) and two user
-roles (`user`, `guest`).
+Based on the configuration file above, we have two admin roles (`superuser`, `admin`) and two user roles (`user`, `guest`).
 
-A permission in Dotkernel API is a **route name** — the third argument given to the route in a
-module's `RoutesDelegator`. To list the names you can grant, run
-`php ./bin/cli.php route:list`; see [Displaying Dotkernel API endpoints](../commands/display-available-endpoints.md).
+A permission in Dotkernel API is a **route name** — the third argument given to the route in a module's `RoutesDelegator`.
+To list the names you can grant, run `php ./bin/cli.php route:list`; see [Displaying Dotkernel API endpoints](../commands/display-available-endpoints.md).
 
 ### How inheritance works here
 
-The array under `roles` maps a role to its **parents**, and inheritance runs in the direction that
-often surprises people: a **parent receives the permissions of its children**, because
-`laminas-permissions-rbac` resolves `hasPermission()` by walking down into child roles.
+The array under `roles` maps a role to its **parents**, and inheritance runs in the direction that often surprises people: a **parent receives the permissions of its children**, because `laminas-permissions-rbac` resolves `hasPermission()` by walking down into child roles.
 
 So in the shipped configuration:
 
@@ -128,12 +120,9 @@ So in the shipped configuration:
 | `admin => [superuser]` | `superuser` is the parent of `admin`, so **`superuser` inherits everything granted to `admin`** |
 | `guest => [user]` | `user` is the parent of `guest`, so **`user` inherits everything granted to `guest`** |
 
-That is why `superuser` needs no permissions of its own: its list is empty, yet it can reach all 23
-routes granted to `admin`.
+That is why `superuser` needs no permissions of its own: its list is empty, yet it can reach all 23 routes granted to `admin`.
 
-It is also why `user` ends up with 17 effective permissions — its own 6 plus the 11 granted to
-`guest` — while `guest` keeps only its own 11 and cannot reach the account routes reserved for a
-signed-in user.
+It is also why `user` ends up with 17 effective permissions — its own 6 plus the 11 granted to `guest` — while `guest` keeps only its own 11 and cannot reach the account routes reserved for a signed-in user.
 
 Effective totals, once inheritance is applied:
 
@@ -146,23 +135,19 @@ Effective totals, once inheritance is applied:
 
 ### How a request is authorized
 
-`AuthorizationMiddleware` injects `Mezzio\Authorization\AuthorizationInterface` rather than an RBAC
-class directly — the RBAC adapter is bound by `Mezzio\Authorization\Rbac\ConfigProvider`, registered
-in `config/config.php`.
+`AuthorizationMiddleware` injects `Mezzio\Authorization\AuthorizationInterface` rather than an RBAC class directly — the RBAC adapter is bound by `Mezzio\Authorization\Rbac\ConfigProvider`, registered in `config/config.php`.
 
 For each request it:
 
-1. Reads `oauth_client_id` from the authenticated identity and loads the matching record — `admin` from the `admin` table, `frontend` from the `user` table, or a `Guest` instance when the client is `guest`. An unrecognised client is rejected.
+1. Reads `oauth_client_id` from the authenticated identity and loads the matching record — `admin` from the `admin` table, `frontend` from the `user` table, or a `Guest` instance when the client is `guest`.
+   An unrecognised client is rejected.
 2. Rejects an account that is inactive, or a user that has been deleted.
 3. Replaces the identity's roles with the role names read from that record.
 4. Calls `isGranted()` once per role and allows the request as soon as **any** role grants the route.
 
-If no role grants it, the response is `403 Forbidden` with
-`You are not allowed to access this resource.`
+If no role grants it, the response is `403 Forbidden` with `You are not allowed to access this resource.`
 
-> Note this middleware returns a plain JSON error body rather than a Problem Details document, so an
-> authorization failure does not look like the errors described in
-> [Problem details](../extended-features/problem-details.md).
+> Note this middleware returns a plain JSON error body rather than a Problem Details document, so an authorization failure does not look like the errors described in [Problem details](../extended-features/problem-details.md).
 
 ## FAQ
 
