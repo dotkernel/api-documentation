@@ -42,8 +42,7 @@ If the submitted data is valid, the outputted response is:
 ```
 
 All four options are required.
-If any is missing or invalid, the command fails with the input filter's validation messages instead,
-one per line.
+If any is missing or invalid, the command fails with the input filter's validation messages instead, one per line.
 
 The new admin account is ready to use.
 
