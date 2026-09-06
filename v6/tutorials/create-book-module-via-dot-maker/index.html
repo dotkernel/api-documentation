@@ -1123,8 +1123,7 @@
 <p>The <code>dotkernel/dot-maker</code> library can be used to programmatically generate project files and directories.
 It can be added to your API installation by following the <a href="https://docs.dotkernel.org/dot-maker/">official documentation</a>.</p>
 <h2 id="folder-and-files-structure">Folder and files structure</h2>
-<p>The below files structure is what we will have at the end of this tutorial and is just an example,
-you can have multiple components such as event listeners, wrappers, etc.</p>
+<p>The below files structure is what we will have at the end of this tutorial and is just an example, you can have multiple components such as event listeners, wrappers, etc.</p>
 <pre class="highlight"><code class="language-markdown">.
 └── src/
     ├── Book/
@@ -1497,7 +1496,11 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
   -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'</code></pre>
 <p>To list the books use:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
-<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
+<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> .
+<code>books</code> . * .
+<code>_links</code> .
+<code>self</code> .
+<code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{uuid}</code></pre>
 

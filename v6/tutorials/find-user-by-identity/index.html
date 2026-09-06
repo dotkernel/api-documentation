@@ -1227,8 +1227,8 @@ In the <code>getDependencies()</code> method under the <code>factories</code> ke
 <p>Make sure to register the endpoint as the last one to not shadow existing endpoints.</p>
 </blockquote>
 <p>The last step is to set permissions on the newly created route.</p>
-<p>Go to <code>config/autoload/authorization.global.php</code> and add our route name (<code>user.view.identity</code>) under the <code>UserRole::ROLE_GUEST</code> key
-This will give access to every user, including guests to view other accounts. (for the sake of simplicity)</p>
+<p>Go to <code>config/autoload/authorization.global.php</code> and add our route name (<code>user.view.identity</code>) under the <code>UserRole::ROLE_GUEST</code> key This will give access to every user, including guests to view other accounts.
+(for the sake of simplicity)</p>
 <h3 id="writing-tests">Writing tests</h3>
 <p>Because every new piece of code should be tested we will write some tests for this endpoint also.</p>
 <p>In the <code>test/Functional</code> folder create a new php class <code>IdentityTest.php</code>:</p>

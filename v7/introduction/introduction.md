@@ -123,8 +123,7 @@ vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
 
 ## Common Pitfalls
 
-> !IMPORTANT
-> Remember:
+> !IMPORTANT Remember:
 
 - Change default OAuth2 client credentials in production.
 - Enable development mode only locally.

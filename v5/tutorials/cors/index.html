@@ -957,13 +957,11 @@
 
     <h1 id="cors">CORS</h1>
 <h2 id="what-is-cors">What is CORS?</h2>
-<p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP-header based mechanism that allows a server to indicate any other
-origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
+<p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
 <h2 id="why-do-we-need-cors">Why do we need CORS?</h2>
 <p>When integrating an API, most developers have encountered the following error message:</p>
 <blockquote>
-<p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy:
-No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
+<p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
 </blockquote>
 <p>This happens because the API (<em>RESOURCE_URL</em>) is not configured to accept requests from the client (<em>ORIGIN_URL</em>).</p>
 <h2 id="how-to-fix">How to fix?</h2>
@@ -1013,8 +1011,7 @@ return [
 </ul>
 <p>Save and close the file.</p>
 <blockquote>
-<p>On the <strong>production</strong> environment, make sure you allow only specific origins by adding them to the <code>allowed_origins</code>
-array and removing the current value of <code>ConfigurationInterface::ANY_ORIGIN</code>.</p>
+<p>On the <strong>production</strong> environment, make sure you allow only specific origins by adding them to the <code>allowed_origins</code> array and removing the current value of <code>ConfigurationInterface::ANY_ORIGIN</code>.</p>
 </blockquote>
 <p>For more info, see <a href="https://docs.mezzio.dev/mezzio-cors/v1/middleware/#configuration">mezzio/mezzio-cors documentation</a>.</p>
 

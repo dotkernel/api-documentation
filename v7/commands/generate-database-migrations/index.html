@@ -1135,8 +1135,7 @@ Passing a <code>filter-expression</code> excludes those prefixes so the generate
 <h2 id="usage">Usage</h2>
 <p>Run the following command in your application’s root directory:</p>
 <pre class="highlight"><code class="language-shell">vendor/bin/doctrine-migrations diff</code></pre>
-<p>If you have mapping modifications, this will create a new migration file under
-<code>src/Core/src/App/src/Migration/</code>, in the <code>Core\App\Migration</code> namespace.
+<p>If you have mapping modifications, this will create a new migration file under <code>src/Core/src/App/src/Migration/</code>, in the <code>Core\App\Migration</code> namespace.
 The location comes from the <code>doctrine.migrations.migrations_paths</code> key in <code>Core\App\ConfigProvider</code>.
 Opening the migration file, you will notice that it contains some queries that will drop your <code>oauth_*</code> tables because they are unmapped (there is no doctrine entity describing them).
 You should delete your latest migration with the DROP queries in it as we will create another one, without the DROP queries in it.

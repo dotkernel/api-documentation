@@ -83,8 +83,7 @@ Content-Type: application/json
 The server will try to validate the `Content-Type` header against your configured `Content-Type` key from the config file, and if the format is not supported, a status code `415 - Unsupported Media Type` will be returned.
 
 For example, if you have a route that needs a file to be uploaded, normally you will configure the `Content-Type` of that route to be `multipart/form-data`.
-The above request will fail because the client sends `application/json` as
-`Content-Type`.
+The above request will fail because the client sends `application/json` as `Content-Type`.
 
 > If the request does not contain a "Content-Type" header, that means that the server will try to deserialize the data to the best of its abilities.
 

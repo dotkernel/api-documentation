@@ -1179,8 +1179,7 @@ The default configuration, found in <code>config/autoload/cors.local.php</code>,
 <p>The default use cases have already been configured, but any custom functionality will require additional configuration to make sure it is protected.
 Update the configuration file of this package (<code>config/autoload/authorization.global.php</code>) whenever you add new routes or roles.</p>
 <h2 id="demo-credentials">Demo Credentials</h2>
-<p>Dotkernel API ships with two demo accounts: an admin account (<code>admin</code>) and a user account (<code>test@dotkernel.com</code>),
-with public identities and passwords as described in the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/token-authentication/">token authentication tutorial</a>.</p>
+<p>Dotkernel API ships with two demo accounts: an admin account (<code>admin</code>) and a user account (<code>test@dotkernel.com</code>), with public identities and passwords as described in the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/token-authentication/">token authentication tutorial</a>.</p>
 <p>Make sure to <strong>update</strong> or <strong>remove</strong> these demo accounts in your production environment.</p>
 <h2 id="error-reporting-endpoint-and-errorreportingtokens">Error Reporting Endpoint and ErrorReportingTokens</h2>
 <p>The error reporting endpoint (<code>/error-report</code>) is intended to be used by third parties to report errors back to your application.
@@ -1232,7 +1231,8 @@ Never place them in <code>*.global.php</code> or <code>*.php.dist</code> files, 
 <p><strong>Q: How do I check whether development mode is enabled?</strong></p>
 <p>A: Run <code>composer development-status</code>.</p>
 <p><strong>Q: Do the error reporting tokens expire?</strong></p>
-<p>A: No. Because they never expire, rotate them manually on a schedule of your choosing, and set <code>ip_whitelist</code> or <code>domain_whitelist</code> in <code>config/autoload/error-handling.global.php</code> to limit who can use the endpoint.</p>
+<p>A: No.
+Because they never expire, rotate them manually on a schedule of your choosing, and set <code>ip_whitelist</code> or <code>domain_whitelist</code> in <code>config/autoload/error-handling.global.php</code> to limit who can use the endpoint.</p>
 <p><strong>Q: Why is committing error reporting tokens risky?</strong></p>
 <p>A: <code>error-handling.global.php</code> is tracked by version control, so a token added locally can reach production — or a public repository — through an ordinary commit.</p>
 <p><strong>Q: The default CORS configuration allows any origin. Is that a problem?</strong></p>
@@ -1240,7 +1240,8 @@ Never place them in <code>*.global.php</code> or <code>*.php.dist</code> files, 
 Replace <code>ANY_ORIGIN</code> with the specific origins that need access.
 See the <a href="../../tutorials/cors/">CORS</a> tutorial.</p>
 <p><strong>Q: Does adding a route make it protected automatically?</strong></p>
-<p>A: No. Every new route and role needs an entry in <code>config/autoload/authorization.global.php</code>.
+<p>A: No.
+Every new route and role needs an entry in <code>config/autoload/authorization.global.php</code>.
 See <a href="../../core-features/authorization/">Authorization</a>.</p>
 <p><strong>Q: Why should OpenAPI documentation stay out of production?</strong></p>
 <p>A: It publishes your full endpoint surface, and any examples in it are published too — which is also why sensitive values must never be used as examples.

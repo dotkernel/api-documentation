@@ -1130,7 +1130,7 @@
 
     <h1 id="oauth2-security">OAuth2 Security</h1>
 <h2 id="summary">Summary</h2>
-<p>The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default <code>admin</code> and <code>frontend</code> OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is regenerated and where it must be kept.</p>
+<p>The security steps to take before an OAuth2-protected Dotkernel API reaches production: remove or re-password the default <code>admin</code> and <code>frontend</code> OAuth clients, tune access and refresh token lifetimes, and understand how the JWT signing key pair is generated, why existing keys are preserved, and where they must be kept.</p>
 <h2 id="details">Details</h2>
 <p>Dotkernel API uses the <a href="https://github.com/mezzio/mezzio-authentication-oauth2">mezzio/mezzio-authentication-oauth2</a> component to provide the OAuth2 authentication service.
 As a security stating point, when developing an application using this project, make sure you go over the following steps.</p>
@@ -1142,16 +1142,30 @@ As a security stating point, when developing an application using this project, 
 <p>By default, the lifetimes of the <code>access</code> and <code>refresh</code> tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance with your application's needs, with lower values being generally safer.</p>
 <blockquote>
-<p>If your application requires it, you can revoke user OAuth tokens before their expiration by making use of the <code>revokeTokens</code> method of <code>UserService</code>.</p>
+<p>If your application requires it, you can revoke a user's OAuth tokens before they expire.
+<code>UserService::revokeTokens()</code> is <code>private</code>, so it cannot be called from your own code; it runs as part of the public <code>UserService::deleteUser()</code>, which revokes the tokens and then anonymizes the account.</p>
+<p>To revoke tokens on their own, use the token repositories directly: fetch the user's tokens with <code>OAuthAccessTokenRepository::findAccessTokens($identity)</code>, then pass each token to <code>OAuthAccessTokenRepository::revokeAccessToken()</code> and <code>OAuthRefreshTokenRepository::revokeRefreshToken()</code>.</p>
 <p>Read more about the available <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">configuration options</a>.</p>
 </blockquote>
 <h2 id="autogeneration-of-cryptographic-keys">Autogeneration of Cryptographic Keys</h2>
-<p>Dotkernel API makes use of the <code>./vendor/bin/generate-oauth2-keys</code> command from <code>mezzio-authentication-oauth2</code> to automatically regenerate the
-public/private key pair used to verify the transmitted JWTs.
-This process is done after each <code>composer update</code> (or <code>composer install</code> with no lock file), as specified in <code>composer.json</code> under the <code>scripts.post-update-cmd</code> key.</p>
+<p>Dotkernel API runs its own <code>php ./bin/generate-oauth2-keys.php</code> script to create the public/private key pair and the encryption key used to sign and verify the transmitted JWTs.
+It is invoked after each <code>composer update</code> (or <code>composer install</code> with no lock file), as specified in <code>composer.json</code> under the <code>scripts.post-update-cmd</code> key:</p>
+<pre class="highlight"><code class="language-json">"post-update-cmd": [
+    "php ./bin/generate-oauth2-keys.php",
+    "php ./bin/composer-post-install-script.php"
+]</code></pre>
+<p><strong>Existing keys are never overwritten.</strong>
+The script checks for <code>data/oauth/encryption.key</code>, <code>data/oauth/private.key</code> and <code>data/oauth/public.key</code>; if all three are present it prints <code>OAuth2 keys already exist.
+Skipping...</code> and stops.
+Only when one is missing does it delegate to <code>vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys</code> to generate the set.</p>
+<blockquote>
+<p>This guard matters in production: regenerating the keys invalidates every access token already issued.
+Preserving them across updates was added in Dotkernel API 7.2.0 (<a href="https://github.com/dotkernel/api/issues/503">issue #503</a>).
+If you deliberately want to rotate the keys, delete the three files from <code>data/oauth</code> and run <code>composer update</code> — accepting that existing tokens stop working.</p>
+</blockquote>
 <p>While hidden to the VCS by default, keep in mind not to commit any local keys.</p>
 <blockquote>
-<p>Autogeneration of keys can be disabled by simply removing the <code>php ./vendor/bin/generate-oauth2-keys</code> command from the mentioned key.</p>
+<p>Key generation can be disabled by removing the <code>php ./bin/generate-oauth2-keys.php</code> entry from the mentioned key.</p>
 <p>While not related to Dotkernel API itself, do ensure that the directory containing the keys is properly secured.</p>
 </blockquote>
 <h2 id="faq">FAQ</h2>
@@ -1162,14 +1176,23 @@ They ship with passwords equal to their names, so leaving them in place hands an
 <p>A: Under the <code>authentication</code> key in <code>config/autoload/local.php</code>.
 Defaults are one day for access tokens and one month for refresh tokens; shorter values are generally safer.</p>
 <p><strong>Q: Can I invalidate a user's tokens before they expire?</strong></p>
-<p>A: Yes, via the <code>revokeTokens</code> method of <code>UserService</code>.</p>
-<p><strong>Q: When are the OAuth2 keys regenerated?</strong></p>
-<p>A: After every <code>composer update</code>, and after <code>composer install</code> when there is no lock file, through the <code>php ./vendor/bin/generate-oauth2-keys</code> script in <code>composer.json</code>.</p>
-<p><strong>Q: How do I stop the keys from being regenerated?</strong></p>
-<p>A: Remove <code>php ./vendor/bin/generate-oauth2-keys</code> from the <code>scripts.post-update-cmd</code> key in <code>composer.json</code>.
-This matters on servers where regenerating keys would invalidate tokens already issued.</p>
+<p>A: Yes, but not via <code>UserService::revokeTokens()</code> — that method is <code>private</code>.
+It runs as part of the public <code>UserService::deleteUser()</code>, which also anonymizes the account.
+To revoke tokens on their own, use the repositories: <code>OAuthAccessTokenRepository::findAccessTokens($identity)</code> to list them, then <code>revokeAccessToken()</code> and <code>OAuthRefreshTokenRepository::revokeRefreshToken()</code> for each.</p>
+<p><strong>Q: When are the OAuth2 keys generated?</strong></p>
+<p>A: <code>php ./bin/generate-oauth2-keys.php</code> runs after every <code>composer update</code>, and after <code>composer install</code> when there is no lock file, via <code>scripts.post-update-cmd</code> in <code>composer.json</code>.
+It only generates keys that are missing: if all three files in <code>data/oauth</code> exist it reports <code>OAuth2 keys already exist.
+Skipping...</code> and leaves them alone, so updating dependencies does not invalidate issued tokens.</p>
+<p><strong>Q: How do I stop the keys from being generated?</strong></p>
+<p>A: Remove <code>php ./bin/generate-oauth2-keys.php</code> from the <code>scripts.post-update-cmd</code> key in <code>composer.json</code>.
+Since 7.2.0 this is rarely necessary — the script already preserves existing keys, which is what protects issued tokens on a server.</p>
+<p><strong>Q: How do I deliberately rotate the keys?</strong></p>
+<p>A: Delete <code>encryption.key</code>, <code>private.key</code> and <code>public.key</code> from <code>data/oauth</code>, then run <code>composer update</code>.
+The script regenerates the missing set.
+Every access token issued under the old keys stops working, so plan for clients to re-authenticate.</p>
 <p><strong>Q: Should the key pair be committed?</strong></p>
-<p>A: No. The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.</p>
+<p>A: No.
+The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.</p>
 <p><strong>Q: Where are the OAuth2 flows themselves documented?</strong></p>
 <p>A: In <a href="../../core-features/authentication/">Authentication</a> and the <a href="../../tutorials/token-authentication/">Token authentication</a> tutorial.</p>
 

@@ -251,7 +251,8 @@ See [Authorization](../core-features/authorization.md).
 
 **Q: Will the endpoint work without an authorization entry?**
 
-A: No. A route with no permission granted to the caller's role is refused, even though the handler and route exist.
+A: No.
+A route with no permission granted to the caller's role is refused, even though the handler and route exist.
 
 **Q: What should the tests cover?**
 

@@ -1225,7 +1225,8 @@ Routes without their own key fall back to <code>default</code>.</p>
 <p><strong>Q: What if the request has no <code>Content-Type</code> header?</strong></p>
 <p>A: The server attempts to deserialize the body as best it can, rather than rejecting the request outright.</p>
 <p><strong>Q: Will <code>application/vnd.api+json</code> be rejected if I only configured <code>application/json</code>?</strong></p>
-<p>A: No. Validation resolves to the more generic media type, so the request is served as JSON.</p>
+<p>A: No.
+Validation resolves to the more generic media type, so the request is served as JSON.</p>
 <p><strong>Q: How do I configure a file upload endpoint?</strong></p>
 <p>A: Set that route's <code>Content-Type</code> to <code>multipart/form-data</code>.
 Clients sending <code>application/json</code> to it will then receive a 415.</p>

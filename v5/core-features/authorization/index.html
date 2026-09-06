@@ -956,14 +956,11 @@
     
 
     <h1 id="authorization">Authorization</h1>
-<p>Authorization is the process by which a system takes a validated identity and checks if that identity has access to a
-given resource.</p>
-<p><strong>Dotkernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of
-Role-Based Access Control (RBAC).</p>
+<p>Authorization is the process by which a system takes a validated identity and checks if that identity has access to a given resource.</p>
+<p><strong>Dotkernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of Role-Based Access Control (RBAC).</p>
 <h2 id="how-it-works">How it works</h2>
-<p>In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define
-roles for each entity. RBAC comes in to ensure that each entity has the appropriate role and permission to access a
-resource.</p>
+<p>In Dotkernel API each authenticatable entity (admin/user) comes with their roles table where you can define roles for each entity.
+RBAC comes in to ensure that each entity has the appropriate role and permission to access a resource.</p>
 <p>The authorization happens through the <code>Api\App\Middleware\AuthorizationMiddleware</code> middleware.</p>
 <h2 id="configuration">Configuration</h2>
 <p>Dotkernel API makes use of <code>mezzio-authorization-rbac</code> and includes the full configuration.</p>
@@ -999,12 +996,10 @@ resource.</p>
     ],
 ],</code></pre>
 <blockquote>
-<p>See <a href="https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/">mezzio-authorization-rbac</a>
-for more information.</p>
+<p>See <a href="https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/">mezzio-authorization-rbac</a> for more information.</p>
 </blockquote>
 <h2 id="usage">Usage</h2>
-<p>Based on the configuration file above, we have 2 admins roles (<code>superuser</code>, <code>admin</code>) and 2 users
-roles (<code>user</code>, <code>guest</code>).</p>
+<p>Based on the configuration file above, we have 2 admins roles (<code>superuser</code>, <code>admin</code>) and 2 users roles (<code>user</code>, <code>guest</code>).</p>
 <p>Roles inherit the permissions from their parents:</p>
 <ul>
 <li><code>superuser</code> has no parent</li>
@@ -1012,11 +1007,10 @@ roles (<code>user</code>, <code>guest</code>).</p>
 <li><code>user</code> has no parent</li>
 <li><code>guest</code> has <code>user</code> as a parent which means <code>user</code> also has <code>guest</code> permissions</li>
 </ul>
-<p>For each role we defined an array of permissions. A permission in Dotkernel API is basically a route name.</p>
-<p>As you can see, the <code>superuser</code> does not have its own permissions, because it gains all the permissions
-from <code>admin</code>, no need to define explicit permissions.</p>
-<p>The <code>user</code> role, gains all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but
-<code>guest</code> cannot access user-specific routes.</p>
+<p>For each role we defined an array of permissions.
+A permission in Dotkernel API is basically a route name.</p>
+<p>As you can see, the <code>superuser</code> does not have its own permissions, because it gains all the permissions from <code>admin</code>, no need to define explicit permissions.</p>
+<p>The <code>user</code> role, gains all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but <code>guest</code> cannot access user-specific routes.</p>
 
 
 

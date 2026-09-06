@@ -234,7 +234,8 @@ For more info, see [this page](https://spec.openapis.org/oas/latest.html#schema)
 
 ### Common schemas
 
-We provided some schemas that are reusable across the entire project. They are defined in `src/App/src/OpenAPI.php`:
+We provided some schemas that are reusable across the entire project.
+They are defined in `src/App/src/OpenAPI.php`:
 
 - `#/components/schemas/Collection`: provides the default **HAL** structure to all the collections extending it
 - `#/components/schemas/ErrorMessage`: describes an operation that resulted in an error—may contain multiple messages

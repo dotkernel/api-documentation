@@ -1161,15 +1161,13 @@ The constraints below mirror it exactly, with a short note on what each entry is
 </ul>
 <h3 id="installed-as-dependencies">Installed as dependencies</h3>
 <p>These are used directly by the application but are <strong>not</strong> declared in <code>composer.json</code>.
-They are resolved transitively through the packages listed above, so a normal install provides them —
-but the project pins no version of its own for them.</p>
+They are resolved transitively through the packages listed above, so a normal install provides them — but the project pins no version of its own for them.</p>
 <ul>
 <li><code>doctrine/orm</code> - Object-Relational-Mapper for PHP; the persistence layer for every entity and repository</li>
 <li><code>doctrine/dbal</code> - Database abstraction and schema layer that the ORM is built on; also where the migrations and the custom <code>UUID</code> type operate</li>
 <li><code>laminas/laminas-servicemanager</code> - Factory-driven PSR-11 container; <code>config/container.php</code> instantiates it directly</li>
 </ul>
-<p>To see which versions you actually have, run <code>composer show doctrine/orm</code> (or <code>composer show --tree</code>)
-rather than relying on a constraint, since there is none to read.</p>
+<p>To see which versions you actually have, run <code>composer show doctrine/orm</code> (or <code>composer show --tree</code>) rather than relying on a constraint, since there is none to read.</p>
 <h3 id="development-requirements">Development requirements</h3>
 <p>Declared under <code>require-dev</code>, installed unless you pass <code>--no-dev</code>:</p>
 <ul>

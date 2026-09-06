@@ -1126,9 +1126,8 @@ class UserRoleCollection extends ResourceCollection
         new OA\Schema(ref: '#/components/schemas/Collection'),
     ],
 )]</code></pre>
-<p>Using <code>ref: '#/components/schemas/UserRole',</code> in our code, we instruct <code>OpenAPI</code> to grab the existing schema <code>UserRole</code>
-(not the entity, but the schema) that we just described earlier. This way we do not need to repeat code by describing
-again the same object and any future modifications will happen in only one place.</p>
+<p>Using <code>ref: '#/components/schemas/UserRole',</code> in our code, we instruct <code>OpenAPI</code> to grab the existing schema <code>UserRole</code> (not the entity, but the schema) that we just described earlier.
+This way we do not need to repeat code by describing again the same object and any future modifications will happen in only one place.</p>
 <p>Then, when generating the documentation file, <code>OpenAPI</code> will transform it into the specified format (<strong>json</strong>/<strong>yaml</strong>).</p>
 <pre class="highlight"><code class="language-php">UserRoleCollection:
   type: object
@@ -1145,13 +1144,13 @@ again the same object and any future modifications will happen in only one place
           type: object
       type: object</code></pre>
 <blockquote>
-<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of
-your instance of <strong>Dotkernel API</strong>.</p>
+<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of your instance of <strong>Dotkernel API</strong>.</p>
 <p>You can add multiple servers (for staging, production etc) by duplicating the existing one.</p>
 </blockquote>
 <p>For more info, see <a href="https://spec.openapis.org/oas/latest.html#schema">this page</a>.</p>
 <h3 id="common-schemas">Common schemas</h3>
-<p>We provided some schemas that are reusable across the entire project. They are defined in <code>src/App/src/OpenAPI.php</code>:</p>
+<p>We provided some schemas that are reusable across the entire project.
+They are defined in <code>src/App/src/OpenAPI.php</code>:</p>
 <ul>
 <li><code>#/components/schemas/Collection</code>: provides the default <strong>HAL</strong> structure to all the collections extending it</li>
 <li><code>#/components/schemas/ErrorMessage</code>: describes an operation that resulted in an error - may contain multiple messages</li>

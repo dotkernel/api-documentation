@@ -1129,13 +1129,11 @@
 <p>Browsers block cross-origin requests unless the API says otherwise.
 This tutorial explains the mechanism, then walks through enabling it in Dotkernel API with <code>mezzio/mezzio-cors</code>: installing the package, registering its <code>ConfigProvider</code>, piping its middleware before routing, and configuring allowed origins, headers, cache duration and credentials in <code>config/autoload/cors.local.php</code>.</p>
 <h2 id="what-is-cors">What is CORS?</h2>
-<p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP header-based mechanism that allows a server to indicate any other
-origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
+<p><strong>Cross-Origin Resource Sharing</strong> or <em>CORS</em> is an HTTP header-based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources.</p>
 <h2 id="why-do-we-need-cors">Why do we need CORS?</h2>
 <p>When integrating an API, most developers have encountered the following error message:</p>
 <blockquote>
-<p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy:
-No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
+<p>Access to fetch at <em>RESOURCE_URL</em> from origin <em>ORIGIN_URL</em> has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
 </blockquote>
 <p>This happens because the API (<em>RESOURCE_URL</em>) is not configured to accept requests from the client (<em>ORIGIN_URL</em>).</p>
 <h2 id="how-to-fix">How to fix?</h2>
@@ -1207,7 +1205,8 @@ A higher value means fewer preflight round trips.</p>
 <p><strong>Q: What is <code>exposed_headers</code> for?</strong></p>
 <p>A: It lists response headers the browser should make readable to client-side code; by default only a small set of standard headers is exposed.</p>
 <p><strong>Q: Do I need to install the package on a fresh Dotkernel API?</strong></p>
-<p>A: No. <code>mezzio/mezzio-cors</code> ships with the project and <code>cors.local.php</code> is created during installation — you only need to review its values.
+<p>A: No.
+<code>mezzio/mezzio-cors</code> ships with the project and <code>cors.local.php</code> is created during installation — you only need to review its values.
 See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
 
 

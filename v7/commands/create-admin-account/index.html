@@ -1118,13 +1118,15 @@
 
     <h1 id="creating-admin-accounts-in-dotkernel-api">Creating admin accounts in Dotkernel API</h1>
 <h2 id="summary">Summary</h2>
-<p>The <code>admin:create-admin</code> CLI command creates an administrator account from the command line, taking an identity, a password and a first and last name.
+<p>The <code>admin:create</code> CLI command creates an administrator account from the command line, taking an identity, a password and a first and last name.
 Accounts created this way always receive the <code>admin</code> role.</p>
 <h2 id="usage">Usage</h2>
 <p>Run the following command in your application’s root directory:</p>
-<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create-admin -i {IDENTITY} -p {PASSWORD} -f {FIRST_NAME} -l {LAST_NAME}</code></pre>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create -i {IDENTITY} -p {PASSWORD} -f {FIRST_NAME} -l {LAST_NAME}</code></pre>
 <p>OR</p>
-<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create-admin --identity {IDENTITY} --password {PASSWORD} --firstName {FIRST_NAME} --lastName {LAST_NAME}</code></pre>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create --identity {IDENTITY} --password {PASSWORD} --firstName {FIRST_NAME} --lastName {LAST_NAME}</code></pre>
+<p>OR</p>
+<pre class="highlight"><code class="language-shell">php ./bin/cli.php admin:create --identity={IDENTITY} --password={PASSWORD} --firstName={FIRST_NAME} --lastName={LAST_NAME}</code></pre>
 <p>after replacing:</p>
 <ul>
 <li>{IDENTITY} with a valid username OR email address</li>
@@ -1135,13 +1137,18 @@ Accounts created this way always receive the <code>admin</code> role.</p>
 <p>If the specified fields contain special characters, make sure you surround them with double quote signs this method does not allow specifying an admin role – newly created accounts will have a role of admin.</p>
 </blockquote>
 <p>If the submitted data is valid, the outputted response is:</p>
-<pre class="highlight"><code class="language-text">Admin account has been created.</code></pre>
+<pre class="highlight"><code class="language-text">
+ [INFO] Admin created successfully.
+</code></pre>
+<p>All four options are required.
+If any is missing or invalid, the command fails with the input filter's validation messages instead, one per line.</p>
 <p>The new admin account is ready to use.</p>
 <p>You can get more help with this command by running:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php help admin:create</code></pre>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Can I choose the role of the created account?</strong></p>
-<p>A: No. The command always assigns the <code>admin</code> role; other roles must be set afterwards.
+<p>A: No.
+The command always assigns the <code>admin</code> role; other roles must be set afterwards.
 See <a href="../../core-features/authorization/">Authorization</a>.</p>
 <p><strong>Q: What can I use as the identity?</strong></p>
 <p>A: Either a username or an email address, as long as it is not already taken.</p>
@@ -1151,7 +1158,8 @@ See <a href="../../core-features/authorization/">Authorization</a>.</p>
 <p>A: Yes.
 <code>-i</code>, <code>-p</code>, <code>-f</code> and <code>-l</code> are shorthand for <code>--identity</code>, <code>--password</code>, <code>--firstName</code> and <code>--lastName</code>.</p>
 <p><strong>Q: How do I know the account was created?</strong></p>
-<p>A: The command prints <code>Admin account has been created.</code> and the account is immediately usable.</p>
+<p>A: The command prints <code>[INFO] Admin created successfully.</code> and the account is immediately usable.
+Anything else — a list of field messages — means validation failed and no account was created.</p>
 <p><strong>Q: Where do I see the full command help?</strong></p>
 <p>A: Run <code>php ./bin/cli.php help admin:create</code>.</p>
 

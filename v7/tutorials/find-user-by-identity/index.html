@@ -1312,7 +1312,8 @@ See <a href="../../core-features/exceptions/">Exceptions</a>.</p>
 Real deployments should grant it to the narrowest role that needs it.
 See <a href="../../core-features/authorization/">Authorization</a>.</p>
 <p><strong>Q: Will the endpoint work without an authorization entry?</strong></p>
-<p>A: No. A route with no permission granted to the caller's role is refused, even though the handler and route exist.</p>
+<p>A: No.
+A route with no permission granted to the caller's role is refused, even though the handler and route exist.</p>
 <p><strong>Q: What should the tests cover?</strong></p>
 <p>A: The three outcomes: an empty identity, an identity with no matching user, and a valid identity returning the expected record.</p>
 <p><strong>Q: Where do functional tests live?</strong></p>

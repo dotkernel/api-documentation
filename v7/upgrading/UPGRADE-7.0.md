@@ -19,7 +19,8 @@ The headline items are native UUIDs in the database, PostgreSQL support, and the
 
 **Q: Is there an automated upgrade from 6.x to 7.0?**
 
-A: No. You implement each listed change manually in your own project.
+A: No.
+You implement each listed change manually in your own project.
 See [Upgrades](upgrading.md) for the recommended procedure.
 
 **Q: What does the switch to native UUIDs mean for my database?**
@@ -29,7 +30,8 @@ Review pull request 456 before touching production data.
 
 **Q: Do I have to move to PostgreSQL in 7.0?**
 
-A: No. PostgreSQL is now supported in addition to MariaDB; either is a valid choice.
+A: No.
+PostgreSQL is now supported in addition to MariaDB; either is a valid choice.
 
 **Q: `MethodDeprecation` was removed — how do I deprecate an endpoint now?**
 

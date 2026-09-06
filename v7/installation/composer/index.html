@@ -1195,7 +1195,8 @@ If you don't see them, you can skip to the next section.</p>
 Choosing <code>0</code> prevents duplicate ConfigProvider registrations, as Dotkernel already includes its own.</p>
 </blockquote>
 <p>The next question is:</p>
-<p><code>Remember this option for other packages of the same type? (y/N)</code></p>
+<p><code>Remember this option for other packages of the same type?
+(y/N)</code></p>
 <p>Type <code>y</code> here, and hit <code>enter</code> to complete this stage.</p>
 <h2 id="development-mode">Development mode</h2>
 <p>Normally, a new project starts in development mode to prevent caching certain files in the <code>data/cache</code> folder.
@@ -1215,7 +1216,8 @@ Answering them incorrectly — or not at all — leaves the project misconfigure
 <p><strong>Q: What does the installation do besides downloading packages?</strong></p>
 <p>A: It writes <code>composer.lock</code>, configures PHP CodeSniffer, generates the OAuth2 keys into <code>data/oauth</code>, and creates the initial <code>config/autoload</code> files.</p>
 <p><strong>Q: Will re-running <code>composer install</code> overwrite my configuration?</strong></p>
-<p>A: No. The post-install scripts run on every <code>composer install</code> and <code>composer update</code>, but they check whether each file already exists before writing it.</p>
+<p>A: No.
+The post-install scripts run on every <code>composer install</code> and <code>composer update</code>, but they check whether each file already exists before writing it.</p>
 <p><strong>Q: Composer asks where to inject <code>Laminas\Diactoros\ConfigProvider</code>. What do I answer?</strong></p>
 <p>A: <code>0</code> — do not inject.
 Dotkernel already registers its own ConfigProvider, and a duplicate registration can break packages you add later.</p>

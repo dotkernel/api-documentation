@@ -1114,19 +1114,22 @@
     <h1 id="using-the-documentation">Using the documentation</h1>
 <p>Since Redoc is readonly, in the following section we will focus only on using Swagger UI.</p>
 <h2 id="protected-endpoints">Protected endpoints</h2>
-<p>Now that you have a UI for the documentation, you can see all the endpoints. You will see that some of them have a lock
-symbol right before the collapse/expand arrow. When you see this symbol next to an endpoint, it means that the endpoint
-is protected and can only be accessed when authenticated with an account with proper permissions.</p>
+<p>Now that you have a UI for the documentation, you can see all the endpoints.
+You will see that some of them have a lock symbol right before the collapse/expand arrow.
+When you see this symbol next to an endpoint, it means that the endpoint is protected and can only be accessed when authenticated with an account with proper permissions.</p>
 <h2 id="authentication">Authentication</h2>
-<p>In Swagger UI, you will see an <code>Authorize</code> button. Clicking it will open a modal where you will find two sections:</p>
+<p>In Swagger UI, you will see an <code>Authorize</code> button.
+Clicking it will open a modal where you will find two sections:</p>
 <ul>
 <li><code>AuthToken</code> - where you will have to enter a valid auth token</li>
 <li><code>ErrorReportingToken</code> - where you will have to enter a valid error reporting token</li>
 </ul>
-<p>Below, we will walk you through on how to find both tokens. For now, let's close the modal.</p>
+<p>Below, we will walk you through on how to find both tokens.
+For now, let's close the modal.</p>
 <h3 id="generating-authtoken">Generating AuthToken</h3>
-<p>This token is required with most of the Dotkernel API endpoints. There are two entities that generate this type of
-token: <code>(super)admin</code>s and <code>user</code>s. Depending on the endpoint description, you will know which one you need to use.
+<p>This token is required with most of the Dotkernel API endpoints.
+There are two entities that generate this type of token: <code>(super)admin</code>s and <code>user</code>s.
+Depending on the endpoint description, you will know which one you need to use.
 Examples:</p>
 <ul>
 <li><code>/user</code>: the description says <code>Admin lists user accounts</code> - it means that you need an AccessToken with <code>(super)admin</code>
@@ -1134,12 +1137,13 @@ Examples:</p>
 <li><code>/user/my-account</code>: the description says <code>User fetches their own account</code> - it means that you need an AccessToken with
   <code>user</code> privileges</li>
 </ul>
-<p>In the UI, find a section called <code>AccessToken</code>, toggle the <code>/security/generate-token</code> (<code>Generate access token</code>) endpoint
-and click the <code>Try it out</code> button. Under the <code>Access token generation request</code> you will find a textarea prepopulated
-with a JSON object. You will have to change the value of <code>username</code> and <code>password</code>. See
-<a href="../../tutorials/token-authentication/#credentials">this guide</a> for the credentials.</p>
-<p>After you have filled out the credentials, click on the <code>Execute</code> button below the textarea. This will send the request
-to your instance of Dotkernel API. If everything went well, under the textarea you should see:</p>
+<p>In the UI, find a section called <code>AccessToken</code>, toggle the <code>/security/generate-token</code> (<code>Generate access token</code>) endpoint and click the <code>Try it out</code> button.
+Under the <code>Access token generation request</code> you will find a textarea prepopulated with a JSON object.
+You will have to change the value of <code>username</code> and <code>password</code>.
+See <a href="../../tutorials/token-authentication/#credentials">this guide</a> for the credentials.</p>
+<p>After you have filled out the credentials, click on the <code>Execute</code> button below the textarea.
+This will send the request to your instance of Dotkernel API.
+If everything went well, under the textarea you should see:</p>
 <ul>
 <li>the <code>curl</code> request that was made</li>
 <li>the <code>Request URL</code> the request was sent to</li>
@@ -1149,25 +1153,23 @@ to your instance of Dotkernel API. If everything went well, under the textarea y
 <blockquote>
 <p>Save the <code>refresh_token</code> somewhere, you will need it later</p>
 </blockquote>
-<p>Now copy the value of <code>access_token</code> (make sure you copy all the characters, without the surrounding double quotes) and
-go back up to the <code>Authorize</code> button and click it to open the auth modal. Paste the copied token as the value of the
-<code>AuthToken</code> and click on the <strong>Authorize</strong> button you see under the input field. The <strong>Authorize</strong> button has now
-changed to <strong>Logout</strong>. You can close the modal.</p>
-<p>From here, Swagger UI will remember the AuthToken until you close/refresh the browser tab. Also, it will automatically
-append the <code>Authorization</code> header to each request, allowing you to make authorized API calls.</p>
-<p>If you need to switch to an account with different privileges, you go again to the <code>Authorize</code> button, click on it to
-open the auth modal, and click <strong>Logout</strong> for the <code>AuthToken</code>. Then paste the new token as the value of the <code>AuthToken</code>,
-click on the <strong>Authorize</strong> button, close the modal and continue using the UI authenticated with the new account.</p>
+<p>Now copy the value of <code>access_token</code> (make sure you copy all the characters, without the surrounding double quotes) and go back up to the <code>Authorize</code> button and click it to open the auth modal.
+Paste the copied token as the value of the <code>AuthToken</code> and click on the <strong>Authorize</strong> button you see under the input field.
+The <strong>Authorize</strong> button has now changed to <strong>Logout</strong>.
+You can close the modal.</p>
+<p>From here, Swagger UI will remember the AuthToken until you close/refresh the browser tab.
+Also, it will automatically append the <code>Authorization</code> header to each request, allowing you to make authorized API calls.</p>
+<p>If you need to switch to an account with different privileges, you go again to the <code>Authorize</code> button, click on it to open the auth modal, and click <strong>Logout</strong> for the <code>AuthToken</code>.
+Then paste the new token as the value of the <code>AuthToken</code>, click on the <strong>Authorize</strong> button, close the modal and continue using the UI authenticated with the new account.</p>
 <h3 id="refreshing-authtoken">Refreshing AuthToken</h3>
-<p>By default, auth tokens expire in 1 day. If you make an API call, and you receive an error telling you that your auth
-token is expired, you need to either generate a new token (as seen above) or refresh the existing one using the
-<code>refresh_token</code> received when generating the current token.</p>
-<p>In order to refresh the auth token, you find the same section called <code>AccessToken</code>, toggle the <code>/security/refresh-token</code>
-(<code>Refresh access token</code>) endpoint and click the <code>Try it out</code> button. Under the <code>Access token refresh request</code> you will
-find a textarea prepopulated with a JSON object. You will have to change the value of <code>refresh_token</code> to the refresh
-token of your current auth token.</p>
-<p>Once done, click on the <code>Execute</code> button below the textarea. This will send the request to your instance of Dotkernel
-API. If everything went well, under the textarea you should see the same details:</p>
+<p>By default, auth tokens expire in 1 day.
+If you make an API call, and you receive an error telling you that your auth token is expired, you need to either generate a new token (as seen above) or refresh the existing one using the <code>refresh_token</code> received when generating the current token.</p>
+<p>In order to refresh the auth token, you find the same section called <code>AccessToken</code>, toggle the <code>/security/refresh-token</code> (<code>Refresh access token</code>) endpoint and click the <code>Try it out</code> button.
+Under the <code>Access token refresh request</code> you will find a textarea prepopulated with a JSON object.
+You will have to change the value of <code>refresh_token</code> to the refresh token of your current auth token.</p>
+<p>Once done, click on the <code>Execute</code> button below the textarea.
+This will send the request to your instance of Dotkernel API.
+If everything went well, under the textarea you should see the same details:</p>
 <ul>
 <li>the <code>curl</code> request that was made</li>
 <li>the <code>Request URL</code> the request was sent to</li>
@@ -1182,21 +1184,21 @@ API. If everything went well, under the textarea you should see the same details
 <li>close the modal</li>
 </ul>
 <h3 id="generating-errorreportingtoken">Generating ErrorReportingToken</h3>
-<p>Just like the AuthTokens, ErrorReportingTokens are used to make authorized API calls. The difference is that this token
-applies only to one specific endpoint: <code>/error-report</code> (<code>Report an error to the API</code>). This endpoint is intended to be
-used by third-party applications and frontends to report an error back to the API.</p>
+<p>Just like the AuthTokens, ErrorReportingTokens are used to make authorized API calls.
+The difference is that this token applies only to one specific endpoint: <code>/error-report</code> (<code>Report an error to the API</code>).
+This endpoint is intended to be used by third-party applications and frontends to report an error back to the API.</p>
 <blockquote>
 <p>This endpoint does not require <code>AuthTokens</code></p>
 </blockquote>
 <p>In order to generate this token, follow <a href="../../commands/generate-tokens/#generate-error-reporting-token">this guide</a>.</p>
-<p>Once you have the error reporting token, go again to the <code>Authorize</code> button, paste the new token as the value of the
-<code>ErrorReportingToken</code>, click on the <strong>Authorize</strong> button and close the modal. Now you're ready to report errors to your
-instance of Dotkernel API.</p>
+<p>Once you have the error reporting token, go again to the <code>Authorize</code> button, paste the new token as the value of the <code>ErrorReportingToken</code>, click on the <strong>Authorize</strong> button and close the modal.
+Now you're ready to report errors to your instance of Dotkernel API.</p>
 <h2 id="making-api-calls">Making API calls</h2>
 <blockquote>
 <p>The UI does not use confirmation messages before making an API call so double check any operation before executing it.</p>
 </blockquote>
-<p>Once authorized in the UI, you can click on any endpoint to expand it. There you will find an overview of the endpoint, including:</p>
+<p>Once authorized in the UI, you can click on any endpoint to expand it.
+There you will find an overview of the endpoint, including:</p>
 <ul>
 <li>Request method (<code>DELETE</code>, <code>GET</code>, <code>PATCH</code>, <code>POST</code>, <code>PUT</code>)</li>
 <li>request URL (example: <code>/resource</code>)</li>
@@ -1209,12 +1211,12 @@ all the required parameters</li>
 </ul>
 <p>Clicking the <code>Try it out</code> button will activate any parameter input fields and the request body textarea (if any).
 Clicking <code>Cancel</code> will deactivate them.</p>
-<p>Make sure you fill out all the necessary data, then click on the <code>Execute</code> found button above <code>Responses</code>. This will
-send the request and return and display the API response. Once finished, you will see the response as the first item
-under <code>Responses</code>, including the HTTP status code and the response body.</p>
-<p>You can repeat the request by clicking again on the <code>Execute</code> button. This will first clear the previous output and
-display the new response in the same place. Additionally, between two executions, you can manually clear any previous
-output using the <code>Clear</code> button next to the <code>Execute</code> button.</p>
+<p>Make sure you fill out all the necessary data, then click on the <code>Execute</code> found button above <code>Responses</code>.
+This will send the request and return and display the API response.
+Once finished, you will see the response as the first item under <code>Responses</code>, including the HTTP status code and the response body.</p>
+<p>You can repeat the request by clicking again on the <code>Execute</code> button.
+This will first clear the previous output and display the new response in the same place.
+Additionally, between two executions, you can manually clear any previous output using the <code>Clear</code> button next to the <code>Execute</code> button.</p>
 
 
 

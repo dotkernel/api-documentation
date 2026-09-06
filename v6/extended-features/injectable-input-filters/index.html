@@ -1109,7 +1109,8 @@ However, injecting input filters is a cleaner, more testable, and flexible appro
 
     return $this-&gt;createdResponse($request, $admin);
 }</code></pre>
-<p>While simple, this ties your handler directly to a concrete class. It’s harder to reuse logic across contexts and mock or replace the filter during testing.</p>
+<p>While simple, this ties your handler directly to a concrete class.
+It’s harder to reuse logic across contexts and mock or replace the filter during testing.</p>
 <p>Our <strong>current</strong> approach uses constructor injection:</p>
 <pre class="highlight"><code class="language-php">class PostAdminResourceHandler extends AbstractHandler
 {

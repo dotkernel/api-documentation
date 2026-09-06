@@ -1168,7 +1168,8 @@ Run <code>composer update</code> (or <code>composer install</code> without a loc
 <p><strong>Q: Which file holds the database connection?</strong></p>
 <p>A: <code>config/autoload/local.php</code>, which is also where the API key and other environment-specific settings live.</p>
 <p><strong>Q: Should I commit these files to version control?</strong></p>
-<p>A: No. The <code>*.local.php</code> files hold environment-specific values and are excluded from the repository; only the <code>.dist</code> templates are tracked.</p>
+<p>A: No.
+The <code>*.local.php</code> files hold environment-specific values and are excluded from the repository; only the <code>.dist</code> templates are tracked.</p>
 <p><strong>Q: When do I need to edit <code>cors.local.php</code>?</strong></p>
 <p>A: Whenever another application consumes your API — set <code>allowed_origins</code> to the consuming origins.
 The remaining options can normally stay as shipped.
@@ -1178,7 +1179,8 @@ See the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/
 Configure the <code>mail</code> key, and the <code>smtp_options</code> sub-key if you send through SMTP.
 See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
 <p><strong>Q: Do tests use my development database?</strong></p>
-<p>A: No. <code>local.test.php</code> points the test suite at a separate in-memory database.
+<p>A: No.
+<code>local.test.php</code> points the test suite at a separate in-memory database.
 See <a href="../test-the-installation/">Test the installation</a>.</p>
 
 

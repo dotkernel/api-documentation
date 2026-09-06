@@ -1157,7 +1157,8 @@ A lightweight renderer for <code>phtml</code> files covers the need.</p>
 <p><strong>Q: What template format does the custom renderer use?</strong></p>
 <p>A: Files combining PHP and HTML with the <code>.phtml</code> extension.</p>
 <p><strong>Q: Does <code>MailService</code> still need a renderer injected?</strong></p>
-<p>A: No. Rendering happens in the handler, and the finished body is passed to the mail service as a parameter.</p>
+<p>A: No.
+Rendering happens in the handler, and the finished body is passed to the mail service as a parameter.</p>
 <p><strong>Q: How do I render a template and send it?</strong></p>
 <p>A: Inject <code>MailService</code> and <code>RendererInterface</code> into your handler, call <code>$this-&gt;renderer-&gt;render('user::welcome', [...])</code>, then pass the result to the relevant <code>MailService</code> method.</p>
 <p><strong>Q: What does the <code>user::welcome</code> syntax mean?</strong></p>

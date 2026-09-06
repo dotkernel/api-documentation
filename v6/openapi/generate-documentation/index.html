@@ -1105,12 +1105,10 @@
 
     <h1 id="generating-the-documentation-file">Generating the documentation file</h1>
 <blockquote>
-<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of
-your instance of <strong>Dotkernel API</strong>.</p>
+<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of your instance of <strong>Dotkernel API</strong>.</p>
 </blockquote>
 <p>Using your terminal, move to the root directory of your project.</p>
-<p>Dotkernel API stores the OpenAPI attributes in the <code>src</code> directory, so that's the path we will use for generating the
-static documentation file.</p>
+<p>Dotkernel API stores the OpenAPI attributes in the <code>src</code> directory, so that's the path we will use for generating the static documentation file.</p>
 <h2 id="methods-of-generating-documentation-file">Methods of generating documentation file</h2>
 <h3 id="without-saving-it-to-a-file">Without saving it to a file</h3>
 <pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src</code></pre>

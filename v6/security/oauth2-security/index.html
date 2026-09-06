@@ -1116,8 +1116,7 @@
 As a security stating point, when developing an application using this project make sure you go over the following steps.</p>
 <h2 id="default-oauth-clients">Default OAuth Clients</h2>
 <p>The project ships with the default OAuth clients <code>admin</code> and <code>frontend</code> with passwords equal to their names, as described in the <a href="https://docs.dotkernel.org/api-documentation/v6/core-features/authentication/">Authentication</a> guide.</p>
-<p>These clients <strong>must not</strong> remain unchanged in your production environment, as they are a security risk -
-ensure you deleted them or updated the passwords.</p>
+<p>These clients <strong>must not</strong> remain unchanged in your production environment, as they are a security risk - ensure you deleted them or updated the passwords.</p>
 <h2 id="oauth-token-lifetime-and-refresh-hygiene">OAuth Token Lifetime and Refresh Hygiene</h2>
 <p>The configuration for OAuth2 tokens can be edited in <code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
 <p>By default, the lifetimes of the <code>access</code> and <code>refresh</code> tokens are set to one day and one month respectively.
@@ -1127,8 +1126,7 @@ Make sure to adjust their values in accordance to your application's needs, with
 <p>Read more about the available <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">configuration options</a>.</p>
 </blockquote>
 <h2 id="autogeneration-of-cryptographic-keys">Autogeneration of Cryptographic Keys</h2>
-<p>Dotkernel API makes use of the <code>./vendor/bin/generate-oauth2-keys</code> command from <code>mezzio-authentication-oauth2</code> to automatically regenerate the
-public/private key pair used to verify the transmitted JWTs.
+<p>Dotkernel API makes use of the <code>./vendor/bin/generate-oauth2-keys</code> command from <code>mezzio-authentication-oauth2</code> to automatically regenerate the public/private key pair used to verify the transmitted JWTs.
 This process is done after each <code>composer update</code> (or <code>composer install</code> with no lock file), as specified in <code>composer.json</code> under the <code>scripts.post-update-cmd</code> key.</p>
 <p>While hidden to the VCS by default, keep in mind not to commit any local keys.</p>
 <blockquote>

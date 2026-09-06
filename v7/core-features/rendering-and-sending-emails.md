@@ -63,7 +63,8 @@ A: Files combining PHP and HTML with the `.phtml` extension.
 
 **Q: Does `MailService` still need a renderer injected?**
 
-A: No. Rendering happens in the handler, and the finished body is passed to the mail service as a parameter.
+A: No.
+Rendering happens in the handler, and the finished body is passed to the mail service as a parameter.
 
 **Q: How do I render a template and send it?**
 

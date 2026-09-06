@@ -13,8 +13,7 @@ Run the following command in your application’s root directory:
 vendor/bin/doctrine-migrations diff
 ```
 
-If you have mapping modifications, this will create a new migration file under
-`src/Core/src/App/src/Migration/`, in the `Core\App\Migration` namespace.
+If you have mapping modifications, this will create a new migration file under `src/Core/src/App/src/Migration/`, in the `Core\App\Migration` namespace.
 The location comes from the `doctrine.migrations.migrations_paths` key in `Core\App\ConfigProvider`.
 Opening the migration file, you will notice that it contains some queries that will drop your `oauth_*` tables because they are unmapped (there is no doctrine entity describing them).
 You should delete your latest migration with the DROP queries in it as we will create another one, without the DROP queries in it.

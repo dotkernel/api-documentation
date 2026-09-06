@@ -1157,9 +1157,7 @@ These tokens are then used for later requests instead of repeatedly sending cred
 To customize authentication behavior (token lifetimes, algorithms, etc.), edit <code>config/autoload/local.php</code> under the <code>authentication</code> key.
 See the <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">Mezzio OAuth2 documentation</a> for all available options.</p>
 <blockquote>
-<p>You can check the
-<a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a>
-configuration part for more info.</p>
+<p>You can check the <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a> configuration part for more info.</p>
 </blockquote>
 <h2 id="how-it-works">How it works</h2>
 <p>Dotkernel API authentication system can be used for SPAs (single-page applications), mobile applications, and simple, token-based APIs.
@@ -1383,7 +1381,8 @@ If the refresh token has expired too, authenticate again with credentials.</p>
 <p>A: <code>Api\App\Middleware\AuthenticationMiddleware</code>, which runs before authorization in the pipeline.
 See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
 <p><strong>Q: Is authenticating enough to access an endpoint?</strong></p>
-<p>A: No. Authentication establishes the identity; the role still needs permission for the route.
+<p>A: No.
+Authentication establishes the identity; the role still needs permission for the route.
 See <a href="../authorization/">Authorization</a>.</p>
 
 

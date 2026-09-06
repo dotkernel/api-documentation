@@ -1109,13 +1109,11 @@
 
     <h1 id="writing-documentation">Writing documentation</h1>
 <blockquote>
-<p>In order to avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them
-in separate files, called <code>OpenAPI.php</code>, one for each module.</p>
+<p>In order to avoid polluting PHP files with maybe thousands of lines of OpenAPI attributes, we opted for storing them in separate files, called <code>OpenAPI.php</code>, one for each module.</p>
 </blockquote>
-<p>We already covered all the endpoints available in Dotkernel API, you can consult the existing documentation in each
-module's own <code>OpenAPI.php</code> file. After you add more functionalities to your API, you will have to document the new
-endpoints. This is easier than it sounds because in most cases you will do the same: add a request by method, describe
-the request payload (if any), add request parameters (if any) and describe the possible responses.</p>
+<p>We already covered all the endpoints available in Dotkernel API, you can consult the existing documentation in each module's own <code>OpenAPI.php</code> file.
+After you add more functionalities to your API, you will have to document the new endpoints.
+This is easier than it sounds because in most cases you will do the same: add a request by method, describe the request payload (if any), add request parameters (if any) and describe the possible responses.</p>
 <h2 id="common-objects">Common objects</h2>
 <p>To do this, you will use the following request objects:</p>
 <ul>
@@ -1137,7 +1135,8 @@ the request payload (if any), add request parameters (if any) and describe the p
 <p>There are lot more, but these are the most often used ones.</p>
 <p>If you need help, take a look at the existing definitions found in Dotkernel API.</p>
 <h3 id="oadelete">OA\Delete</h3>
-<p>Defines a <code>DELETE</code> HTTP request. It should specify at least the following parameters:</p>
+<p>Defines a <code>DELETE</code> HTTP request.
+It should specify at least the following parameters:</p>
 <ul>
 <li><code>path</code>: the route to the resource (example: <code>/resource/{uuid}</code> - where <code>uuid</code> is a path parameter defined below)</li>
 <li><code>description</code>: verbose description of the endpoint's purpose</li>
@@ -1149,7 +1148,8 @@ the request payload (if any), add request parameters (if any) and describe the p
 respective response bodies</li>
 </ul>
 <h3 id="oaget">OA\Get</h3>
-<p>Defines a <code>GET</code> HTTP request. It should specify at least the following parameters:</p>
+<p>Defines a <code>GET</code> HTTP request.
+It should specify at least the following parameters:</p>
 <ul>
 <li><code>path</code>: the route to a single or collection of resources (example: <code>/resource/{uuid}</code> for a single resource or
 <code>/resource</code> for a collection of resources)</li>
@@ -1162,7 +1162,8 @@ respective response bodies</li>
 respective response bodies</li>
 </ul>
 <h3 id="oapatch">OA\Patch</h3>
-<p>Defines a <code>PATCH</code> HTTP request. It should specify at least the following parameters:</p>
+<p>Defines a <code>PATCH</code> HTTP request.
+It should specify at least the following parameters:</p>
 <ul>
 <li><code>path</code>: the route to the resource (example: <code>/resource/{uuid}</code> - where <code>uuid</code> is a path parameter defined below)</li>
 <li><code>description</code>: verbose description of the endpoint's purpose</li>
@@ -1175,7 +1176,8 @@ respective response bodies</li>
 respective response bodies</li>
 </ul>
 <h3 id="oapost">OA\Post</h3>
-<p>Defines a <code>POST</code> HTTP request. It should specify at least the following parameters:</p>
+<p>Defines a <code>POST</code> HTTP request.
+It should specify at least the following parameters:</p>
 <ul>
 <li><code>path</code>: the route to the resource (example: <code>/resource/{uuid}</code> - where <code>uuid</code> is a path parameter defined below)</li>
 <li><code>description</code>: verbose description of the endpoint's purpose</li>
@@ -1188,7 +1190,8 @@ respective response bodies</li>
 respective response bodies</li>
 </ul>
 <h3 id="oaput">OA\Put</h3>
-<p>Defines a <code>PUT</code> HTTP request. It should specify at least the following parameters:</p>
+<p>Defines a <code>PUT</code> HTTP request.
+It should specify at least the following parameters:</p>
 <ul>
 <li><code>path</code>: the route to the resource (example: <code>/resource/{uuid}</code> - where <code>uuid</code> is a path parameter defined below)</li>
 <li><code>description</code>: verbose description of the endpoint's purpose</li>

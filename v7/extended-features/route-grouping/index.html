@@ -1122,7 +1122,8 @@
 The result is less duplication, easier refactoring, and routes that belong together staying together in the code.</p>
 <h2 id="details">Details</h2>
 <p>In Dotkernel API with the help of the new <a href="https://docs.dotkernel.org/dot-router/v1/overview/">dot-router</a> package, we have managed to implement a nicer way of creating routes.
-A lot of the times developers need to create sets of routes that have a similar format. As an example:</p>
+A lot of the times developers need to create sets of routes that have a similar format.
+As an example:</p>
 <pre class="highlight"><code class="language-php">$app-&gt;post('/product/create', CreateProductHandler::class, 'product:create');
 $app-&gt;delete('/product/delete/{id}', DeleteProductHandler::class, 'product:delete');
 $app-&gt;patch('/product/update/{id}', UpdateProductHandler::class, 'product:update');

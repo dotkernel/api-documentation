@@ -1254,13 +1254,15 @@ The keys live in <code>error-handling.global.php</code> but can be set or overri
 <p><strong>Q: How do I tell which application sent a report?</strong></p>
 <p>A: The log entry includes the token used, and tokens can be defined as key-value pairs — an alias such as <code>frontend</code> mapped to the token — so each application gets its own identifiable token.</p>
 <p><strong>Q: Do these tokens expire?</strong></p>
-<p>A: No. Because they are indefinite, rotate them manually from time to time.
+<p>A: No.
+Because they are indefinite, rotate them manually from time to time.
 See <a href="../../security/basic-security/">Basic security</a>.</p>
 <p><strong>Q: Where do the reports end up?</strong></p>
 <p>A: In the file named by <code>ErrorReportServiceInterface::class</code>, <code>path</code>.
 If it does not exist, it is created automatically.</p>
 <p><strong>Q: Does this endpoint need an auth token as well?</strong></p>
-<p>A: No. It is authorized solely by the error reporting token.
+<p>A: No.
+It is authorized solely by the error reporting token.
 See <a href="../../openapi/use-documentation/">Using the documentation</a>.</p>
 
 

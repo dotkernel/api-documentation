@@ -1407,7 +1407,8 @@ Public endpoints still respond; protected ones return <code>403 Forbidden</code>
 <p>A: Each account type has its own OAuth client: <code>admin</code> for accounts in the <code>admin</code> table and <code>frontend</code> for accounts in the <code>user</code> table.
 The <code>client_id</code> and <code>client_secret</code> must match the account you are authenticating.</p>
 <p><strong>Q: Do I have to generate a token for every request?</strong></p>
-<p>A: No. Generate it once, store it, and reuse it until it expires — then refresh rather than re-authenticate.</p>
+<p>A: No.
+Generate it once, store it, and reuse it until it expires — then refresh rather than re-authenticate.</p>
 <p><strong>Q: What is the difference between the generate and refresh requests?</strong></p>
 <p>A: Generating uses <code>grant_type: password</code> with a username and password; refreshing uses <code>grant_type: refresh_token</code> with the refresh token and no credentials.</p>
 <p><strong>Q: How long is an access token valid?</strong></p>
@@ -1418,7 +1419,8 @@ Both credential fields come from the <code>admin</code> or <code>user</code> tab
 <p><strong>Q: I get <code>401 Unauthorized</code> with "The refresh token is invalid". Why?</strong></p>
 <p>A: The refresh token could not be decrypted — it is malformed, has expired, or was issued for a different client than the one in the request.</p>
 <p><strong>Q: Are the shipped credentials safe to keep?</strong></p>
-<p>A: No. The <code>admin</code> / <code>dotadmin</code> and <code>test@dotkernel.com</code> / <code>dotkernel</code> accounts, and the OAuth clients whose secrets equal their names, must be changed or removed before production.
+<p>A: No.
+The <code>admin</code> / <code>dotadmin</code> and <code>test@dotkernel.com</code> / <code>dotkernel</code> accounts, and the OAuth clients whose secrets equal their names, must be changed or removed before production.
 See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
 <p><strong>Q: Where should the tokens be stored on the client?</strong></p>
 <p>A: Somewhere private to the client.

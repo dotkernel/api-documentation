@@ -1538,7 +1538,11 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
   -d '{"name": "test", "author": "author name", "releaseDate": "2025-08-21"}'</code></pre>
 <p>To list the books, use:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
-<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
+<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> .
+<code>books</code> . * .
+<code>_links</code> .
+<code>self</code> .
+<code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
 <h2 id="faq">FAQ</h2>
@@ -1558,7 +1562,8 @@ Generating the migration after editing the entity means the table matches the fi
 <p><strong>Q: Which generated files need editing for this tutorial?</strong></p>
 <p>A: <code>Book.php</code> to add the three properties with their accessors and constructor, <code>BookService.php</code> to handle those properties in <code>getBooks()</code> and <code>saveBook()</code>, and <code>CreateBookInputFilter.php</code> to register the inputs.</p>
 <p><strong>Q: Does <code>dot-maker</code> create the <code>Input</code> classes as part of the module?</strong></p>
-<p>A: No. Generate them separately with <code>./vendor/bin/dot-maker input</code>, entering <code>Author</code>, <code>Name</code> and <code>ReleaseDate</code>.
+<p>A: No.
+Generate them separately with <code>./vendor/bin/dot-maker input</code>, entering <code>Author</code>, <code>Name</code> and <code>ReleaseDate</code>.
 As generated they need no further changes.</p>
 <p><strong>Q: Can I define the inputs inline instead?</strong></p>
 <p>A: Yes — the page shows the equivalent inline definitions.

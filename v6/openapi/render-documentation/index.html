@@ -1108,16 +1108,15 @@
     
 
     <h1 id="rendering-the-documentation-file">Rendering the documentation file</h1>
-<p>At this step, you only have a static documentation file. You will need an interface that can render it so that you will
-be able to interact with your Dotkernel API.</p>
+<p>At this step, you only have a static documentation file.
+You will need an interface that can render it so that you will be able to interact with your Dotkernel API.</p>
 <p>In order to do this, we recommend using either of:</p>
 <ul>
 <li><a href="https://github.com/swagger-api/swagger-ui">swagger-api/swagger-ui</a></li>
 <li><a href="https://github.com/Redocly/redoc">Redocly/redoc</a></li>
 </ul>
 <h2 id="using-swagger-ui">Using Swagger UI</h2>
-<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>swagger.html</code>,
-the name is up to you) and place the following HTML content in it:</p>
+<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>swagger.html</code>, the name is up to you) and place the following HTML content in it:</p>
 <pre class="highlight"><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
@@ -1137,15 +1136,14 @@ the name is up to you) and place the following HTML content in it:</p>
     &lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file
-(openapi.json/openapi.yaml). The line should look similar to this:</p>
+<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file (openapi.json/openapi.yaml).
+The line should look similar to this:</p>
 <pre class="highlight"><code class="language-js">window.ui = SwaggerUIBundle({url: './openapi.yaml', dom_id: '#swagger-ui'});</code></pre>
-<p>Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append <code>/swagger.html</code> to
-it. You should see the Redoc interface with your documentation file loaded in it. From here, you can inspect each
-endpoint, see it's URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
+<p>Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append <code>/swagger.html</code> to it.
+You should see the Redoc interface with your documentation file loaded in it.
+From here, you can inspect each endpoint, see it's URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
 <h2 id="using-redoc">Using Redoc</h2>
-<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>redoc.html</code>,
-the name is up to you) and place the following HTML content in it:</p>
+<p>Navigate to the <code>public</code> directory of your instance of Dotkernel API and create an HTML (you can call it <code>redoc.html</code>, the name is up to you) and place the following HTML content in it:</p>
 <pre class="highlight"><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
@@ -1162,12 +1160,12 @@ the name is up to you) and place the following HTML content in it:</p>
     &lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file
-(openapi.json/openapi.yaml). The line should look similar to this:</p>
+<p>Make sure that you replace <code>PATH_TO_YOUR_OPENAPI_FILE</code> with the relative path to your documentation file (openapi.json/openapi.yaml).
+The line should look similar to this:</p>
 <pre class="highlight"><code class="language-js">Redoc.init('./openapi.yaml', {}, document.getElementById('redoc-container'));</code></pre>
 <p>Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append <code>/redoc.html</code> to it.
-You should see the Redoc interface with your documentation file loaded in it. From here, you can inspect each endpoint,
-see it's URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
+You should see the Redoc interface with your documentation file loaded in it.
+From here, you can inspect each endpoint, see it's URL, check if it needs authentication, the request payload (if any) and the possible response(s).</p>
 
 
 

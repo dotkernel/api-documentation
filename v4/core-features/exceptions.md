@@ -2,15 +2,12 @@
 
 ## What are exceptions?
 
-Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the
-execution of a script.
-They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular
-code.
+Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
+They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.
 
 ## How we use exceptions?
 
-When it comes to handling exceptions, **Dotkernel API** relies on the usage of easy-to-understand, problem-specific
-exceptions.
+When it comes to handling exceptions, **Dotkernel API** relies on the usage of easy-to-understand, problem-specific exceptions.
 
 Out-of-the-box we provide the following custom exceptions:
 
@@ -53,8 +50,7 @@ Out-of-the-box we provide the following custom exceptions:
 
 ## How it works?
 
-During a request, if there is no uncaught exception **Dotkernel API** will return a JSON response with the data provided
-by the handler that handled the request.
+During a request, if there is no uncaught exception **Dotkernel API** will return a JSON response with the data provided by the handler that handled the request.
 
 Else, it will build and send a response based on the exception thrown:
 
@@ -69,9 +65,7 @@ Else, it will build and send a response based on the exception thrown:
 
 ## How to extend?
 
-In this example we will create a custom exception called `CustomException`, place it next to the already existing custom
-exceptions (you can use your preferred location) and finally return a custom HTTP status code when `CustomException` is
-encountered.
+In this example we will create a custom exception called `CustomException`, place it next to the already existing custom exceptions (you can use your preferred location) and finally return a custom HTTP status code when `CustomException` is encountered.
 
 ### Step 1: Create exception file
 
@@ -106,8 +100,7 @@ Save and close the file.
 
 ### Step 3: Test for failure
 
-Access your API's home page URL and make sure it returns `500 Internal Server Error` HTTP status code and the following
-content:
+Access your API's home page URL and make sure it returns `500 Internal Server Error` HTTP status code and the following content:
 
 ```json
 {

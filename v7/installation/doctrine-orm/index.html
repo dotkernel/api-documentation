@@ -1312,7 +1312,8 @@ Fixtures have been loaded.
 <p>A: Comment out <code>'params' =&gt; $databases['mariadb']</code> and uncomment the <code>postgresql</code> line under <code>doctrine.connection.orm_default</code>.
 Only one active connection is allowed at a time, even if the array defines several.</p>
 <p><strong>Q: Do I have to name the database <code>dotkernel</code>?</strong></p>
-<p>A: No. That is only an example — use any name, as long as the configuration and the database you create agree.</p>
+<p>A: No.
+That is only an example — use any name, as long as the configuration and the database you create agree.</p>
 <p><strong>Q: What is <code>table_prefix</code> for?</strong></p>
 <p>A: It prepends a string to every table name from the entities, which keeps table sets apart when several applications share one database.
 The prefix is applied verbatim, with no separator added, and <code>doctrine_migration_versions</code> is left untouched because Doctrine Migrations owns it.</p>

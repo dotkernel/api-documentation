@@ -779,13 +779,10 @@
 
     <h1 id="exceptions">Exceptions</h1>
 <h2 id="what-are-exceptions">What are exceptions?</h2>
-<p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the
-execution of a script.
-They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular
-code.</p>
+<p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
+They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.</p>
 <h2 id="how-we-use-exceptions">How we use exceptions?</h2>
-<p>When it comes to handling exceptions, <strong>Dotkernel API</strong> relies on the usage of easy-to-understand, problem-specific
-exceptions.</p>
+<p>When it comes to handling exceptions, <strong>Dotkernel API</strong> relies on the usage of easy-to-understand, problem-specific exceptions.</p>
 <p>Out-of-the-box we provide the following custom exceptions:</p>
 <h3 id="badrequestexception-thrown-when"><code>BadRequestException</code> thrown when</h3>
 <ul>
@@ -825,8 +822,7 @@ exceptions.</p>
   a <code>GET /admin</code> request)</li>
 </ul>
 <h2 id="how-it-works">How it works?</h2>
-<p>During a request, if there is no uncaught exception <strong>Dotkernel API</strong> will return a JSON response with the data provided
-by the handler that handled the request.</p>
+<p>During a request, if there is no uncaught exception <strong>Dotkernel API</strong> will return a JSON response with the data provided by the handler that handled the request.</p>
 <p>Else, it will build and send a response based on the exception thrown:</p>
 <ul>
 <li><code>BadRequestException</code> will return a <code>400 Bad Request</code> response</li>
@@ -839,9 +835,7 @@ by the handler that handled the request.</p>
 <li><code>MailException</code>, <code>RuntimeException</code> and the generic <code>Exception</code> will return a <code>500 Internal Server Error</code> response</li>
 </ul>
 <h2 id="how-to-extend">How to extend?</h2>
-<p>In this example we will create a custom exception called <code>CustomException</code>, place it next to the already existing custom
-exceptions (you can use your preferred location) and finally return a custom HTTP status code when <code>CustomException</code> is
-encountered.</p>
+<p>In this example we will create a custom exception called <code>CustomException</code>, place it next to the already existing custom exceptions (you can use your preferred location) and finally return a custom HTTP status code when <code>CustomException</code> is encountered.</p>
 <h3 id="step-1-create-exception-file">Step 1: Create exception file</h3>
 <p>Navigate to the directory <code>src/App/src/Handler/Exception</code> and create a PHP class called <code>CustomException.php</code>.
 Open <code>CustomException.php</code> and add the following content:</p>
@@ -862,8 +856,7 @@ class CustomException extends Exception
 <pre class="highlight"><code class="language-php">throw new \Api\App\Exception\CustomException('some message');</code></pre>
 <p>Save and close the file.</p>
 <h3 id="step-3-test-for-failure">Step 3: Test for failure</h3>
-<p>Access your API's home page URL and make sure it returns <code>500 Internal Server Error</code> HTTP status code and the following
-content:</p>
+<p>Access your API's home page URL and make sure it returns <code>500 Internal Server Error</code> HTTP status code and the following content:</p>
 <pre class="highlight"><code class="language-json">{
     "error": {
         "messages": [

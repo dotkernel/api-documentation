@@ -1131,64 +1131,172 @@
     <h1 id="authorization">Authorization</h1>
 <h2 id="summary">Summary</h2>
 <p>Authorization decides whether an already-authenticated identity may reach a given resource.
-Dotkernel API implements it with role-based access control through <code>Mezzio\Authorization\Rbac\LaminasRbac</code>, applied by <code>AuthorizationMiddleware</code> and configured in <code>config/autoload/authorization.global.php</code>, where each permission is a route name and roles inherit from their parents.</p>
+Dotkernel API implements it with role-based access control through <code>Mezzio\Authorization\Rbac\LaminasRbac</code>, applied by <code>AuthorizationMiddleware</code> and configured in <code>config/autoload/authorization.global.php</code>, where each permission is a route name.
+Inheritance runs from child to parent, so <code>superuser</code> inherits every permission granted to <code>admin</code> without declaring any of its own.</p>
 <h2 id="details">Details</h2>
 <p>Authorization is the process by which a system takes a validated identity and checks if that identity has access to a given resource.</p>
 <p><strong>Dotkernel API</strong>'s implementation of authorization uses <code>Mezzio\Authorization\Rbac\LaminasRbac</code> as a model of Role-Based Access Control (RBAC).</p>
 <h2 id="how-it-works">How it works</h2>
-<p>In Dotkernel API each authenticatable entity (admin/user) comes with their <code>roles</code> table where you can define roles for each entity.
+<p>In Dotkernel API each authenticatable entity (admin/user) has its own role table — <code>admin_role</code> and <code>user_role</code> — plus a join table, <code>admin_roles</code> and <code>user_roles</code>, assigning roles to accounts.
 RBAC comes in to ensure that each entity has the appropriate role and permission to access a resource.</p>
 <p>The authorization happens through the <code>Api\App\Middleware\AuthorizationMiddleware</code> middleware.</p>
 <h2 id="configuration">Configuration</h2>
 <p>Dotkernel API makes use of <code>mezzio-authorization-rbac</code> and includes the full configuration.</p>
 <p>The configuration file for the role and permission definitions is <code>config/autoload/authorization.global.php</code>.</p>
-<pre class="highlight"><code class="language-php">'mezzio-authorization-rbac' =&gt; [
-    'roles'       =&gt; [
-        AdminRole::ROLE_SUPERUSER =&gt; [],
-        AdminRole::ROLE_ADMIN     =&gt; [
-            AdminRole::ROLE_SUPERUSER,
+<p>Roles are the backed enums <code>Core\Admin\Enum\AdminRoleEnum</code> (<code>superuser</code>, <code>admin</code>) and <code>Core\User\Enum\UserRoleEnum</code> (<code>user</code>, <code>guest</code>), so the array keys are their <code>-&gt;value</code> strings.</p>
+<pre class="highlight"><code class="language-php">use Core\Admin\Enum\AdminRoleEnum;
+use Core\User\Enum\UserRoleEnum;
+
+return [
+    'mezzio-authorization-rbac' =&gt; [
+        'roles'       =&gt; [
+            AdminRoleEnum::Superuser-&gt;value =&gt; [],
+            AdminRoleEnum::Admin-&gt;value     =&gt; [
+                AdminRoleEnum::Superuser-&gt;value,
+            ],
+            UserRoleEnum::Guest-&gt;value      =&gt; [
+                UserRoleEnum::User-&gt;value,
+            ],
         ],
-        UserRole::ROLE_GUEST      =&gt; [
-            UserRole::ROLE_USER,
+        'permissions' =&gt; [
+            AdminRoleEnum::Superuser-&gt;value =&gt; [],
+            AdminRoleEnum::Admin-&gt;value     =&gt; [
+                'admin::list-admin',
+                'admin::create-admin',
+                'admin::delete-admin',
+                'admin::view-admin',
+                'admin::update-admin',
+                'admin::list-role',
+                'admin::view-role',
+                'admin::view-account',
+                'admin::update-account',
+                'user::list-user',
+                'user::create-user',
+                'user::delete-user',
+                'user::view-user',
+                'user::update-user',
+                'user::delete-user-avatar',
+                'user::view-user-avatar',
+                'user::create-user-avatar',
+                'user::list-role',
+                'user::view-role',
+                'user::activate-user',
+                'user::deactivate-user',
+                'app::create-error-report',
+                'app::view-index',
+            ],
+            UserRoleEnum::User-&gt;value       =&gt; [
+                'user::delete-account',
+                'user::view-account',
+                'user::update-account',
+                'user::delete-account-avatar',
+                'user::view-account-avatar',
+                'user::create-account-avatar',
+            ],
+            UserRoleEnum::Guest-&gt;value      =&gt; [
+                'app::create-error-report',
+                'app::view-index',
+                'user::activate-account',
+                'user::request-activate-account',
+                'user::recover-account',
+                'user::check-account-reset-password',
+                'user::update-account-reset-password',
+                'user::create-account-reset-password',
+                'user::create-account',
+                'security::generate-token',
+                'security::refresh-token',
+            ],
         ],
     ],
-    'permissions' =&gt; [
-        AdminRole::ROLE_SUPERUSER =&gt; [],
-        AdminRole::ROLE_ADMIN     =&gt; [
-            'other.routes'
-            'admin.list',
-            'home'
-        ],
-        UserRole::ROLE_USER       =&gt; [
-            'other.routes',
-            'user.my-account.update',
-            'user.my-account.view',
-        ],
-        UserRole::ROLE_GUEST      =&gt; [
-            'other.routes',
-            'security.refresh-token',
-            'error.report',
-            'home',
-        ],
-    ],
-],</code></pre>
+];</code></pre>
+<p>That is the complete shipped configuration, not an excerpt.
+Between them the three populated roles grant <strong>38 permissions covering all 38 routes</strong>: every route the application declares is reachable by at least one role, and no permission names a route that does not exist.
+Only <code>app::view-index</code> and <code>app::create-error-report</code> are granted twice, to both <code>admin</code> and <code>guest</code>.</p>
 <blockquote>
-<p>See <a href="https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/">mezzio-authorization-rbac</a>
-for more information.</p>
+<p>See <a href="https://docs.mezzio.dev/mezzio-authorization-rbac/v1/basic-usage/">mezzio-authorization-rbac</a> for more information.</p>
 </blockquote>
 <h2 id="usage">Usage</h2>
 <p>Based on the configuration file above, we have two admin roles (<code>superuser</code>, <code>admin</code>) and two user roles (<code>user</code>, <code>guest</code>).</p>
-<p>Roles inherit the permissions from their parents:</p>
-<ul>
-<li><code>superuser</code> has no parent</li>
-<li><code>admin</code> has <code>superuser</code> as a parent which means <code>superuser</code> also has <code>admin</code> permissions</li>
-<li><code>user</code> has no parent</li>
-<li><code>guest</code> has <code>user</code> as a parent which means <code>user</code> also has <code>guest</code> permissions</li>
-</ul>
-<p>For each role we defined an array of permissions.
-A permission in Dotkernel API is basically a route name.</p>
-<p>As you can see, the <code>superuser</code> does not have its own permissions, because it gains all the permissions from <code>admin</code>, no need to define explicit permissions.</p>
-<p>The <code>user</code> role, gains all the permission from <code>guest</code> so no need to define that <code>user</code> can access <code>home</code> route, but <code>guest</code> cannot access user-specific routes.</p>
+<p>A permission in Dotkernel API is a <strong>route name</strong> — the third argument given to the route in a module's <code>RoutesDelegator</code>.
+To list the names you can grant, run <code>php ./bin/cli.php route:list</code>; see <a href="../../commands/display-available-endpoints/">Displaying Dotkernel API endpoints</a>.</p>
+<h3 id="how-inheritance-works-here">How inheritance works here</h3>
+<p>The array under <code>roles</code> maps a role to its <strong>parents</strong>, and inheritance runs in the direction that often surprises people: a <strong>parent receives the permissions of its children</strong>, because <code>laminas-permissions-rbac</code> resolves <code>hasPermission()</code> by walking down into child roles.</p>
+<p>So in the shipped configuration:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>superuser =&gt; []</code></td>
+<td><code>superuser</code> has no parent</td>
+</tr>
+<tr>
+<td><code>admin =&gt; [superuser]</code></td>
+<td><code>superuser</code> is the parent of <code>admin</code>, so <strong><code>superuser</code> inherits everything granted to <code>admin</code></strong></td>
+</tr>
+<tr>
+<td><code>guest =&gt; [user]</code></td>
+<td><code>user</code> is the parent of <code>guest</code>, so <strong><code>user</code> inherits everything granted to <code>guest</code></strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>That is why <code>superuser</code> needs no permissions of its own: its list is empty, yet it can reach all 23 routes granted to <code>admin</code>.</p>
+<p>It is also why <code>user</code> ends up with 17 effective permissions — its own 6 plus the 11 granted to <code>guest</code> — while <code>guest</code> keeps only its own 11 and cannot reach the account routes reserved for a signed-in user.</p>
+<p>Effective totals, once inheritance is applied:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Own</th>
+<th>Inherited</th>
+<th>Effective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>superuser</code></td>
+<td>0</td>
+<td>23 from <code>admin</code></td>
+<td>23</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>23</td>
+<td>—</td>
+<td>23</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>6</td>
+<td>11 from <code>guest</code></td>
+<td>17</td>
+</tr>
+<tr>
+<td><code>guest</code></td>
+<td>11</td>
+<td>—</td>
+<td>11</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="how-a-request-is-authorized">How a request is authorized</h3>
+<p><code>AuthorizationMiddleware</code> injects <code>Mezzio\Authorization\AuthorizationInterface</code> rather than an RBAC class directly — the RBAC adapter is bound by <code>Mezzio\Authorization\Rbac\ConfigProvider</code>, registered in <code>config/config.php</code>.</p>
+<p>For each request it:</p>
+<ol>
+<li>Reads <code>oauth_client_id</code> from the authenticated identity and loads the matching record — <code>admin</code> from the <code>admin</code> table, <code>frontend</code> from the <code>user</code> table, or a <code>Guest</code> instance when the client is <code>guest</code>.
+   An unrecognised client is rejected.</li>
+<li>Rejects an account that is inactive, or a user that has been deleted.</li>
+<li>Replaces the identity's roles with the role names read from that record.</li>
+<li>Calls <code>isGranted()</code> once per role and allows the request as soon as <strong>any</strong> role grants the route.</li>
+</ol>
+<p>If no role grants it, the response is <code>403 Forbidden</code> with <code>You are not allowed to access this resource.</code></p>
+<blockquote>
+<p>Note this middleware returns a plain JSON error body rather than a Problem Details document, so an authorization failure does not look like the errors described in <a href="../../extended-features/problem-details/">Problem details</a>.</p>
+</blockquote>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: How does authorization differ from authentication?</strong></p>
 <p>A: Authentication establishes who the caller is; authorization checks what that established identity is allowed to do.
@@ -1200,17 +1308,28 @@ Granting a role a permission means granting it access to the route of that name.
 <p>A: To the relevant role's array in <code>config/autoload/authorization.global.php</code>.
 A route with no permission entry is unreachable for that role.</p>
 <p><strong>Q: Which access control model is used?</strong></p>
-<p>A: RBAC, via <code>mezzio-authorization-rbac</code> backed by <code>laminas-permissions-rbac</code>.</p>
+<p>A: RBAC, via <code>mezzio-authorization-rbac</code> backed by <code>laminas-permissions-rbac</code>.
+<code>AuthorizationMiddleware</code> depends only on <code>Mezzio\Authorization\AuthorizationInterface</code>, so the adapter is selected by configuration rather than hardcoded.</p>
 <p><strong>Q: How does role inheritance work here?</strong></p>
-<p>A: A role listed inside another role's entry is its parent's beneficiary: because <code>admin</code> lists <code>superuser</code>, <code>superuser</code> receives everything granted to <code>admin</code>.
-That is why <code>superuser</code> needs no explicit permissions of its own.</p>
+<p>A: The values listed against a role are its parents, and a parent inherits from its children — <code>laminas-permissions-rbac</code> resolves a permission by walking down into child roles.
+Because <code>admin</code> lists <code>superuser</code>, <code>superuser</code> receives everything granted to <code>admin</code>, which is why <code>superuser</code> needs no permissions of its own.
+Likewise <code>guest</code> lists <code>user</code>, so <code>user</code> inherits the guest permissions on top of its own.</p>
 <p><strong>Q: Where are roles stored?</strong></p>
-<p>A: Each authenticatable entity — admin or user — has its own <code>roles</code> table where its roles are defined.</p>
+<p>A: In <code>admin_role</code> and <code>user_role</code>, with <code>admin_roles</code> and <code>user_roles</code> as the join tables that assign them to accounts.
+The role names themselves come from the <code>AdminRoleEnum</code> and <code>UserRoleEnum</code> backed enums, so adding a role means adding an enum case as well as a row.</p>
 <p><strong>Q: Which middleware enforces this?</strong></p>
 <p>A: <code>Api\App\Middleware\AuthorizationMiddleware</code>.
 See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
 <p><strong>Q: Can I use ACL instead of RBAC?</strong></p>
-<p>A: The ACL adapter ships with the project, but RBAC is what Dotkernel API is configured for; switching means replacing the authorization configuration.</p>
+<p>A: The ACL adapter ships with the project, but RBAC is what Dotkernel API is configured for; switching means replacing the authorization configuration.
+Because the middleware only knows <code>AuthorizationInterface</code>, no application code needs to change.</p>
+<p><strong>Q: Do the permissions cover every route?</strong></p>
+<p>A: Yes, exactly.
+The three populated roles grant 38 permissions across the 38 declared routes, with no route ungranted and no permission naming a route that does not exist.
+<code>app::view-index</code> and <code>app::create-error-report</code> are the only two granted to two roles.</p>
+<p><strong>Q: What does a rejected request look like?</strong></p>
+<p>A: <code>403 Forbidden</code> with <code>You are not allowed to access this resource.</code>
+The same status is returned when the account is inactive, the user was deleted, or the OAuth client is unrecognised, each with its own message.</p>
 
 
 

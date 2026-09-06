@@ -98,4 +98,5 @@ Clear it with `php ./bin/clear-config-cache.php`.
 
 **Q: Does the command store the token for me?**
 
-A: No. It only prints the value; copying it into the configuration file is a manual step.
+A: No.
+It only prints the value; copying it into the configuration file is a manual step.

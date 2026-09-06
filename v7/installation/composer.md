@@ -78,7 +78,8 @@ Type `0` to select `[0] Do not inject`.
 
 The next question is:
 
-`Remember this option for other packages of the same type? (y/N)`
+`Remember this option for other packages of the same type?
+(y/N)`
 
 Type `y` here, and hit `enter` to complete this stage.
 
@@ -124,7 +125,8 @@ A: It writes `composer.lock`, configures PHP CodeSniffer, generates the OAuth2 k
 
 **Q: Will re-running `composer install` overwrite my configuration?**
 
-A: No. The post-install scripts run on every `composer install` and `composer update`, but they check whether each file already exists before writing it.
+A: No.
+The post-install scripts run on every `composer install` and `composer update`, but they check whether each file already exists before writing it.
 
 **Q: Composer asks where to inject `Laminas\Diactoros\ConfigProvider`. What do I answer?**
 

@@ -452,7 +452,11 @@ To list the books, use:
 curl http://0.0.0.0:8080/book
 ```
 
-To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
+To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` .
+`books` . * .
+`_links` .
+`self` .
+`href`.
 
 The link should have the following format:
 
@@ -491,7 +495,8 @@ A: `Book.php` to add the three properties with their accessors and constructor, 
 
 **Q: Does `dot-maker` create the `Input` classes as part of the module?**
 
-A: No. Generate them separately with `./vendor/bin/dot-maker input`, entering `Author`, `Name` and `ReleaseDate`.
+A: No.
+Generate them separately with `./vendor/bin/dot-maker input`, entering `Author`, `Name` and `ReleaseDate`.
 As generated they need no further changes.
 
 **Q: Can I define the inputs inline instead?**

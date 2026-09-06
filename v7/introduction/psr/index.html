@@ -1141,7 +1141,8 @@ PSR-7 (HTTP messages), PSR-15 (handlers and middleware) and PSR-11 (container) a
 <li><strong>Code Quality</strong>: Following standards encourages best practices and makes code more maintainable.</li>
 </ul>
 <h2 id="php-standards-recommendations-psrs">PHP Standards Recommendations (PSRs)</h2>
-<p>Dotkernel API adheres to PHP Standards Recommendations (PSRs) established by the PHP-FIG (Framework Interoperability Group). These standards ensure code interoperability and allow Dotkernel API to work seamlessly with other PSR-compliant libraries.</p>
+<p>Dotkernel API adheres to PHP Standards Recommendations (PSRs) established by the PHP-FIG (Framework Interoperability Group).
+These standards ensure code interoperability and allow Dotkernel API to work seamlessly with other PSR-compliant libraries.</p>
 <p>Some PSRs are at the <strong>core</strong> of Dotkernel API's architecture, while others are installed as dependencies through third-party packages.</p>
 <h2 id="core-psrs-essential-to-dotkernel-api">Core PSRs (Essential to Dotkernel API)</h2>
 <h3 id="psr-7-http-message-interfaces">PSR-7: HTTP Message Interfaces</h3>
@@ -1178,43 +1179,35 @@ PSR-7 (HTTP messages), PSR-15 (handlers and middleware) and PSR-11 (container) a
 <h3 id="psr-3-logger-interface">PSR-3: Logger Interface</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/log">php-fig/log</a></p>
 <p>Provides a standard interface for logging libraries.</p>
-<p><strong>Usage</strong>: Error handling, debugging, audit trails
-<strong>Implemented in</strong>: <code>dotkernel/dot-errorhandler</code></p>
+<p><strong>Usage</strong>: Error handling, debugging, audit trails <strong>Implemented in</strong>: <code>dotkernel/dot-errorhandler</code></p>
 <h3 id="psr-4-autoloader">PSR-4: Autoloader</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/log">php-fig/log</a></p>
 <p>Defines how PHP files are automatically loaded based on namespaces and file paths.</p>
-<p><strong>Usage</strong>: Automatic class loading without manual <code>require</code> statements
-<strong>Implemented in</strong>: <code>Laminas\Loader</code></p>
+<p><strong>Usage</strong>: Automatic class loading without manual <code>require</code> statements <strong>Implemented in</strong>: <code>Laminas\Loader</code></p>
 <h3 id="psr-6-caching-interface">PSR-6: Caching Interface</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/cache">php-fig/cache</a></p>
 <p>Defines standard interfaces for caching systems to improve application performance.</p>
-<p><strong>Usage</strong>: Caching query results, configuration, templates
-<strong>Implemented in</strong>: <code>dotkernel/dot-cache</code></p>
+<p><strong>Usage</strong>: Caching query results, configuration, templates <strong>Implemented in</strong>: <code>dotkernel/dot-cache</code></p>
 <h3 id="psr-13-link-definition-interfaces">PSR-13: Link Definition Interfaces</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/link">php-fig/link</a></p>
 <p>Describes how to represent hypermedia links independently of serialization format.</p>
-<p><strong>Usage</strong>: HAL (Hypertext Application Language) resource links
-<strong>Implemented in</strong>: <code>mezzio/mezzio-hal</code></p>
+<p><strong>Usage</strong>: HAL (Hypertext Application Language) resource links <strong>Implemented in</strong>: <code>mezzio/mezzio-hal</code></p>
 <h3 id="psr-14-event-dispatcher">PSR-14: Event Dispatcher</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/event-dispatcher">php-fig/event-dispatcher</a></p>
 <p>Mechanism for event-based extension and collaboration between components.</p>
-<p><strong>Usage</strong>: Triggering events on user actions, logging events, notifications
-<strong>Implemented in</strong>: Third-party packages as needed</p>
+<p><strong>Usage</strong>: Triggering events on user actions, logging events, notifications <strong>Implemented in</strong>: Third-party packages as needed</p>
 <h3 id="psr-17-http-factories">PSR-17: HTTP Factories</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-factory">php-fig/http-factory</a></p>
 <p>Standard for factories that create PSR-7 compliant HTTP objects.</p>
-<p><strong>Usage</strong>: Creating requests, responses, and streams programmatically
-<strong>Implemented in</strong>: <code>Laminas\Diactoros</code></p>
+<p><strong>Usage</strong>: Creating requests, responses, and streams programmatically <strong>Implemented in</strong>: <code>Laminas\Diactoros</code></p>
 <h3 id="psr-18-http-client">PSR-18: HTTP Client</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/http-client">php-fig/http-client</a></p>
 <p>Interface for sending HTTP requests and receiving HTTP responses.</p>
-<p><strong>Usage</strong>: Calling external APIs from your Dotkernel API
-<strong>Implemented in</strong>: <code>symfony/http-client</code> or similar packages</p>
+<p><strong>Usage</strong>: Calling external APIs from your Dotkernel API <strong>Implemented in</strong>: <code>symfony/http-client</code> or similar packages</p>
 <h3 id="psr-20-clock">PSR-20: Clock</h3>
 <p><strong>Repository</strong>: <a href="https://github.com/php-fig/clock">php-fig/clock</a></p>
 <p>Provides a standard interface for reading the system clock.</p>
-<p><strong>Usage</strong>: Getting current time in a testable way
-<strong>Implemented in</strong>: Third-party packages as needed</p>
+<p><strong>Usage</strong>: Getting current time in a testable way <strong>Implemented in</strong>: Third-party packages as needed</p>
 <h3 id="psr-implementation-hierarchy">PSR Implementation Hierarchy</h3>
 <pre class="highlight"><code class="language-quote">┌───────────────────────────────────────────┐
 │  PSR-7: HTTP Messages (Requests/Responses)│
@@ -1256,7 +1249,8 @@ See <a href="../../core-features/dependency-injection/">Dependency injection</a>
 <p>A: PSR-4 autoloading, which maps namespaces to paths.
 See <a href="../file-structure/">File structure</a>.</p>
 <p><strong>Q: Do I need to install anything to use PSR-3 logging or PSR-6 caching?</strong></p>
-<p>A: No. They come with <code>dotkernel/dot-errorhandler</code> and <code>dotkernel/dot-cache</code> respectively.
+<p>A: No.
+They come with <code>dotkernel/dot-errorhandler</code> and <code>dotkernel/dot-cache</code> respectively.
 See <a href="../packages/">Packages</a>.</p>
 <p><strong>Q: How do I call an external API from Dotkernel API?</strong></p>
 <p>A: Through a PSR-18 HTTP client such as <code>symfony/http-client</code>, so your calling code depends on the interface rather than a specific client.</p>

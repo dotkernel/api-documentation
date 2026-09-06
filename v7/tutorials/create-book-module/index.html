@@ -1912,7 +1912,8 @@ class ConfigProvider
 <li>update Composer autoloader by running the command:</li>
 </ul>
 <pre class="highlight"><code class="language-shell">composer dump-autoload</code></pre>
-<p>That's it. The module is now registered.</p>
+<p>That's it.
+The module is now registered.</p>
 <p>We need to configure access to the newly created endpoints.
 Open <code>config/autoload/authorization.global.php</code> and append the below route names to the <code>UserRoleEnum::Guest-&gt;value</code> key:</p>
 <ul>
@@ -1943,7 +1944,11 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
   -d '{"name": "test", "author": "author name", "releaseDate": "2023-03-03"}'</code></pre>
 <p>To list the books, use:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book</code></pre>
-<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> . <code>books</code> . * . <code>_links</code> . <code>self</code> . <code>href</code>.</p>
+<p>To fetch a book, <code>curl</code> one of the links found in the output of the <strong>list books</strong> command, under <code>_embedded</code> .
+<code>books</code> . * .
+<code>_links</code> .
+<code>self</code> .
+<code>href</code>.</p>
 <p>The link should have the following format:</p>
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
 <h2 id="faq">FAQ</h2>
