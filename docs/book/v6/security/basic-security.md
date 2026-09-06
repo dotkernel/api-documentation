@@ -34,8 +34,7 @@ Update the configuration file of this package (`config/autoload/authorization.gl
 
 ## Demo Credentials
 
-Dotkernel API ships with two demo accounts: an admin account (`admin`) and a user account (`test@dotkernel.com`),
-with public identities and passwords as described in the [token authentication tutorial](https://docs.dotkernel.org/api-documentation/v6/tutorials/token-authentication/).
+Dotkernel API ships with two demo accounts: an admin account (`admin`) and a user account (`test@dotkernel.com`), with public identities and passwords as described in the [token authentication tutorial](https://docs.dotkernel.org/api-documentation/v6/tutorials/token-authentication/).
 
 Make sure to **update** or **remove** these demo accounts in your production environment.
 

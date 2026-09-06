@@ -1,6 +1,7 @@
 # Composer Installation of Packages
 
-Composer is required to install Dotkernel `api`. You can install Composer from the [official site](https://getcomposer.org/).
+Composer is required to install Dotkernel `api`.
+You can install Composer from the [official site](https://getcomposer.org/).
 
 > First make sure that you have navigated your command prompt to the folder where you copied the files in the previous step.
 
@@ -47,7 +48,8 @@ Type `0` to select `[0] Do not inject`.
 
 The next question is:
 
-`Remember this option for other packages of the same type? (y/N)`
+`Remember this option for other packages of the same type?
+(y/N)`
 
 Type `y` here, and hit `enter` to complete this stage.
 

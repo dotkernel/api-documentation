@@ -3,8 +3,8 @@
 
 -------------------------
 
-Dotkernel API 5.3 is a minor release. As such, no significant backward compatibility breaks are expected,
-with minor backward compatibility breaks being prefixed in this document with `[BC BREAK]`.
+Dotkernel API 5.3 is a minor release.
+As such, no significant backward compatibility breaks are expected, with minor backward compatibility breaks being prefixed in this document with `[BC BREAK]`.
 This document only covers upgrading from version 5.2.
 
 ## Table of Contents

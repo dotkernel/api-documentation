@@ -1,12 +1,10 @@
 # Generating the documentation file
 
-> Make sure that in `src/App/src/OpenAPI.php`, on the line with `#[OA\Server` the value of `url` is set to the of URL of
-> your instance of **Dotkernel API**.
+> Make sure that in `src/App/src/OpenAPI.php`, on the line with `#[OA\Server` the value of `url` is set to the of URL of your instance of **Dotkernel API**.
 
 Using your terminal, move to the root directory of your project.
 
-Dotkernel API stores the OpenAPI attributes in the `src` directory, so that's the path we will use for generating the
-static documentation file.
+Dotkernel API stores the OpenAPI attributes in the `src` directory, so that's the path we will use for generating the static documentation file.
 
 ## Methods of generating documentation file
 

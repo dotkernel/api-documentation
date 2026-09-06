@@ -5,8 +5,7 @@ It can be added to your API installation by following the [official documentatio
 
 ## Folder and files structure
 
-The below files structure is what we will have at the end of this tutorial and is just an example,
-you can have multiple components such as event listeners, wrappers, etc.
+The below files structure is what we will have at the end of this tutorial and is just an example, you can have multiple components such as event listeners, wrappers, etc.
 
 ```markdown
 .
@@ -425,7 +424,11 @@ To list the books use:
 curl http://0.0.0.0:8080/book
 ```
 
-To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` . `books` . * . `_links` . `self` . `href`.
+To fetch a book, `curl` one of the links found in the output of the **list books** command, under `_embedded` .
+`books` . * .
+`_links` .
+`self` .
+`href`.
 
 The link should have the following format:
 
