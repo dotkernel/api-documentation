@@ -29,7 +29,8 @@ public function handle(ServerRequestInterface $request): ResponseInterface
 }
 ```
 
-While simple, this ties your handler directly to a concrete class. It’s harder to reuse logic across contexts and mock or replace the filter during testing.
+While simple, this ties your handler directly to a concrete class.
+It’s harder to reuse logic across contexts and mock or replace the filter during testing.
 
 Our **current** approach uses constructor injection:
 

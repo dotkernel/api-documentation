@@ -42,7 +42,8 @@ It is invoked after each `composer update` (or `composer install` with no lock f
 ```
 
 **Existing keys are never overwritten.**
-The script checks for `data/oauth/encryption.key`, `data/oauth/private.key` and `data/oauth/public.key`; if all three are present it prints `OAuth2 keys already exist. Skipping...` and stops.
+The script checks for `data/oauth/encryption.key`, `data/oauth/private.key` and `data/oauth/public.key`; if all three are present it prints `OAuth2 keys already exist.
+Skipping...` and stops.
 Only when one is missing does it delegate to `vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys` to generate the set.
 
 > This guard matters in production: regenerating the keys invalidates every access token already issued.
@@ -76,7 +77,8 @@ To revoke tokens on their own, use the repositories: `OAuthAccessTokenRepository
 **Q: When are the OAuth2 keys generated?**
 
 A: `php ./bin/generate-oauth2-keys.php` runs after every `composer update`, and after `composer install` when there is no lock file, via `scripts.post-update-cmd` in `composer.json`.
-It only generates keys that are missing: if all three files in `data/oauth` exist it reports `OAuth2 keys already exist. Skipping...` and leaves them alone, so updating dependencies does not invalidate issued tokens.
+It only generates keys that are missing: if all three files in `data/oauth` exist it reports `OAuth2 keys already exist.
+Skipping...` and leaves them alone, so updating dependencies does not invalidate issued tokens.
 
 **Q: How do I stop the keys from being generated?**
 
@@ -91,7 +93,8 @@ Every access token issued under the old keys stops working, so plan for clients 
 
 **Q: Should the key pair be committed?**
 
-A: No. The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.
+A: No.
+The keys are excluded from version control by default, and the directory holding them must be secured at the filesystem level.
 
 **Q: Where are the OAuth2 flows themselves documented?**
 

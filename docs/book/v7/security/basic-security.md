@@ -40,8 +40,7 @@ Update the configuration file of this package (`config/autoload/authorization.gl
 
 ## Demo Credentials
 
-Dotkernel API ships with two demo accounts: an admin account (`admin`) and a user account (`test@dotkernel.com`),
-with public identities and passwords as described in the [token authentication tutorial](https://docs.dotkernel.org/api-documentation/v7/tutorials/token-authentication/).
+Dotkernel API ships with two demo accounts: an admin account (`admin`) and a user account (`test@dotkernel.com`), with public identities and passwords as described in the [token authentication tutorial](https://docs.dotkernel.org/api-documentation/v7/tutorials/token-authentication/).
 
 Make sure to **update** or **remove** these demo accounts in your production environment.
 
@@ -107,7 +106,8 @@ A: Run `composer development-status`.
 
 **Q: Do the error reporting tokens expire?**
 
-A: No. Because they never expire, rotate them manually on a schedule of your choosing, and set `ip_whitelist` or `domain_whitelist` in `config/autoload/error-handling.global.php` to limit who can use the endpoint.
+A: No.
+Because they never expire, rotate them manually on a schedule of your choosing, and set `ip_whitelist` or `domain_whitelist` in `config/autoload/error-handling.global.php` to limit who can use the endpoint.
 
 **Q: Why is committing error reporting tokens risky?**
 
@@ -121,7 +121,8 @@ See the [CORS](../tutorials/cors.md) tutorial.
 
 **Q: Does adding a route make it protected automatically?**
 
-A: No. Every new route and role needs an entry in `config/autoload/authorization.global.php`.
+A: No.
+Every new route and role needs an entry in `config/autoload/authorization.global.php`.
 See [Authorization](../core-features/authorization.md).
 
 **Q: Why should OpenAPI documentation stay out of production?**

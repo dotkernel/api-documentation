@@ -41,8 +41,8 @@ Navigate to the `public` directory of your instance of Dotkernel API and create 
 </html>
 ```
 
-Make sure that you replace `PATH_TO_YOUR_OPENAPI_FILE` with the relative path to your documentation file
-(openapi.json/openapi.yaml). The line should look similar to this:
+Make sure that you replace `PATH_TO_YOUR_OPENAPI_FILE` with the relative path to your documentation file (openapi.json/openapi.yaml).
+The line should look similar to this:
 
 ```js
 window.ui = SwaggerUIBundle({url: './openapi.yaml', dom_id: '#swagger-ui'});
@@ -54,8 +54,7 @@ From here, you can inspect each endpoint, see its URL, check if it needs authent
 
 ## Using Redoc
 
-Navigate to the `public` directory of your instance of Dotkernel API and create an HTML (you can call it `redoc.html`,
-the name is up to you) and place the following HTML content in it:
+Navigate to the `public` directory of your instance of Dotkernel API and create an HTML (you can call it `redoc.html`, the name is up to you) and place the following HTML content in it:
 
 ```html
 <!DOCTYPE html>
@@ -101,7 +100,8 @@ The page and the OpenAPI file both need to be reachable by the browser.
 
 **Q: Does the filename matter?**
 
-A: No. `swagger.html` and `redoc.html` are suggestions — the URL you open just has to match whatever you named the file.
+A: No.
+`swagger.html` and `redoc.html` are suggestions — the URL you open just has to match whatever you named the file.
 
 **Q: My page loads but shows no endpoints. What is wrong?**
 

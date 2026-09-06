@@ -129,7 +129,8 @@ A: The server attempts to deserialize the body as best it can, rather than rejec
 
 **Q: Will `application/vnd.api+json` be rejected if I only configured `application/json`?**
 
-A: No. Validation resolves to the more generic media type, so the request is served as JSON.
+A: No.
+Validation resolves to the more generic media type, so the request is served as JSON.
 
 **Q: How do I configure a file upload endpoint?**
 

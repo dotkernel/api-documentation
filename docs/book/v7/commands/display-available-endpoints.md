@@ -88,7 +88,8 @@ php ./bin/cli.php route:list --help
 
 **Q: Is the output generated from a static file?**
 
-A: No. The command walks the application's registered routes in realtime, so it always reflects the current configuration.
+A: No.
+The command walks the application's registered routes in realtime, so it always reflects the current configuration.
 
 **Q: Which filters are available?**
 

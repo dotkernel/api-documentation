@@ -50,7 +50,8 @@ A: `config/autoload/local.php`, which is also where the API key and other enviro
 
 **Q: Should I commit these files to version control?**
 
-A: No. The `*.local.php` files hold environment-specific values and are excluded from the repository; only the `.dist` templates are tracked.
+A: No.
+The `*.local.php` files hold environment-specific values and are excluded from the repository; only the `.dist` templates are tracked.
 
 **Q: When do I need to edit `cors.local.php`?**
 
@@ -66,5 +67,6 @@ See [Rendering and sending emails](../core-features/rendering-and-sending-emails
 
 **Q: Do tests use my development database?**
 
-A: No. `local.test.php` points the test suite at a separate in-memory database.
+A: No.
+`local.test.php` points the test suite at a separate in-memory database.
 See [Test the installation](test-the-installation.md).

@@ -27,9 +27,7 @@ Authentication in Dotkernel API is built around the `mezzio/mezzio-authenticatio
 To customize authentication behavior (token lifetimes, algorithms, etc.), edit `config/autoload/local.php` under the `authentication` key.
 See the [Mezzio OAuth2 documentation](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) for all available options.
 
-> You can check the
-> [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration)
-> configuration part for more info.
+> You can check the [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) configuration part for more info.
 
 ## How it works
 
@@ -250,5 +248,6 @@ See [Middleware flow](../flow/middleware-flow.md).
 
 **Q: Is authenticating enough to access an endpoint?**
 
-A: No. Authentication establishes the identity; the role still needs permission for the route.
+A: No.
+Authentication establishes the identity; the role still needs permission for the route.
 See [Authorization](authorization.md).

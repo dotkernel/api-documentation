@@ -75,4 +75,5 @@ A: Both the image file and its database record are deleted.
 
 **Q: Is anonymization reversible?**
 
-A: No. The original values are overwritten, so keep your own backup policy in mind before running it.
+A: No.
+The original values are overwritten, so keep your own backup policy in mind before running it.

@@ -383,7 +383,8 @@ The `client_id` and `client_secret` must match the account you are authenticatin
 
 **Q: Do I have to generate a token for every request?**
 
-A: No. Generate it once, store it, and reuse it until it expires — then refresh rather than re-authenticate.
+A: No.
+Generate it once, store it, and reuse it until it expires — then refresh rather than re-authenticate.
 
 **Q: What is the difference between the generate and refresh requests?**
 
@@ -404,7 +405,8 @@ A: The refresh token could not be decrypted — it is malformed, has expired, or
 
 **Q: Are the shipped credentials safe to keep?**
 
-A: No. The `admin` / `dotadmin` and `test@dotkernel.com` / `dotkernel` accounts, and the OAuth clients whose secrets equal their names, must be changed or removed before production.
+A: No.
+The `admin` / `dotadmin` and `test@dotkernel.com` / `dotkernel` accounts, and the OAuth clients whose secrets equal their names, must be changed or removed before production.
 See [OAuth2 security](../security/oauth2-security.md).
 
 **Q: Where should the tokens be stored on the client?**

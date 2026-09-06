@@ -109,7 +109,8 @@ The [FAQ page](faq.md) lists the exact error messages and their fixes.
 
 **Q: Do I need a virtual host?**
 
-A: No. `php -S 0.0.0.0:8080 -t public` serves the application without one, which is convenient for a quick check.
+A: No.
+`php -S 0.0.0.0:8080 -t public` serves the application without one, which is convenient for a quick check.
 
 **Q: What is Bruno and why use it?**
 
