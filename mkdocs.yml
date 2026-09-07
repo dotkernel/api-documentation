@@ -76,6 +76,7 @@ nav:
           - "OAuth2 Security": v7/security/oauth2-security.md
       - Reference:
           - "Anonymize Accounts": v7/reference/account-anonymization.md
+          - "Production Readiness": v7/reference/production-readiness.md
   - v6:
       - Introduction: v6/introduction/introduction.md
       - Overview:
