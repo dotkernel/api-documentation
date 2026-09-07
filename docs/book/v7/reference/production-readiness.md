@@ -2,9 +2,10 @@
 
 ## Summary
 
-Dotkernel API ships a complete application: a PSR-15 middleware pipeline, OAuth2 authentication, RBAC, input filtering, problem-details error responses and a generated OpenAPI specification.
+Dotkernel API ships a complete application: a PSR-15 middleware pipeline, OAuth2 authentication, RBAC, input filtering, problem-details error responses and the OpenAPI attribute sources you [generate the specification from](../openapi/generate-documentation.md).
 What it does not ship is the operational layer a public API needs around it — rate limiting, API gateway integration, federated identity, log shipping and error tracking, health checks, metrics and response caching.
 This page names each gap, says whether it belongs in the application or in the platform in front of it, and gives the concrete thing to configure until Dotkernel provides one.
+It also covers the one thing that does ship and has to go before launch: the demo credentials the Doctrine fixtures seed.
 
 ## Details
 
@@ -21,6 +22,7 @@ Everything on this page was checked against the [dotkernel/api](https://github.c
 
 | Concern | Ships with the API | Where it belongs | Tracked upstream |
 | --- | --- | --- | --- |
+| Default demo credentials | Yes — seeded by the Doctrine fixtures | Removed before launch | — |
 | Rate limiting and throttling | No | Proxy, gateway, or a PSR-15 middleware | [#529](https://github.com/dotkernel/api/issues/529) |
 | API gateway integration | No | Platform | — |
 | External OAuth2 / OIDC provider | No — the API is its own authorization server | Application | — |
@@ -32,6 +34,32 @@ Everything on this page was checked against the [dotkernel/api](https://github.c
 | Background jobs and async work | No — mail is sent in-request | Separate service | — |
 | Secrets management | No — cleartext PHP config | Platform | — |
 | Scheduled dependency re-audit | No — Composer audits at resolution time, not on a schedule | Server | [#525](https://github.com/dotkernel/api/issues/525) |
+| OpenAPI specification file | No — attribute sources only, generated on demand | Build step | — |
+
+## Default credentials
+
+Every other entry on this page is something missing.
+This one is something present: the Doctrine fixtures seed four sets of credentials, and all four are published in the repository.
+
+| Seeded by | Identity | Secret |
+| --- | --- | --- |
+| `AdminLoader` | `admin` | `dotadmin` |
+| `UserLoader` | `test@dotkernel.com` | `dotkernel` |
+| `OAuthClientLoader` | `admin` | `admin` |
+| `OAuthClientLoader` | `frontend` | `frontend` |
+
+The password grant needs both halves, a client and an account, and the fixtures supply a matching pair of each.
+Running `php ./bin/doctrine fixtures:execute` against a production database therefore leaves `/security/generate-token` answering to the `admin` client with secret `admin` and the `admin` account with password `dotadmin`, which between them reach every administrator endpoint in the API.
+
+Change them before you seed, by editing the loaders in `src/Core/src/App/src/Fixture/`:
+
+- `AdminLoader.php` and `UserLoader.php` — `setIdentity()` for the identity, `usePassword()` for the password, and optionally `setFirstName()` and `setLastName()`.
+- `OAuthClientLoader.php` — `setName()` and `setSecret()`.
+
+If a database has already been seeded, treat all four as public.
+Create a replacement administrator with `php ./bin/cli.php admin:create`, then remove the `admin` and `test@dotkernel.com` accounts and re-secret both OAuth clients.
+
+[Basic Security](../security/basic-security.md) covers the demo accounts and [OAuth2 Security](../security/oauth2-security.md) the clients.
 
 ## Rate limiting
 
@@ -243,19 +271,43 @@ Until there is, either accept in-request sending or dispatch to a worker you wir
     A server installed once and left alone has never been re-examined against advisories published since, so run `composer audit` there on a schedule rather than only at install time.
     Issue #525 proposes pinning the policy explicitly in `composer.json` rather than inheriting the defaults.
 
+## OpenAPI specification
+
+The attributes ship; the specification file does not.
+Every path, schema and security scheme is declared across four files — `src/App/src/OpenAPI.php`, `src/Admin/src/OpenAPI.php`, `src/Security/src/OpenAPI.php` and `src/User/src/OpenAPI.php` — and `public/` contains no `openapi.yaml` or `openapi.json`.
+Producing one is a step you add to your own build or deploy:
+
+```shell
+./vendor/bin/openapi ./src --output public/openapi.yaml
+```
+
+`zircote/swagger-php` is a `require` rather than a `require-dev` dependency, so `vendor/bin/openapi` is present on a production install as well.
+
+Two things to get right.
+
+**The server URL defaults to localhost.**
+`src/App/src/OpenAPI.php` declares `#[OA\Server(url: 'http://api.dotkernel.localhost')]`, so a specification generated without editing that line tells every client to call your development host.
+
+**The file is a snapshot.**
+No Composer script wraps the command and nothing regenerates the file when the attributes change, so a specification generated once drifts from the API it describes.
+Regenerate it in the same step that deploys the code.
+
+See [Generate documentation](../openapi/generate-documentation.md) for the version and format options, and [Render documentation](../openapi/render-documentation.md) for serving the result.
+
 ## A minimum before you go live
 
 Ordered by what bites first:
 
-1. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
-2. Disable the OAuth2 grants you do not use, starting with the implicit grant.
-3. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
-4. Add `logrotate` for `log/`, or repoint the writer at standard output.
-5. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
-6. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
-7. Set a default `Cache-Control` for the whole API instead of leaving it unset.
-8. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
-9. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
+1. Change every seeded credential — both demo accounts and both OAuth clients — or delete them once a real administrator exists.
+2. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
+3. Disable the OAuth2 grants you do not use, starting with the implicit grant.
+4. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
+5. Add `logrotate` for `log/`, or repoint the writer at standard output.
+6. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
+7. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
+8. Set a default `Cache-Control` for the whole API instead of leaving it unset.
+9. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
+10. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
 
 ## FAQ
 
@@ -264,6 +316,11 @@ Ordered by what bites first:
 A: No.
 The application is complete and tested; what is missing is the operational layer around it, most of which is conventionally the platform's job.
 The gap is documentation, not code — nothing tells you which half you still have to build.
+
+**Q: What are the default credentials, and where do I change them?**
+
+A: `admin` / `dotadmin` and `test@dotkernel.com` / `dotkernel` for the accounts, and OAuth clients `admin` / `admin` and `frontend` / `frontend`.
+All four come from the fixture loaders in `src/Core/src/App/src/Fixture/`, so edit those before running `php ./bin/doctrine fixtures:execute`, or replace the records afterwards.
 
 **Q: Which of these should I solve in the application rather than the platform?**
 
