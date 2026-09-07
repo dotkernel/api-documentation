@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="api">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v7/upgrading/UPGRADE-7.0/">
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v7/reference/production-readiness/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Upgrading 6.x to 7.0 - api - Dotkernel Documentation</title>
+        <title>Production Readiness - api - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -217,12 +217,12 @@
                         
                             
                             
-                                <li class="breadcrumb-item">Upgrading</li>
+                                <li class="breadcrumb-item">Reference</li>
                             
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Upgrading 6.x to 7.0</li>
+                    <li class="breadcrumb-item active" aria-current="page">Production Readiness</li>
                 
             
         </ol>
@@ -418,19 +418,19 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../upgrading/" class="subnavigation__link">Upgrade procedure</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Upgrading 6.x to 7.0</a>
+    <a href="../../upgrading/upgrading/" class="subnavigation__link">Upgrade procedure</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../UPGRADE-6.0/" class="subnavigation__link">Upgrading 5.x to 6.0</a>
+    <a href="../../upgrading/UPGRADE-7.0/" class="subnavigation__link">Upgrading 6.x to 7.0</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-6.0/" class="subnavigation__link">Upgrading 5.x to 6.0</a>
 </li>
 
         
@@ -996,13 +996,13 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
+    <a href="../account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
 </li>
 
         
         
-<li class="subnavigation__list-item ">
-    <a href="../../reference/production-readiness/" class="subnavigation__link">Production Readiness</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Production Readiness</a>
 </li>
 
         
@@ -1061,6 +1061,50 @@
                 </li>
             
                 <li class="toc__entry">
+                    <a href="#default-credentials" class="toc__link nav-link">Default credentials</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#rate-limiting" class="toc__link nav-link">Rate limiting</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#api-gateway" class="toc__link nav-link">API gateway</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#external-oauth2-server-integration" class="toc__link nav-link">External OAuth2 server integration</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#logging-and-error-tracking" class="toc__link nav-link">Logging and error tracking</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#health-checks-metrics-and-tracing" class="toc__link nav-link">Health checks, metrics and tracing</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#caching" class="toc__link nav-link">Caching</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#background-work" class="toc__link nav-link">Background work</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#configuration-and-secrets" class="toc__link nav-link">Configuration and secrets</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#openapi-specification" class="toc__link nav-link">OpenAPI specification</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#a-minimum-before-you-go-live" class="toc__link nav-link">A minimum before you go live</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
@@ -1079,7 +1123,7 @@
 
     
     
-<!--        <h2 class="chapter__headline text-black-50">Upgrading</h2>-->
+<!--        <h2 class="chapter__headline text-black-50">Reference</h2>-->
     
 
     
@@ -1102,17 +1146,17 @@
                     </span>
                 </button>
                 <div class="md-actions-menu" role="menu">
-                    <button type="button" class="md-actions-item" role="menuitem" data-copy-url="../UPGRADE-7.0.md"
+                    <button type="button" class="md-actions-item" role="menuitem" data-copy-url="../production-readiness.md"
                             onclick="copyMarkdownPage(this)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
                         <span class="label">Copy Page (as Markdown)</span>
                     </button>
-                    <a href="../UPGRADE-7.0.md" target="_blank" rel="alternate noopener noreferrer" type="text/markdown"
+                    <a href="../production-readiness.md" target="_blank" rel="alternate noopener noreferrer" type="text/markdown"
                        class="md-actions-item" role="menuitem" title="View the Markdown source of this page">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h9l7 7v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M13 4v6h6"/><path d="M8 15h8M8 11h4"/></svg>
                         <span class="label">View as Markdown</span>
                     </a>
-                    <a href="https://claude.ai/new?q=Read%20from%20https%3A//docs.dotkernel.org/api-documentation/v7/upgrading/UPGRADE-7.0.md%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="noopener noreferrer"
+                    <a href="https://claude.ai/new?q=Read%20from%20https%3A//docs.dotkernel.org/api-documentation/v7/reference/production-readiness.md%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="noopener noreferrer"
                        class="md-actions-item" role="menuitem" title="Open this page in Claude">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg>
                         <span class="label">Open in Claude</span>
@@ -1122,36 +1166,374 @@
         </div>
     
 
-    <h1 id="upgrading-from-6x-to-70">Upgrading from 6.x to 7.0</h1>
+    <h1 id="production-readiness">Production Readiness</h1>
 <h2 id="summary">Summary</h2>
-<p>The changes you need to port into your project when moving from Dotkernel API 6.x to 7.0, each linked to the pull request that introduced it.
-The headline items are native UUIDs in the database, PostgreSQL support, and the removal of the <code>MethodDeprecation</code> implementation.</p>
+<p>Dotkernel API ships a complete application: a PSR-15 middleware pipeline, OAuth2 authentication, RBAC, input filtering, problem-details error responses and the OpenAPI attribute sources you <a href="../../openapi/generate-documentation/">generate the specification from</a>.
+What it does not ship is the operational layer a public API needs around it — rate limiting, API gateway integration, federated identity, log shipping and error tracking, health checks, metrics and response caching.
+This page names each gap, says whether it belongs in the application or in the platform in front of it, and gives the concrete thing to configure until Dotkernel provides one.
+It also covers the one thing that does ship and has to go before launch: the demo credentials the Doctrine fixtures seed.</p>
 <h2 id="details">Details</h2>
-<blockquote>
-<p>You can find a complete list in <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">Changelog</a></p>
-</blockquote>
+<p>The project README describes Dotkernel API as "a production-ready REST API application", and that is fair as far as it goes.
+The request path, the persistence layer and the security primitives are finished and tested.</p>
+<p>The gaps below are not defects.
+Most of them sit on the boundary between an application and the platform it runs on, and several belong there deliberately — <a href="https://github.com/dotkernel/api/issues/529">issue #529</a> says exactly that about rate limiting.
+The problem is that the boundary is nowhere documented, so it is easy to deploy Dotkernel API believing the missing half came in the box.</p>
+<p>Everything on this page was checked against the <a href="https://github.com/dotkernel/api">dotkernel/api</a> repository on the <code>7.0</code> branch.</p>
+<h3 id="at-a-glance">At a glance</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Ships with the API</th>
+<th>Where it belongs</th>
+<th>Tracked upstream</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default demo credentials</td>
+<td>Yes — seeded by the Doctrine fixtures</td>
+<td>Removed before launch</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Rate limiting and throttling</td>
+<td>No</td>
+<td>Proxy, gateway, or a PSR-15 middleware</td>
+<td><a href="https://github.com/dotkernel/api/issues/529">#529</a></td>
+</tr>
+<tr>
+<td>API gateway integration</td>
+<td>No</td>
+<td>Platform</td>
+<td>—</td>
+</tr>
+<tr>
+<td>External OAuth2 / OIDC provider</td>
+<td>No — the API is its own authorization server</td>
+<td>Application</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Error tracking (Sentry and similar)</td>
+<td>No — local files only</td>
+<td>Application</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Access logs, request IDs, tracing</td>
+<td>No</td>
+<td>Application and platform</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Health and readiness endpoints</td>
+<td>No</td>
+<td>Application</td>
+<td><a href="https://github.com/dotkernel/api/issues/492">#492</a></td>
+</tr>
+<tr>
+<td>Metrics (Prometheus, OpenTelemetry)</td>
+<td>No</td>
+<td>Application</td>
+<td>—</td>
+</tr>
+<tr>
+<td>HTTP response caching</td>
+<td>No</td>
+<td>Application and CDN</td>
+<td><a href="https://github.com/dotkernel/api/issues/443">#443</a></td>
+</tr>
+<tr>
+<td>Background jobs and async work</td>
+<td>No — mail is sent in-request</td>
+<td>Separate service</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Secrets management</td>
+<td>No — cleartext PHP config</td>
+<td>Platform</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Scheduled dependency re-audit</td>
+<td>No — Composer audits at resolution time, not on a schedule</td>
+<td>Server</td>
+<td><a href="https://github.com/dotkernel/api/issues/525">#525</a></td>
+</tr>
+<tr>
+<td>OpenAPI specification file</td>
+<td>No — attribute sources only, generated on demand</td>
+<td>Build step</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="default-credentials">Default credentials</h2>
+<p>Every other entry on this page is something missing.
+This one is something present: the Doctrine fixtures seed four sets of credentials, and all four are published in the repository.</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Seeded by</th>
+<th>Identity</th>
+<th>Secret</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AdminLoader</code></td>
+<td><code>admin</code></td>
+<td><code>dotadmin</code></td>
+</tr>
+<tr>
+<td><code>UserLoader</code></td>
+<td><code>test@dotkernel.com</code></td>
+<td><code>dotkernel</code></td>
+</tr>
+<tr>
+<td><code>OAuthClientLoader</code></td>
+<td><code>admin</code></td>
+<td><code>admin</code></td>
+</tr>
+<tr>
+<td><code>OAuthClientLoader</code></td>
+<td><code>frontend</code></td>
+<td><code>frontend</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The password grant needs both halves, a client and an account, and the fixtures supply a matching pair of each.
+Running <code>php ./bin/doctrine fixtures:execute</code> against a production database therefore leaves <code>/security/generate-token</code> answering to the <code>admin</code> client with secret <code>admin</code> and the <code>admin</code> account with password <code>dotadmin</code>, which between them reach every administrator endpoint in the API.</p>
+<p>Change them before you seed, by editing the loaders in <code>src/Core/src/App/src/Fixture/</code>:</p>
 <ul>
-<li>Use native UUIDs in database via <code>ramsey/uuid</code> <a href="https://github.com/dotkernel/api/pull/456">https://github.com/dotkernel/api/pull/456</a></li>
-<li>updated readme, oss <a href="https://github.com/dotkernel/api/pull/461">https://github.com/dotkernel/api/pull/461</a></li>
-<li>PostgreSQL implementation <a href="https://github.com/dotkernel/api/pull/462">https://github.com/dotkernel/api/pull/462</a></li>
-<li>Remove <code>MethodDeprecation</code> implementation <a href="https://github.com/dotkernel/api/pull/470">https://github.com/dotkernel/api/pull/470</a></li>
-<li>Clarify instructions regarding multiple connections in <code>config/autoload/local.php.dist</code> <a href="https://github.com/dotkernel/api/pull/472">https://github.com/dotkernel/api/pull/472</a></li>
+<li><code>AdminLoader.php</code> and <code>UserLoader.php</code> — <code>setIdentity()</code> for the identity, <code>usePassword()</code> for the password, and optionally <code>setFirstName()</code> and <code>setLastName()</code>.</li>
+<li><code>OAuthClientLoader.php</code> — <code>setName()</code> and <code>setSecret()</code>.</li>
 </ul>
+<p>If a database has already been seeded, treat all four as public.
+Create a replacement administrator with <code>php ./bin/cli.php admin:create</code>, then remove the <code>admin</code> and <code>test@dotkernel.com</code> accounts and re-secret both OAuth clients.</p>
+<p><a href="../../security/basic-security/">Basic Security</a> covers the demo accounts and <a href="../../security/oauth2-security/">OAuth2 Security</a> the clients.</p>
+<h2 id="rate-limiting">Rate limiting</h2>
+<p>Nothing in <code>config/pipeline.php</code> limits request rates, none of the required packages provides throttling, and there is no rate-limit configuration anywhere in the repository.
+Every endpoint accepts requests as fast as the web server will serve them.</p>
+<p>Two endpoints make this matter more than it would on a read-only API.</p>
+<ul>
+<li><code>POST /security/generate-token</code> is unauthenticated and verifies a password hash on every call, which makes it both a brute-force target and an expensive one.
+    Nothing counts failed attempts: the <code>AdminLogin</code> entity models a login record, but no lockout or backoff is applied on repeated failures, and there is no equivalent record for regular users.</li>
+<li><code>POST /error-report</code> is guarded by a static token plus a domain or IP whitelist, and appends every accepted report to a single file.
+    A leaked token with no rate limit in front of it is a way to fill a disk.</li>
+</ul>
+<h3 id="what-to-do-instead">What to do instead</h3>
+<p>Put the limit in front of the application wherever you can.</p>
+<ul>
+<li><strong>nginx</strong> — a <code>limit_req_zone</code> keyed on <code>$binary_remote_addr</code>, with a tighter zone applied to the <code>/security/</code> location than to the rest of the API.</li>
+<li><strong>Apache</strong> — <code>mod_ratelimit</code> for bandwidth, or <code>mod_qos</code> for request-rate and concurrency limits.</li>
+<li><strong>API gateway or CDN</strong> — per-consumer quotas, which is the only place you can enforce a limit per API key across several application nodes.</li>
+</ul>
+<p>If you need the limit inside the application — per authenticated identity rather than per IP address, for instance — add a PSR-15 middleware.
+Issue #529 names <a href="https://github.com/nikolaposa/rate-limit"><code>nikolaposa/rate-limit</code></a> as the candidate.
+Register it in <code>config/pipeline.php</code> after <code>RouteMiddleware</code>, so you can vary the limit by matched route name, and after <code>AuthenticationMiddleware</code> if you want to key the limit on the identity.</p>
+<p>Keep in mind that <code>dot-response-header</code> sets fixed values per route, so it cannot emit a running count.
+<code>RateLimit-Limit</code>, <code>RateLimit-Remaining</code>, <code>RateLimit-Reset</code> and <code>Retry-After</code> have to come from the middleware itself.</p>
+<h2 id="api-gateway">API gateway</h2>
+<p>The repository carries no gateway configuration and nothing in the application expects to sit behind one.
+Putting a gateway in front of Dotkernel API is entirely your own work, and it is where you would add TLS termination, per-consumer quotas and API keys, request and response transformation, edge caching and a WAF.</p>
+<p>Two things to get right when you do.</p>
+<p><strong>Do not double up on headers.</strong>
+CORS is answered inside the application by <code>mezzio/mezzio-cors</code> from the CORS local config, and the static security headers — <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> and <code>permissions-policy</code> — come from <code>dot-response-header</code> via <code>config/autoload/response-header.global.php</code>.
+If the gateway adds its own copies of these, clients receive duplicates.
+Decide which layer owns each header and disable it in the other.</p>
+<p><strong><code>X-Forwarded-For</code> is trusted without a proxy allowlist.</strong>
+<code>Core\App\Service\IpService::getUserIp()</code> returns <code>HTTP_X_FORWARDED_FOR</code> whenever that value parses as a public IP address, then falls back to <code>HTTP_CLIENT_IP</code>, and only then to <code>REMOTE_ADDR</code>.
+There is no trusted-proxy list and no check that the request actually arrived through your proxy, so a client can set either header and choose the address the application sees.
+That address is what the error reporting endpoint checks against its <code>ip_whitelist</code>.
+Configure your proxy to <strong>overwrite</strong> <code>X-Forwarded-For</code> with the real peer address rather than appending to it, and strip <code>Client-IP</code> at the edge.</p>
+<p>A gateway also wants a health probe, and there is nowhere useful to point it — see the next section.</p>
+<h2 id="external-oauth2-server-integration">External OAuth2 server integration</h2>
+<p>Dotkernel API is its own authorization server.
+<code>mezzio/mezzio-authentication-oauth2</code> wraps <code>league/oauth2-server</code>, tokens and clients live in the application's own <code>oauth_*</code> tables through the repositories in <code>src/Core/src/Security/</code>, and the RSA key pair used to sign them sits in <code>data/oauth</code>.
+See <a href="../../core-features/authentication/">Authentication</a> and <a href="../../security/oauth2-security/">OAuth2 Security</a>.</p>
+<p>There is no support for delegating that to an external identity provider.
+Specifically, the API has no OpenID Connect layer — no discovery document, no JWKS endpoint, no <code>id_token</code> — no token introspection (RFC 7662) or revocation (RFC 7009) endpoint, and no way to accept an access token minted by Keycloak, Auth0, Microsoft Entra ID, Amazon Cognito or Okta.
+Social login exists in the Dotkernel ecosystem as <a href="https://github.com/dotkernel/dot-auth-social"><code>dot-auth-social</code></a>, but that is a Facebook integration for Dotkernel Frontend and is not wired into the API.
+Multi-factor authentication is the same story: <a href="https://github.com/dotkernel/dot-totp"><code>dot-totp</code></a> is a standalone component with no API integration.</p>
+<p>To federate today you write the bridge yourself: a middleware placed before <code>Api\App\Middleware\AuthenticationMiddleware</code> that validates the provider's JWT against its published JWKS, then maps the claims onto a local identity implementing <code>Mezzio\Authentication\UserInterface</code>.
+The application's RBAC then works unchanged, because <code>AuthorizationMiddleware</code> only reads the role off that identity.</p>
+<h3 id="grants-you-did-not-ask-for-are-enabled">Grants you did not ask for are enabled</h3>
+<p>This one is worth checking before you go live even if you never federate.</p>
+<p><code>mezzio/mezzio-authentication-oauth2</code> enables five grants by default — client credentials, password, authorization code, implicit and refresh token — and the main local config sets no <code>grants</code> key, so Dotkernel API inherits all five.
+Both <code>/security/generate-token</code> and <code>/security/refresh-token</code> route to the package's <code>TokenEndpointHandler</code>, which dispatches on the <code>grant_type</code> field in the request body.
+The documentation covers the password grant only.</p>
+<p>Disable the grants you do not use by setting them to <code>null</code> under the <code>authentication</code> key in your main local config:</p>
+<pre class="highlight"><code class="language-php">use League\OAuth2\Server\Grant\AuthCodeGrant;
+use League\OAuth2\Server\Grant\ClientCredentialsGrant;
+use League\OAuth2\Server\Grant\ImplicitGrant;
+
+return [
+    'authentication' =&gt; [
+        'grants' =&gt; [
+            ImplicitGrant::class          =&gt; null,
+            AuthCodeGrant::class          =&gt; null,
+            ClientCredentialsGrant::class =&gt; null,
+        ],
+    ],
+];</code></pre>
+<p>The implicit grant is the one to remove first: it returns tokens in the URL fragment and is removed in OAuth 2.1.
+The password grant that Dotkernel API documents is dropped in OAuth 2.1 as well.
+That is defensible for a first-party client over TLS, but it does mean third-party clients cannot use the authorization-code-with-PKCE flow they expect.</p>
+<h2 id="logging-and-error-tracking">Logging and error tracking</h2>
+<p>What ships is a single file writer.
+<code>config/autoload/error-handling.global.php</code> enables <code>dot-errorhandler</code> with <code>loggerEnabled</code> set to <code>true</code> and its <code>logger</code> pointing at the container service <code>dot-log.default_logger</code>, and defines that logger as one <code>stream</code> writer with a JSON formatter writing to <code>log/error-log-{Y}-{m}-{d}.log</code>.
+The error reporting endpoint appends separately to <code>log/error-report-endpoint-log.log</code>.</p>
+<p>That is the whole logging story, and the gaps follow from it.</p>
+<ul>
+<li><strong>Files only, never standard output.</strong>
+    The shipped configuration points the stream at a path under <code>log/</code>.
+    Anything that collects <code>stdout</code> and <code>stderr</code> rather than reading files sees nothing at all, so either ship the directory with your own agent or repoint the stream at <code>php://stderr</code> yourself.</li>
+<li><strong>No rotation and no retention.</strong>
+    The <code>{Y}-{m}-{d}</code> pattern opens a new file each day and never removes an old one.
+    Add <code>logrotate</code> or a scheduled cleanup, or the log directory grows without bound.</li>
+<li><strong>No external error tracking.</strong>
+    Neither <code>dot-errorhandler</code> nor <code>dot-log</code> has a Sentry, Rollbar, Bugsnag or Datadog integration, and none of those appears anywhere in the repository.
+    An unhandled exception produces a problem-details response for the client and a line in a file on that one server.
+    Nobody is paged, nothing is grouped, and there is no release or regression tracking.</li>
+<li><strong>No access log.</strong>
+    Nothing records completed requests — method, matched route, status, duration, identity.
+    Your web server's access log is all you get, and it knows neither the route name nor the authenticated user.</li>
+<li><strong>No correlation identifier.</strong>
+    A problem-details response carries no request id, so a user's bug report cannot be tied back to a log line, and nothing propagates or generates a <code>traceparent</code> header across services.</li>
+</ul>
+<h3 id="wiring-sentry-in-today">Wiring Sentry in today</h3>
+<p>The contract between <code>dot-errorhandler</code> and its logger is PSR-3, and <code>logger</code> is a container service name.
+That is the whole integration point: register any PSR-3 logger and name it.</p>
+<pre class="highlight"><code class="language-php">// config/autoload/dependencies.global.php
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Sentry\Monolog\Handler as SentryHandler;
+use Sentry\State\HubAdapter;
+
+return [
+    'dependencies' =&gt; [
+        'factories' =&gt; [
+            'app.error_logger' =&gt; function (): Logger {
+                $logger = new Logger('api');
+                $logger-&gt;pushHandler(new SentryHandler(HubAdapter::getInstance()));
+                $logger-&gt;pushHandler(new StreamHandler('php://stderr'));
+
+                return $logger;
+            },
+        ],
+    ],
+];</code></pre>
+<p>Then point the error handler at it, from your main local config so the change stays out of version control:</p>
+<pre class="highlight"><code class="language-php">return [
+    'dot-errorhandler' =&gt; [
+        'loggerEnabled' =&gt; true,
+        'logger'        =&gt; 'app.error_logger',
+    ],
+];</code></pre>
+<p>Register a <strong>new</strong> service rather than redefining <code>dot-log.default_logger</code>.
+<code>Core\App\Service\MailService</code> injects that service and type-hints <code>Dot\Log\LoggerInterface</code>, so replacing it with a plain PSR-3 logger breaks mail sending.</p>
+<h2 id="health-checks-metrics-and-tracing">Health checks, metrics and tracing</h2>
+<p>There is no health or readiness endpoint.
+<code>GET /</code> is handled by <code>Api\App\Handler\GetIndexResourceHandler</code>, which reads the application name and version out of configuration and returns them.
+It touches neither the database nor any downstream service, so a <code>200</code> from it means PHP is running and nothing more.
+It also carries a <code>#[ResourceDeprecation]</code> attribute with a sunset date of 2038-01-01, present purely as an example of the deprecation feature, so every response to it is decorated with deprecation headers.
+It is not a health endpoint and should not be used as one.</p>
+<p>A readiness check for this application needs to cover at least the database connection, whether migrations are at head, write access to <code>log/</code> and <code>data/cache</code>, read access to the three files in <code>data/oauth</code>, and the mail transport if you send mail during requests.
+Issue #492 is the open RFC; until it lands, add your own handler and route.</p>
+<p>There is no metrics or tracing support either — no Prometheus endpoint, no OpenTelemetry instrumentation, no APM integration.
+You can see traffic at the web server and nothing inside it: no per-route latency, no database query counts, no error rate broken down by endpoint.</p>
+<h2 id="caching">Caching</h2>
+<p><code>dotkernel/dot-cache</code> is a required dependency and its <code>ConfigProvider</code> is registered in <code>config/config.php</code>, but nothing in the request path uses it.
+The caching that <em>is</em> configured is configuration caching: <code>ConfigAggregator::ENABLE_CACHE</code> in the main local config, writing <code>data/cache/config-cache.php</code>, cleared with <code>php bin/clear-config-cache.php</code>.
+That is a boot-time optimization, not response caching.</p>
+<p>At the HTTP level there is no <code>ETag</code>, no <code>Last-Modified</code> and no conditional-request handling, so clients cannot revalidate and every request transfers a full representation.
+<code>Cache-Control</code> is set on exactly two routes — <code>security::generate-token</code> and <code>security::refresh-token</code>, both to <code>no-store</code>.
+Every other response leaves caching headers unset, which means intermediaries fall back to their own heuristics on responses that are usually per-identity.
+Set a conservative default under the <code>'*'</code> key in <code>config/autoload/response-header.global.php</code> and relax it only where you actually want caching.</p>
+<p>Doctrine's second-level cache and result cache are not configured either, so a collection endpoint queries the database on every request.
+Issue #443 is the open RFC to extend caching in the API.</p>
+<h2 id="background-work">Background work</h2>
+<p>Everything happens inside the request.
+<code>Core\App\Service\MailService</code> calls <code>dot-mail</code> synchronously, so account activation, password recovery and password reset emails hold the HTTP connection open for the length of the SMTP conversation, and a transport failure surfaces to the client as a failed request.
+There is no queue, no scheduler beyond what you add to <code>cron</code>, and no retry.</p>
+<p>Dotkernel publishes a separate queue project — <a href="https://github.com/dotkernel/queue">Dotkernel Queue</a>, built on Mezzio, Symfony Messenger and Swoole — but it is not a dependency of the API and there is no documented integration between the two.
+Until there is, either accept in-request sending or dispatch to a worker you wire up yourself.</p>
+<h2 id="configuration-and-secrets">Configuration and secrets</h2>
+<ul>
+<li><strong>Configuration is cleartext PHP on disk.</strong>
+    The main local config carries database credentials and the mail local config carries SMTP credentials, both readable by the web server user.
+    Nothing in the shipped configuration reads environment variables — <code>getenv()</code> works, but every call is yours to add — and there is no integration with a secrets manager.</li>
+<li><strong>OAuth keys are local files.</strong>
+    The signing key pair lives at <code>data/oauth</code>, so if you run more than one application node they must all hold the same pair, or a token issued by one is rejected by another.
+    Nothing in the project shares them, and regenerating them invalidates every issued token.</li>
+<li><strong>Dependency auditing needs a schedule, not a switch.</strong>
+    Composer audits by default as of 2.10: <code>policy.advisories.block</code> and <code>policy.malware.block</code> are both <code>true</code>, so a resolution refuses a version with a known advisory and refuses a package flagged as malware, while <code>composer audit</code> defaults to failing on advisories, malware and abandoned packages.
+    <code>roave/security-advisories</code> predates that mechanism and is now largely redundant with it — and being a <code>require-dev</code> entry, it is absent from a production <code>composer install --no-dev</code> anyway.
+    Dotkernel API does not commit <code>composer.lock</code>; it is listed in <code>.gitignore</code> and generated on each server by the first <code>composer install</code>, which reports <code>No composer.lock file present. Updating dependencies to latest instead of installing from lock file</code> and resolves rather than installing from a lock.
+    That resolution is the code path advisory blocking fires on, so <strong>every fresh install is audited as it happens</strong> — against whatever was current on that server that day, which is also why two servers built a month apart can end up on different versions.
+    What nothing does is re-check a lock that has stopped changing.
+    A server installed once and left alone has never been re-examined against advisories published since, so run <code>composer audit</code> there on a schedule rather than only at install time.
+    Issue #525 proposes pinning the policy explicitly in <code>composer.json</code> rather than inheriting the defaults.</li>
+</ul>
+<h2 id="openapi-specification">OpenAPI specification</h2>
+<p>The attributes ship; the specification file does not.
+Every path, schema and security scheme is declared across four files — <code>src/App/src/OpenAPI.php</code>, <code>src/Admin/src/OpenAPI.php</code>, <code>src/Security/src/OpenAPI.php</code> and <code>src/User/src/OpenAPI.php</code> — and <code>public/</code> contains no <code>openapi.yaml</code> or <code>openapi.json</code>.
+Producing one is a step you add to your own build or deploy:</p>
+<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.yaml</code></pre>
+<p><code>zircote/swagger-php</code> is a <code>require</code> rather than a <code>require-dev</code> dependency, so <code>vendor/bin/openapi</code> is present on a production install as well.</p>
+<p>Two things to get right.</p>
+<p><strong>The server URL defaults to localhost.</strong>
+<code>src/App/src/OpenAPI.php</code> declares <code>#[OA\Server(url: 'http://api.dotkernel.localhost')]</code>, so a specification generated without editing that line tells every client to call your development host.</p>
+<p><strong>The file is a snapshot.</strong>
+No Composer script wraps the command and nothing regenerates the file when the attributes change, so a specification generated once drifts from the API it describes.
+Regenerate it in the same step that deploys the code.</p>
+<p>See <a href="../../openapi/generate-documentation/">Generate documentation</a> for the version and format options, and <a href="../../openapi/render-documentation/">Render documentation</a> for serving the result.</p>
+<h2 id="a-minimum-before-you-go-live">A minimum before you go live</h2>
+<p>Ordered by what bites first:</p>
+<ol>
+<li>Change every seeded credential — both demo accounts and both OAuth clients — or delete them once a real administrator exists.</li>
+<li>Rate-limit <code>/security/generate-token</code> and <code>/error-report</code> at the proxy.</li>
+<li>Disable the OAuth2 grants you do not use, starting with the implicit grant.</li>
+<li>Point <code>dot-errorhandler</code> at a logger that reaches somebody — Sentry, or at least a shipped <code>stderr</code> stream.</li>
+<li>Add <code>logrotate</code> for <code>log/</code>, or repoint the writer at standard output.</li>
+<li>Add a readiness endpoint that checks the database, and point your load balancer at it rather than <code>/</code>.</li>
+<li>Fix <code>X-Forwarded-For</code> handling at the proxy, since the application trusts the header as sent.</li>
+<li>Set a default <code>Cache-Control</code> for the whole API instead of leaving it unset.</li>
+<li>Schedule <code>composer audit</code> on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.</li>
+<li>Work through <a href="../../security/basic-security/">Basic Security</a> and <a href="../../security/oauth2-security/">OAuth2 Security</a>, which cover the application-level hardening this page does not repeat.</li>
+</ol>
 <h2 id="faq">FAQ</h2>
-<p><strong>Q: Is there an automated upgrade from 6.x to 7.0?</strong></p>
+<p><strong>Q: Is the README wrong to call Dotkernel API production-ready?</strong></p>
 <p>A: No.
-You implement each listed change manually in your own project.
-See <a href="../upgrading/">Upgrades</a> for the recommended procedure.</p>
-<p><strong>Q: What does the switch to native UUIDs mean for my database?</strong></p>
-<p>A: Identifiers are stored using the database's own UUID handling via <code>ramsey/uuid</code> rather than a generic column type, so existing tables need a migration.
-Review pull request 456 before touching production data.</p>
-<p><strong>Q: Do I have to move to PostgreSQL in 7.0?</strong></p>
-<p>A: No.
-PostgreSQL is now supported in addition to MariaDB; either is a valid choice.</p>
-<p><strong>Q: <code>MethodDeprecation</code> was removed — how do I deprecate an endpoint now?</strong></p>
-<p>A: Use the deprecation approach described in <a href="../../tutorials/api-evolution/">API evolution</a>.</p>
-<p><strong>Q: Where do I find the complete list of changes?</strong></p>
-<p>A: In the project <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">CHANGELOG.md</a>.</p>
+The application is complete and tested; what is missing is the operational layer around it, most of which is conventionally the platform's job.
+The gap is documentation, not code — nothing tells you which half you still have to build.</p>
+<p><strong>Q: What are the default credentials, and where do I change them?</strong></p>
+<p>A: <code>admin</code> / <code>dotadmin</code> and <code>test@dotkernel.com</code> / <code>dotkernel</code> for the accounts, and OAuth clients <code>admin</code> / <code>admin</code> and <code>frontend</code> / <code>frontend</code>.
+All four come from the fixture loaders in <code>src/Core/src/App/src/Fixture/</code>, so edit those before running <code>php ./bin/doctrine fixtures:execute</code>, or replace the records afterwards.</p>
+<p><strong>Q: Which of these should I solve in the application rather than the platform?</strong></p>
+<p>A: External identity provider integration, error tracking, the health endpoint, caching headers and asynchronous mail.
+Rate limiting, TLS, secrets and log shipping belong in the platform, though rate limiting per authenticated identity can only be done in the application.</p>
+<p><strong>Q: Can I add rate limiting without waiting for issue #529?</strong></p>
+<p>A: Yes.
+Do it at nginx, Apache or your gateway if the key is the client IP address.
+If the key is the authenticated identity, add a PSR-15 middleware to <code>config/pipeline.php</code> after <code>AuthenticationMiddleware</code> — <code>nikolaposa/rate-limit</code> is the package named in that issue.</p>
+<p><strong>Q: How do I get errors into Sentry today?</strong></p>
+<p>A: Register your own PSR-3 logger service with a Sentry handler and set it as <code>dot-errorhandler.logger</code>.
+Do not redefine <code>dot-log.default_logger</code>, because <code>MailService</code> type-hints <code>Dot\Log\LoggerInterface</code> on it.</p>
+<p><strong>Q: Which OAuth2 grants are actually enabled?</strong></p>
+<p>A: All five that <code>mezzio/mezzio-authentication-oauth2</code> ships — client credentials, password, authorization code, implicit and refresh token — because the application never sets a <code>grants</code> key.
+Only the password and refresh token grants are documented.
+Set the rest to <code>null</code> if you do not use them.</p>
+<p><strong>Q: Is there a health check endpoint for my load balancer?</strong></p>
+<p>A: Not yet; issue #492 is the open RFC.
+<code>GET /</code> only reports the application name and version, and carries example deprecation headers, so it tells you nothing about the database.
+Write your own handler until the RFC lands.</p>
+<p><strong>Q: Where do logs go, and how do I ship them?</strong></p>
+<p>A: To <code>log/error-log-{Y}-{m}-{d}.log</code> on the application server, JSON-formatted, with nothing rotating them.
+Ship them with your own agent, or repoint the <code>stream</code> writer in <code>config/autoload/error-handling.global.php</code> at <code>php://stderr</code> if your collector reads standard error.</p>
 
 
 
@@ -1161,9 +1543,9 @@ PostgreSQL is now supported in addition to MariaDB; either is a valid choice.</p
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../upgrading/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../account-anonymization/">
                     <i class="bi bi-chevron-left"></i>
-                    Upgrade procedure
+                    Anonymize Accounts
                 </a>
             
         </li>
@@ -1171,8 +1553,8 @@ PostgreSQL is now supported in addition to MariaDB; either is a valid choice.</p
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../UPGRADE-6.0/">
-                    Upgrading 5.x to 6.0
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../../v6/introduction/introduction/">
+                    Introduction
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
