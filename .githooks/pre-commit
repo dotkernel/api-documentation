@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Rejects a commit whose staged Markdown puts more than one sentence on a line.
+#
+# Enable it once per clone:
+#
+#     git config core.hooksPath .githooks
+#
+# Bypass for a single commit with --no-verify.
+
+if ! command -v php >/dev/null 2>&1; then
+    echo "pre-commit: php not found, skipping the one-sentence-per-line check." >&2
+    exit 0
+fi
+
+repository_root=$(git rev-parse --show-toplevel)
+
+# The checker resolves the staged Markdown itself, which keeps file names with
+# spaces intact and avoids xargs portability differences between GNU and BSD.
+exec php "$repository_root/tools/one-sentence-per-line.php" --staged
