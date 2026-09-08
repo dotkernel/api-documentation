@@ -58,6 +58,7 @@ This folder contains all service-related local and global config files:
 * `error-handling.global.php` - Configures and activates error logs
 * `local.php.dist` - Local configuration file: database credentials, application name and URL, OAuth2 key paths
 * `local.test.php.dist` - Local configuration for functional tests
+* `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of `dotkernel/dot-mail` during installation
 * `mezzio.global.php` - Mezzio core config file
 * `problem-details.global.php` - Maps HTTP status codes to the `type` URI used in problem details responses
 * `response-header.global.php` - Defines headers per route
