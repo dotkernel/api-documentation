@@ -2,7 +2,7 @@
 
 ## Summary
 
-A tour of the directories a default Dotkernel API installation ships with — `bin` for CLI entry points, `config` and `config/autoload` for application and service configuration, `data` for caches, migrations and OAuth keys, `log` for daily logs, `public` as the web entry point, and `src` for the modules — plus the folders and files each module is expected to contain.
+A tour of the directories a default Dotkernel API installation ships with — `bin` for CLI entry points, `config` and `config/autoload` for application and service configuration, `data` for caches, lock files and OAuth keys, `log` for daily logs, `public` as the web entry point, and `src` for the modules — plus the folders and files each module is expected to contain.
 
 ## Details
 
@@ -13,29 +13,37 @@ When using Dotkernel API, the following structure is installed by default:
 
 ![Dotkernel API File Structure!](https://docs.dotkernel.org/img/api/v7/file-structure-dk-api.png)
 
-## Special purpose folders
+## Special purpose folders and files
 
 * `.github` - Contains GitHub workflow files
-* `.laminas-ci` - Contains laminas-ci workflow files
+* `.laminas-ci.json` - laminas-ci configuration; a single file, not a folder
+* `documentation` - Postman and Bruno collections for the shipped endpoints, plus notes on the CLI commands
 
 ## `bin` folder
 
 This folder contains:
 
-* `clear-config-cache.php` - Removes the config cache file `data/cache/config-cache.php`; available only when development mode is enabled
+* `clear-config-cache.php` - Removes the config cache file `data/cache/config-cache.php`; can also be invoked as `composer clear-config-cache`
 * `cli.php` - Used to build console applications based on [laminas-cli](https://github.com/laminas/laminas-cli)
-* `doctrine` - Used by the doctrine fixtures to populate the database tables
+* `composer-post-install-script.php` - The interactive installer Composer runs after `composer install`
+* `doctrine` - Doctrine ORM console, used by the fixtures commands to populate the database tables
+* `generate-oauth2-keys.php` - Generates the OAuth2 key pair and encryption key into `data/oauth`
 
 ## `config` folder
 
 This folder contains all application-related config files:
 
-* `cli-config.php` - Command line interface configuration used by migrations, fixtures, cron jobs
-* `config.php` - Registers ConfigProviders for installing packages
+* `cli-config.php` - Doctrine Migrations entry point; builds the `DependencyFactory` from the `doctrine.migrations` config
+* `config.php` - Registers ConfigProviders for installing packages, and sets the config cache path
 * `container.php` - Main service container that provides access to all registered services
 * `development.config.php.dist` - Activates debug mode; gets symlinked as `development.config.php` when enabling development mode
-* `migrations.php` - Configuration for database migration, like migration file location and table to save the migration log
 * `pipeline.php` - Contains a list of middlewares, in the order of their execution
+* `routes.php` - Application-wide route registration; ships empty, because each module declares its own routes in its `RoutesDelegator`
+
+### Note
+
+> There is no `config/migrations.php`.
+> Migration settings — the `doctrine_migration_versions` table and the `src/Core/src/App/src/Migration` path — are declared in `Core\App\ConfigProvider` and read through `config/cli-config.php`.
 
 ### `config/autoload` folder
 
@@ -46,28 +54,36 @@ This folder contains all service-related local and global config files:
 * `content-negotiation.global.php` - Configures request and response formats
 * `cors.local.php.dist` - Configures Cross-Origin Resource Sharing, like call origin, headers, cookies
 * `dependencies.global.php` - Sets global dependencies that should be accessible by all modules
-* `development.local.php.dist` - Gets symlinked as `development.local.php` when enabling development mode; activates error handlers
-* `doctrine.global.php` - Configuration used by Object–relational mapping
+* `development.local.php.dist` - Gets symlinked into place when enabling development mode; activates error handlers
 * `error-handling.global.php` - Configures and activates error logs
-* `local.php.dist` - Local configuration file where you can overwrite application name and URL
+* `local.php.dist` - Local configuration file: database credentials, application name and URL, OAuth2 key paths
 * `local.test.php.dist` - Local configuration for functional tests
-* `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging
+* `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of `dotkernel/dot-mail` during installation
 * `mezzio.global.php` - Mezzio core config file
-* `mezzio-tooling-factories.global.php`  Add or remove factory definitions
+* `problem-details.global.php` - Maps HTTP status codes to the `type` URI used in problem details responses
 * `response-header.global.php` - Defines headers per route
-* `templates.global.php` - `dotkernel/dot-twigrenderer` config file
+* `templates.global.php` - Configures `Api\App\Template\RendererInterface`, including the `phtml` template extension
+
+### Note
+
+> Doctrine is **not** configured from this folder.
+> There is no `doctrine.global.php`; ORM, migration and fixture settings come from the module `ConfigProvider`s, and connection credentials from the local config file.
 
 ## `data` folder
 
 This folder is a storage for project data files and service caches.
 It contains these folders:
 
-* `cache` - Cache for e.g. Twig files
-* `doctrine` - Database migrations and fixtures
+* `cache` - Holds `config-cache.php`, the merged configuration cache written when `ConfigAggregator::ENABLE_CACHE` is on
 * `oauth` - Encryption, private and public keys needed for authentication
 * `lock` - Contains lock files generated by [`dotkernel/dot-cli`](https://docs.dotkernel.org/dot-cli/v3/lock-files/)
 
 > AVOID storing sensitive data on the repository!
+
+### Note
+
+> There is no `data/doctrine`.
+> Migrations live in `src/Core/src/App/src/Migration` and fixtures in `src/Core/src/App/src/Fixture`, both inside the `Core` module.
 
 ## `log` folder
 
@@ -80,8 +96,10 @@ This folder contains all publicly available assets and serves as the entry point
 
 * `uploads` - Normally contains files uploaded via the application
 * `.htaccess` - Server configuration file used by Apache web server; it enables the URL rewrite functionality
+* `.well-known` - Contains `security.txt`, the [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116) contact file for reporting vulnerabilities
+* `favicon.ico` - The site icon browsers request by default
 * `index.php` - The application's main entry point
-* `robots.txt.dist` - A sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as `robots.txt` and comment out the lines that don't match your environment
+* `robots.txt` - Allows or denies bot access to parts of your application; it is a live file, so edit it to match your environment
 
 ## `src` folder
 
@@ -94,6 +112,9 @@ These are the modules included by default:
 * `Core` - Contains core functionality, from authentication, to rendering
 * `Security` - Contains security-related functionality
 * `User` - Contains functionality for managing regular users
+
+`Core` is itself split by domain under `src/Core/src`, into `Admin`, `App`, `Security`, `Setting` and `User`.
+See [Core and App](../extended-features/core-and-app.md).
 
 ### Module contents
 
@@ -116,9 +137,13 @@ The `src` folder in each Module folder normally also contains these files:
 ### `templates` folder in Modules
 
 This folder contains the template files, used, for example, to help render e-mail templates.
+Of the shipped modules only `User` has one, at `src/User/templates/user`.
 
-> `twig` is used as Templating Engine.
-> All template files have the extension `.html.twig`
+> Templates are rendered by `Api\App\Template\Renderer`, a lightweight renderer for files combining PHP and HTML.
+> All template files have the extension `.phtml`.
+> The extension is set in `config/autoload/templates.global.php` and Twig is not used anywhere in the application.
+
+See [Rendering and sending emails](../core-features/rendering-and-sending-emails.md).
 
 ## FAQ
 
@@ -155,17 +180,30 @@ Only the `public` folder is served directly; everything else is routed through i
 A: `config/pipeline.php`, which lists the middlewares in execution order.
 See [Middleware flow](../flow/middleware-flow.md).
 
+**Q: Why is `config/routes.php` empty?**
+
+A: Because routes are declared per module.
+Each module's `RoutesDelegator` is registered as a delegator on `Mezzio\Application` in its `ConfigProvider`, so `config/routes.php` is left as an empty callable for application-wide routes you may want to add.
+
 **Q: What is the difference between `config` and `config/autoload`?**
 
 A: `config` holds application-level wiring — the container, the pipeline, the config aggregator.
-`config/autoload` holds per-service configuration, split into `*.global.php` files that are committed and `*.local.php` files that are not.
+`config/autoload` holds per-service configuration, split into committed `*.global.php` files and uncommitted local ones.
+
+**Q: Where are the database migrations and fixtures?**
+
+A: In `src/Core/src/App/src/Migration` and `src/Core/src/App/src/Fixture`.
+Both paths are declared in `Core\App\ConfigProvider`, not in a file under `config`.
+See [Generate database migrations](../commands/generate-database-migrations.md).
 
 **Q: Where are the OAuth2 keys kept?**
 
 A: In `data/oauth`.
-They are generated during installation and must never be committed.
+They are generated by `bin/generate-oauth2-keys.php` during installation and must never be committed.
 See [OAuth2 security](../security/oauth2-security.md).
 
-**Q: Why is `robots.txt` shipped as `robots.txt.dist`?**
+**Q: Which templating engine is used?**
 
-A: So you can activate it deliberately: copy it to `robots.txt` and comment out the lines that do not match your environment.
+A: None of the usual ones.
+`Api\App\Template\Renderer` renders `.phtml` files directly; there is no Twig anywhere in the codebase.
+See [Rendering and sending emails](../core-features/rendering-and-sending-emails.md).
