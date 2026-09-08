@@ -1136,17 +1136,186 @@
 
     <h1 id="exceptions">Exceptions</h1>
 <h2 id="summary">Summary</h2>
-<p>Dotkernel API expresses error conditions through a small set of problem-specific exceptions — <code>BadRequestException</code>, <code>ConflictException</code>, <code>ExpiredException</code>, <code>ForbiddenException</code>, <code>MethodNotAllowedException</code>, <code>NotFoundException</code> and <code>UnauthorizedException</code> — each mapped to an HTTP status code.
-The page lists when to throw each one and walks through adding a custom exception with its own status code.</p>
+<p>Dotkernel API expresses error conditions through ten problem-specific exceptions under <code>Api\App\Exception</code>, each carrying the HTTP status code it maps to.
+All of them implement <code>Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface</code>, are built through a static <code>::create()</code> factory rather than with <code>new</code>, and are rendered by <code>ProblemDetailsMiddleware</code> as an RFC 9457 problem details document.
+This page lists when to throw each one, shows the response it produces, and walks through adding a custom exception with its own status code.</p>
 <h2 id="what-are-exceptions">What are exceptions?</h2>
 <p>Exceptions are a powerful mechanism for handling errors and other exceptional conditions that may occur during the execution of a script.
 They provide a way to manage errors in a structured and controlled manner, separating error-handling code from regular code.</p>
 <h2 id="how-we-use-exceptions">How we use exceptions</h2>
 <p>When it comes to handling exceptions, <strong>Dotkernel API</strong> relies on the usage of easy-to-understand, problem-specific exceptions.
-Below we will list the available custom exceptions.</p>
+They all live in <code>src/App/src/Exception/</code> and share a single shape, shown here for <code>BadRequestException</code>:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace Api\App\Exception;
+
+use Exception;
+use Fig\Http\Message\StatusCodeInterface;
+use Mezzio\ProblemDetails\Exception\CommonProblemDetailsExceptionTrait;
+use Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface;
+
+class BadRequestException extends Exception implements ProblemDetailsExceptionInterface
+{
+    use CommonProblemDetailsExceptionTrait;
+
+    /**
+     * @param non-empty-string $detail
+     * @param array&lt;string, mixed&gt; $additional
+     */
+    public static function create(string $detail, string $type = '', string $title = '', array $additional = []): self
+    {
+        $exception = new self();
+
+        $exception-&gt;type       = $type;
+        $exception-&gt;detail     = $detail;
+        $exception-&gt;status     = StatusCodeInterface::STATUS_BAD_REQUEST;
+        $exception-&gt;title      = $title;
+        $exception-&gt;additional = $additional;
+
+        return $exception;
+    }
+}</code></pre>
+<p>Two things follow from that shape, and both matter when you write code that throws:</p>
+<ul>
+<li><strong>The status code belongs to the class, not to the throw site.</strong> <code>create()</code> sets <code>status</code> itself, so choosing <code>BadRequestException</code> <em>is</em> choosing <code>400</code>. There is no way to throw one of these with a different status, and nothing in the application catches an exception in order to change its status.</li>
+<li><strong>Always construct with <code>::create()</code>.</strong> The properties the interface exposes are declared by <code>CommonProblemDetailsExceptionTrait</code> and are not constructor arguments, so <code>new BadRequestException('some message')</code> compiles but produces an exception with no status, no detail and no title.</li>
+</ul>
+<p><code>create()</code> takes the same four arguments in every one of the ten classes:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Becomes</th>
+<th>When omitted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$detail</code></td>
+<td><code>detail</code> — what went wrong on this specific request</td>
+<td>required</td>
+</tr>
+<tr>
+<td><code>$type</code></td>
+<td><code>type</code> — a URI identifying the class of problem</td>
+<td>derived from the status code</td>
+</tr>
+<tr>
+<td><code>$title</code></td>
+<td><code>title</code> — a short summary of the problem type</td>
+<td>the HTTP reason phrase for the status</td>
+</tr>
+<tr>
+<td><code>$additional</code></td>
+<td>extra top-level members, such as field-level validation errors</td>
+<td>nothing is added</td>
+</tr>
+</tbody>
+</table></div>
+<p>A typical throw supplies the detail and, where there is more to say, additional members:</p>
+<pre class="highlight"><code class="language-php">throw BadRequestException::create(
+    detail: Message::VALIDATOR_INVALID_DATA,
+    additional: ['errors' =&gt; $this-&gt;inputFilter-&gt;getMessages()]
+);</code></pre>
+<h3 id="available-exceptions">Available exceptions</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>Status</th>
+<th>Raised by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BadRequestException</code></td>
+<td><code>400 Bad Request</code></td>
+<td>handlers, on input filter failure</td>
+</tr>
+<tr>
+<td><code>RuntimeException</code></td>
+<td><code>400 Bad Request</code></td>
+<td><code>Renderer</code>, <code>HandlerService</code>, <code>ErrorReportService</code>, <code>HandlerDelegatorFactory</code></td>
+</tr>
+<tr>
+<td><code>UnauthorizedException</code></td>
+<td><code>401 Unauthorized</code></td>
+<td><code>ErrorReportPermissionMiddleware</code>, <code>ErrorReportService</code></td>
+</tr>
+<tr>
+<td><code>SunsetException</code></td>
+<td><code>401 Unauthorized</code></td>
+<td><code>BaseDeprecation</code>, on an invalid <code>sunset</code> date</td>
+</tr>
+<tr>
+<td><code>ForbiddenException</code></td>
+<td><code>403 Forbidden</code></td>
+<td><code>ErrorReportPermissionMiddleware</code>, <code>ErrorReportService</code></td>
+</tr>
+<tr>
+<td><code>NotFoundException</code></td>
+<td><code>404 Not Found</code></td>
+<td>handlers and services, for a missing resource</td>
+</tr>
+<tr>
+<td><code>NotAcceptableException</code></td>
+<td><code>406 Not Acceptable</code></td>
+<td><code>ContentNegotiationMiddleware</code></td>
+</tr>
+<tr>
+<td><code>ConflictException</code></td>
+<td><code>409 Conflict</code></td>
+<td><code>UserService</code>, <code>AdminService</code>, <code>DeprecationMiddleware</code>, <code>ResourceProviderMiddleware</code></td>
+</tr>
+<tr>
+<td><code>ExpiredException</code></td>
+<td><code>410 Gone</code></td>
+<td>the password reset handlers</td>
+</tr>
+<tr>
+<td><code>UnsupportedMediaTypeException</code></td>
+<td><code>415 Unsupported Media Type</code></td>
+<td><code>ContentNegotiationMiddleware</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Note that <code>RuntimeException</code> and <code>SunsetException</code> do not carry the status you might expect from their names — both are listed above with the status their <code>create()</code> method actually sets.</p>
 <h3 id="badrequestexception-thrown-when"><code>BadRequestException</code> thrown when</h3>
 <ul>
-<li>The Client tries to <strong>create/update resource</strong>, but the <strong>request data is invalid/incomplete</strong> (example: client tries to create an account, but does not send the required <code>identity</code> field)</li>
+<li>The client tries to <strong>create/update a resource</strong>, but the <strong>request data is invalid/incomplete</strong> (example: client tries to create an account, but does not send the required <code>identity</code> field)</li>
+</ul>
+<p>This is the exception input filter failures raise, and the one you will throw most often.</p>
+<h3 id="runtimeexception-thrown-when"><code>RuntimeException</code> thrown when</h3>
+<ul>
+<li>A <strong>template cannot be found</strong> by <code>Api\App\Template\Renderer</code></li>
+<li>A <strong>service or route middleware is missing or misconfigured</strong>, such as remote error reporting being called while disabled</li>
+</ul>
+<p>It extends PHP's own <code>\RuntimeException</code> rather than <code>\Exception</code>, and returns <code>400 Bad Request</code>.</p>
+<h3 id="unauthorizedexception-thrown-when"><code>UnauthorizedException</code> thrown when</h3>
+<ul>
+<li>The <strong>resource cannot be accessed</strong> because the <strong>client is not authenticated</strong></li>
+</ul>
+<h3 id="sunsetexception-thrown-when"><code>SunsetException</code> thrown when</h3>
+<ul>
+<li>A <code>ResourceDeprecation</code> attribute is given a <strong><code>sunset</code> value that is not a valid date</strong></li>
+</ul>
+<p>This is a programming error surfaced at attribute construction, not a condition a client can trigger.
+See <a href="../../tutorials/api-evolution/">API Evolution pattern</a>.</p>
+<h3 id="forbiddenexception-thrown-when"><code>ForbiddenException</code> thrown when</h3>
+<ul>
+<li>The <strong>resource cannot be accessed</strong> by the authenticated client's <strong>role</strong></li>
+</ul>
+<p>Note that this is not what a failed RBAC check produces — see <a href="#how-it-works">How it works</a> below.</p>
+<h3 id="notfoundexception-thrown-when"><code>NotFoundException</code> thrown when</h3>
+<ul>
+<li>The client tries to interact with a <strong>resource that does not exist</strong> on the server (example: client sends a <code>GET /resource-does-not-exist</code> request)</li>
+</ul>
+<h3 id="notacceptableexception-thrown-when"><code>NotAcceptableException</code> thrown when</h3>
+<ul>
+<li>The request's <strong><code>Accept</code> header asks for a format the route does not support</strong></li>
+<li>The <strong>response cannot be produced</strong> in any of the formats the client accepts</li>
 </ul>
 <h3 id="conflictexception-thrown-when"><code>ConflictException</code> thrown when</h3>
 <ul>
@@ -1161,45 +1330,53 @@ Below we will list the available custom exceptions.</p>
 </ul>
 </li>
 </ul>
-<h3 id="forbiddenexception-thrown-when"><code>ForbiddenException</code> thrown when</h3>
+<h3 id="unsupportedmediatypeexception-thrown-when"><code>UnsupportedMediaTypeException</code> thrown when</h3>
 <ul>
-<li>The <strong>resource cannot be accessed</strong> by the authenticated client's <strong>role</strong> (example: client authenticated as regular user sends a <code>GET /admin</code> request)</li>
-</ul>
-<h3 id="methodnotallowedexception-thrown-when"><code>MethodNotAllowedException</code> thrown when</h3>
-<ul>
-<li>The client tries to interact with a resource via an <strong>invalid HTTP request method</strong> (example: client sends a <code>PATCH /avatar</code> request)</li>
-</ul>
-<h3 id="notfoundexception-thrown-when"><code>NotFoundException</code> thrown when</h3>
-<ul>
-<li>The client tries to interact with a <strong>resource that does not exist</strong> on the server (example: client sends a <code>GET /resource-does-not-exist</code> request)</li>
-</ul>
-<h3 id="unauthorizedexception-thrown-when"><code>UnauthorizedException</code> thrown when</h3>
-<ul>
-<li>The <strong>resource cannot be accessed</strong> because the <strong>client is not authenticated</strong> (example: unauthenticated client sends a <code>GET /admin</code> request)</li>
+<li>The request's <strong><code>Content-Type</code> is not one the route accepts</strong></li>
 </ul>
 <h2 id="how-it-works">How it works</h2>
-<p>During a request, if there is no uncaught exception, <strong>Dotkernel API</strong> will return a JSON response with the data provided by the handler that processed the request.</p>
-<p>Otherwise, it will build and send a response based on the exception thrown:</p>
+<p>During a request, if there is no uncaught exception, <strong>Dotkernel API</strong> will return a response with the data provided by the handler that processed the request.</p>
+<p>Otherwise, the response is built by <code>Mezzio\ProblemDetails\ProblemDetailsMiddleware</code>, which <code>config/pipeline.php</code> pipes as the outermost layer precisely so that it sees every throwable the application raises.
+It takes one of two paths.</p>
+<p><strong>The exception implements <code>ProblemDetailsExceptionInterface</code>.</strong>
+Its status, detail, title, type and additional members are used as they are.
+All ten exceptions above take this path, so a <code>BadRequestException</code> thrown from an account creation handler produces:</p>
+<pre class="highlight"><code class="language-json">{
+    "errors": {
+        "identity": {
+            "isEmpty": "Value is required and can't be empty"
+        }
+    },
+    "title": "Bad Request",
+    "type": "https://datatracker.ietf.org/doc/html/rfc9110#name-400-bad-request",
+    "status": 400,
+    "detail": "The submitted request contains invalid data."
+}</code></pre>
+<p>The <code>type</code> URI comes from the <code>default_types_map</code> in <code>config/autoload/problem-details.global.php</code>, which maps the ten statuses the application uses to the matching section of RFC 9110.
+A status absent from that map falls back to <code>https://httpstatus.es/{status}</code>.</p>
+<p><strong>Anything else.</strong>
+<code>Dot\Mail\Exception\MailException</code>, PHP errors and any exception of your own that does not implement the interface take this path.
+The response is a <code>500 Internal Server Error</code> whose <code>detail</code> reads <code>An unknown error occurred.</code> — the real message is withheld unless debug mode or <code>exceptionDetailsInResponse</code> is enabled, so in production nobody learns anything from it beyond the status.</p>
+<p>Two error responses do not come from an application exception at all:</p>
 <ul>
-<li><code>BadRequestException</code> will return a <code>400 Bad Request</code> response</li>
-<li><code>UnauthorizedException</code> will return a <code>401 Unauthorized</code> response</li>
-<li><code>ForbiddenException</code> will return a <code>403 Forbidden</code> response</li>
-<li><code>OutOfBoundsException</code> and <code>NotFoundException</code> will return a <code>404 Not Found</code> response</li>
-<li><code>MethodNotAllowedException</code> will return a <code>405 Method Not Allowed</code> response</li>
-<li><code>ConflictException</code> will return a <code>409 Conflict</code> response</li>
-<li><code>ExpiredException</code> will return a <code>410 Gone</code> response</li>
-<li><code>MailException</code>, <code>RuntimeException</code> and the generic <code>Exception</code> will return a <code>500 Internal Server Error</code> response</li>
+<li><strong><code>405 Method Not Allowed</code></strong> is produced by <code>Mezzio\Router\Middleware\MethodNotAllowedMiddleware</code> when a route exists but not for that method. There is no <code>MethodNotAllowedException</code> in the codebase.</li>
+<li><strong><code>404 Not Found</code></strong> for an unmatched URL is produced by <code>ProblemDetailsNotFoundHandler</code> at the end of the pipeline, before a route is ever dispatched.</li>
+</ul>
+<p>One error response is neither of the two, and it is worth knowing about because it is the one clients hit most:</p>
+<ul>
+<li><strong>A failed RBAC check</strong> returns <code>403 Forbidden</code> from <code>AuthorizationMiddleware</code>, which builds the response itself rather than throwing <code>ForbiddenException</code>. Its body is the older <code>{"error": {"messages": [...]}}</code> envelope, not a problem details document. Clients that parse error responses need to handle both shapes. See <a href="../authorization/">Authorization</a>.</li>
 </ul>
 <h2 id="how-to-extend">How to extend</h2>
 <p>In this example we will</p>
 <ul>
-<li>Create a custom exception called <code>CustomException</code></li>
+<li>Create a custom exception called <code>TeapotException</code></li>
 <li>Place it next to the already existing custom exceptions (you can use your preferred location)</li>
-<li>Return a custom HTTP status code when <code>CustomException</code> is encountered.</li>
+<li>Return a custom HTTP status code when <code>TeapotException</code> is encountered</li>
 </ul>
-<h3 id="step-1-create-exception-file">Step 1: Create exception file</h3>
-<p>Navigate to the directory <code>src/App/src/Handler/Exception</code> and create a PHP class called <code>CustomException.php</code>.
-Open <code>CustomException.php</code> and add the following content:</p>
+<p>Because the status travels with the exception, that is the whole job — there is no pipeline or handler change to make.</p>
+<h3 id="step-1-create-the-exception">Step 1: Create the exception</h3>
+<p>Navigate to the directory <code>src/App/src/Exception</code> and create a PHP class called <code>TeapotException.php</code>.
+Open <code>TeapotException.php</code> and add the following content:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
 declare(strict_types=1);
@@ -1207,33 +1384,52 @@ declare(strict_types=1);
 namespace Api\App\Exception;
 
 use Exception;
+use Fig\Http\Message\StatusCodeInterface;
+use Mezzio\ProblemDetails\Exception\CommonProblemDetailsExceptionTrait;
+use Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface;
 
-class CustomException extends Exception
+class TeapotException extends Exception implements ProblemDetailsExceptionInterface
 {
-}</code></pre>
-<p>Save and close the file.</p>
-<h3 id="step-2-use-exception-file">Step 2: Use exception file</h3>
-<p>Open the file <code>src/App/src/Handler/HomeHandler.php</code> and at the beginning of the <code>get</code> method, place the following code:</p>
-<pre class="highlight"><code class="language-php">throw new \Api\App\Exception\CustomException('some message');</code></pre>
-<p>Save and close the file.</p>
-<h3 id="step-3-test-for-failure">Step 3: Test for failure</h3>
-<p>Access your API's home page URL and make sure it returns <code>500 Internal Server Error</code> HTTP status code and the following content:</p>
-<pre class="highlight"><code class="language-json">{
-    "error": {
-        "messages": [
-            "some message"
-        ]
+    use CommonProblemDetailsExceptionTrait;
+
+    /**
+     * @param non-empty-string $detail
+     * @param array&lt;string, mixed&gt; $additional
+     */
+    public static function create(string $detail, string $type = '', string $title = '', array $additional = []): self
+    {
+        $exception = new self();
+
+        $exception-&gt;type       = $type;
+        $exception-&gt;detail     = $detail;
+        $exception-&gt;status     = StatusCodeInterface::STATUS_IM_A_TEAPOT;
+        $exception-&gt;title      = $title;
+        $exception-&gt;additional = $additional;
+
+        return $exception;
     }
 }</code></pre>
-<h3 id="step-4-prepare-for-success">Step 4: Prepare for success</h3>
-<p>Open the file <code>src/App/src/Handler/HandlerTrait.php</code> and locate the <code>handle</code> method.
-Insert the following lines of code before the first catch statement:</p>
-<pre class="highlight"><code class="language-php">        } catch (\Api\App\Exception\CustomException $exception) {
-            return $this-&gt;errorResponse($exception-&gt;getMessage(), StatusCodeInterface::STATUS_IM_A_TEAPOT);</code></pre>
 <p>Save and close the file.</p>
-<h3 id="step-5-test-for-success">Step 5: Test for success</h3>
-<p>Access your API's home page URL, which should return the same content.
-Notice that this time it returns <code>418 I'm a teapot</code> HTTP status code.</p>
+<p>The two <code>use</code> statements from <code>Mezzio\ProblemDetails</code> are what make this exception renderable: the interface is how <code>ProblemDetailsMiddleware</code> recognises it, and the trait supplies the properties <code>create()</code> fills in.</p>
+<h3 id="step-2-throw-the-exception">Step 2: Throw the exception</h3>
+<p>Open the file <code>src/App/src/Handler/GetIndexResourceHandler.php</code> and replace the body of the <code>handle</code> method with the following:</p>
+<pre class="highlight"><code class="language-php">throw TeapotException::create('I refuse to brew coffee.');</code></pre>
+<p>Add the import at the top of the file:</p>
+<pre class="highlight"><code class="language-php">use Api\App\Exception\TeapotException;</code></pre>
+<p>Save and close the file.</p>
+<h3 id="step-3-test">Step 3: Test</h3>
+<p>Access your API's home page URL.
+It returns a <code>418 I'm a teapot</code> HTTP status code and the following content:</p>
+<pre class="highlight"><code class="language-json">{
+    "title": "I'm a teapot",
+    "type": "https://httpstatus.es/418",
+    "status": 418,
+    "detail": "I refuse to brew coffee."
+}</code></pre>
+<p>The <code>title</code> was filled in from the status code's reason phrase, and the <code>type</code> fell back to <code>httpstatus.es</code> because <code>418</code> is not in <code>default_types_map</code>.
+To control both, pass them to <code>create()</code> at the throw site, or give <code>create()</code> its own defaults in the class.
+To give every <code>418</code> response the same type, add the status to <code>default_types_map</code> in <code>config/autoload/problem-details.global.php</code>.</p>
+<p>Revert the change to <code>GetIndexResourceHandler</code> when you are done.</p>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Which exception should I throw for invalid request data?</strong></p>
 <p>A: <code>BadRequestException</code>, which produces a <code>400 Bad Request</code>.
@@ -1241,6 +1437,7 @@ It is what input filter failures raise.
 See <a href="../../extended-features/injectable-input-filters/">Injectable input filters</a>.</p>
 <p><strong>Q: What is the difference between <code>UnauthorizedException</code> and <code>ForbiddenException</code>?</strong></p>
 <p>A: <code>UnauthorizedException</code> (401) means the client is not authenticated at all; <code>ForbiddenException</code> (403) means it is authenticated but its role does not grant access.
+Note that a failed RBAC check does not throw <code>ForbiddenException</code> — <code>AuthorizationMiddleware</code> builds that <code>403</code> response itself.
 See <a href="../authorization/">Authorization</a>.</p>
 <p><strong>Q: When do I use <code>ConflictException</code>?</strong></p>
 <p>A: When a resource cannot be created because one with the same identifier exists, or cannot change state because it is already in that state.
@@ -1248,13 +1445,17 @@ It returns <code>409 Conflict</code>.</p>
 <p><strong>Q: What does <code>ExpiredException</code> cover?</strong></p>
 <p>A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
 It returns <code>410 Gone</code>.</p>
-<p><strong>Q: What happens to an exception I do not handle?</strong></p>
-<p>A: Generic exceptions, along with <code>MailException</code> and <code>RuntimeException</code>, produce a <code>500 Internal Server Error</code>.</p>
+<p><strong>Q: Why can I not pass a message to the constructor?</strong></p>
+<p>A: The <code>detail</code>, <code>title</code>, <code>type</code>, <code>status</code> and <code>additional</code> properties come from <code>CommonProblemDetailsExceptionTrait</code> and are set by <code>create()</code>, not by <code>__construct()</code>.
+<code>new NotFoundException(Message::USER_NOT_FOUND)</code> leaves the exception with no status, so use <code>NotFoundException::create(Message::USER_NOT_FOUND)</code> instead.</p>
 <p><strong>Q: How do I map a custom exception to a specific status code?</strong></p>
-<p>A: Create the exception class, then add a <code>catch</code> block for it in the <code>handle</code> method of <code>HandlerTrait.php</code> that returns <code>errorResponse()</code> with your chosen status code.</p>
-<p><strong>Q: Why does my custom exception return 500 before I touch <code>HandlerTrait</code>?</strong></p>
-<p>A: Because nothing catches it yet, so it falls through to the generic handler.
-Adding the catch block is what changes the status code.</p>
+<p>A: Set the status inside the exception's own <code>create()</code> method, as <a href="#how-to-extend">How to extend</a> shows.
+No <code>catch</code> block is involved, and there is nowhere in the application that maps exception classes to status codes.</p>
+<p><strong>Q: Why does my custom exception return <code>500 Internal Server Error</code>?</strong></p>
+<p>A: Because it does not implement <code>ProblemDetailsExceptionInterface</code>, so <code>ProblemDetailsMiddleware</code> treats it as an unexpected failure.
+Implement the interface and use the trait, as in Step 1 above.</p>
+<p><strong>Q: What happens to an exception I do not handle?</strong></p>
+<p>A: Any throwable that does not implement <code>ProblemDetailsExceptionInterface</code> — <code>MailException</code> included — produces a <code>500 Internal Server Error</code> with the detail <code>An unknown error occurred.</code>, and the original message is only shown when debug mode is enabled.</p>
 <p><strong>Q: How do exceptions relate to problem details responses?</strong></p>
 <p>A: The exceptions carry the title, type, status, detail and any additional fields that the problem details middleware renders.
 See <a href="../../extended-features/problem-details/">Problem details</a>.</p>
