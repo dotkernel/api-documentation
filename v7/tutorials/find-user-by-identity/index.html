@@ -1065,6 +1065,14 @@
                 </li>
             
                 <li class="toc__entry">
+                    <a href="#implementation" class="toc__link nav-link">Implementation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#writing-tests" class="toc__link nav-link">Writing tests</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#faq" class="toc__link nav-link">FAQ</a>
                 </li>
             
@@ -1129,136 +1137,162 @@
     <h1 id="a-practical-example-find-a-user-by-identity">A practical example: Find a user by identity</h1>
 <h2 id="summary">Summary</h2>
 <p>A worked example of adding an endpoint by following an existing one.
-Starting from <code>user.view</code>, which fetches a user by UUID, it builds an <code>IdentityHandler</code> that looks a user up by identity, registers it in the module's <code>ConfigProvider</code> and <code>RoutesDelegator</code>, grants the route a permission, and covers it with functional tests.</p>
+Starting from <code>user::view-user</code>, which fetches a user by UUID, it builds a <code>GetUserByIdentityResourceHandler</code> that looks a user up by its identity column, registers it in the module's <code>ConfigProvider</code> and <code>RoutesDelegator</code>, grants the route a permission, and covers it with functional tests.</p>
 <h2 id="our-goal">Our goal</h2>
 <p>Create a new endpoint that fetches a user record by its identity column.</p>
 <p>We already have an endpoint that retrieves a user based on their UUID, so we can review it and create something similar.</p>
 <h2 id="what-we-have">What we have</h2>
-<p>Let's print out all available endpoints using :</p>
+<p>Let's print out all available endpoints:</p>
 <pre class="highlight"><code class="language-shell">php ./bin/cli.php route:list</code></pre>
-<p>This command will list all available endpoints, which looks like this:</p>
-<pre class="highlight"><code class="language-text">+--------+---------------------------------+--------------------------------+
-| Method | Name                            | Path                           |
-+--------+---------------------------------+--------------------------------+
-| POST   | account.activate.request        | /account/activate              |
-| PATCH  | account.activate                | /account/activate/{hash}       |
-| PATCH  | account.modify-password         | /account/reset-password/{hash} |
-.............................................................................
-.............................................................................
-.............................................................................
-| GET    | user.my-avatar.view             | /user/my-avatar                |
-| GET    | user.role.list                  | /user/role                     |
-| GET    | user.role.view                  | /user/role/{id}                |
-| PATCH  | user.update                     | /user/{id}                     |
-| GET    | user.view                       | /user/{id}                     |
-+--------+---------------------------------+--------------------------------+</code></pre>
+<p>This command lists every endpoint.
+The rows we care about are the three under <code>/user/{id}</code>:</p>
+<pre class="highlight"><code class="language-text">+------+----------------+-------------------------------------+-------------------------------------+
+|    # | Request method | Route name                          | Route path                          |
++------+----------------+-------------------------------------+-------------------------------------+
+|   31 | DELETE         | user::delete-user                   | /user/{id}                          |
+|   32 | GET            | user::view-user                     | /user/{id}                          |
+|   33 | PATCH          | user::update-user                   | /user/{id}                          |
++------+----------------+-------------------------------------+-------------------------------------+</code></pre>
 <h3 id="note">Note</h3>
 <blockquote>
-<p><strong>The above output is just an example.</strong></p>
-<p>More info about listing available endpoints can be found in <code>../commands/display-available-endpoints.md</code>.</p>
+<p><strong>The above output is an excerpt.</strong></p>
+<p>More info about listing available endpoints can be found in <a href="../../commands/display-available-endpoints/">Displaying Dotkernel API endpoints</a>.</p>
 </blockquote>
-<p>The endpoint we're focusing on is the last one, <code>user.view</code>, so let's take a closer look at its functionality.</p>
-<p>If we search for the route name <code>user.view</code> we will find its definition in the <code>src/User/src/RoutesDelegator.php</code> class, where all user-related endpoints are found.</p>
-<pre class="highlight"><code class="language-php">$app-&gt;get('/user/' . $id, UserHandler::class, 'user.view');</code></pre>
-<p>Our route points to <code>get</code> method from <code>UserHandler</code> so let's navigate to that method.</p>
-<pre class="highlight"><code class="language-php">public function get(ServerRequestInterface $request): ResponseInterface
+<p>The endpoint we're focusing on is <code>user::view-user</code>, so let's take a closer look at its functionality.</p>
+<p>If we search for the route name <code>user::view-user</code> we will find its definition in <code>src/User/src/RoutesDelegator.php</code>, where all user-related endpoints are declared:</p>
+<pre class="highlight"><code class="language-php">$routeCollector-&gt;group('/user/' . $id)
+    -&gt;delete('', DeleteUserResourceHandler::class, 'user::delete-user')
+    -&gt;get('', GetUserResourceHandler::class, 'user::view-user')
+    -&gt;patch('', PatchUserResourceHandler::class, 'user::update-user');</code></pre>
+<p><code>$id</code> is <code>Core\App\ConfigProvider::REGEXP_UUID</code>, a placeholder constrained to the UUID format, so <code>/user/{id}</code> only matches a segment that is actually a UUID.</p>
+<p>Our route points to <code>GetUserResourceHandler</code>, so let's navigate to it.</p>
+<pre class="highlight"><code class="language-php">class GetUserResourceHandler extends AbstractHandler
 {
-    $user = $this-&gt;userService-&gt;findOneBy(['id' =&gt; $request-&gt;getAttribute('id')]);
-
-    return $this-&gt;createResponse($request, $user);
+    #[Resource(entity: User::class)]
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        return $this-&gt;createResponse(
+            $request,
+            $request-&gt;getAttribute(User::class)
+        );
+    }
 }</code></pre>
-<p>As we can see, the method will query the database for the user based on its id taken from the endpoint.</p>
+<p>The handler never queries the database.
+<code>Api\App\Middleware\ResourceProviderMiddleware</code>, piped just before <code>DispatchMiddleware</code>, reads the <code>#[Resource]</code> attribute off the <code>handle()</code> method and does the lookup for it.
+Three arguments of that attribute matter here:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>entity</code></td>
+<td>—</td>
+<td>The entity class to load</td>
+</tr>
+<tr>
+<td><code>identifier</code></td>
+<td><code>'id'</code></td>
+<td>The entity property to match on</td>
+</tr>
+<tr>
+<td><code>placeholder</code></td>
+<td><code>'id'</code></td>
+<td>The route parameter holding the value</td>
+</tr>
+</tbody>
+</table></div>
+<p>With the defaults, the middleware calls <code>find()</code> on the <code>User</code> repository with the <code>id</code> route parameter.
+It then places the entity on the request under the entity's class name, which is why the handler reads <code>$request-&gt;getAttribute(User::class)</code>.</p>
+<p>The middleware also handles the failure cases, so no handler has to:</p>
+<ul>
+<li>No matching record throws <code>NotFoundException::create(Message::resourceNotFound('User'))</code>.</li>
+<li>A record whose <code>isDeleted()</code> returns <code>true</code> throws the same exception, so soft-deleted users are indistinguishable from absent ones.</li>
+<li>A <code>guard</code> argument, if given, decides whether the caller is allowed to see the entity at all.</li>
+</ul>
 <p>We now have an understanding of how things work, and we can start to implement our own endpoint.</p>
-<h3 id="implementation">Implementation</h3>
-<p>We need to create a new handler that will process our request, we can call it <code>IdentityHandler</code>.</p>
-<p>Create a new PHP class called <code>IdentityHandler.php</code> in <code>src/User/src/Handler</code> folder.</p>
+<h2 id="implementation">Implementation</h2>
+<h3 id="step-1-create-the-handler">Step 1: Create the handler</h3>
+<p>Create a new PHP class called <code>GetUserByIdentityResourceHandler.php</code> in the <code>src/User/src/Handler/User</code> folder.</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
 declare(strict_types=1);
 
-namespace Api\User\Handler;
+namespace Api\User\Handler\User;
 
-use Api\App\Exception\BadRequestException;
-use Api\App\Exception\NotFoundException;
-use Api\App\Handler\HandlerTrait;
-use Api\App\Message;
-use Api\User\Entity\User;
-use Api\User\Service\UserServiceInterface;
-use Dot\DependencyInjection\Attribute\Inject;
-use Mezzio\Hal\HalResponseFactory;
-use Mezzio\Hal\ResourceGenerator;
+use Api\App\Attribute\Resource;
+use Api\App\Handler\AbstractHandler;
+use Core\User\Entity\User;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-use function sprintf;
-
-class IdentityHandler implements RequestHandlerInterface
+class GetUserByIdentityResourceHandler extends AbstractHandler
 {
-    use HandlerTrait;
-
-    #[Inject(
-        HalResponseFactory::class,
-        ResourceGenerator::class,
-        UserServiceInterface::class,
-    )]
-    public function __construct(
-        protected HalResponseFactory $responseFactory,
-        protected ResourceGenerator $resourceGenerator,
-        protected UserServiceInterface $userService,
-    ) {
-    }
-
-    /**
-     * @throws NotFoundException
-     * @throws BadRequestException
-     */
-    public function get(ServerRequestInterface $request): ResponseInterface
+    #[Resource(entity: User::class, identifier: 'identity', placeholder: 'identity')]
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $identity = $request-&gt;getAttribute('identity');
-        if (empty($identity)) {
-            throw (new BadRequestException())-&gt;setMessages([sprintf(Message::INVALID_VALUE, 'identity')]);
-        }
-
-        $user = $this-&gt;userService-&gt;findByIdentity($identity);
-        if (! $user instanceof User) {
-            throw new NotFoundException(Message::USER_NOT_FOUND);
-        }
-
-        return $this-&gt;createResponse($request, $user);
+        return $this-&gt;createResponse(
+            $request,
+            $request-&gt;getAttribute(User::class)
+        );
     }
 }</code></pre>
-<p>Our handler is very similar to the existing one, with some extra steps:</p>
-<ul>
-<li>We store the identity from the request in the <code>$identity</code> variable for later use.</li>
-<li>If the identity is empty we throw a <code>BadRequestException</code> with an appropriate message.</li>
-<li>If we can't find the user in the database, we throw an <code>NotFoundException</code>.</li>
-<li>If the record is found, we generate and return the response.</li>
-</ul>
-<p>The next step is to register the new handler.
-To do this, go to <code>src/User/src/ConfigProvider.php</code>.
-In the <code>getDependencies()</code> method under the <code>factories</code> key add <code>IdentityHandler::class =&gt; AttributedServiceFactory::class,</code></p>
-<p>Next, create the route in <code>src/User/src/RoutesDelegator.php</code>:</p>
-<pre class="highlight"><code class="language-php">    $app-&gt;get(
-        '/user/{identity}',
-        IdentityHandler::class,
-        'user.view.identity'
-    );</code></pre>
+<p>The only difference from the existing handler is the attribute.
+Because <code>identifier</code> is neither <code>id</code> nor <code>uuid</code>, the middleware switches from <code>find()</code> to <code>findOneBy(['identity' =&gt; ...])</code>.
+<code>identity</code> is declared <code>unique: true</code> on the <code>User</code> entity, so that lookup can only ever return one row.</p>
 <h3 id="note_1">Note</h3>
 <blockquote>
-<p>Make sure to register the endpoint as the last one to not shadow existing endpoints.</p>
+<p>The handler needs no constructor and no <code>#[Inject]</code> attribute.
+<code>HalResponseFactory</code> and <code>ResourceGenerator</code>, which <code>createResponse()</code> needs, are injected by <code>HandlerDelegatorFactory</code> in the next step, not through the constructor.</p>
 </blockquote>
-<p>The last step is to set permissions on the newly created route.</p>
-<p>Go to <code>config/autoload/authorization.global.php</code> and add our route name (<code>user.view.identity</code>) under the <code>UserRole::ROLE_GUEST</code> key.
-This will give access to every user, including guests, to view other accounts (for the sake of simplicity).</p>
-<h3 id="writing-tests">Writing tests</h3>
+<h3 id="step-2-register-the-handler">Step 2: Register the handler</h3>
+<p>Go to <code>src/User/src/ConfigProvider.php</code> and add the handler in <strong>two</strong> places inside <code>getDependencies()</code>.</p>
+<p>Under the <code>factories</code> key, so the container can build it:</p>
+<pre class="highlight"><code class="language-php">GetUserByIdentityResourceHandler::class =&gt; AttributedServiceFactory::class,</code></pre>
+<p>Under the <code>delegators</code> key, so it receives its response dependencies:</p>
+<pre class="highlight"><code class="language-php">GetUserByIdentityResourceHandler::class =&gt; [HandlerDelegatorFactory::class],</code></pre>
+<p>Both entries are required.
+Every handler extending <code>AbstractHandler</code> starts with <code>$responseFactory</code> and <code>$resourceGenerator</code> set to <code>null</code>, and <code>HandlerDelegatorFactory</code> is what calls <code>setResponseFactory()</code> and <code>setResourceGenerator()</code> on it.
+Register only the factory and the handler still resolves, but <code>$responseFactory</code> is never set and the first call to <code>createResponse()</code> fails.</p>
+<h3 id="step-3-create-the-route">Step 3: Create the route</h3>
+<p>Next, declare the route in <code>src/User/src/RoutesDelegator.php</code>:</p>
+<pre class="highlight"><code class="language-php">$routeCollector-&gt;get('/user/{identity}', GetUserByIdentityResourceHandler::class, 'user::view-user-by-identity');</code></pre>
+<h3 id="note_2">Note</h3>
+<blockquote>
+<p>Declare this route after the <code>'/user/' . $id</code> group.</p>
+<p>Static paths such as <code>/user/role</code> and <code>/user/account</code> are matched before any variable route, so they are never at risk.
+<code>/user/{id}</code> is, because its UUID constraint narrows what it accepts while <code>{identity}</code> accepts anything, and a UUID-shaped value matches both.
+The route declared first wins, so declaring ours last keeps UUIDs going to <code>user::view-user</code>.</p>
+</blockquote>
+<h3 id="step-4-grant-the-route-a-permission">Step 4: Grant the route a permission</h3>
+<p>Go to <code>config/autoload/authorization.global.php</code> and add the route name under the <code>UserRoleEnum::Guest-&gt;value</code> key of the <code>permissions</code> array:</p>
+<pre class="highlight"><code class="language-php">UserRoleEnum::Guest-&gt;value =&gt; [
+    // ...
+    'user::view-user-by-identity',
+],</code></pre>
+<p>Guest is the parent of User in the <code>roles</code> map, so granting it there lets everyone reach the endpoint, authenticated or not (for the sake of simplicity).
+A request that carries no access token is given the guest identity by <code>AuthenticationMiddleware</code>, and <code>AuthorizationMiddleware</code> then checks the route name against that role's permissions.</p>
+<h3 id="note_3">Note</h3>
+<blockquote>
+<p>The response body is unaffected by which route served it.
+<code>MetadataMap</code> maps the <code>User</code> entity to <code>user::view-user</code>, so the HAL <code>_links.self</code> of a user fetched through <code>/user/{identity}</code> still points at <code>/user/{uuid}</code>.</p>
+</blockquote>
+<h2 id="writing-tests">Writing tests</h2>
 <p>Because every new piece of code should be tested, we will write some tests for this endpoint also.</p>
 <p>In the <code>test/Functional</code> folder create a new php class <code>IdentityTest.php</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
+declare(strict_types=1);
+
 namespace ApiTest\Functional;
 
-use Api\App\Message;
+use Core\App\Message;
+
+use function json_decode;
 
 class IdentityTest extends AbstractFunctionalTest
 {
@@ -1272,14 +1306,15 @@ class IdentityTest extends AbstractFunctionalTest
     public function testInvalidIdentityReturnsNotFound(): void
     {
         $response = $this-&gt;get('/user/invalid_identity');
-        $messages = json_decode($response-&gt;getBody()-&gt;getContents(), true);
 
         $this-&gt;assertResponseNotFound($response);
-        $this-&gt;assertNotEmpty($messages);
-        $this-&gt;assertIsArray($messages);
-        $this-&gt;assertNotEmpty($messages['error']['messages'][0]);
-        $this-&gt;assertIsString($messages['error']['messages'][0]);
-        $this-&gt;assertSame(Message::USER_NOT_FOUND, $messages['error']['messages'][0]);
+
+        $data = json_decode($response-&gt;getBody()-&gt;getContents(), true);
+
+        $this-&gt;assertIsArray($data);
+        $this-&gt;assertArrayHasKey('detail', $data);
+        $this-&gt;assertSame(Message::resourceNotFound('User'), $data['detail']);
+        $this-&gt;assertSame(404, $data['status']);
     }
 
     public function testValidIdentityReturnsUser(): void
@@ -1291,35 +1326,51 @@ class IdentityTest extends AbstractFunctionalTest
         $response = $this-&gt;get('/user/valid_user');
 
         $this-&gt;assertResponseOk($response);
+
         $user = json_decode($response-&gt;getBody()-&gt;getContents(), true);
 
         $this-&gt;assertSame('valid_user', $user['identity']);
     }
 }</code></pre>
+<p>The two failure cases return the same status for different reasons.
+<code>/user/</code> matches no route at all, because <code>{identity}</code> requires at least one character, so <code>ProblemDetailsNotFoundHandler</code> answers at the end of the pipeline.
+<code>/user/invalid_identity</code> matches the route, reaches <code>ResourceProviderMiddleware</code>, finds no row and throws <code>NotFoundException</code>, which <code>ProblemDetailsMiddleware</code> renders:</p>
+<pre class="highlight"><code class="language-json">{
+    "title": "Not Found",
+    "type": "https://datatracker.ietf.org/doc/html/rfc9110#name-404-not-found",
+    "status": 404,
+    "detail": "User not found."
+}</code></pre>
+<p>That is why the assertions read <code>detail</code> rather than a nested <code>error.messages</code> array.
+See <a href="../../core-features/exceptions/">Exceptions</a> for the full shape.</p>
 <p>Planning and coding a new feature can be challenging at times, but reviewing our existing code or tutorials can serve as a source of inspiration.</p>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: How do I find the code behind an existing endpoint?</strong></p>
 <p>A: List the routes with <code>php ./bin/cli.php route:list</code>, then search for the route name in the module's <code>RoutesDelegator.php</code> to find the handler it points to.
 See <a href="../../commands/display-available-endpoints/">Displaying Dotkernel API endpoints</a>.</p>
 <p><strong>Q: What are the steps to add an endpoint?</strong></p>
-<p>A: Create the handler, register it in the module's <code>ConfigProvider</code> under <code>factories</code>, declare the route in <code>RoutesDelegator.php</code>, and grant the route name a permission in <code>config/autoload/authorization.global.php</code>.</p>
-<p><strong>Q: Why must the new route be registered last?</strong></p>
-<p>A: Because <code>/user/{identity}</code> and <code>/user/{id}</code> match the same shape.
-Registering the new route last stops it from shadowing the existing ones.</p>
+<p>A: Create the handler, register it in the module's <code>ConfigProvider</code> under both <code>factories</code> and <code>delegators</code>, declare the route in <code>RoutesDelegator.php</code>, and grant the route name a permission in <code>config/autoload/authorization.global.php</code>.</p>
+<p><strong>Q: Why must the new route be declared last?</strong></p>
+<p>A: Because <code>/user/{identity}</code> places no constraint on its placeholder, so it also matches a UUID.
+Declaring it after <code>/user/{id}</code> keeps UUID lookups on the existing route.</p>
 <p><strong>Q: Which factory do I register the handler with?</strong></p>
-<p>A: <code>AttributedServiceFactory::class</code>, which resolves the dependencies declared by the handler's <code>#[Inject]</code> attribute.
+<p>A: <code>AttributedServiceFactory::class</code>, which resolves the dependencies declared by the handler's <code>#[Inject]</code> attribute — none, in this case.
+The handler additionally needs <code>HandlerDelegatorFactory::class</code> under <code>delegators</code>.
 See <a href="../../core-features/dependency-injection/">Dependency injection</a>.</p>
-<p><strong>Q: Why does the handler throw two different exceptions?</strong></p>
-<p>A: <code>BadRequestException</code> covers a missing identity in the request (a client error in the input), while <code>NotFoundException</code> covers a valid identity with no matching record.
-They map to 400 and 404 respectively.
+<p><strong>Q: Why doesn't the handler throw any exception?</strong></p>
+<p>A: Because <code>ResourceProviderMiddleware</code> runs before it and throws <code>NotFoundException</code> when the identity matches no user.
+The handler is only reached once the entity exists, so there is nothing left for it to reject.
 See <a href="../../core-features/exceptions/">Exceptions</a>.</p>
-<p><strong>Q: Why is the route added under <code>UserRole::ROLE_GUEST</code>?</strong></p>
-<p>A: Only to keep the example simple — it lets everyone, including guests, view accounts.
+<p><strong>Q: Do I need a new <code>MetadataMap</code> entry for the route?</strong></p>
+<p>A: No.
+<code>MetadataMap</code> maps an entity to the one route used to build its self link, and <code>User</code> is already mapped to <code>user::view-user</code>.</p>
+<p><strong>Q: Why is the route added under <code>UserRoleEnum::Guest-&gt;value</code>?</strong></p>
+<p>A: Only to keep the example simple — it lets everyone, including unauthenticated callers, view accounts.
 Real deployments should grant it to the narrowest role that needs it.
 See <a href="../../core-features/authorization/">Authorization</a>.</p>
 <p><strong>Q: Will the endpoint work without an authorization entry?</strong></p>
 <p>A: No.
-A route with no permission granted to the caller's role is refused, even though the handler and route exist.</p>
+A route with no permission granted to the caller's role is refused with <code>403 Forbidden</code>, even though the handler and route exist.</p>
 <p><strong>Q: What should the tests cover?</strong></p>
 <p>A: The three outcomes: an empty identity, an identity with no matching user, and a valid identity returning the expected record.</p>
 <p><strong>Q: Where do functional tests live?</strong></p>
