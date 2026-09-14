@@ -24,6 +24,10 @@
 
         <title>File Structure - api - Dotkernel Documentation</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/docs.css">
@@ -34,108 +38,98 @@
     <body data-bs-spy="scroll" data-bs-target=".toc" data-bs-offset="100">
 
         
-        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-light dk-nav py-3" data-bs-theme="light">
-    <div class="container justify-content-between">
-        <div class="dk-nav-icon d-flex align-items-center">
-            <a class="navbar-brand" href="https://docs.dotkernel.org/">
-                <img alt="Dotkernel Logo" class="d-inline-block align-text-top" height="50"
-                     src="https://docs.dotkernel.org//img/dk_logomark_white.svg" width="45"/>
-            </a>
+        <nav class="navbar navbar-expand-lg dk-docs-nav py-2" data-bs-theme="dark">
+    <div class="container-fluid dk-docs-nav__inner">
+        <a class="navbar-brand dk-docs-nav__brand" href="https://docs.dotkernel.org/">
+            <img alt="Dotkernel" class="d-inline-block align-text-top" height="28"
+                 src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" width="152"/>
+        </a>
 
-            <div class="dk-nav-icon-items">
-                <span style="font-size: 12px; line-height: 13px">Dotkernel Documentation</span>
+        <ul class="dk-docs-nav__projects list-unstyled d-none d-lg-flex align-items-center mb-0">
+            
+            <li class="dk-docs-nav__projects-item--active">
+                <a href="https://docs.dotkernel.org/api-documentation/">API</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/admin-documentation/">Admin</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/frontend-documentation/">Frontend</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/light-documentation/">Light</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/queue-documentation/">Queue</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/packages/">Packages</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/development/">Development</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
+            </li>
+            
+        </ul>
 
-                <div class="dropdown" data-bs-theme="light">
-                    <span class="fw-bold dropdown-toggle dk-pkg-name" data-bs-toggle="dropdown" aria-expanded="false">API</span>
-                    <ul class="dropdown-menu">
-                        
-                        <li class="dropdown-item bg-dark-subtle">
-                            <a href="https://docs.dotkernel.org/api-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">API</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/admin-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Admin</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/frontend-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Frontend</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/light-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Light</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/queue-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Queue</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/packages/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Packages</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/development/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Development</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                        <li class="dropdown-item ">
-                            <a href="https://docs.dotkernel.org/headless-documentation/" class="nav-link d-flex gap-4 align-items-center">
-                                <i class="bi bi-arrow-return-right text-primary"></i>
-                                <div class="py-1">
-                                    <span class="fw-bold d-block">Headless Platform</span>
-                                </div>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <div class="flex-grow-1"></div>
+
+        <a href="#" class="dk-docs-nav__search d-none d-md-flex align-items-center" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal" title="Open search">
+            <i class="bi bi-search"></i>
+            <span>Search docs</span>
+            <span class="dk-docs-nav__search-key">/</span>
+        </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dk-docs-nav__projects dk-docs-nav__projects--collapsed d-lg-none">
+                
+                <li class="dk-docs-nav__projects-item--active">
+                    <a href="https://docs.dotkernel.org/api-documentation/">API</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/admin-documentation/">Admin</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/frontend-documentation/">Frontend</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/light-documentation/">Light</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/queue-documentation/">Queue</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/packages/">Packages</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/development/">Development</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
+                </li>
+                
+            </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-<!--                <li class="nav-item">-->
-<!--                    <a href="#" class="nav-link fw-bold text-white" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal" title="Open search">-->
-<!--                        <i class="bi bi-search"></i> Search-->
-<!--                    </a>-->
-<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link fw-bold text-white" href="https://github.com/dotkernel/api" title="Go to api repository" target="_blank">
                         <i class="bi bi-github"></i>
@@ -198,41 +192,9 @@
 </nav>
 
         
-        <div class="container">
-    <nav aria-label="breadcrumb" class="nav_breadcrumb">
-        <ol class="breadcrumb">
-            
-                <li class="breadcrumb-item"><a href="https://docs.dotkernel.org/">Overview</a></li>
-                
-
-                
-                    <li class="breadcrumb-item"><a href="../../..">api</a></li>
-
-                    
-                        
-                            
-                            
-                        
-                    
-                        
-                            
-                            
-                                <li class="breadcrumb-item">Overview</li>
-                            
-                        
-                    
-
-                    <li class="breadcrumb-item active" aria-current="page">File Structure</li>
-                
-            
-        </ol>
-    </nav>
-</div>
-
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 right_sidebar">
+        <div class="container-fluid docs-shell">
+            <div class="row gx-0">
+                <div class="col-lg-3 col-xl-2 right_sidebar">
                     
                     
     <div class="subnavigation hidden-print">
@@ -1040,65 +1002,38 @@
     </div>
 
                     
-
-                    
-                    
-                    
-    
-
-    
-    
-        <div class="toc">
-            <h6 class="toc__headline">On this page</h6>
-            <ul class="toc__list">
-            
-                <li class="toc__entry">
-                    <a href="#summary" class="toc__link nav-link">Summary</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#details" class="toc__link nav-link">Details</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#special-purpose-folders" class="toc__link nav-link">Special purpose folders</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#bin-folder" class="toc__link nav-link">bin folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#config-folder" class="toc__link nav-link">config folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#data-folder" class="toc__link nav-link">data folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#log-folder" class="toc__link nav-link">log folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#public-folder" class="toc__link nav-link">public folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#src-folder" class="toc__link nav-link">src folder</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#faq" class="toc__link nav-link">FAQ</a>
-                </li>
-            
-            </ul>
-        </div>
-    
-
-                    
                 </div>
-                <div class="col-lg-9 main_docs">
+                <div class="col-lg-9 col-xl-8 main_docs">
+                    
+                    <nav aria-label="breadcrumb" class="nav_breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.dotkernel.org/">Overview</a></li>
+            
+
+            
+                <li class="breadcrumb-item"><a href="../../..">api</a></li>
+
+                
+                    
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Overview</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">File Structure</li>
+            
+        
+    </ol>
+</nav>
+
                     
                     
 
@@ -1152,34 +1087,42 @@
 
     <h1 id="file-structure">File structure</h1>
 <h2 id="summary">Summary</h2>
-<p>A tour of the directories a default Dotkernel API installation ships with — <code>bin</code> for CLI entry points, <code>config</code> and <code>config/autoload</code> for application and service configuration, <code>data</code> for caches, migrations and OAuth keys, <code>log</code> for daily logs, <code>public</code> as the web entry point, and <code>src</code> for the modules — plus the folders and files each module is expected to contain.</p>
+<p>A tour of the directories a default Dotkernel API installation ships with — <code>bin</code> for CLI entry points, <code>config</code> and <code>config/autoload</code> for application and service configuration, <code>data</code> for caches, lock files and OAuth keys, <code>log</code> for daily logs, <code>public</code> as the web entry point, and <code>src</code> for the modules — plus the folders and files each module is expected to contain.</p>
 <h2 id="details">Details</h2>
 <p>The Dotkernel API file structure follows the <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> standards.
 Standardizing the file structure of your project is considered good practice because it makes it easier to find and navigate the code.</p>
 <p>When using Dotkernel API, the following structure is installed by default:</p>
 <p><img alt="Dotkernel API File Structure!" src="https://docs.dotkernel.org/img/api/v7/file-structure-dk-api.png" class="img-responsive"/></p>
-<h2 id="special-purpose-folders">Special purpose folders</h2>
+<h2 id="special-purpose-folders-and-files">Special purpose folders and files</h2>
 <ul>
 <li><code>.github</code> - Contains GitHub workflow files</li>
-<li><code>.laminas-ci</code> - Contains laminas-ci workflow files</li>
+<li><code>.laminas-ci.json</code> - laminas-ci configuration; a single file, not a folder</li>
+<li><code>documentation</code> - Postman and Bruno collections for the shipped endpoints, plus notes on the CLI commands</li>
 </ul>
 <h2 id="bin-folder"><code>bin</code> folder</h2>
 <p>This folder contains:</p>
 <ul>
-<li><code>clear-config-cache.php</code> - Removes the config cache file <code>data/cache/config-cache.php</code>; available only when development mode is enabled</li>
+<li><code>clear-config-cache.php</code> - Removes the config cache file <code>data/cache/config-cache.php</code>; can also be invoked as <code>composer clear-config-cache</code></li>
 <li><code>cli.php</code> - Used to build console applications based on <a href="https://github.com/laminas/laminas-cli">laminas-cli</a></li>
-<li><code>doctrine</code> - Used by the doctrine fixtures to populate the database tables</li>
+<li><code>composer-post-install-script.php</code> - Runs after <code>composer install</code> and copies the shipped distributable config files into place; it asks nothing and needs no input</li>
+<li><code>doctrine</code> - Doctrine ORM console, used by the fixtures commands to populate the database tables</li>
+<li><code>generate-oauth2-keys.php</code> - Generates the OAuth2 key pair and encryption key into <code>data/oauth</code></li>
 </ul>
 <h2 id="config-folder"><code>config</code> folder</h2>
 <p>This folder contains all application-related config files:</p>
 <ul>
-<li><code>cli-config.php</code> - Command line interface configuration used by migrations, fixtures, cron jobs</li>
-<li><code>config.php</code> - Registers ConfigProviders for installing packages</li>
+<li><code>cli-config.php</code> - Doctrine Migrations entry point; builds the <code>DependencyFactory</code> from the <code>doctrine.migrations</code> config</li>
+<li><code>config.php</code> - Registers ConfigProviders for installing packages, and sets the config cache path</li>
 <li><code>container.php</code> - Main service container that provides access to all registered services</li>
 <li><code>development.config.php.dist</code> - Activates debug mode; gets symlinked as <code>development.config.php</code> when enabling development mode</li>
-<li><code>migrations.php</code> - Configuration for database migration, like migration file location and table to save the migration log</li>
 <li><code>pipeline.php</code> - Contains a list of middlewares, in the order of their execution</li>
+<li><code>routes.php</code> - Application-wide route registration; ships empty, because each module declares its own routes in its <code>RoutesDelegator</code></li>
 </ul>
+<h3 id="note">Note</h3>
+<blockquote>
+<p>There is no <code>config/migrations.php</code>.
+Migration settings — the <code>doctrine_migration_versions</code> table and the <code>src/Core/src/App/src/Migration</code> path — are declared in <code>Core\App\ConfigProvider</code> and read through <code>config/cli-config.php</code>.</p>
+</blockquote>
 <h3 id="configautoload-folder"><code>config/autoload</code> folder</h3>
 <p>This folder contains all service-related local and global config files:</p>
 <ul>
@@ -1188,28 +1131,36 @@ Standardizing the file structure of your project is considered good practice bec
 <li><code>content-negotiation.global.php</code> - Configures request and response formats</li>
 <li><code>cors.local.php.dist</code> - Configures Cross-Origin Resource Sharing, like call origin, headers, cookies</li>
 <li><code>dependencies.global.php</code> - Sets global dependencies that should be accessible by all modules</li>
-<li><code>development.local.php.dist</code> - Gets symlinked as <code>development.local.php</code> when enabling development mode; activates error handlers</li>
-<li><code>doctrine.global.php</code> - Configuration used by Object–relational mapping</li>
+<li><code>development.local.php.dist</code> - Gets symlinked into place when enabling development mode; activates error handlers</li>
 <li><code>error-handling.global.php</code> - Configures and activates error logs</li>
-<li><code>local.php.dist</code> - Local configuration file where you can overwrite application name and URL</li>
+<li><code>local.php.dist</code> - Local configuration file: database credentials, application name and URL, OAuth2 key paths</li>
 <li><code>local.test.php.dist</code> - Local configuration for functional tests</li>
-<li><code>mail.local.php.dist</code> - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging</li>
+<li><code>mail.local.php.dist</code> - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of <code>dotkernel/dot-mail</code> during installation</li>
 <li><code>mezzio.global.php</code> - Mezzio core config file</li>
-<li><code>mezzio-tooling-factories.global.php</code>  Add or remove factory definitions</li>
+<li><code>problem-details.global.php</code> - Maps HTTP status codes to the <code>type</code> URI used in problem details responses</li>
 <li><code>response-header.global.php</code> - Defines headers per route</li>
-<li><code>templates.global.php</code> - <code>dotkernel/dot-twigrenderer</code> config file</li>
+<li><code>templates.global.php</code> - Configures <code>Api\App\Template\RendererInterface</code>, including the <code>phtml</code> template extension</li>
 </ul>
+<h3 id="note_1">Note</h3>
+<blockquote>
+<p>Doctrine is <strong>not</strong> configured from this folder.
+There is no <code>doctrine.global.php</code>; ORM, migration and fixture settings come from the module <code>ConfigProvider</code>s, and connection credentials from the local config file.</p>
+</blockquote>
 <h2 id="data-folder"><code>data</code> folder</h2>
 <p>This folder is a storage for project data files and service caches.
 It contains these folders:</p>
 <ul>
-<li><code>cache</code> - Cache for e.g. Twig files</li>
-<li><code>doctrine</code> - Database migrations and fixtures</li>
+<li><code>cache</code> - Holds <code>config-cache.php</code>, the merged configuration cache written when <code>ConfigAggregator::ENABLE_CACHE</code> is on</li>
 <li><code>oauth</code> - Encryption, private and public keys needed for authentication</li>
 <li><code>lock</code> - Contains lock files generated by <a href="https://docs.dotkernel.org/dot-cli/v3/lock-files/"><code>dotkernel/dot-cli</code></a></li>
 </ul>
 <blockquote>
 <p>AVOID storing sensitive data on the repository!</p>
+</blockquote>
+<h3 id="note_2">Note</h3>
+<blockquote>
+<p>There is no <code>data/doctrine</code>.
+Migrations live in <code>src/Core/src/App/src/Migration</code> and fixtures in <code>src/Core/src/App/src/Fixture</code>, both inside the <code>Core</code> module.</p>
 </blockquote>
 <h2 id="log-folder"><code>log</code> folder</h2>
 <p>This folder stores daily log files.
@@ -1219,8 +1170,10 @@ When you access the application from the browser, (if not already created) a new
 <ul>
 <li><code>uploads</code> - Normally contains files uploaded via the application</li>
 <li><code>.htaccess</code> - Server configuration file used by Apache web server; it enables the URL rewrite functionality</li>
+<li><code>.well-known</code> - Contains <code>security.txt</code>, the <a href="https://www.rfc-editor.org/rfc/rfc9116">RFC 9116</a> contact file for reporting vulnerabilities</li>
+<li><code>favicon.ico</code> - The site icon browsers request by default</li>
 <li><code>index.php</code> - The application's main entry point</li>
-<li><code>robots.txt.dist</code> - A sample robots.txt file that allows/denies bot access to certain areas of your application; activate it by duplicating the file as <code>robots.txt</code> and comment out the lines that don't match your environment</li>
+<li><code>robots.txt</code> - Allows or denies bot access to parts of your application; it is a live file, so edit it to match your environment</li>
 </ul>
 <h2 id="src-folder"><code>src</code> folder</h2>
 <p>This folder contains a separate folder for each Module.</p>
@@ -1232,6 +1185,8 @@ When you access the application from the browser, (if not already created) a new
 <li><code>Security</code> - Contains security-related functionality</li>
 <li><code>User</code> - Contains functionality for managing regular users</li>
 </ul>
+<p><code>Core</code> is itself split by domain under <code>src/Core/src</code>, into <code>Admin</code>, <code>App</code>, <code>Security</code>, <code>Setting</code> and <code>User</code>.
+See <a href="../../extended-features/core-and-app/">Core and App</a>.</p>
 <h3 id="module-contents">Module contents</h3>
 <p>Each Module folder, in turn, should contain the following folders, unless they are empty:</p>
 <ul>
@@ -1249,11 +1204,14 @@ Other classes the <code>src</code> folder may include are <code>InputFilter</cod
 <li><code>RoutesDelegator.php</code> - Module specific route registrations</li>
 </ul>
 <h3 id="templates-folder-in-modules"><code>templates</code> folder in Modules</h3>
-<p>This folder contains the template files, used, for example, to help render e-mail templates.</p>
+<p>This folder contains the template files, used, for example, to help render e-mail templates.
+Of the shipped modules only <code>User</code> has one, at <code>src/User/templates/user</code>.</p>
 <blockquote>
-<p><code>twig</code> is used as Templating Engine.
-All template files have the extension <code>.html.twig</code></p>
+<p>Templates are rendered by <code>Api\App\Template\Renderer</code>, a lightweight renderer for files combining PHP and HTML.
+All template files have the extension <code>.phtml</code>.
+The extension is set in <code>config/autoload/templates.global.php</code> and Twig is not used anywhere in the application.</p>
 </blockquote>
+<p>See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Which standard does the structure follow?</strong></p>
 <p>A: <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> autoloading, so a class's namespace maps directly onto its path.</p>
@@ -1274,15 +1232,24 @@ Only the <code>public</code> folder is served directly; everything else is route
 <p><strong>Q: Where is the middleware pipeline defined?</strong></p>
 <p>A: <code>config/pipeline.php</code>, which lists the middlewares in execution order.
 See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
+<p><strong>Q: Why is <code>config/routes.php</code> empty?</strong></p>
+<p>A: Because routes are declared per module.
+Each module's <code>RoutesDelegator</code> is registered as a delegator on <code>Mezzio\Application</code> in its <code>ConfigProvider</code>, so <code>config/routes.php</code> is left as an empty callable for application-wide routes you may want to add.</p>
 <p><strong>Q: What is the difference between <code>config</code> and <code>config/autoload</code>?</strong></p>
 <p>A: <code>config</code> holds application-level wiring — the container, the pipeline, the config aggregator.
-<code>config/autoload</code> holds per-service configuration, split into <code>*.global.php</code> files that are committed and <code>*.local.php</code> files that are not.</p>
+<code>config/autoload</code> holds per-service configuration, split into committed <code>*.global.php</code> files and uncommitted local ones shipped via their distributable equivalents.</p>
+<p><strong>Q: Where are the database migrations and fixtures?</strong></p>
+<p>A: In <code>src/Core/src/App/src/Migration</code> and <code>src/Core/src/App/src/Fixture</code>.
+Both paths are declared in <code>Core\App\ConfigProvider</code>, not in a file under <code>config</code>.
+See <a href="../../commands/generate-database-migrations/">Generate database migrations</a>.</p>
 <p><strong>Q: Where are the OAuth2 keys kept?</strong></p>
 <p>A: In <code>data/oauth</code>.
-They are generated during installation and must never be committed.
+They are generated by <code>bin/generate-oauth2-keys.php</code> during installation and must never be committed.
 See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
-<p><strong>Q: Why is <code>robots.txt</code> shipped as <code>robots.txt.dist</code>?</strong></p>
-<p>A: So you can activate it deliberately: copy it to <code>robots.txt</code> and comment out the lines that do not match your environment.</p>
+<p><strong>Q: Which templating engine is used?</strong></p>
+<p>A: None of the usual ones.
+<code>Api\App\Template\Renderer</code> renders <code>.phtml</code> files directly; there is no Twig anywhere in the codebase.
+See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
 
 
 
@@ -1315,6 +1282,65 @@ See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
 
                     
                 </div>
+
+                
+                
+                <div class="col-xl-2 d-none d-xl-block page_toc">
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#special-purpose-folders-and-files" class="toc__link nav-link">Special purpose folders and files</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#bin-folder" class="toc__link nav-link">bin folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#config-folder" class="toc__link nav-link">config folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#data-folder" class="toc__link nav-link">data folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#log-folder" class="toc__link nav-link">log folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#public-folder" class="toc__link nav-link">public folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#src-folder" class="toc__link nav-link">src folder</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+                </div>
+                
             </div>
         </div>
 
@@ -1439,8 +1465,8 @@ See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
                     });
                 });
         </script>
-<!--        -->
-<!--        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1457,6 +1483,6 @@ See <a href="../../security/oauth2-security/">OAuth2 security</a>.</p>
             </div>
         </div>
     </div>
-</div>-->
+</div>
     </body>
 </html>
