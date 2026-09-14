@@ -25,7 +25,7 @@ This folder contains:
 
 * `clear-config-cache.php` - Removes the config cache file `data/cache/config-cache.php`; can also be invoked as `composer clear-config-cache`
 * `cli.php` - Used to build console applications based on [laminas-cli](https://github.com/laminas/laminas-cli)
-* `composer-post-install-script.php` - The interactive installer Composer runs after `composer install`
+* `composer-post-install-script.php` - Runs after `composer install` and copies the shipped distributable config files into place; it asks nothing and needs no input
 * `doctrine` - Doctrine ORM console, used by the fixtures commands to populate the database tables
 * `generate-oauth2-keys.php` - Generates the OAuth2 key pair and encryption key into `data/oauth`
 
@@ -188,7 +188,7 @@ Each module's `RoutesDelegator` is registered as a delegator on `Mezzio\Applicat
 **Q: What is the difference between `config` and `config/autoload`?**
 
 A: `config` holds application-level wiring — the container, the pipeline, the config aggregator.
-`config/autoload` holds per-service configuration, split into committed `*.global.php` files and uncommitted local ones.
+`config/autoload` holds per-service configuration, split into committed `*.global.php` files and uncommitted local ones shipped via their distributable equivalents.
 
 **Q: Where are the database migrations and fixtures?**
 
