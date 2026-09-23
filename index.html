@@ -24,10 +24,6 @@
 
         <title>api - Dotkernel Documentation</title>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/docs.css">
@@ -79,6 +75,10 @@
                 <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
             </li>
             
+            <li class="">
+                <a href="https://docs.dotkernel.org/dotboost/">Dotboost</a>
+            </li>
+            
         </ul>
 
         <div class="flex-grow-1"></div>
@@ -126,6 +126,10 @@
                 
                 <li class="">
                     <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/dotboost/">Dotboost</a>
                 </li>
                 
             </ul>
@@ -1026,41 +1030,31 @@
     
     <h1>Dotkernel API</h1>
 <h2>Features</h2>
-<div style="display: flex;gap: 30px;flex-wrap: wrap;">
-    <div style="width:300px">
-        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px;">
-            <img style="background: #E4EDFF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/cycle.svg" alt="Mezzio Containers">
-            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/container/intro/" target="_blank" rel="noopener">Containers</a></h3>
-        </div>
-        Dotkernel is built around the PSR-11 dependency container. We have chosen <strong><a href="https://github.com/laminas/laminas-servicemanager">Laminas Service Manager</a></strong> as our default implementation.
+<div class="dk-home-cards">
+    <div class="dk-home-card">
+        <img style="background:#E4EDFF;padding:8px;border-radius:8px" width="40" height="40" src="https://docs.dotkernel.org/img/icon/cycle.svg" alt="Mezzio Containers">
+        <div class="dk-home-card__title"><a href="https://docs.mezzio.dev/mezzio/v3/features/container/intro/" target="_blank" rel="noopener">Containers</a></div>
+        <div class="dk-home-card__desc">Dotkernel is built around the PSR-11 dependency container. We have chosen <strong><a href="https://github.com/laminas/laminas-servicemanager">Laminas Service Manager</a></strong> as our default implementation.</div>
     </div>
-    <div style="width:300px">
-        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-            <img style="background: #E5F6E3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/migrate.svg" alt="Mezzio Templating">
-            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/template/intro/" target="_blank" rel="noopener">Templating</a></h3>
-        </div>
-        By default, no middleware in Mezzio is templated. We use <strong><a href="https://twig.symfony.com/doc/3.x/">Twig</a></strong> as the default templating engine.
+    <div class="dk-home-card">
+        <img style="background:#E5F6E3;padding:8px;border-radius:8px" width="40" height="40" src="https://docs.dotkernel.org/img/icon/migrate.svg" alt="Mezzio Templating">
+        <div class="dk-home-card__title"><a href="https://docs.mezzio.dev/mezzio/v3/features/template/intro/" target="_blank" rel="noopener">Templating</a></div>
+        <div class="dk-home-card__desc">By default, no middleware in Mezzio is templated. We use <strong><a href="https://twig.symfony.com/doc/3.x/">Twig</a></strong> as the default templating engine.</div>
     </div>
-    <div style="width:300px">
-        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-            <img style="background: #FDD3D3;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/jump.svg" alt="Mezzio Routers">
-            <h3 style="padding-top:0;margin-top:0;"><a href="https://docs.mezzio.dev/mezzio/v3/features/router/intro/" target="_blank" rel="noopener">Routers</a></h3>
-        </div>
-        There are various routing implementations compatible with Expressive. We have chosen <strong><a href="https://github.com/nikic/FastRoute">FastRoute</a></strong> as Dotkernel’s default routing library.
+    <div class="dk-home-card">
+        <img style="background:#FDD3D3;padding:8px;border-radius:8px" width="40" height="40" src="https://docs.dotkernel.org/img/icon/jump.svg" alt="Mezzio Routers">
+        <div class="dk-home-card__title"><a href="https://docs.mezzio.dev/mezzio/v3/features/router/intro/" target="_blank" rel="noopener">Routers</a></div>
+        <div class="dk-home-card__desc">There are various routing implementations compatible with Expressive. We have chosen <strong><a href="https://github.com/nikic/FastRoute">FastRoute</a></strong> as Dotkernel's default routing library.</div>
     </div>
-    <div style="width:300px">
-        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-            <img style="background: #DDD1FF;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/notepad.svg" alt="Laminas diactoros">
-            <h3 style="padding-top:0;margin-top:0;"><a href="https://github.com/laminas/laminas-diactoros" target="_blank" rel="noopener">Http messages</a></h3>
-        </div>
-        Mezzio, and consequently Dotkernel, is built around <strong><a href="https://github.com/php-fig/http-message">PSR-7</a></strong>. It uses <strong><a href="https://github.com/laminas/laminas-diactoros">Laminas Diactoros</a></strong> as the PSR-7 implementation.
+    <div class="dk-home-card">
+        <img style="background:#DDD1FF;padding:8px;border-radius:8px" width="40" height="40" src="https://docs.dotkernel.org/img/icon/notepad.svg" alt="Laminas diactoros">
+        <div class="dk-home-card__title"><a href="https://github.com/laminas/laminas-diactoros" target="_blank" rel="noopener">Http messages</a></div>
+        <div class="dk-home-card__desc">Mezzio, and consequently Dotkernel, is built around <strong><a href="https://github.com/php-fig/http-message">PSR-7</a></strong>. It uses <strong><a href="https://github.com/laminas/laminas-diactoros">Laminas Diactoros</a></strong> as the PSR-7 implementation.</div>
     </div>
-    <div style="width:300px">
-        <div style="display: flex;gap:25px;height:70px;margin-bottom:20px">
-            <img style="background: #FFEDD8;padding:10px;border-radius:10px" src="https://www.dotkernel.org/images/app/icon/integration.svg" alt="Doctrine">
-            <h3 style="padding-top:0;margin-top:0;"><a href="https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html" target="_blank" rel="noopener">Database and object mapping</a></h3>
-        </div>
-        The Doctrine Project’s PHP libraries are at the core of our database storage and object mapping. We use Doctrine's <strong><a href="https://www.doctrine-project.org/projects/dbal.html">Database Abstraction Layer</a></strong> and <strong><a href="https://www.doctrine-project.org/projects/orm.html">Object Relational Mapper</a></strong>.
+    <div class="dk-home-card">
+        <img style="background:#FFEDD8;padding:8px;border-radius:8px" width="40" height="40" src="https://docs.dotkernel.org/img/icon/integration.svg" alt="Doctrine">
+        <div class="dk-home-card__title"><a href="https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html" target="_blank" rel="noopener">Database and object mapping</a></div>
+        <div class="dk-home-card__desc">The Doctrine Project's PHP libraries are at the core of our database storage and object mapping. We use Doctrine's <strong><a href="https://www.doctrine-project.org/projects/dbal.html">Database Abstraction Layer</a></strong> and <strong><a href="https://www.doctrine-project.org/projects/orm.html">Object Relational Mapper</a></strong>.</div>
     </div>
 </div>
 <h2>Installation</h2>
@@ -1187,5 +1181,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2026-09-15 13:09:20.945864+00:00
+Build Date UTC : 2026-09-23 13:06:49.655485+00:00
 -->
