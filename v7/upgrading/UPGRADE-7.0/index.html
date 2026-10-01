@@ -1111,33 +1111,52 @@
     <h1 id="upgrading-from-6x-to-70">Upgrading from 6.x to 7.0</h1>
 <h2 id="summary">Summary</h2>
 <p>The changes you need to port into your project when moving from Dotkernel API 6.x to 7.0, each linked to the pull request that introduced it.
-The headline items are native UUIDs in the database, PostgreSQL support, and the removal of the <code>MethodDeprecation</code> implementation.</p>
+The headline items are native UUIDs in the database, PostgreSQL support with renamed database connection keys, and the removal of the <code>MethodDeprecation</code> implementation.
+Version 7.0 does not change the PHP version or any Composer dependency constraint.</p>
 <h2 id="details">Details</h2>
 <blockquote>
-<p>You can find a complete list in <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">Changelog</a></p>
+<p>You can find the release notes in <a href="https://github.com/dotkernel/api/releases/tag/7.0.0">7.0.0</a> and a complete list in <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">Changelog</a></p>
 </blockquote>
+<h3 id="important-updates">Important updates</h3>
+<p>These changes affect your database schema, configuration, entities or runtime behavior.</p>
 <ul>
-<li>Use native UUIDs in database via <code>ramsey/uuid</code> <a href="https://github.com/dotkernel/api/pull/456">https://github.com/dotkernel/api/pull/456</a></li>
-<li>updated readme, oss <a href="https://github.com/dotkernel/api/pull/461">https://github.com/dotkernel/api/pull/461</a></li>
-<li>PostgreSQL implementation <a href="https://github.com/dotkernel/api/pull/462">https://github.com/dotkernel/api/pull/462</a></li>
-<li>Remove <code>MethodDeprecation</code> implementation <a href="https://github.com/dotkernel/api/pull/470">https://github.com/dotkernel/api/pull/470</a></li>
+<li>Use native UUIDs in database via <code>ramsey/uuid</code>: entities get their identifier from the new <code>UuidIdentifierTrait</code> and a <code>UuidType</code> that declares the SQL type <code>UUID</code>. <code>getUuid()</code> becomes <code>getId()</code> and the <code>uuid</code> key becomes <code>id</code> in entities, repositories, services, input filters and OpenAPI. A schema migration is required <a href="https://github.com/dotkernel/api/pull/456">https://github.com/dotkernel/api/pull/456</a></li>
+<li>PostgreSQL implementation: in <code>config/autoload/local.php.dist</code> the <code>default</code> connection is renamed <code>mariadb</code>, a <code>postgresql</code> connection is added, and <code>charset</code> and <code>collate</code> are replaced by <code>collation</code>. <code>AbstractEnumType</code> is reworked, <code>MigrationsMigratedSubscriber</code> is added and <code>config/cli-config.php</code> is updated <a href="https://github.com/dotkernel/api/pull/462">https://github.com/dotkernel/api/pull/462</a></li>
+<li>Remove <code>MethodDeprecation</code> implementation: the attribute and its tests are deleted, and <code>DeprecationMiddleware</code> and the error-report handler no longer use it <a href="https://github.com/dotkernel/api/pull/470">https://github.com/dotkernel/api/pull/470</a></li>
+</ul>
+<h3 id="optional-updates">Optional updates</h3>
+<p>These changes cover documentation and comments.
+Skipping them does not affect how the API runs.</p>
+<ul>
 <li>Clarify instructions regarding multiple connections in <code>config/autoload/local.php.dist</code> <a href="https://github.com/dotkernel/api/pull/472">https://github.com/dotkernel/api/pull/472</a></li>
+<li>Update readme and security documents <a href="https://github.com/dotkernel/api/pull/461">https://github.com/dotkernel/api/pull/461</a></li>
 </ul>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Is there an automated upgrade from 6.x to 7.0?</strong></p>
 <p>A: No.
 You implement each listed change manually in your own project.
 See <a href="../upgrading/">Upgrades</a> for the recommended procedure.</p>
+<p><strong>Q: Do I need to change my PHP version or dependencies?</strong></p>
+<p>A: No.
+The PHP constraint and the Composer dependencies are the same in 6.1.0 and 7.0.0.</p>
+<p><strong>Q: Which code or configuration do I need to rename?</strong></p>
+<p>A: Rename <code>getUuid()</code> to <code>getId()</code> and the <code>uuid</code> key to <code>id</code> wherever your own code uses them.
+In your <code>config/autoload/local.php</code>, rename the <code>default</code> database connection to <code>mariadb</code> and replace <code>charset</code> and <code>collate</code> with <code>collation</code>.
+Compare your file with <code>local.php.dist</code> from the 7.0 branch.</p>
 <p><strong>Q: What does the switch to native UUIDs mean for my database?</strong></p>
-<p>A: Identifiers are stored using the database's own UUID handling via <code>ramsey/uuid</code> rather than a generic column type, so existing tables need a migration.
+<p>A: The identifier column type changes from <code>uuid_binary</code> to the database's <code>UUID</code> type, through a <code>UuidType</code> that extends the <code>ramsey/uuid-doctrine</code> type.
+The release does not ship a migration file, so existing tables need a migration that you write for your own schema.
 Review pull request 456 before touching production data.</p>
 <p><strong>Q: Do I have to move to PostgreSQL in 7.0?</strong></p>
 <p>A: No.
-PostgreSQL is now supported in addition to MariaDB; either is a valid choice.</p>
+PostgreSQL is now supported in addition to MariaDB; either is a valid choice, and MariaDB remains the default connection.</p>
 <p><strong>Q: <code>MethodDeprecation</code> was removed — how do I deprecate an endpoint now?</strong></p>
 <p>A: Use the deprecation approach described in <a href="../../tutorials/api-evolution/">API evolution</a>.</p>
+<p><strong>Q: Do I have to apply the optional updates?</strong></p>
+<p>A: No.
+They only concern documentation and comments.</p>
 <p><strong>Q: Where do I find the complete list of changes?</strong></p>
-<p>A: In the project <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">CHANGELOG.md</a>.</p>
+<p>A: In the <a href="https://github.com/dotkernel/api/releases/tag/7.0.0">7.0.0 release notes</a> and the project <a href="https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md">CHANGELOG.md</a>.</p>
 
 
 
