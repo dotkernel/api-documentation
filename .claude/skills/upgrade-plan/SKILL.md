@@ -33,7 +33,9 @@ Do not create the page, edit `mkdocs.yml` or edit any other file until the user 
     - titles that disagree with the code, such as a class named differently in the title and the diff
     - release-note oddities: a changelog entry missing most pull requests, or dated differently from the release
     - which branch the release comes from, since a minor release may come from the previous branch
-5. **Scope.** List commits on the release branch after the tag as out of scope and unreleased.
+5. **Scope.** Read the last section of the gather output.
+   If it says the release was superseded, state that later commits belong to the named newer release and point to its plan; list no unreleased commits.
+   Otherwise list the commits on the release branch after the tag as out of scope and unreleased.
 6. **Write the plan** to `.claude/PLAN-UPGRADE-<to>.md`, using the layout below.
 7. **Lint and report.**
    Run `npx --yes markdownlint-cli2 --config ~/.claude/markdownlint.jsonc ".claude/PLAN-UPGRADE-<to>.md"` and fix every issue.
@@ -71,7 +73,7 @@ Follow `.claude/PLAN-UPGRADE-7.1.md` if it exists, otherwise this order:
 3. Findings that shape the page: the headline changes and the step 4 cross-checks.
 4. Pull requests: an important table and an optional table with `PR | Description`, each PR as a full URL, most impactful first.
    Escape `|` inside table cells as `\|`.
-5. Out of scope: unreleased commits.
+5. Out of scope: unreleased commits, or a note that the release was superseded and by which one.
 6. Page outline: the newest existing `UPGRADE-*.md` is the template, with the same headings, one sentence per line and the same bullet marker.
    Details has `### Important updates` and `### Optional updates`, and the FAQ covers PHP versions, migrations, moved config, and whether optional updates are required.
 7. Files to change on execution: the new page, the nav entry in `mkdocs.yml` (newest first), and `upgrading.md` only if it links the other version pages.
