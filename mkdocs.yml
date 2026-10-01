@@ -27,6 +27,7 @@ nav:
           - "FAQ": v7/installation/faq.md
       - Upgrading:
           - "Upgrade procedure": v7/upgrading/upgrading.md
+          - "Upgrading 7.0 to 7.1": v7/upgrading/UPGRADE-7.1.md
           - "Upgrading 6.x to 7.0": v7/upgrading/UPGRADE-7.0.md
           - "Upgrading 5.x to 6.0": v7/upgrading/UPGRADE-6.0.md
       - Flow:
