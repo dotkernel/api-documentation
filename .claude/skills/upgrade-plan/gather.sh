@@ -38,7 +38,28 @@ while read -r pr; do
         -q '"### #\(.number) \(.title)\n- merged: \(.mergedAt)\n- files: \([.files[].path] | join(", "))\n"'
 done
 
-echo "## Commits on branch $BRANCH after tag $TO (unreleased)"
-gh api "repos/$REPO/compare/$TO...$BRANCH" \
-    --jq '"- ahead: \(.ahead_by)", (.commits[] | "- \(.sha[0:7]) \(.commit.message | split("\n")[0])")' 2>/dev/null ||
-    echo "- (branch $BRANCH not comparable)"
+# Earliest non-draft, non-prerelease release on the same branch published after $TO.
+# `gh release list` does not expose the target branch, so look it up per candidate.
+TO_PUBLISHED="$(gh release view "$TO" -R "$REPO" --json publishedAt -q .publishedAt)"
+NEXT=""
+while read -r candidate; do
+    [ -n "$candidate" ] || continue
+    candidate_branch="$(gh release view "$candidate" -R "$REPO" --json targetCommitish -q .targetCommitish)"
+    if [ "$candidate_branch" = "$BRANCH" ]; then
+        NEXT="$candidate"
+        break
+    fi
+done < <(gh release list -R "$REPO" --limit 100 --json tagName,publishedAt,isDraft,isPrerelease \
+    -q "[.[] | select(.isDraft == false and .isPrerelease == false and .publishedAt > \"$TO_PUBLISHED\")] | sort_by(.publishedAt) | .[].tagName")
+
+if [ -n "$NEXT" ]; then
+    echo "## Commits after tag $TO"
+    echo "- superseded by release $NEXT on branch $BRANCH: later commits belong to $NEXT or newer, so none are listed as unreleased"
+    NEXT_COUNT="$(gh api "repos/$REPO/compare/$TO...$NEXT" --jq .ahead_by 2>/dev/null || echo "?")"
+    echo "- commits between $TO and $NEXT: $NEXT_COUNT"
+else
+    echo "## Commits on branch $BRANCH after tag $TO (unreleased)"
+    gh api "repos/$REPO/compare/$TO...$BRANCH" \
+        --jq '"- ahead: \(.ahead_by)", (.commits[] | "- \(.sha[0:7]) \(.commit.message | split("\n")[0])")' 2>/dev/null ||
+        echo "- (branch $BRANCH not comparable)"
+fi
