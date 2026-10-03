@@ -9,5 +9,9 @@
             "email": "team@dotkernel.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "check-sentences": "php tools/one-sentence-per-line.php --all",
+        "check-sentences-staged": "php tools/one-sentence-per-line.php --staged"
+    }
 }
