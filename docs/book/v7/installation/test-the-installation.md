@@ -46,9 +46,9 @@ The collection will be saved locally under the `Exact Location` field.
 **Alternatively** import the collection into Bruno by using the Postman files:
 
 - Click on `+` next to `Collection` and select `Import Collection`.
-- Import [Dotkernel_API.postman_collection.json](/documentation/Dotkernel_API.postman_collection.json) to save the endpoints.
+- Import [Dotkernel_API.postman_collection.json](https://github.com/dotkernel/api/blob/7.0/documentation/Dotkernel_API.postman_collection.json) to save the endpoints.
 - Select the new collection, then click on `0 collection environments`.
-- Either click-and-drag the [Dotkernel_API.postman_environment.json](/documentation/Dotkernel_API.postman_environment.json) file over the form or navigate to it via the `Import your environments` link to save it to the collection.
+- Either click-and-drag the [Dotkernel_API.postman_environment.json](https://github.com/dotkernel/api/blob/7.0/documentation/Dotkernel_API.postman_environment.json) file over the form or navigate to it via the `Import your environments` link to save it to the collection.
 
 ### Sharing the Bruno Collection
 
