@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# Append a DCO Signed-off-by trailer using the configured git identity,
+# unless one is already present. Equivalent to always passing `git commit -s`.
+#
+# $1 = path to the commit message file
+# $2 = message source (message|template|merge|squash|commit)
+
+set -e
+
+MSG_FILE="$1"
+MSG_SOURCE="$2"
+
+# Skip merge and squash messages; git generates those itself.
+case "$MSG_SOURCE" in
+    merge|squash) exit 0 ;;
+esac
+
+NAME=$(git config user.name)
+EMAIL=$(git config user.email)
+
+# Without an identity there is nothing to sign off with.
+if [ -z "$NAME" ] || [ -z "$EMAIL" ]; then
+    exit 0
+fi
+
+SIGNOFF="Signed-off-by: $NAME <$EMAIL>"
+
+# Do not duplicate an existing identical trailer.
+if grep -qsF "$SIGNOFF" "$MSG_FILE"; then
+    exit 0
+fi
+
+git interpret-trailers --in-place --trailer "$SIGNOFF" "$MSG_FILE"
