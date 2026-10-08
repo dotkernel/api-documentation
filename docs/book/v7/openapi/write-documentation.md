@@ -107,7 +107,6 @@ The following parameter is available on every request object but is not required
 
 - `operationId`: a name for the operation, unique across the whole document (example: `getUserCollection`).
   Client generators typically use it as the method name, and `Link` objects use it to refer to an operation.
-  The endpoints shipped with Dotkernel API do not set it.
 
 ## Conclusion
 
@@ -141,8 +140,7 @@ A: Omit the `security` parameter.
 
 **Q: Do I need `operationId`?**
 
-A: No.
-It is optional and the shipped endpoints omit it.
+A: No, it is optional.
 Set it if you generate a client from the specification and want stable method names; it must be unique across the document.
 
 **Q: What is the difference between `description` and `summary`?**
