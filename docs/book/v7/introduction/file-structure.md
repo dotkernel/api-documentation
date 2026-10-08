@@ -28,6 +28,7 @@ This folder contains:
 * `composer-post-install-script.php` - Runs after `composer install` and copies the shipped distributable config files into place; it asks nothing and needs no input
 * `doctrine` - Doctrine ORM console, used by the fixtures commands to populate the database tables
 * `generate-oauth2-keys.php` - Generates the OAuth2 key pair and encryption key into `data/oauth`
+* `generate-openapi.php` - Generates the OpenAPI document; run through `composer openapi`
 
 ## `config` folder
 
@@ -60,6 +61,7 @@ This folder contains all service-related local and global config files:
 * `local.test.php.dist` - Local configuration for functional tests
 * `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of `dotkernel/dot-mail` during installation
 * `mezzio.global.php` - Mezzio core config file
+* `openapi.global.php` - Configures the generated OpenAPI document: output file, version, info, servers, tags and security schemes
 * `problem-details.global.php` - Maps HTTP status codes to the `type` URI used in problem details responses
 * `response-header.global.php` - Defines headers per route
 * `templates.global.php` - Configures `Api\App\Template\RendererInterface`, including the `phtml` template extension

@@ -21,7 +21,7 @@ To do this, you will use the following request objects:
 - `OA\Get`: fetch API single or collections of API resources
 - `OA\Post`: create a new API resource (unless if it already exists)
 - `OA\Patch`: update an existing API resource
-- `OA\Put`: create a new API resource (if it already exists, it is overwritten)
+- `OA\Put`: create a new API resource (if it already exists, it is overwritten) - the shipped modules do not use it
 
 Also, the following components describe PHP objects:
 
@@ -108,6 +108,7 @@ To summarize, the typical scenario on working on your own instance of Dotkernel 
 - create new module (example: `Book`)
 - add functionality to your new module (routes, entities, repositories, handlers, services, tests etc)
 - create file `OpenAPI.php` in the new module and describe each new endpoint
+- declare the tags you used under `tags` in `config/autoload/openapi.global.php`, see [OpenAPI configuration](./configuration.md)
 - generate the latest version of a documentation file as described [in this tutorial](./generate-documentation.md)
 
 ## FAQ
@@ -150,5 +151,5 @@ See [Getting help](getting-help.md).
 
 **Q: What is the order of work when adding a documented feature?**
 
-A: Create the module, build its functionality, describe the endpoints in its `OpenAPI.php`, then regenerate the documentation file.
+A: Create the module, build its functionality, describe the endpoints in its `OpenAPI.php`, declare its tags in `openapi.tags`, then run `composer openapi` to regenerate the documentation file.
 See [Generate documentation](generate-documentation.md).

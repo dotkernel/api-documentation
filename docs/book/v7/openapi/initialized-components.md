@@ -2,55 +2,62 @@
 
 ## Summary
 
-The OpenAPI components Dotkernel API already defines in `src/App/src/OpenAPI.php`: `OA\Info` for API metadata, `OA\Server` for instance URLs, `OA\SecurityScheme` for the `AuthToken` and `ErrorReportingToken` headers, `OA\ExternalDocumentation`, and reusable schemas.
+The OpenAPI components Dotkernel API already defines: `OA\Info` for API metadata, `OA\Server` for instance URLs, `OA\SecurityScheme` for the `AuthToken` and `ErrorReportingToken` headers and `OA\ExternalDocumentation`, all built from configuration, plus reusable schemas declared as attributes in the modules' `OpenAPI.php` files.
 It also shows how to turn an entity or a collection into an `OA\Schema` and reference it with `ref` instead of repeating the definition.
 
 ## Details
 
 Below you will find details on some prepopulated OpenAPI components we added to Dotkernel API.
 
+> `OA\Info`, `OA\Server`, `OA\SecurityScheme` and `OA\ExternalDocumentation` are not declared as attributes.
+> `bin/generate-openapi.php` builds them from `config/autoload/openapi.global.php` and `application.url` when you run `composer openapi`, and adds them to the document after the scan of `src`.
+> See [OpenAPI configuration](configuration.md) for every key.
+
 ## OA\Info
 
-Defined in `src/App/src/OpenAPI.php`, this object provides general info about the API:
+Built from the `openapi.info` key in `config/autoload/openapi.global.php`, this object provides general info about the API:
 
-- `version`: API version (example: `1.0.0`)
-- `title`: title shown in the UI (example: `Dotkernel API`)
+- `version`: API version (default: `1.0`)
+- `title`: title shown in the UI (default: `Dotkernel API`)
+
+The generator also adds `x-generated` to this object: the time the document was built, in the timezone set by `openapi.generated_timezone`.
+Set that key to `null` to omit it.
 
 For more info, see [this page](https://spec.openapis.org/oas/latest.html#info-object).
 
 ## OA\Server
 
-Defined in `src/App/src/OpenAPI.php`, this object provides API server entries:
+Built from `application.url` and the optional `openapi.server_description`, this object provides API server entries:
 
 - `url`: API server URL (example: `https://api.example.com` - use no trailing slash!)
 - `description`: describes the purpose of the server (example: `Dev`, `Staging`, `Production` or even `Auth` if you use a separate authentication server)
 
-You can have multiple `Server` definitions, one for each of your Dotkernel API instances.
+The first server is always `application.url`.
+You can publish more servers, one for each of your Dotkernel API instances, with the `openapi.servers` key.
 
 For more info, see [this page](https://spec.openapis.org/oas/latest.html#server-object).
 
 ## OA\SecurityScheme
 
-Defined in `src/App/src/OpenAPI.php`, you will find an object for the `AuthToken` security header:
+Built from the `openapi.security_schemes` key, you will find an object for the `AuthToken` security scheme:
 
-- `securityScheme`: the name of the security scheme—you will provide this to indicate that an endpoint is protected
-- `type`: whether it's an API key, an authorization header etc.
-- `in`: indicates where the scheme is applied (`query`/`header`/`cookie`)
-- `bearerFormat`: a hint to the client to identify how the bearer token is formatted
-- `scheme`: the name of the authorization scheme to be used
+- `securityScheme`: `AuthToken`—the name you provide in an endpoint's `security` to indicate that it is protected
+- `type`: `http`
+- `scheme`: `bearer`
+- `bearerFormat`: `JWT`, a hint to the client to identify how the bearer token is formatted
 
 And another object for the `ErrorReportingToken` security token:
 
-- `securityScheme`: the name of the security scheme—you will provide this to indicate that an endpoint is protected
-- `type`: whether it's an API key, an authorization header etc.
-- `in`: indicates where the scheme is applied (`query`/`header`/`cookie`)
-- `name`: the name of the header
+- `securityScheme`: `ErrorReportingToken`—the name you provide in an endpoint's `security` to indicate that it is protected
+- `type`: `apiKey`
+- `in`: `header`, where the scheme is applied
+- `name`: `Error-Reporting-Token`, the name of the header
 
 For more info, see [this page](https://spec.openapis.org/oas/latest.html#security-scheme-object).
 
 ## OA\ExternalDocumentation
 
-Defined in `src/App/src/OpenAPI.php`, in this object we provide the following details:
+Built from the `openapi.external_docs` key, in this object we provide the following details:
 
 - `description`: describes the purpose of the document
 - `url`: external documentation URL
@@ -72,19 +79,31 @@ Object:
 
 declare(strict_types=1);
 
-namespace Api\User\Entity;
+namespace Core\User\Entity;
 
-use Api\App\Entity\AbstractEntity;
-use Api\App\Entity\RoleInterface;
-use Api\App\Entity\TimestampsTrait;
+use Core\App\Entity\AbstractEntity;
+use Core\App\Entity\RoleInterface;
+use Core\App\Entity\TimestampsTrait;
+use Core\App\Entity\UuidIdentifierTrait;
+use Core\User\Enum\UserRoleEnum;
+use Core\User\Repository\UserRoleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: UserRoleRepository::class)]
+#[ORM\Table(name: 'user_role')]
 class UserRole extends AbstractEntity implements RoleInterface
 {
     use TimestampsTrait;
+    use UuidIdentifierTrait;
 
-    #[ORM\Column(name: "name", type: "string", length: 20, unique: true)]
-    protected ?string $name = null;
+    #[ORM\Column(
+        name: 'name',
+        type: 'user_role_enum',
+        unique: true,
+        enumType: UserRoleEnum::class,
+        options: ['default' => UserRoleEnum::User]
+    )]
+    protected UserRoleEnum $name = UserRoleEnum::User;
 
     // methods
 }
@@ -99,7 +118,8 @@ declare(strict_types=1);
 
 namespace Api\User;
 
-use Api\User\Entity\UserRole;
+use Core\User\Entity\UserRole;
+use Core\User\Enum\UserRoleEnum;
 use OpenApi\Attributes as OA;
 
 ...
@@ -111,7 +131,7 @@ use OpenApi\Attributes as OA;
     schema: 'UserRole',
     properties: [
         new OA\Property(property: 'id', type: 'string', example: '1234abcd-abcd-4321-12ab-123456abcdef'),
-        new OA\Property(property: 'name', type: 'string', example: UserRole::ROLE_USER),
+        new OA\Property(property: 'name', type: 'string', example: UserRoleEnum::User->value),
         new OA\Property(
             property: '_links',
             properties: [
@@ -209,7 +229,7 @@ This way we do not need to repeat code by describing again the same object, and 
 
 Then, when generating the documentation file, `OpenAPI` will transform it into the specified format (**json**/**yaml**).
 
-```php
+```yaml
 UserRoleCollection:
   type: object
   allOf:
@@ -226,39 +246,49 @@ UserRoleCollection:
       type: object
 ```
 
-> Make sure that in `src/App/src/OpenAPI.php`, on the line with `#[OA\Server` the value of `url` is set to the of URL of your instance of **Dotkernel API**.
+> Make sure that `application.url` in `config/autoload/local.php` is set to the URL of your instance of **Dotkernel API**.
 >
-> You can add multiple servers (for staging, production, etc.) by duplicating the existing one.
+> You can publish multiple servers (for staging, production, etc.) with the `openapi.servers` config key.
 
 For more info, see [this page](https://spec.openapis.org/oas/latest.html#schema).
 
 ### Common schemas
 
 We provided some schemas that are reusable across the entire project.
-They are defined in `src/App/src/OpenAPI.php`:
+The general ones are defined in `src/App/src/OpenAPI.php`:
 
 - `#/components/schemas/Collection`: provides the default **HAL** structure to all the collections extending it
 - `#/components/schemas/ErrorMessage`: describes an operation that resulted in an error—may contain multiple messages
 - `#/components/schemas/InfoMessage`: describes an operation that completed successfully—may contain multiple messages
+- `#/components/schemas/HomeMessage`: describes the output of the API home page
+- `#/components/schemas/DateTimeObject`: describes how a timestamp appears in responses (`date`, `timezone_type` and `timezone`)
+
+The token endpoints have their own, defined in `src/Security/src/OpenAPI.php`:
+
+- `#/components/schemas/OAuth2SuccessMessage`: the response of a successful token generation or refresh (`token_type`, `expires_in`, `access_token` and `refresh_token`)
+- `#/components/schemas/OAuth2GenerateErrorMessage`: the error response of a failed token generation
+- `#/components/schemas/OAuth2RefreshErrorMessage`: the error response of a failed token refresh—it adds a `hint` to the generation error
 
 ## FAQ
 
 **Q: Where are these components defined?**
 
-A: All of them in `src/App/src/OpenAPI.php`.
+A: `OA\Info`, `OA\Server`, `OA\SecurityScheme` and `OA\ExternalDocumentation` are built from `config/autoload/openapi.global.php` and `application.url` by `bin/generate-openapi.php`.
+The reusable schemas are attributes in the modules' `OpenAPI.php` files, mainly `src/App/src/OpenAPI.php`.
+See [OpenAPI configuration](configuration.md).
 
 **Q: What must I edit before generating documentation?**
 
-A: The `url` on the `#[OA\Server` line, which has to point at your own instance and must not have a trailing slash.
+A: `application.url` in `config/autoload/local.php`, which has to point at your own instance and must not have a trailing slash.
 
 **Q: Can I document more than one environment?**
 
 A: Yes.
-Duplicate the `OA\Server` entry — one per instance — and use `description` to label each as `Dev`, `Staging`, `Production` or similar.
+Add one entry per instance to `openapi.servers` and use `description` to label each as `Dev`, `Staging`, `Production` or similar.
 
 **Q: Which security schemes are predefined?**
 
-A: `AuthToken` for the OAuth2 bearer token and `ErrorReportingToken` for the `/error-report` header.
+A: `AuthToken` for the OAuth2 bearer token and `ErrorReportingToken` for the `Error-Reporting-Token` header of `/error-report`.
 Naming one in an endpoint's `security` parameter marks that endpoint as protected.
 
 **Q: What is the difference between an entity and a schema?**
@@ -278,6 +308,7 @@ A: Define a schema whose `_embedded` property holds an array of `OA\Items` refer
 **Q: What do the shipped common schemas provide?**
 
 A: `Collection` gives collections their default HAL structure, while `ErrorMessage` and `InfoMessage` describe failed and successful operations, each able to carry several messages.
+`HomeMessage` and `DateTimeObject` describe the home page output and timestamps, and the `OAuth2…Message` schemas describe the token endpoints' responses.
 
 **Q: Where do I look up the fields of an OpenAPI object?**
 

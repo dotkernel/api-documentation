@@ -274,25 +274,27 @@ Until there is, either accept in-request sending or dispatch to a worker you wir
 ## OpenAPI specification
 
 The attributes ship; the specification file does not.
-Every path, schema and security scheme is declared across four files — `src/App/src/OpenAPI.php`, `src/Admin/src/OpenAPI.php`, `src/Security/src/OpenAPI.php` and `src/User/src/OpenAPI.php` — and `public/` contains no `openapi.yaml` or `openapi.json`.
+Every path and schema is declared across four files — `src/App/src/OpenAPI.php`, `src/Admin/src/OpenAPI.php`, `src/Security/src/OpenAPI.php` and `src/User/src/OpenAPI.php` — while the document root (info, servers, tags and security schemes) comes from `config/autoload/openapi.global.php`.
+`public/` contains no `openapi.yaml` or `openapi.json`.
 Producing one is a step you add to your own build or deploy:
 
 ```shell
-./vendor/bin/openapi ./src --output public/openapi.yaml
+composer openapi
 ```
 
-`zircote/swagger-php` is a `require` rather than a `require-dev` dependency, so `vendor/bin/openapi` is present on a production install as well.
+`zircote/swagger-php` is a `require` rather than a `require-dev` dependency, so the generator is present on a production install as well.
+The file is written to `openapi.output_file`, which defaults to `public/openapi.yaml`: point it outside `public/` if the specification must not be served.
 
 Two things to get right.
 
 **The server URL defaults to localhost.**
-`src/App/src/OpenAPI.php` declares `#[OA\Server(url: 'http://api.dotkernel.localhost')]`, so a specification generated without editing that line tells every client to call your development host.
+The first server in the document is `application.url`, which `config/autoload/local.php.dist` sets to `http://localhost:8080`, so a specification generated without changing it tells every client to call your development host.
 
 **The file is a snapshot.**
-No Composer script wraps the command and nothing regenerates the file when the attributes change, so a specification generated once drifts from the API it describes.
+The `openapi` Composer script wraps the generator, but nothing runs it when the attributes change, so a specification generated once drifts from the API it describes.
 Regenerate it in the same step that deploys the code.
 
-See [Generate documentation](../openapi/generate-documentation.md) for the version and format options, and [Render documentation](../openapi/render-documentation.md) for serving the result.
+See [Generate documentation](../openapi/generate-documentation.md) and [OpenAPI configuration](../openapi/configuration.md) for the version and format options, and [Render documentation](../openapi/render-documentation.md) for serving the result.
 
 ## A minimum before you go live
 
