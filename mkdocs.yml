@@ -66,6 +66,7 @@ nav:
           - "Discovery Phase": v7/transition-from-api-tools/discovery-phase.md
       - OpenAPI:
           - "Introduction": v7/openapi/introduction.md
+          - "Configuration": v7/openapi/configuration.md
           - "Initialized Components": v7/openapi/initialized-components.md
           - "Write Documentation": v7/openapi/write-documentation.md
           - "Generate Documentation": v7/openapi/generate-documentation.md

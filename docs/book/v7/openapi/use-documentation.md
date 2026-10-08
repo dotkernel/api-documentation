@@ -32,8 +32,8 @@ There are two entities that generate this type of token: `(super)admin`s and `us
 Depending on the endpoint description, you will know which one you need to use.
 Examples:
 
-- `/user`: the description says `Admin lists user accounts` - it means that you need an AccessToken with `(super)admin` privileges
-- `/user/my-account`: the description says `User fetches their own account` - it means that you need an AccessToken with `user` privileges
+- `/user`: the summary says `Admin lists user accounts` - it means that you need an AuthToken with `(super)admin` privileges
+- `/user/account`: the summary says `User fetches their own account` - it means that you need an AuthToken with `user` privileges
 
 In the UI, find a section called `AccessToken`, toggle the `/security/generate-token` (`Generate access token`) endpoint and click the `Try it out` button.
 Under the `Access token generation request` you will find a textarea prepopulated with a JSON object.
@@ -139,7 +139,7 @@ A: The endpoint is protected: it requires authentication with an account that ho
 
 **Q: How do I tell whether an endpoint needs admin or user privileges?**
 
-A: From its description.
+A: From its summary.
 "Admin lists user accounts" needs a `(super)admin` token, while "User fetches their own account" needs a `user` token.
 
 **Q: How do I authenticate in the UI?**
