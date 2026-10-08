@@ -859,6 +859,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
@@ -1132,8 +1138,8 @@ There are two entities that generate this type of token: <code>(super)admin</cod
 Depending on the endpoint description, you will know which one you need to use.
 Examples:</p>
 <ul>
-<li><code>/user</code>: the description says <code>Admin lists user accounts</code> - it means that you need an AccessToken with <code>(super)admin</code> privileges</li>
-<li><code>/user/my-account</code>: the description says <code>User fetches their own account</code> - it means that you need an AccessToken with <code>user</code> privileges</li>
+<li><code>/user</code>: the summary says <code>Admin lists user accounts</code> - it means that you need an AuthToken with <code>(super)admin</code> privileges</li>
+<li><code>/user/account</code>: the summary says <code>User fetches their own account</code> - it means that you need an AuthToken with <code>user</code> privileges</li>
 </ul>
 <p>In the UI, find a section called <code>AccessToken</code>, toggle the <code>/security/generate-token</code> (<code>Generate access token</code>) endpoint and click the <code>Try it out</code> button.
 Under the <code>Access token generation request</code> you will find a textarea prepopulated with a JSON object.
@@ -1221,7 +1227,7 @@ See <a href="../render-documentation/">Render documentation</a>.</p>
 <p><strong>Q: What does the lock symbol next to an endpoint mean?</strong></p>
 <p>A: The endpoint is protected: it requires authentication with an account that holds the right permissions.</p>
 <p><strong>Q: How do I tell whether an endpoint needs admin or user privileges?</strong></p>
-<p>A: From its description.
+<p>A: From its summary.
 "Admin lists user accounts" needs a <code>(super)admin</code> token, while "User fetches their own account" needs a <code>user</code> token.</p>
 <p><strong>Q: How do I authenticate in the UI?</strong></p>
 <p>A: Generate a token with <code>/security/generate-token</code>, copy the <code>access_token</code> value without the surrounding quotes, then paste it as <code>AuthToken</code> in the <code>Authorize</code> modal and click <strong>Authorize</strong>.</p>

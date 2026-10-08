@@ -49,7 +49,7 @@ window.ui = SwaggerUIBundle({url: './openapi.yaml', dom_id: '#swagger-ui'});
 ```
 
 Using your browser, open a new tab and type in the URL of your instance of Dotkernel API and append `/swagger.html` to it.
-You should see the Redoc interface with your documentation file loaded in it.
+You should see the Swagger UI interface with your documentation file loaded in it.
 From here, you can inspect each endpoint, see its URL, check if it needs authentication, the request payload (if any) and the possible response(s).
 
 ## Using Redoc

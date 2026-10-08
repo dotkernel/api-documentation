@@ -859,6 +859,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../openapi/configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
@@ -1422,17 +1428,19 @@ Until there is, either accept in-request sending or dispatch to a worker you wir
 </ul>
 <h2 id="openapi-specification">OpenAPI specification</h2>
 <p>The attributes ship; the specification file does not.
-Every path, schema and security scheme is declared across four files — <code>src/App/src/OpenAPI.php</code>, <code>src/Admin/src/OpenAPI.php</code>, <code>src/Security/src/OpenAPI.php</code> and <code>src/User/src/OpenAPI.php</code> — and <code>public/</code> contains no <code>openapi.yaml</code> or <code>openapi.json</code>.
+Every path and schema is declared across four files — <code>src/App/src/OpenAPI.php</code>, <code>src/Admin/src/OpenAPI.php</code>, <code>src/Security/src/OpenAPI.php</code> and <code>src/User/src/OpenAPI.php</code> — while the document root (info, servers, tags and security schemes) comes from <code>config/autoload/openapi.global.php</code>.
+<code>public/</code> contains no <code>openapi.yaml</code> or <code>openapi.json</code>.
 Producing one is a step you add to your own build or deploy:</p>
-<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.yaml</code></pre>
-<p><code>zircote/swagger-php</code> is a <code>require</code> rather than a <code>require-dev</code> dependency, so <code>vendor/bin/openapi</code> is present on a production install as well.</p>
+<pre class="highlight"><code class="language-shell">composer openapi</code></pre>
+<p><code>zircote/swagger-php</code> is a <code>require</code> rather than a <code>require-dev</code> dependency, so the generator is present on a production install as well.
+The file is written to <code>openapi.output_file</code>, which defaults to <code>public/openapi.yaml</code>: point it outside <code>public/</code> if the specification must not be served.</p>
 <p>Two things to get right.</p>
 <p><strong>The server URL defaults to localhost.</strong>
-<code>src/App/src/OpenAPI.php</code> declares <code>#[OA\Server(url: 'http://api.dotkernel.localhost')]</code>, so a specification generated without editing that line tells every client to call your development host.</p>
+The first server in the document is <code>application.url</code>, which <code>config/autoload/local.php.dist</code> sets to <code>http://localhost:8080</code>, so a specification generated without changing it tells every client to call your development host.</p>
 <p><strong>The file is a snapshot.</strong>
-No Composer script wraps the command and nothing regenerates the file when the attributes change, so a specification generated once drifts from the API it describes.
+The <code>openapi</code> Composer script wraps the generator, but nothing runs it when the attributes change, so a specification generated once drifts from the API it describes.
 Regenerate it in the same step that deploys the code.</p>
-<p>See <a href="../../openapi/generate-documentation/">Generate documentation</a> for the version and format options, and <a href="../../openapi/render-documentation/">Render documentation</a> for serving the result.</p>
+<p>See <a href="../../openapi/generate-documentation/">Generate documentation</a> and <a href="../../openapi/configuration/">OpenAPI configuration</a> for the version and format options, and <a href="../../openapi/render-documentation/">Render documentation</a> for serving the result.</p>
 <h2 id="a-minimum-before-you-go-live">A minimum before you go live</h2>
 <p>Ordered by what bites first:</p>
 <ol>

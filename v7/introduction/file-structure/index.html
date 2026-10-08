@@ -859,6 +859,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../openapi/configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
@@ -1130,6 +1136,7 @@ Standardizing the file structure of your project is considered good practice bec
 <li><code>composer-post-install-script.php</code> - Runs after <code>composer install</code> and copies the shipped distributable config files into place; it asks nothing and needs no input</li>
 <li><code>doctrine</code> - Doctrine ORM console, used by the fixtures commands to populate the database tables</li>
 <li><code>generate-oauth2-keys.php</code> - Generates the OAuth2 key pair and encryption key into <code>data/oauth</code></li>
+<li><code>generate-openapi.php</code> - Generates the OpenAPI document; run through <code>composer openapi</code></li>
 </ul>
 <h2 id="config-folder"><code>config</code> folder</h2>
 <p>This folder contains all application-related config files:</p>
@@ -1160,6 +1167,7 @@ Migration settings — the <code>doctrine_migration_versions</code> table and th
 <li><code>local.test.php.dist</code> - Local configuration for functional tests</li>
 <li><code>mail.local.php.dist</code> - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of <code>dotkernel/dot-mail</code> during installation</li>
 <li><code>mezzio.global.php</code> - Mezzio core config file</li>
+<li><code>openapi.global.php</code> - Configures the generated OpenAPI document: output file, version, info, servers, tags and security schemes</li>
 <li><code>problem-details.global.php</code> - Maps HTTP status codes to the <code>type</code> URI used in problem details responses</li>
 <li><code>response-header.global.php</code> - Defines headers per route</li>
 <li><code>templates.global.php</code> - Configures <code>Api\App\Template\RendererInterface</code>, including the <code>phtml</code> template extension</li>

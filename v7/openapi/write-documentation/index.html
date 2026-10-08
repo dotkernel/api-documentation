@@ -859,6 +859,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
@@ -1126,7 +1132,7 @@ This is easier than it sounds because in most cases you will do the same: add a 
 <li><code>OA\Get</code>: fetch API single or collections of API resources</li>
 <li><code>OA\Post</code>: create a new API resource (unless if it already exists)</li>
 <li><code>OA\Patch</code>: update an existing API resource</li>
-<li><code>OA\Put</code>: create a new API resource (if it already exists, it is overwritten)</li>
+<li><code>OA\Put</code>: create a new API resource (if it already exists, it is overwritten) - the shipped modules do not use it</li>
 </ul>
 <p>Also, the following components describe PHP objects:</p>
 <ul>
@@ -1199,12 +1205,19 @@ It should specify at least the following parameters:</p>
 <li><code>parameters</code>: an array of <code>query</code>/<code>path</code> parameters - each parameter is specified as a new <code>OA\Parameter</code> object</li>
 <li><code>responses</code>: an array of <code>OA\Response</code> objects, each describing a combination of HTTP status codes and their respective response bodies</li>
 </ul>
+<h3 id="optional-parameters">Optional parameters</h3>
+<p>The following parameter is available on every request object but is not required:</p>
+<ul>
+<li><code>operationId</code>: a name for the operation, unique across the whole document (example: <code>getUserCollection</code>).
+  Client generators typically use it as the method name, and <code>Link</code> objects use it to refer to an operation.</li>
+</ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>To summarize, the typical scenario on working on your own instance of Dotkernel API would follow these steps:</p>
 <ul>
 <li>create new module (example: <code>Book</code>)</li>
 <li>add functionality to your new module (routes, entities, repositories, handlers, services, tests etc)</li>
 <li>create file <code>OpenAPI.php</code> in the new module and describe each new endpoint</li>
+<li>declare the tags you used under <code>tags</code> in <code>config/autoload/openapi.global.php</code>, see <a href="../configuration/">OpenAPI configuration</a></li>
 <li>generate the latest version of a documentation file as described <a href="../generate-documentation/">in this tutorial</a></li>
 </ul>
 <h2 id="faq">FAQ</h2>
@@ -1218,6 +1231,9 @@ All the endpoints shipped with Dotkernel API are documented there and serve as w
 <p>A: <code>path</code>, <code>description</code>, <code>summary</code>, <code>tags</code>, <code>parameters</code> and <code>responses</code>, plus <code>requestBody</code> for the methods that accept a body, and <code>security</code> when the endpoint is protected.</p>
 <p><strong>Q: How do I document an unprotected endpoint?</strong></p>
 <p>A: Omit the <code>security</code> parameter.</p>
+<p><strong>Q: Do I need <code>operationId</code>?</strong></p>
+<p>A: It is optional in OpenAPI, but recommended, especially if you generate a client from the specification and want stable method names.
+It must be unique across the document.</p>
 <p><strong>Q: What is the difference between <code>description</code> and <code>summary</code>?</strong></p>
 <p>A: <code>summary</code> is a short one-line label; <code>description</code> is the verbose explanation.
 Renderers display them in different places.</p>
@@ -1229,7 +1245,7 @@ Renderers display them in different places.</p>
 <p>A: In the <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a> and <code>zircote/swagger-php</code>'s examples.
 See <a href="../getting-help/">Getting help</a>.</p>
 <p><strong>Q: What is the order of work when adding a documented feature?</strong></p>
-<p>A: Create the module, build its functionality, describe the endpoints in its <code>OpenAPI.php</code>, then regenerate the documentation file.
+<p>A: Create the module, build its functionality, describe the endpoints in its <code>OpenAPI.php</code>, declare its tags in <code>openapi.tags</code>, then run <code>composer openapi</code> to regenerate the documentation file.
 See <a href="../generate-documentation/">Generate documentation</a>.</p>
 
 

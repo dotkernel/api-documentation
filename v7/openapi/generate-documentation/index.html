@@ -859,6 +859,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../initialized-components/" class="subnavigation__link">Initialized Components</a>
 </li>
 
@@ -1110,52 +1116,61 @@
 
     <h1 id="generating-the-documentation-file">Generating the documentation file</h1>
 <h2 id="summary">Summary</h2>
-<p>How to run <code>zircote/swagger-php</code> against the <code>src</code> directory to produce your OpenAPI file: printing it to the terminal, writing it to a chosen location, and selecting the OpenAPI version (<code>3.0.0</code> or <code>3.1.0</code>) and output format (<code>yaml</code> or <code>json</code>).</p>
+<p>How to run <code>composer openapi</code> to produce your OpenAPI file from the attributes in <code>src</code>, how its output location, OpenAPI version and format are configured, and when the underlying <code>zircote/swagger-php</code> command is an option instead.</p>
 <h2 id="details">Details</h2>
 <blockquote>
-<p>Make sure that in <code>src/App/src/OpenAPI.php</code>, on the line with <code>#[OA\Server</code> the value of <code>url</code> is set to the of URL of your instance of <strong>Dotkernel API</strong>.</p>
+<p>Make sure that <code>application.url</code> in <code>config/autoload/local.php</code> is set to the URL of your instance of <strong>Dotkernel API</strong>.
+The generator publishes it as the first entry of the <code>servers</code> list.</p>
 </blockquote>
 <p>Using your terminal, move to the root directory of your project.</p>
-<p>Dotkernel API stores the OpenAPI attributes in the <code>src</code> directory, so that's the path we will use for generating the static documentation file.</p>
-<h2 id="methods-of-generating-a-documentation-file">Methods of generating a documentation file</h2>
-<h3 id="without-saving-it-to-a-file">Without saving it to a file</h3>
-<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src</code></pre>
-<p>This will output the generated content to the terminal.</p>
-<h3 id="place-it-in-a-custom-location">Place it in a custom location</h3>
+<p>Dotkernel API stores the OpenAPI attributes in the <code>src</code> directory, and the document root (<code>info</code>, <code>servers</code>, tags and security schemes) in <code>config/autoload/openapi.global.php</code>.
+Both are combined by <code>bin/generate-openapi.php</code>, which the <code>openapi</code> Composer script runs.</p>
+<h2 id="generating-the-file">Generating the file</h2>
+<pre class="highlight"><code class="language-shell">composer openapi</code></pre>
+<p>This scans <code>src</code>, adds the document root from configuration and writes the result to the file named by <code>openapi.output_file</code>, <code>public/openapi.yaml</code> by default.
+On success it prints the path of the file and the number of documented paths.</p>
+<h3 id="output-location-openapi-version-and-format">Output location, OpenAPI version and format</h3>
+<p>These are configured, not passed as flags.
+In <code>config/autoload/openapi.global.php</code>:</p>
+<ul>
+<li><code>output_file</code>: where the file is written (default: <code>public/openapi.yaml</code>)</li>
+<li><code>openapi_version</code>: the OpenAPI version, <code>3.1.0</code> by default (<code>3.0.0</code> is also supported)</li>
+<li>the format follows the extension of <code>output_file</code>: <code>.yaml</code> for YAML or <code>.json</code> for JSON</li>
+</ul>
+<p>For example, to write JSON:</p>
+<pre class="highlight"><code class="language-php">'output_file' =&gt; 'public/openapi.json',</code></pre>
+<p>The output directory must already exist.
+See <a href="../configuration/">OpenAPI configuration</a> for every key.</p>
+<h3 id="using-the-zircoteswagger-php-command-directly">Using the <code>zircote/swagger-php</code> command directly</h3>
+<p>You can also run the underlying command:</p>
 <pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.yaml</code></pre>
-<p>This will place the generated file <code>openapi.yaml</code> in the <code>public</code> directory.</p>
-<h3 id="specify-openapi-version">Specify OpenAPI version</h3>
-<p>Supported OpenAPI versions are <code>3.0.0</code> and <code>3.1.0</code>, <code>3.0.0</code> being the default version.</p>
-<p>The below command will specify both the output location and the OpenAPI version:</p>
-<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --version 3.1.0</code></pre>
-<h3 id="specify-an-output-file-format">Specify an output file format</h3>
-<p>Supported file formats are <code>yaml</code> and <code>json</code>, <code>yaml</code> being the default format.</p>
-<p>The below command will specify the output location and <code>zircote/swagger-php</code> will determine the file format:</p>
-<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.json</code></pre>
-<p>Or be specific about the format by appending the <code>--format</code> argument:</p>
-<pre class="highlight"><code class="language-shell">./vendor/bin/openapi ./src --output public/openapi.json --format json</code></pre>
-<p>These will place the generated file <code>openapi.json</code> in the <code>public</code> directory.</p>
+<p>This scans the attributes only.
+The generated file will not contain the <code>info</code>, <code>servers</code>, tags or security schemes that <code>composer openapi</code> adds from configuration, so use it only when you need the raw output.
+Its defaults differ: OpenAPI version <code>3.0.0</code> (override with <code>--version 3.1.0</code>) and the format taken from the output extension (force it with <code>--format json</code> or <code>--format yaml</code>).</p>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: What must I configure before generating?</strong></p>
-<p>A: The <code>url</code> value on the <code>#[OA\Server</code> line in <code>src/App/src/OpenAPI.php</code>, which has to point at your own instance.
+<p>A: <code>application.url</code> in <code>config/autoload/local.php</code>, which has to point at your own instance.
 Otherwise the generated file advertises the wrong server.</p>
-<p><strong>Q: Why is <code>./src</code> the path passed to the command?</strong></p>
-<p>A: Because Dotkernel API keeps its OpenAPI attributes in the <code>src</code> directory.
-The generator scans that path for annotated classes.</p>
+<p><strong>Q: Where do the output location, version and format come from?</strong></p>
+<p>A: From <code>config/autoload/openapi.global.php</code>: <code>output_file</code>, <code>openapi_version</code>, and the extension of <code>output_file</code>.
+See <a href="../configuration/">OpenAPI configuration</a>.</p>
 <p><strong>Q: Which OpenAPI versions can I generate?</strong></p>
-<p>A: <code>3.0.0</code> (the default) and <code>3.1.0</code>, selected with <code>--version</code>.</p>
+<p>A: <code>3.1.0</code> (the configured default) and <code>3.0.0</code>, selected with <code>openapi_version</code>.</p>
 <p><strong>Q: YAML or JSON?</strong></p>
-<p>A: YAML is the default.
-Use a <code>.json</code> output filename and the generator picks JSON, or state it explicitly with <code>--format json</code>.</p>
+<p>A: The extension of <code>output_file</code> decides: <code>.yaml</code> gives YAML, <code>.json</code> gives JSON.</p>
 <p><strong>Q: Where should the generated file live?</strong></p>
-<p>A: Anywhere your renderer can read it; <code>public/openapi.yaml</code> is the common choice, since it can then be served directly.
+<p>A: Anywhere your renderer can read it; <code>public/openapi.yaml</code> is the default, since it can then be served directly.
+Point <code>output_file</code> outside <code>public</code> if the specification must not be served.
 See <a href="../render-documentation/">Render documentation</a>.</p>
 <p><strong>Q: Do I have to regenerate after changing annotations?</strong></p>
 <p>A: Yes.
-The file is a static snapshot, so re-run the command whenever the annotations change.</p>
+The file is a static snapshot, so re-run <code>composer openapi</code> whenever the attributes or the configuration change.</p>
 <p><strong>Q: The command runs but my endpoint is missing. Why?</strong></p>
-<p>A: Its class is most likely outside the scanned path, or its attributes are incomplete.
+<p>A: Its class is most likely outside <code>src</code>, its attributes are incomplete, or its tag is listed in <code>exclude_tags</code>.
 See <a href="../write-documentation/">Write documentation</a> and <a href="../getting-help/">Getting help</a>.</p>
+<p><strong>Q: Why does the generated file differ from what <code>./vendor/bin/openapi ./src</code> prints?</strong></p>
+<p>A: The raw command knows nothing about the configuration.
+<code>composer openapi</code> adds <code>info</code>, <code>servers</code>, tags and security schemes from <code>config/autoload/openapi.global.php</code>.</p>
 
 
 
@@ -1210,7 +1225,7 @@ See <a href="../write-documentation/">Write documentation</a> and <a href="../ge
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#methods-of-generating-a-documentation-file" class="toc__link nav-link">Methods of generating a documentation file</a>
+                    <a href="#generating-the-file" class="toc__link nav-link">Generating the file</a>
                 </li>
             
                 <li class="toc__entry">

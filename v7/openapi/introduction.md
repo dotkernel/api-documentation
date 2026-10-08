@@ -25,10 +25,11 @@ See [Write documentation](write-documentation.md).
 
 **Q: Which OpenAPI version is used?**
 
-A: The version supported by the installed release of `zircote/swagger-php`.
+A: `3.1.0` by default, set with `openapi_version` in `config/autoload/openapi.global.php`; `3.0.0` is also supported.
 Consult the [OpenAPI specification](https://spec.openapis.org/oas/latest.html) for the object reference.
 
 **Q: How do I view the generated documentation?**
 
 A: Generate the specification, then serve it through a renderer.
-See [Generate documentation](generate-documentation.md) and [Render documentation](render-documentation.md).
+Run `composer openapi` to generate it, then serve it through a renderer.
+See [Generate documentation](generate-documentation.md), [OpenAPI configuration](configuration.md) and [Render documentation](render-documentation.md).
