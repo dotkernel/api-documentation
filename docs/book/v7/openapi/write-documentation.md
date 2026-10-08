@@ -140,8 +140,8 @@ A: Omit the `security` parameter.
 
 **Q: Do I need `operationId`?**
 
-A: No, it is optional.
-Set it if you generate a client from the specification and want stable method names; it must be unique across the document.
+A: It is optional in OpenAPI, but recommended, especially if you generate a client from the specification and want stable method names.
+It must be unique across the document.
 
 **Q: What is the difference between `description` and `summary`?**
 
