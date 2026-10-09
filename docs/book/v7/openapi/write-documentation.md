@@ -39,6 +39,7 @@ Defines a `DELETE` HTTP request.
 It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
+- `operationId`: a name unique across the whole document, derived from the handler class name without the `Handler` suffix, with a lowercase first letter (example: `deleteUserResource`). Clients generated from the specification use it as the method name, so do not rename it once released
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -52,6 +53,7 @@ Defines a `GET` HTTP request.
 It should specify at least the following parameters:
 
 - `path`: the route to a single or collection of resources (example: `/resource/{id}` for a single resource or `/resource` for a collection of resources)
+- `operationId`: a name unique across the whole document, derived from the handler class name without the `Handler` suffix, with a lowercase first letter (example: `getUserCollection`). Clients generated from the specification use it as the method name, so do not rename it once released
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -65,6 +67,7 @@ Defines a `PATCH` HTTP request.
 It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
+- `operationId`: a name unique across the whole document, derived from the handler class name without the `Handler` suffix, with a lowercase first letter (example: `patchUserResource`). Clients generated from the specification use it as the method name, so do not rename it once released
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -79,6 +82,7 @@ Defines a `POST` HTTP request.
 It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
+- `operationId`: a name unique across the whole document, derived from the handler class name without the `Handler` suffix, with a lowercase first letter (example: `postUserResource`). Clients generated from the specification use it as the method name, so do not rename it once released
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -93,6 +97,7 @@ Defines a `PUT` HTTP request.
 It should specify at least the following parameters:
 
 - `path`: the route to the resource (example: `/resource/{id}` - where `id` is a path parameter defined below)
+- `operationId`: a name unique across the whole document, derived from the handler class name without the `Handler` suffix, with a lowercase first letter (example: `putUserResource`). Clients generated from the specification use it as the method name, so do not rename it once released
 - `description`: verbose description of the endpoint's purpose
 - `summary`: short description of the endpoint's purpose
 - `security`: an array of security scheme(s) to be used—omit if the endpoint is not protected
@@ -101,20 +106,13 @@ It should specify at least the following parameters:
 - `parameters`: an array of `query`/`path` parameters - each parameter is specified as a new `OA\Parameter` object
 - `responses`: an array of `OA\Response` objects, each describing a combination of HTTP status codes and their respective response bodies
 
-### Optional parameters
-
-The following parameter is available on every request object but is not required:
-
-- `operationId`: a name for the operation, unique across the whole document (example: `getUserCollection`).
-  Client generators typically use it as the method name, and `Link` objects use it to refer to an operation.
-
 ## Conclusion
 
 To summarize, the typical scenario on working on your own instance of Dotkernel API would follow these steps:
 
 - create new module (example: `Book`)
 - add functionality to your new module (routes, entities, repositories, handlers, services, tests etc)
-- create file `OpenAPI.php` in the new module and describe each new endpoint
+- create file `OpenAPI.php` in the new module and describe each new endpoint, giving each one a unique `operationId`
 - declare the tags you used under `tags` in `config/autoload/openapi.global.php`, see [OpenAPI configuration](./configuration.md)
 - generate the latest version of a documentation file as described [in this tutorial](./generate-documentation.md)
 
@@ -132,7 +130,7 @@ All the endpoints shipped with Dotkernel API are documented there and serve as w
 
 **Q: Which parameters should every request attribute define?**
 
-A: `path`, `description`, `summary`, `tags`, `parameters` and `responses`, plus `requestBody` for the methods that accept a body, and `security` when the endpoint is protected.
+A: `path`, `operationId`, `description`, `summary`, `tags`, `parameters` and `responses`, plus `requestBody` for the methods that accept a body, and `security` when the endpoint is protected.
 
 **Q: How do I document an unprotected endpoint?**
 
@@ -140,8 +138,14 @@ A: Omit the `security` parameter.
 
 **Q: Do I need `operationId`?**
 
-A: It is optional in OpenAPI, but recommended, especially if you generate a client from the specification and want stable method names.
-It must be unique across the document.
+A: Yes.
+Dotkernel API sets it on every endpoint, named after the handler without the `Handler` suffix (for example `GetUserCollectionHandler` becomes `getUserCollection`), except the two token endpoints, which share one handler and are named after their routes: `postGenerateToken` and `postRefreshToken`.
+A test fails when an endpoint lacks one or when two share one.
+
+**Q: What `operationId` do I use when two routes share one handler?**
+
+A: Name each after its route instead, still starting with the HTTP method, so the IDs stay unique.
+Dotkernel API does this for its token endpoints, which share one handler: `postGenerateToken` for `/security/generate-token` and `postRefreshToken` for `/security/refresh-token`.
 
 **Q: What is the difference between `description` and `summary`?**
 
