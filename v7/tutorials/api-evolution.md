@@ -71,6 +71,8 @@ Vary: Origin
 
 > The `rel` and `type` arguments are optional, they default to `sunset` and `text/html` if no value is provided and are `Link` related parts.
 
+> An operation's `operationId` is part of the contract too: clients generated from the OpenAPI document use it as the method name, so renaming it breaks them even if the route is unchanged.
+
 ## FAQ
 
 **Q: What do the `Sunset` and `Link` headers mean?**
@@ -109,3 +111,8 @@ A: Only handler classes implementing `RequestHandlerInterface`.
 **Q: How do I check that the headers are being sent?**
 
 A: Request the endpoint with `curl --head` and inspect the response headers.
+
+**Q: Is renaming an `operationId` a breaking change?**
+
+A: Yes, for clients generated from the OpenAPI document, which use it as the method name.
+Treat it like a renamed field: keep the old name until its consumers have moved.

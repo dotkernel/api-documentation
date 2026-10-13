@@ -1164,6 +1164,7 @@ Vary: Origin</code></pre>
 <p><code>Sunset</code> has to be a <strong>valid</strong> date, otherwise it will throw an error.</p>
 <p>Deprecations can only be attached to handler classes that implement <code>RequestHandlerInterface</code>.</p>
 <p>The <code>rel</code> and <code>type</code> arguments are optional, they default to <code>sunset</code> and <code>text/html</code> if no value is provided and are <code>Link</code> related parts.</p>
+<p>An operation's <code>operationId</code> is part of the contract too: clients generated from the OpenAPI document use it as the method name, so renaming it breaks them even if the route is unchanged.</p>
 </blockquote>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: What do the <code>Sunset</code> and <code>Link</code> headers mean?</strong></p>
@@ -1187,6 +1188,9 @@ They default to <code>sunset</code> and <code>text/html</code>, and both relate 
 <p>A: Only handler classes implementing <code>RequestHandlerInterface</code>.</p>
 <p><strong>Q: How do I check that the headers are being sent?</strong></p>
 <p>A: Request the endpoint with <code>curl --head</code> and inspect the response headers.</p>
+<p><strong>Q: Is renaming an <code>operationId</code> a breaking change?</strong></p>
+<p>A: Yes, for clients generated from the OpenAPI document, which use it as the method name.
+Treat it like a renamed field: keep the old name until its consumers have moved.</p>
 
 
 

@@ -85,7 +85,7 @@ Next you will be prompted to add the relevant components of a module, accepting 
     * `Allow viewing Books?` (Y): will generate the single resource GET action handler - `GetBookResourceHandler.php`.
     * `Allow creating Books?` (Y): will generate the POST action handler for the `Book` entity - `PostBookResourceHandler.php`, as well as the input filter used for validating the data - `CreateBookInputFilter.php`.
     * `Allow deleting Books?`, `Allow editing Books?` and `Allow replacing Books?` (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.
-* Following this step, `dot-maker` will automatically generate the `ConfigProvider.php` classes for both the `Api` and `Core` namespaces, as well as the `OpenAPI.php` class which automatically documents the previously generated routes.
+* Following this step, `dot-maker` will automatically generate the `ConfigProvider.php` classes for both the `Api` and `Core` namespaces, as well as the `OpenAPI.php` class which automatically documents the previously generated routes, each with its own `operationId`.
 
 You will then be instructed to:
 
@@ -468,7 +468,7 @@ curl http://0.0.0.0:8080/book/{id}
 
 **Q: What does `dot-maker` do that I would otherwise do by hand?**
 
-A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both `ConfigProvider` classes and the `OpenAPI.php` documentation — and splits the files between the `Api` and `Core` namespaces without being told to.
+A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both `ConfigProvider` classes and the `OpenAPI.php` documentation, including an `operationId` per endpoint — and splits the files between the `Api` and `Core` namespaces without being told to.
 
 **Q: How do I invoke it?**
 

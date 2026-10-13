@@ -1189,7 +1189,7 @@ This will list all component types that can be created - for this tutorial, ente
 <li><code>Allow deleting Books?</code>, <code>Allow editing Books?</code> and <code>Allow replacing Books?</code> (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.</li>
 </ul>
 </li>
-<li>Following this step, <code>dot-maker</code> will automatically generate the <code>ConfigProvider.php</code> classes for both the <code>Api</code> and <code>Core</code> namespaces, as well as the <code>OpenAPI.php</code> class which automatically documents the previously generated routes.</li>
+<li>Following this step, <code>dot-maker</code> will automatically generate the <code>ConfigProvider.php</code> classes for both the <code>Api</code> and <code>Core</code> namespaces, as well as the <code>OpenAPI.php</code> class which automatically documents the previously generated routes, each with its own <code>operationId</code>.</li>
 </ul>
 <p>You will then be instructed to:</p>
 <ul>
@@ -1525,7 +1525,7 @@ Open <code>config/autoload/authorization.global.php</code> and append the below 
 <pre class="highlight"><code class="language-shell">curl http://0.0.0.0:8080/book/{id}</code></pre>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: What does <code>dot-maker</code> do that I would otherwise do by hand?</strong></p>
-<p>A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both <code>ConfigProvider</code> classes and the <code>OpenAPI.php</code> documentation — and splits the files between the <code>Api</code> and <code>Core</code> namespaces without being told to.</p>
+<p>A: It generates the module skeleton — entity, repository, service and interface, handlers, collection, input filter, both <code>ConfigProvider</code> classes and the <code>OpenAPI.php</code> documentation, including an <code>operationId</code> per endpoint — and splits the files between the <code>Api</code> and <code>Core</code> namespaces without being told to.</p>
 <p><strong>Q: How do I invoke it?</strong></p>
 <p>A: <code>./vendor/bin/dot-maker module</code>, or <code>composer make</code> if you added the optional script.
 Enter <code>book</code> when prompted for the module name.</p>
