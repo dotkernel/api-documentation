@@ -296,20 +296,61 @@ Regenerate it in the same step that deploys the code.
 
 See [Generate documentation](../openapi/generate-documentation.md) and [OpenAPI configuration](../openapi/configuration.md) for the version and format options, and [Render documentation](../openapi/render-documentation.md) for serving the result.
 
+## Best practices
+
+Two nginx settings worth making before you go live.
+Both go in the `server` block that serves the API.
+
+### Refuse plain HTTP instead of redirecting
+
+An API that only exists over TLS should not answer on plain HTTP at all.
+Do not listen on port 80 if you can avoid it.
+Where port 80 has to stay open — for example so that certificate renewals over the ACME HTTP-01 challenge keep working — fail every request that arrives on it rather than redirecting it to HTTPS.
+
+A redirect is the wrong answer for an API.
+API clients are not browsers: many HTTP libraries follow a `301` without telling anyone, so the integration appears to work while the client is still configured with `http://`.
+By then the first request has already crossed the network in cleartext, and it may have carried a bearer token or, on `/security/generate-token`, the client secret, username and password.
+Failing the request exposes the mistake on the very first call, before anything sensitive is sent.
+
+```nginx
+set $block 0;
+if ($scheme = http) { set $block 1; }
+if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+if ($block = 1) { return 444; }
+```
+
+This blocks every request whose scheme is `http`, except those for the ACME challenge path.
+`444` is an nginx-specific status: it closes the connection without sending a status line, headers or a body.
+Keep these lines at `server` level, outside any `location` block.
+
+### Compress JSON responses
+
+nginx compresses `text/html` once `gzip` is on, but JSON types are not in its default `gzip_types`, so they have to be named.
+Add this to the same nginx configuration file:
+
+```nginx
+gzip on;
+gzip_types application/json application/hal+json application/problem+json;
+```
+
+The API emits all three types: `application/hal+json` for resources and collections, `application/json` for plain messages and `application/problem+json` for error responses.
+
 ## A minimum before you go live
 
 Ordered by what bites first:
 
 1. Change every seeded credential — both demo accounts and both OAuth clients — or delete them once a real administrator exists.
-2. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
-3. Disable the OAuth2 grants you do not use, starting with the implicit grant.
-4. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
-5. Add `logrotate` for `log/`, or repoint the writer at standard output.
-6. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
-7. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
-8. Set a default `Cache-Control` for the whole API instead of leaving it unset.
-9. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
-10. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
+2. Refuse plain HTTP at the web server — drop it, do not redirect it. See [Best practices](#best-practices).
+3. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
+4. Disable the OAuth2 grants you do not use, starting with the implicit grant.
+5. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
+6. Add `logrotate` for `log/`, or repoint the writer at standard output.
+7. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
+8. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
+9. Set a default `Cache-Control` for the whole API instead of leaving it unset.
+10. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
+11. Enable gzip for `application/json`, `application/hal+json` and `application/problem+json` in the same nginx configuration.
+12. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
 
 ## FAQ
 
