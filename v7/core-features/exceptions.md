@@ -79,17 +79,15 @@ throw BadRequestException::create(
 | Exception | Status | Raised by |
 | --- | --- | --- |
 | `BadRequestException` | `400 Bad Request` | handlers, on input filter failure |
-| `RuntimeException` | `400 Bad Request` | `Renderer`, `HandlerService`, `ErrorReportService`, `HandlerDelegatorFactory` |
 | `UnauthorizedException` | `401 Unauthorized` | `ErrorReportPermissionMiddleware`, `ErrorReportService` |
-| `SunsetException` | `401 Unauthorized` | `BaseDeprecation`, on an invalid `sunset` date |
-| `ForbiddenException` | `403 Forbidden` | `ErrorReportPermissionMiddleware`, `ErrorReportService` |
+| `ForbiddenException` | `403 Forbidden` | `ErrorReportPermissionMiddleware`, `ErrorReportService` (including when error reporting is disabled) |
 | `NotFoundException` | `404 Not Found` | handlers and services, for a missing resource |
 | `NotAcceptableException` | `406 Not Acceptable` | `ContentNegotiationMiddleware` |
 | `ConflictException` | `409 Conflict` | `UserService`, `AdminService`, `DeprecationMiddleware`, `ResourceProviderMiddleware` |
 | `ExpiredException` | `410 Gone` | the password reset handlers |
 | `UnsupportedMediaTypeException` | `415 Unsupported Media Type` | `ContentNegotiationMiddleware` |
-
-Note that `RuntimeException` and `SunsetException` do not carry the status you might expect from their names — both are listed above with the status their `create()` method actually sets.
+| `RuntimeException` | `500 Internal Server Error` | `Renderer`, `HandlerService`, `ErrorReportService`, `HandlerDelegatorFactory`, `ProblemDetailsDelegatorFactory` |
+| `SunsetException` | `500 Internal Server Error` | `BaseDeprecation`, on an invalid `sunset` date |
 
 ### `BadRequestException` thrown when
 
@@ -100,9 +98,9 @@ This is the exception input filter failures raise, and the one you will throw mo
 ### `RuntimeException` thrown when
 
 - A **template cannot be found** by `Api\App\Template\Renderer`
-- A **service or route middleware is missing or misconfigured**, such as remote error reporting being called while disabled
+- A **service or route middleware is missing or misconfigured**, such as a required service not being registered in the container
 
-It extends PHP's own `\RuntimeException` rather than `\Exception`, and returns `400 Bad Request`.
+It extends PHP's own `\RuntimeException` rather than `\Exception`, and returns `500 Internal Server Error`: these are server-side faults the client had no part in.
 
 ### `UnauthorizedException` thrown when
 
@@ -112,12 +110,13 @@ It extends PHP's own `\RuntimeException` rather than `\Exception`, and returns `
 
 - A `ResourceDeprecation` attribute is given a **`sunset` value that is not a valid date**
 
-This is a programming error surfaced at attribute construction, not a condition a client can trigger.
+This is a programming error surfaced at attribute construction, not a condition a client can trigger, so it returns `500 Internal Server Error`.
 See [API Evolution pattern](../tutorials/api-evolution.md).
 
 ### `ForbiddenException` thrown when
 
 - The **resource cannot be accessed** by the authenticated client's **role**
+- **Remote error reporting is disabled** in configuration
 
 Note that this is not what a failed RBAC check produces — see [How it works](#how-it-works) below.
 

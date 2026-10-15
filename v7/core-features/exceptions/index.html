@@ -1215,24 +1215,14 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 <td>handlers, on input filter failure</td>
 </tr>
 <tr>
-<td><code>RuntimeException</code></td>
-<td><code>400 Bad Request</code></td>
-<td><code>Renderer</code>, <code>HandlerService</code>, <code>ErrorReportService</code>, <code>HandlerDelegatorFactory</code></td>
-</tr>
-<tr>
 <td><code>UnauthorizedException</code></td>
 <td><code>401 Unauthorized</code></td>
 <td><code>ErrorReportPermissionMiddleware</code>, <code>ErrorReportService</code></td>
 </tr>
 <tr>
-<td><code>SunsetException</code></td>
-<td><code>401 Unauthorized</code></td>
-<td><code>BaseDeprecation</code>, on an invalid <code>sunset</code> date</td>
-</tr>
-<tr>
 <td><code>ForbiddenException</code></td>
 <td><code>403 Forbidden</code></td>
-<td><code>ErrorReportPermissionMiddleware</code>, <code>ErrorReportService</code></td>
+<td><code>ErrorReportPermissionMiddleware</code>, <code>ErrorReportService</code> (including when error reporting is disabled)</td>
 </tr>
 <tr>
 <td><code>NotFoundException</code></td>
@@ -1259,9 +1249,18 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 <td><code>415 Unsupported Media Type</code></td>
 <td><code>ContentNegotiationMiddleware</code></td>
 </tr>
+<tr>
+<td><code>RuntimeException</code></td>
+<td><code>500 Internal Server Error</code></td>
+<td><code>Renderer</code>, <code>HandlerService</code>, <code>ErrorReportService</code>, <code>HandlerDelegatorFactory</code>, <code>ProblemDetailsDelegatorFactory</code></td>
+</tr>
+<tr>
+<td><code>SunsetException</code></td>
+<td><code>500 Internal Server Error</code></td>
+<td><code>BaseDeprecation</code>, on an invalid <code>sunset</code> date</td>
+</tr>
 </tbody>
 </table></div>
-<p>Note that <code>RuntimeException</code> and <code>SunsetException</code> do not carry the status you might expect from their names — both are listed above with the status their <code>create()</code> method actually sets.</p>
 <h3 id="badrequestexception-thrown-when"><code>BadRequestException</code> thrown when</h3>
 <ul>
 <li>The client tries to <strong>create/update a resource</strong>, but the <strong>request data is invalid/incomplete</strong> (example: client tries to create an account, but does not send the required <code>identity</code> field)</li>
@@ -1270,9 +1269,9 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 <h3 id="runtimeexception-thrown-when"><code>RuntimeException</code> thrown when</h3>
 <ul>
 <li>A <strong>template cannot be found</strong> by <code>Api\App\Template\Renderer</code></li>
-<li>A <strong>service or route middleware is missing or misconfigured</strong>, such as remote error reporting being called while disabled</li>
+<li>A <strong>service or route middleware is missing or misconfigured</strong>, such as a required service not being registered in the container</li>
 </ul>
-<p>It extends PHP's own <code>\RuntimeException</code> rather than <code>\Exception</code>, and returns <code>400 Bad Request</code>.</p>
+<p>It extends PHP's own <code>\RuntimeException</code> rather than <code>\Exception</code>, and returns <code>500 Internal Server Error</code>: these are server-side faults the client had no part in.</p>
 <h3 id="unauthorizedexception-thrown-when"><code>UnauthorizedException</code> thrown when</h3>
 <ul>
 <li>The <strong>resource cannot be accessed</strong> because the <strong>client is not authenticated</strong></li>
@@ -1281,11 +1280,12 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 <ul>
 <li>A <code>ResourceDeprecation</code> attribute is given a <strong><code>sunset</code> value that is not a valid date</strong></li>
 </ul>
-<p>This is a programming error surfaced at attribute construction, not a condition a client can trigger.
+<p>This is a programming error surfaced at attribute construction, not a condition a client can trigger, so it returns <code>500 Internal Server Error</code>.
 See <a href="../../tutorials/api-evolution/">API Evolution pattern</a>.</p>
 <h3 id="forbiddenexception-thrown-when"><code>ForbiddenException</code> thrown when</h3>
 <ul>
 <li>The <strong>resource cannot be accessed</strong> by the authenticated client's <strong>role</strong></li>
+<li><strong>Remote error reporting is disabled</strong> in configuration</li>
 </ul>
 <p>Note that this is not what a failed RBAC check produces — see <a href="#how-it-works">How it works</a> below.</p>
 <h3 id="notfoundexception-thrown-when"><code>NotFoundException</code> thrown when</h3>
