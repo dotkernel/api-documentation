@@ -300,6 +300,7 @@ See [Generate documentation](../openapi/generate-documentation.md) and [OpenAPI 
 
 Two nginx settings worth making before you go live.
 Dotkernel API ships no nginx configuration, only the Apache `.htaccess` in `public/`, so both go in the nginx virtual host you write for the API.
+If you run Apache instead, see [the Apache equivalent](#apache-equivalent) at the end of this section.
 
 ### Where the edit goes
 
@@ -382,6 +383,45 @@ gzip_types application/json application/hal+json application/problem+json;
 ```
 
 The API emits all three types: `application/hal+json` for resources and collections, `application/json` for plain messages and `application/problem+json` for error responses.
+
+### Apache equivalent
+
+On Apache, make both changes in the `.htaccess` file shipped in `public/`.
+It needs `AllowOverride All` for the document root — or at least `FileInfo`, which covers both `mod_rewrite` and `AddOutputFilterByType` — as listed in [Server Requirements](../introduction/server-requirements.md).
+
+Add the HTTP check **directly after `RewriteEngine On`**, before the existing rules.
+The shipped rules end with `[L]` for every request that matches an existing file and for everything else routed to `index.php`, so a rule placed below them is never reached.
+
+```apache
+RewriteEngine On
+
+# refuse plain HTTP, except the ACME challenge
+RewriteCond %{HTTPS} !=on
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteRule ^ - [F,L]
+
+# ... the existing rules stay as they are ...
+```
+
+Add the compression directive anywhere in the same file, for example at the end:
+
+```apache
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json application/hal+json application/problem+json
+</IfModule>
+```
+
+Two differences from nginx.
+
+- **The request is answered, not dropped.**
+    Apache has no equivalent of `444`, so the closest option is `[F]`, which returns `403 Forbidden`.
+    It still refuses the request, and it still does not redirect, which is the point.
+- **The connection is already accepted.**
+    `.htaccess` runs after Apache has read the request, so it cannot stop the first plain-HTTP request from arriving.
+    If you can, define no port 80 `VirtualHost` for the API at all, or put the same `RewriteCond` and `RewriteRule` lines in the port 80 `VirtualHost` instead.
+
+`mod_rewrite` and `mod_deflate` have to be enabled.
+Restart or reload Apache after enabling a module; changes to `.htaccess` itself take effect on the next request.
 
 ## A minimum before you go live
 
