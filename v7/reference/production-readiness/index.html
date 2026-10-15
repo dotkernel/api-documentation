@@ -1441,10 +1441,105 @@ The first server in the document is <code>application.url</code>, which <code>co
 The <code>openapi</code> Composer script wraps the generator, but nothing runs it when the attributes change, so a specification generated once drifts from the API it describes.
 Regenerate it in the same step that deploys the code.</p>
 <p>See <a href="../../openapi/generate-documentation/">Generate documentation</a> and <a href="../../openapi/configuration/">OpenAPI configuration</a> for the version and format options, and <a href="../../openapi/render-documentation/">Render documentation</a> for serving the result.</p>
+<h2 id="best-practices">Best practices</h2>
+<p>Two nginx settings worth making before you go live.
+Dotkernel API ships no nginx configuration, only the Apache <code>.htaccess</code> in <code>public/</code>, so both go in the nginx virtual host you write for the API.
+If you run Apache instead, see <a href="#apache-equivalent">the Apache equivalent</a> at the end of this section.</p>
+<h3 id="where-the-edit-goes">Where the edit goes</h3>
+<p>Both settings go in the <code>server { ... }</code> block of the virtual host for the API - the block that carries <code>server_name</code>, the <code>listen</code> directives, <code>root</code> and the <code>location</code> that passes PHP to FPM.
+That block lives in the file where you keep your site configuration:</p>
+<ul>
+<li><code>/etc/nginx/conf.d/&lt;site&gt;.conf</code> on AlmaLinux and other RHEL-family systems.</li>
+<li><code>/etc/nginx/sites-available/&lt;site&gt;</code>, symlinked into <code>sites-enabled/</code>, on Debian-style systems.</li>
+</ul>
+<p>The example below is only an illustration of the file's shape.
+Your <code>root</code>, <code>server_name</code>, certificate directives and <code>fastcgi_pass</code> target will differ.</p>
+<pre class="highlight"><code class="language-nginx">server {
+    listen 80;
+    listen 443 ssl;
+    server_name api.example.com;
+    root /var/www/api/public;
+
+    # certificate, protocols and the rest of your TLS configuration
+
+    # refuse plain HTTP, except the ACME challenge
+    set $block 0;
+    if ($scheme = http) { set $block 1; }
+    if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+    if ($block = 1) { return 444; }
+
+    # compress JSON responses
+    gzip on;
+    gzip_types application/json application/hal+json application/problem+json;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php-fpm/www.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}</code></pre>
+<p>Reload nginx after editing, and check the syntax first with <code>nginx -t</code>.</p>
+<p>The HTTP check only does something in a <code>server</code> block that accepts port 80, because <code>$scheme</code> is always <code>https</code> in a block that listens only on 443.
+If your configuration already uses two blocks — one for port 80 and one for port 443 — put the four <code>if</code> and <code>set</code> lines in the port-80 block, and the <code>gzip</code> lines in the port-443 block.
+Better still, if you do not need ACME over HTTP, remove the port-80 block altogether.</p>
+<h3 id="refuse-plain-http-instead-of-redirecting">Refuse plain HTTP instead of redirecting</h3>
+<p>An API that only exists over TLS should not answer on plain HTTP at all.
+Do not listen on port 80 if you can avoid it.
+Where port 80 has to stay open — for example so that certificate renewals over the ACME HTTP-01 challenge keep working — fail every request that arrives on it rather than redirecting it to HTTPS.</p>
+<p>A redirect is the wrong answer for an API.
+API clients are not browsers: many HTTP libraries follow a <code>301</code> without telling anyone, so the integration appears to work while the client is still configured with <code>http://</code>.
+By then the first request has already crossed the network in cleartext, and it may have carried a bearer token or, on <code>/security/generate-token</code>, the client secret, username and password.
+Failing the request exposes the mistake on the very first call, before anything sensitive is sent.</p>
+<pre class="highlight"><code class="language-nginx">set $block 0;
+if ($scheme = http) { set $block 1; }
+if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+if ($block = 1) { return 444; }</code></pre>
+<p>This blocks every request whose scheme is <code>http</code>, except those for the ACME challenge path.
+<code>444</code> is an nginx-specific status: it closes the connection without sending a status line, headers or a body.
+Keep these lines at <code>server</code> level, outside any <code>location</code> block, as in the example above.</p>
+<h3 id="compress-json-responses">Compress JSON responses</h3>
+<p>nginx compresses <code>text/html</code> once <code>gzip</code> is on, but JSON types are not in its default <code>gzip_types</code>, so they have to be named.
+Add this to the same <code>server</code> block:</p>
+<pre class="highlight"><code class="language-nginx">gzip on;
+gzip_types application/json application/hal+json application/problem+json;</code></pre>
+<p>The API emits all three types: <code>application/hal+json</code> for resources and collections, <code>application/json</code> for plain messages and <code>application/problem+json</code> for error responses.</p>
+<h3 id="apache-equivalent">Apache equivalent</h3>
+<p>On Apache, make both changes in the <code>.htaccess</code> file shipped in <code>public/</code>.
+It needs <code>AllowOverride All</code> for the document root — or at least <code>FileInfo</code>, which covers both <code>mod_rewrite</code> and <code>AddOutputFilterByType</code> — as listed in <a href="../../introduction/server-requirements/">Server Requirements</a>.</p>
+<p>Add the HTTP check <strong>directly after <code>RewriteEngine On</code></strong>, before the existing rules.
+The shipped rules end with <code>[L]</code> for every request that matches an existing file and for everything else routed to <code>index.php</code>, so a rule placed below them is never reached.</p>
+<pre class="highlight"><code class="language-apache">RewriteEngine On
+
+# refuse plain HTTP, except the ACME challenge
+RewriteCond %{HTTPS} !=on
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteRule ^ - [F,L]
+
+# ... the existing rules stay as they are ...</code></pre>
+<p>Add the compression directive anywhere in the same file, for example at the end:</p>
+<pre class="highlight"><code class="language-apache">&lt;IfModule mod_deflate.c&gt;
+    AddOutputFilterByType DEFLATE application/json application/hal+json application/problem+json
+&lt;/IfModule&gt;</code></pre>
+<p>Two differences from nginx.</p>
+<ul>
+<li><strong>The request is answered, not dropped.</strong>
+    Apache has no equivalent of <code>444</code>, so the closest option is <code>[F]</code>, which returns <code>403 Forbidden</code>.
+    It still refuses the request, and it still does not redirect, which is the point.</li>
+<li><strong>The connection is already accepted.</strong>
+    <code>.htaccess</code> runs after Apache has read the request, so it cannot stop the first plain-HTTP request from arriving.
+    If you can, define no port 80 <code>VirtualHost</code> for the API at all, or put the same <code>RewriteCond</code> and <code>RewriteRule</code> lines in the port 80 <code>VirtualHost</code> instead.</li>
+</ul>
+<p><code>mod_rewrite</code> and <code>mod_deflate</code> have to be enabled.
+Restart or reload Apache after enabling a module; changes to <code>.htaccess</code> itself take effect on the next request.</p>
 <h2 id="a-minimum-before-you-go-live">A minimum before you go live</h2>
 <p>Ordered by what bites first:</p>
 <ol>
 <li>Change every seeded credential — both demo accounts and both OAuth clients — or delete them once a real administrator exists.</li>
+<li>Refuse plain HTTP at the web server — drop it, do not redirect it. See <a href="#best-practices">Best practices</a>.</li>
 <li>Rate-limit <code>/security/generate-token</code> and <code>/error-report</code> at the proxy.</li>
 <li>Disable the OAuth2 grants you do not use, starting with the implicit grant.</li>
 <li>Point <code>dot-errorhandler</code> at a logger that reaches somebody — Sentry, or at least a shipped <code>stderr</code> stream.</li>
@@ -1453,6 +1548,7 @@ Regenerate it in the same step that deploys the code.</p>
 <li>Fix <code>X-Forwarded-For</code> handling at the proxy, since the application trusts the header as sent.</li>
 <li>Set a default <code>Cache-Control</code> for the whole API instead of leaving it unset.</li>
 <li>Schedule <code>composer audit</code> on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.</li>
+<li>Enable gzip for <code>application/json</code>, <code>application/hal+json</code> and <code>application/problem+json</code> in the same nginx configuration.</li>
 <li>Work through <a href="../../security/basic-security/">Basic Security</a> and <a href="../../security/oauth2-security/">OAuth2 Security</a>, which cover the application-level hardening this page does not repeat.</li>
 </ol>
 <h2 id="faq">FAQ</h2>
@@ -1575,6 +1671,10 @@ Ship them with your own agent, or repoint the <code>stream</code> writer in <cod
             
                 <li class="toc__entry">
                     <a href="#openapi-specification" class="toc__link nav-link">OpenAPI specification</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#best-practices" class="toc__link nav-link">Best practices</a>
                 </li>
             
                 <li class="toc__entry">
