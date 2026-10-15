@@ -299,7 +299,55 @@ See [Generate documentation](../openapi/generate-documentation.md) and [OpenAPI 
 ## Best practices
 
 Two nginx settings worth making before you go live.
-Both go in the `server` block that serves the API.
+Dotkernel API ships no nginx configuration, only the Apache `.htaccess` in `public/`, so both go in the nginx virtual host you write for the API.
+
+### Where the edit goes
+
+Both settings go in the `server { ... }` block of the virtual host for the API - the block that carries `server_name`, the `listen` directives, `root` and the `location` that passes PHP to FPM.
+That block lives in the file where you keep your site configuration:
+
+- `/etc/nginx/conf.d/<site>.conf` on AlmaLinux and other RHEL-family systems.
+- `/etc/nginx/sites-available/<site>`, symlinked into `sites-enabled/`, on Debian-style systems.
+
+The example below is only an illustration of the file's shape.
+Your `root`, `server_name`, certificate directives and `fastcgi_pass` target will differ.
+
+```nginx
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name api.example.com;
+    root /var/www/api/public;
+
+    # certificate, protocols and the rest of your TLS configuration
+
+    # refuse plain HTTP, except the ACME challenge
+    set $block 0;
+    if ($scheme = http) { set $block 1; }
+    if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+    if ($block = 1) { return 444; }
+
+    # compress JSON responses
+    gzip on;
+    gzip_types application/json application/hal+json application/problem+json;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php-fpm/www.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
+
+Reload nginx after editing, and check the syntax first with `nginx -t`.
+
+The HTTP check only does something in a `server` block that accepts port 80, because `$scheme` is always `https` in a block that listens only on 443.
+If your configuration already uses two blocks — one for port 80 and one for port 443 — put the four `if` and `set` lines in the port-80 block, and the `gzip` lines in the port-443 block.
+Better still, if you do not need ACME over HTTP, remove the port-80 block altogether.
 
 ### Refuse plain HTTP instead of redirecting
 
@@ -321,12 +369,12 @@ if ($block = 1) { return 444; }
 
 This blocks every request whose scheme is `http`, except those for the ACME challenge path.
 `444` is an nginx-specific status: it closes the connection without sending a status line, headers or a body.
-Keep these lines at `server` level, outside any `location` block.
+Keep these lines at `server` level, outside any `location` block, as in the example above.
 
 ### Compress JSON responses
 
 nginx compresses `text/html` once `gzip` is on, but JSON types are not in its default `gzip_types`, so they have to be named.
-Add this to the same nginx configuration file:
+Add this to the same `server` block:
 
 ```nginx
 gzip on;
