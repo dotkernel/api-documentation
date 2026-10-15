@@ -296,20 +296,149 @@ Regenerate it in the same step that deploys the code.
 
 See [Generate documentation](../openapi/generate-documentation.md) and [OpenAPI configuration](../openapi/configuration.md) for the version and format options, and [Render documentation](../openapi/render-documentation.md) for serving the result.
 
+## Best practices
+
+Two nginx settings worth making before you go live.
+Dotkernel API ships no nginx configuration, only the Apache `.htaccess` in `public/`, so both go in the nginx virtual host you write for the API.
+If you run Apache instead, see [the Apache equivalent](#apache-equivalent) at the end of this section.
+
+### Where the edit goes
+
+Both settings go in the `server { ... }` block of the virtual host for the API - the block that carries `server_name`, the `listen` directives, `root` and the `location` that passes PHP to FPM.
+That block lives in the file where you keep your site configuration:
+
+- `/etc/nginx/conf.d/<site>.conf` on AlmaLinux and other RHEL-family systems.
+- `/etc/nginx/sites-available/<site>`, symlinked into `sites-enabled/`, on Debian-style systems.
+
+The example below is only an illustration of the file's shape.
+Your `root`, `server_name`, certificate directives and `fastcgi_pass` target will differ.
+
+```nginx
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name api.example.com;
+    root /var/www/api/public;
+
+    # certificate, protocols and the rest of your TLS configuration
+
+    # refuse plain HTTP, except the ACME challenge
+    set $block 0;
+    if ($scheme = http) { set $block 1; }
+    if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+    if ($block = 1) { return 444; }
+
+    # compress JSON responses
+    gzip on;
+    gzip_types application/json application/hal+json application/problem+json;
+
+    location / {
+        try_files $uri /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php-fpm/www.sock;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+```
+
+Reload nginx after editing, and check the syntax first with `nginx -t`.
+
+The HTTP check only does something in a `server` block that accepts port 80, because `$scheme` is always `https` in a block that listens only on 443.
+If your configuration already uses two blocks — one for port 80 and one for port 443 — put the four `if` and `set` lines in the port-80 block, and the `gzip` lines in the port-443 block.
+Better still, if you do not need ACME over HTTP, remove the port-80 block altogether.
+
+### Refuse plain HTTP instead of redirecting
+
+An API that only exists over TLS should not answer on plain HTTP at all.
+Do not listen on port 80 if you can avoid it.
+Where port 80 has to stay open — for example so that certificate renewals over the ACME HTTP-01 challenge keep working — fail every request that arrives on it rather than redirecting it to HTTPS.
+
+A redirect is the wrong answer for an API.
+API clients are not browsers: many HTTP libraries follow a `301` without telling anyone, so the integration appears to work while the client is still configured with `http://`.
+By then the first request has already crossed the network in cleartext, and it may have carried a bearer token or, on `/security/generate-token`, the client secret, username and password.
+Failing the request exposes the mistake on the very first call, before anything sensitive is sent.
+
+```nginx
+set $block 0;
+if ($scheme = http) { set $block 1; }
+if ($request_uri ~ ^/\.well-known/acme-challenge/) { set $block 0; }
+if ($block = 1) { return 444; }
+```
+
+This blocks every request whose scheme is `http`, except those for the ACME challenge path.
+`444` is an nginx-specific status: it closes the connection without sending a status line, headers or a body.
+Keep these lines at `server` level, outside any `location` block, as in the example above.
+
+### Compress JSON responses
+
+nginx compresses `text/html` once `gzip` is on, but JSON types are not in its default `gzip_types`, so they have to be named.
+Add this to the same `server` block:
+
+```nginx
+gzip on;
+gzip_types application/json application/hal+json application/problem+json;
+```
+
+The API emits all three types: `application/hal+json` for resources and collections, `application/json` for plain messages and `application/problem+json` for error responses.
+
+### Apache equivalent
+
+On Apache, make both changes in the `.htaccess` file shipped in `public/`.
+It needs `AllowOverride All` for the document root — or at least `FileInfo`, which covers both `mod_rewrite` and `AddOutputFilterByType` — as listed in [Server Requirements](../introduction/server-requirements.md).
+
+Add the HTTP check **directly after `RewriteEngine On`**, before the existing rules.
+The shipped rules end with `[L]` for every request that matches an existing file and for everything else routed to `index.php`, so a rule placed below them is never reached.
+
+```apache
+RewriteEngine On
+
+# refuse plain HTTP, except the ACME challenge
+RewriteCond %{HTTPS} !=on
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteRule ^ - [F,L]
+
+# ... the existing rules stay as they are ...
+```
+
+Add the compression directive anywhere in the same file, for example at the end:
+
+```apache
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json application/hal+json application/problem+json
+</IfModule>
+```
+
+Two differences from nginx.
+
+- **The request is answered, not dropped.**
+    Apache has no equivalent of `444`, so the closest option is `[F]`, which returns `403 Forbidden`.
+    It still refuses the request, and it still does not redirect, which is the point.
+- **The connection is already accepted.**
+    `.htaccess` runs after Apache has read the request, so it cannot stop the first plain-HTTP request from arriving.
+    If you can, define no port 80 `VirtualHost` for the API at all, or put the same `RewriteCond` and `RewriteRule` lines in the port 80 `VirtualHost` instead.
+
+`mod_rewrite` and `mod_deflate` have to be enabled.
+Restart or reload Apache after enabling a module; changes to `.htaccess` itself take effect on the next request.
+
 ## A minimum before you go live
 
 Ordered by what bites first:
 
 1. Change every seeded credential — both demo accounts and both OAuth clients — or delete them once a real administrator exists.
-2. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
-3. Disable the OAuth2 grants you do not use, starting with the implicit grant.
-4. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
-5. Add `logrotate` for `log/`, or repoint the writer at standard output.
-6. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
-7. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
-8. Set a default `Cache-Control` for the whole API instead of leaving it unset.
-9. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
-10. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
+2. Refuse plain HTTP at the web server — drop it, do not redirect it. See [Best practices](#best-practices).
+3. Rate-limit `/security/generate-token` and `/error-report` at the proxy.
+4. Disable the OAuth2 grants you do not use, starting with the implicit grant.
+5. Point `dot-errorhandler` at a logger that reaches somebody — Sentry, or at least a shipped `stderr` stream.
+6. Add `logrotate` for `log/`, or repoint the writer at standard output.
+7. Add a readiness endpoint that checks the database, and point your load balancer at it rather than `/`.
+8. Fix `X-Forwarded-For` handling at the proxy, since the application trusts the header as sent.
+9. Set a default `Cache-Control` for the whole API instead of leaving it unset.
+10. Schedule `composer audit` on each server — the install that generated its lock was audited, but nothing re-checks that lock afterwards.
+11. Enable gzip for `application/json`, `application/hal+json` and `application/problem+json` in the same nginx configuration.
+12. Work through [Basic Security](../security/basic-security.md) and [OAuth2 Security](../security/oauth2-security.md), which cover the application-level hardening this page does not repeat.
 
 ## FAQ
 
