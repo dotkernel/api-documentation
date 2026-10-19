@@ -83,8 +83,8 @@ throw BadRequestException::create(
 | `ForbiddenException` | `403 Forbidden` | `ErrorReportPermissionMiddleware`, `ErrorReportService` (including when error reporting is disabled) |
 | `NotFoundException` | `404 Not Found` | handlers and services, for a missing resource |
 | `NotAcceptableException` | `406 Not Acceptable` | `ContentNegotiationMiddleware` |
-| `ConflictException` | `409 Conflict` | `UserService`, `AdminService`, `DeprecationMiddleware`, `ResourceProviderMiddleware` |
-| `ExpiredException` | `410 Gone` | the password reset handlers |
+| `ConflictException` | `409 Conflict` | `UserService`, `AdminService`, `ResourceProviderMiddleware` |
+| `ExpiredException` | `410 Gone` | the password reset handlers, `DeprecationMiddleware` once a `sunset` date is reached |
 | `UnsupportedMediaTypeException` | `415 Unsupported Media Type` | `ContentNegotiationMiddleware` |
 | `RuntimeException` | `500 Internal Server Error` | `Renderer`, `HandlerService`, `ErrorReportService`, `HandlerDelegatorFactory`, `ProblemDetailsDelegatorFactory` |
 | `SunsetException` | `500 Internal Server Error` | `BaseDeprecation`, on an invalid `sunset` date |
@@ -139,6 +139,7 @@ Note that this is not what a failed RBAC check produces — see [How it works](#
 - The **resource cannot be accessed**
     - because it has **expired** (example: account activation link)
     - because it has been **consumed** (example: one-time password)
+    - because it has **reached its sunset date** (example: an endpoint marked with `ResourceDeprecation`), see [API Evolution pattern](../tutorials/api-evolution.md)
 
 ### `UnsupportedMediaTypeException` thrown when
 
@@ -296,7 +297,7 @@ It returns `409 Conflict`.
 
 **Q: What does `ExpiredException` cover?**
 
-A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
+A: Resources that can no longer be used because they expired, such as an activation link, because they were already consumed, such as a one-time password, or because they reached their sunset date, such as a deprecated endpoint.
 It returns `410 Gone`.
 
 **Q: Why can I not pass a message to the constructor?**
