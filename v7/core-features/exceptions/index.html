@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1237,12 +1243,12 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 <tr>
 <td><code>ConflictException</code></td>
 <td><code>409 Conflict</code></td>
-<td><code>UserService</code>, <code>AdminService</code>, <code>DeprecationMiddleware</code>, <code>ResourceProviderMiddleware</code></td>
+<td><code>UserService</code>, <code>AdminService</code>, <code>ResourceProviderMiddleware</code></td>
 </tr>
 <tr>
 <td><code>ExpiredException</code></td>
 <td><code>410 Gone</code></td>
-<td>the password reset handlers</td>
+<td>the password reset handlers, <code>DeprecationMiddleware</code> once a <code>sunset</code> date is reached</td>
 </tr>
 <tr>
 <td><code>UnsupportedMediaTypeException</code></td>
@@ -1261,6 +1267,49 @@ class BadRequestException extends Exception implements ProblemDetailsExceptionIn
 </tr>
 </tbody>
 </table></div>
+<h3 id="version-differences">Version differences</h3>
+<p>The table above and the sections below describe Dotkernel API 7.2.
+Earlier 7.x versions behave differently in these places:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Behavior</th>
+<th>7.0</th>
+<th>7.1</th>
+<th>7.2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RuntimeException</code> status</td>
+<td><code>400 Bad Request</code></td>
+<td><code>400 Bad Request</code></td>
+<td><code>500 Internal Server Error</code></td>
+</tr>
+<tr>
+<td><code>SunsetException</code> status</td>
+<td><code>401 Unauthorized</code></td>
+<td><code>401 Unauthorized</code></td>
+<td><code>500 Internal Server Error</code></td>
+</tr>
+<tr>
+<td>Error reporting disabled</td>
+<td><code>RuntimeException</code>, <code>400 Bad Request</code></td>
+<td><code>RuntimeException</code>, <code>400 Bad Request</code></td>
+<td><code>ForbiddenException</code>, <code>403 Forbidden</code></td>
+</tr>
+<tr>
+<td>Malformed JSON request body</td>
+<td>no dedicated handling: the problem details middleware answers with the exception's <code>400</code> only when exception details are exposed, otherwise with <code>500</code></td>
+<td><code>MalformedRequestBodyMiddleware</code> throws <code>BadRequestException</code>, <code>400 Bad Request</code></td>
+<td><code>MalformedRequestBodyMiddleware</code> throws <code>BadRequestException</code>, <code>400 Bad Request</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Update to the latest Dotkernel API 7.x release to get the current behavior.
+See <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a> and <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
+</blockquote>
 <h3 id="badrequestexception-thrown-when"><code>BadRequestException</code> thrown when</h3>
 <ul>
 <li>The client tries to <strong>create/update a resource</strong>, but the <strong>request data is invalid/incomplete</strong> (example: client tries to create an account, but does not send the required <code>identity</code> field)</li>
@@ -1307,6 +1356,7 @@ See <a href="../../tutorials/api-evolution/">API Evolution pattern</a>.</p>
 <li>The <strong>resource cannot be accessed</strong><ul>
 <li>because it has <strong>expired</strong> (example: account activation link)</li>
 <li>because it has been <strong>consumed</strong> (example: one-time password)</li>
+<li>because it has <strong>reached its sunset date</strong> (example: an endpoint marked with <code>ResourceDeprecation</code>), see <a href="../../tutorials/api-evolution/">API Evolution pattern</a></li>
 </ul>
 </li>
 </ul>
@@ -1423,7 +1473,7 @@ See <a href="../authorization/">Authorization</a>.</p>
 <p>A: When a resource cannot be created because one with the same identifier exists, or cannot change state because it is already in that state.
 It returns <code>409 Conflict</code>.</p>
 <p><strong>Q: What does <code>ExpiredException</code> cover?</strong></p>
-<p>A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
+<p>A: Resources that can no longer be used because they expired, such as an activation link, because they were already consumed, such as a one-time password, or because they reached their sunset date, such as a deprecated endpoint.
 It returns <code>410 Gone</code>.</p>
 <p><strong>Q: Why can I not pass a message to the constructor?</strong></p>
 <p>A: The <code>detail</code>, <code>title</code>, <code>type</code>, <code>status</code> and <code>additional</code> properties come from <code>CommonProblemDetailsExceptionTrait</code> and are set by <code>create()</code>, not by <code>__construct()</code>.

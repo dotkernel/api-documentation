@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1146,7 +1152,7 @@ Below is the item you need to focus on:</p>
         'table_prefix' =&gt; '',
     ],
     'postgresql' =&gt; [
-        'host'         =&gt; 'localhost',
+        'host'         =&gt; '127.0.0.1',
         'dbname'       =&gt; 'dotkernel',
         'user'         =&gt; '',
         'password'     =&gt; '',
@@ -1157,6 +1163,8 @@ Below is the item you need to focus on:</p>
     ],
 ];</code></pre>
 <blockquote>
+<p>Dotkernel API 7.0 ships the PostgreSQL <code>host</code> as <code>localhost</code>; 7.1 and 7.2 ship <code>127.0.0.1</code>, because <code>localhost</code> only works for socket connections.
+See <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
 <p>The database <code>dotkernel</code> is provided as an example, but you can use any name you like.
 Make sure to use the same database name when you create the database in the next step.</p>
 <p>If needed, you can add more database connections to this array.

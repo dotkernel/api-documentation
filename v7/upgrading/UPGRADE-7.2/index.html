@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="description" content="Dotkernel API">
+        
+        
+
+        
+        
+            
+        
+        <meta name="docsearch:version" content="7.0.0,latest">
+        <meta name="docsearch:language" content="en">
+        <meta name="docsearch:component" content="api">
+
+        <meta property="og:title"        content="Dotkernel Documentation"/>
+        <meta property="og:description"  content="Official Dotkernel documentation covering APIs, Admin, Queue, developer tools, packages, and modern PHP application development"/>
+        <meta property="og:image"        content="https://docs.dotkernel.org/img/open-graph/twitter-card-docs.png"/>
+        <meta property="og:type"         content="website"/>
+        <meta property="og:site_name"    content="Dotkernel Documentation"/>
+        <meta property="og:url"          content="https://docs.dotkernel.org/"/>
+        <meta property="og:locale"       content="en_US"/>
+        <meta name="twitter:card"        content="summary_large_image"/>
+        <meta name="twitter:site"        content="@dotkernel"/>
+        <meta name="twitter:title"       content="Dotkernel Documentation"/>
+        <meta name="twitter:description" content="Official Dotkernel documentation covering APIs, Admin, Queue, developer tools, packages, and modern PHP application development"/>
+        <meta name="twitter:image"       content="https://docs.dotkernel.org/img/open-graph/twitter-card-docs.png"/>
+
+        
+        <link rel="canonical" href="https://docs.dotkernel.org/api-documentation/v7/upgrading/UPGRADE-7.2/">
+        
+        <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
+
+        <title>Upgrading 7.1 to 7.2 - api - Dotkernel Documentation</title>
+
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://docs.dotkernel.org/css/docs.css">
+        <script src="https://docs.dotkernel.org/js/bootstrap.js" defer></script>
+        <script src="https://docs.dotkernel.org/js/docs.js" defer></script>
+        <script src="https://docs.dotkernel.org/js/scripts.js" defer></script>
+    </head>
+    <body data-bs-spy="scroll" data-bs-target=".toc" data-bs-offset="100">
+
+        
+        <nav class="navbar navbar-expand-lg dk-docs-nav py-2" data-bs-theme="dark">
+    <div class="container-fluid dk-docs-nav__inner">
+        <a class="navbar-brand dk-docs-nav__brand" href="https://docs.dotkernel.org/">
+            <img alt="Dotkernel" class="d-inline-block align-text-top" height="28"
+                 src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" width="152"/>
+        </a>
+
+        <ul class="dk-docs-nav__projects list-unstyled d-none d-lg-flex align-items-center mb-0">
+            
+            <li class="dk-docs-nav__projects-item--active">
+                <a href="https://docs.dotkernel.org/api-documentation/">API</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/admin-documentation/">Admin</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/frontend-documentation/">Frontend</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/light-documentation/">Light</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/queue-documentation/">Queue</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/packages/">Packages</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/development/">Development</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
+            </li>
+            
+            <li class="">
+                <a href="https://docs.dotkernel.org/dotboost/">Dotboost</a>
+            </li>
+            
+        </ul>
+
+        <div class="flex-grow-1"></div>
+
+        <a href="#" class="dk-docs-nav__search d-none d-md-flex align-items-center" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal" title="Open search">
+            <i class="bi bi-search"></i>
+            <span>Search docs</span>
+            <span class="dk-docs-nav__search-key">/</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dk-docs-nav__projects dk-docs-nav__projects--collapsed d-lg-none">
+                
+                <li class="dk-docs-nav__projects-item--active">
+                    <a href="https://docs.dotkernel.org/api-documentation/">API</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/admin-documentation/">Admin</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/frontend-documentation/">Frontend</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/light-documentation/">Light</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/queue-documentation/">Queue</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/packages/">Packages</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/development/">Development</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/headless-documentation/">Headless Platform</a>
+                </li>
+                
+                <li class="">
+                    <a href="https://docs.dotkernel.org/dotboost/">Dotboost</a>
+                </li>
+                
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link fw-bold text-white" href="https://github.com/dotkernel/api" title="Go to api repository" target="_blank">
+                        <i class="bi bi-github"></i>
+                        GitHub
+                    </a>
+                </li>
+                <li class="nav-item">
+                    
+    
+    <div class="version-selector">
+        <div class="btn-group">
+            <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+                
+                    v7
+                
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+                
+                
+                <a href="../../introduction/introduction/" class="dropdown-item active">
+                    
+                        v7 (latest)
+                    
+                </a>
+                
+                
+                
+                <a href="../../../v6/introduction/introduction/" class="dropdown-item">
+                    
+                        v6
+                    
+                </a>
+                
+                
+                
+                <a href="../../../v5/introduction/introduction/" class="dropdown-item">
+                    
+                        v5
+                    
+                </a>
+                
+                
+                
+                <a href="../../../v4/introduction/introduction/" class="dropdown-item">
+                    
+                        v4
+                    
+                </a>
+                
+                
+            </div>
+        </div>
+    </div>
+    
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+        
+        <div class="container-fluid docs-shell">
+            <div class="row gx-0">
+                <div class="col-lg-3 col-xl-2 right_sidebar">
+                    
+                    
+    <div class="subnavigation hidden-print">
+<!--        <h4 class="subnavigation__title">-->
+<!--            <a href="../../..">api</a>-->
+<!--        </h4>-->
+
+        <h5 class="subnavigation__title">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../architecture-at-a-glance/" class="subnavigation__link">Architecture at a Glance</a>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#overview" role="button" aria-expanded="false" aria-controls="overview">
+        <span class="subnavigation__headline">Overview</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="overview">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/server-requirements/" class="subnavigation__link">Server Requirements</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/file-structure/" class="subnavigation__link">File Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/packages/" class="subnavigation__link">Packages</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../introduction/psr/" class="subnavigation__link">PSRs</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+        <span class="subnavigation__headline">Installation</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="installation">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/getting-started/" class="subnavigation__link">Getting Started</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/composer/" class="subnavigation__link">Composer</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/configuration-files/" class="subnavigation__link">Configuration Files</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/doctrine-orm/" class="subnavigation__link">Doctrine ORM</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/test-the-installation/" class="subnavigation__link">Test the Installation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/faq/" class="subnavigation__link">FAQ</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#upgrading" role="button" aria-expanded="false" aria-controls="upgrading">
+        <span class="subnavigation__headline">Upgrading</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="upgrading">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../upgrading/" class="subnavigation__link">Upgrade procedure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../UPGRADE-7.0/" class="subnavigation__link">Upgrading 6.x to 7.0</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../UPGRADE-6.0/" class="subnavigation__link">Upgrading 5.x to 6.0</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+        <span class="subnavigation__headline">Flow</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="flow">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/middleware-flow/" class="subnavigation__link">Middleware Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/default-library-flow/" class="subnavigation__link">Default Library Flow</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../flow/library-flow-for-email/" class="subnavigation__link">Library Flow for Email</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+        <span class="subnavigation__headline">Core Features</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="core-features">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/authentication/" class="subnavigation__link">Authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/authorization/" class="subnavigation__link">Authorization</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/content-validation/" class="subnavigation__link">Content Validation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/exceptions/" class="subnavigation__link">Exceptions</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/dependency-injection/" class="subnavigation__link">Dependency Injection</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/error-reporting/" class="subnavigation__link">Error reporting</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../core-features/rendering-and-sending-emails/" class="subnavigation__link">Rendering and Sending emails</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#extended-features" role="button" aria-expanded="false" aria-controls="extended-features">
+        <span class="subnavigation__headline">Extended features</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="extended-features">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/core-and-app/" class="subnavigation__link">Core and App</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/handler-structure/" class="subnavigation__link">New Handler Structure</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/route-grouping/" class="subnavigation__link">Route Grouping</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/problem-details/" class="subnavigation__link">Problem Details</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../extended-features/injectable-input-filters/" class="subnavigation__link">Injectable Input Filters</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+        <span class="subnavigation__headline">Commands</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="commands">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/create-admin-account/" class="subnavigation__link">Create admin account</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-database-migrations/" class="subnavigation__link">Generate database migrations</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/display-available-endpoints/" class="subnavigation__link">Display available endpoints</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../commands/generate-tokens/" class="subnavigation__link">Generate tokens</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+        <span class="subnavigation__headline">Tutorials</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="tutorials">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/cors/" class="subnavigation__link">Setting up CORS</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/create-book-module/" class="subnavigation__link">Creating a book module</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/create-book-module-via-dot-maker/" class="subnavigation__link">Creating a book module using DotMaker</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/token-authentication/" class="subnavigation__link">Token authentication</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/api-evolution/" class="subnavigation__link">API Evolution</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../tutorials/find-user-by-identity/" class="subnavigation__link">Find user by identity</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+        <span class="subnavigation__headline">Transition from API Tools</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="transition-from-api-tools">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/api-tools-vs-dotkernel-api/" class="subnavigation__link">Laminas API Tools vs Dotkernel API</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/transition-approach/" class="subnavigation__link">Transition Approach</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../transition-from-api-tools/discovery-phase/" class="subnavigation__link">Discovery Phase</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#openapi" role="button" aria-expanded="false" aria-controls="openapi">
+        <span class="subnavigation__headline">OpenAPI</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="openapi">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/initialized-components/" class="subnavigation__link">Initialized Components</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/write-documentation/" class="subnavigation__link">Write Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/generate-documentation/" class="subnavigation__link">Generate Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/render-documentation/" class="subnavigation__link">Render Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/use-documentation/" class="subnavigation__link">Use Documentation</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../openapi/getting-help/" class="subnavigation__link">Getting Help</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#basic-security" role="button" aria-expanded="false" aria-controls="basic-security">
+        <span class="subnavigation__headline">Basic Security</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="basic-security">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../security/basic-security/" class="subnavigation__link">Basic Security</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../security/oauth2-security/" class="subnavigation__link">OAuth2 Security</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#reference" role="button" aria-expanded="false" aria-controls="reference">
+        <span class="subnavigation__headline">Reference</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="reference">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../reference/account-anonymization/" class="subnavigation__link">Anonymize Accounts</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../../reference/production-readiness/" class="subnavigation__link">Production Readiness</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+                </div>
+                <div class="col-lg-9 col-xl-8 main_docs">
+                    
+                    <nav aria-label="breadcrumb" class="nav_breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.dotkernel.org/">Overview</a></li>
+            
+
+            
+                <li class="breadcrumb-item"><a href="../../..">api</a></li>
+
+                
+                    
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Upgrading</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Upgrading 7.1 to 7.2</li>
+            
+        
+    </ol>
+</nav>
+
+                    
+                    
+
+
+
+
+    
+    
+<!--        <h2 class="chapter__headline text-black-50">Upgrading</h2>-->
+    
+
+    
+    
+        
+        
+            
+        
+        
+        <div class="md-actions-bar">
+            <div class="md-actions">
+                <button type="button" class="md-actions-toggle" aria-haspopup="true" aria-expanded="false"
+                        onclick="toggleMdActionsMenu(this)">
+                    <span class="md-actions-toggle-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h9l7 7v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M13 4v6h6"/></svg>
+                        <span>Copy Page</span>
+                    </span>
+                    <span class="md-actions-toggle-chev">
+                        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </span>
+                </button>
+                <div class="md-actions-menu" role="menu">
+                    <button type="button" class="md-actions-item" role="menuitem" data-copy-url="../UPGRADE-7.2.md"
+                            onclick="copyMarkdownPage(this)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                        <span class="label">Copy Page (as Markdown)</span>
+                    </button>
+                    <a href="../UPGRADE-7.2.md" target="_blank" rel="alternate noopener noreferrer" type="text/markdown"
+                       class="md-actions-item" role="menuitem" title="View the Markdown source of this page">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h9l7 7v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M13 4v6h6"/><path d="M8 15h8M8 11h4"/></svg>
+                        <span class="label">View as Markdown</span>
+                    </a>
+                    <a href="https://claude.ai/new?q=Read%20from%20https%3A//docs.dotkernel.org/api-documentation/v7/upgrading/UPGRADE-7.2.md%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="noopener noreferrer"
+                       class="md-actions-item" role="menuitem" title="Open this page in Claude">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg>
+                        <span class="label">Open in Claude</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+
+    <h1 id="upgrading-from-71-to-72">Upgrading from 7.1 to 7.2</h1>
+<h2 id="summary">Summary</h2>
+<p>The changes you need to port into your project when moving from Dotkernel API 7.1 to 7.2, each linked to the pull request that introduced it.
+The headline items are the new <code>composer openapi</code> generator with its configuration file, the explicit <code>operationId</code> on every operation, and the changed exception status codes.</p>
+<h2 id="details">Details</h2>
+<blockquote>
+<p>You can find the release notes in <a href="https://github.com/dotkernel/api/releases/tag/7.1.1">7.1.1</a>, the <a href="https://github.com/dotkernel/api/compare/7.1.0...7.1.1">7.1.0...7.1.1 compare view</a> and the commits on the <a href="https://github.com/dotkernel/api/commits/7.0">7.0 branch</a>.
+The project <code>CHANGELOG.md</code> does not list the 7.2 pull requests, and pull requests 565, 566 and 567 are not in any release notes, so they are listed here from their code changes.</p>
+</blockquote>
+<h3 id="important-updates">Important updates</h3>
+<p>These changes affect your Composer scripts and dependencies, configuration, the published OpenAPI document, response behavior or error behavior.</p>
+<ul>
+<li>Add <code>bin/generate-openapi.php</code>, the <code>openapi</code> Composer script (<code>php bin/generate-openapi.php</code>) and <code>config/autoload/openapi.global.php</code>: the OpenAPI document root (<code>info</code>, <code>servers</code>, security schemes, tags, external docs) now comes from configuration instead of attributes, and the server URL is taken from <code>application.url</code>. Copy the config file, add the script to your <code>composer.json</code>, add the <code>openapi</code> key with <code>server_description</code> to <code>config/autoload/local.php</code>, and add <code>public/openapi.yaml</code> to <code>.gitignore</code>. The generated document also defines a shared <code>DateTimeObject</code> schema <a href="https://github.com/dotkernel/api/pull/560">https://github.com/dotkernel/api/pull/560</a></li>
+<li>Move the OpenAPI root attributes (<code>Info</code>, <code>Server</code>, security schemes, external docs) out of <code>src/App/src/OpenAPI.php</code>: pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 then removes them in favor of the configuration file. Apply both together and remove the attributes from your copy of the file <a href="https://github.com/dotkernel/api/pull/551">https://github.com/dotkernel/api/pull/551</a></li>
+<li>Add an explicit <code>operationId</code> to every operation in the <code>OpenAPI.php</code> files, add a test that fails on a missing or duplicate id (<code>test/Unit/App/OpenApi/OperationIdTest.php</code>) and require <code>zircote/swagger-php</code> <code>^6.4.0</code>: the ids in the generated document change from hashes to readable names, for example <code>getAdminCollection</code> and <code>postUserResource</code>. Clients generated from the document must be regenerated <a href="https://github.com/dotkernel/api/pull/566">https://github.com/dotkernel/api/pull/566</a></li>
+<li>Change exception status codes: <code>RuntimeException</code> and <code>SunsetException</code> return <code>500 Internal Server Error</code> instead of <code>400</code> and <code>401</code>, and <code>ErrorReportService</code> throws <code>ForbiddenException</code> (<code>403</code>) instead of <code>RuntimeException</code> when error reporting is not enabled. Update API clients that match on the old status codes <a href="https://github.com/dotkernel/api/pull/567">https://github.com/dotkernel/api/pull/567</a></li>
+<li>Remove the <code>ResourceDeprecation</code> attribute from <code>GetIndexResourceHandler</code>: <code>GET /</code> no longer returns the <code>Sunset</code> and <code>Link</code> headers <a href="https://github.com/dotkernel/api/pull/565">https://github.com/dotkernel/api/pull/565</a></li>
+</ul>
+<h3 id="optional-updates">Optional updates</h3>
+<p>These changes cover documentation fixes, type-only cleanups, development tooling and CI.
+Skipping them does not affect how the API runs.</p>
+<ul>
+<li>Document the recover-account endpoint at its registered path in <code>src/User/src/OpenAPI.php</code>: <code>/user/account/recover</code> instead of <code>/account/recover-identity</code>. The route itself is unchanged <a href="https://github.com/dotkernel/api/pull/550">https://github.com/dotkernel/api/pull/550</a></li>
+<li>Add class constant type declarations and the <code>SlevomatCodingStandard.TypeHints.ClassConstantTypeHint</code> rule to <code>phpcs.xml</code>. It only matters if a subclass of the affected classes overrides one of those constants <a href="https://github.com/dotkernel/api/pull/537">https://github.com/dotkernel/api/pull/537</a></li>
+<li>Add <code>boundwize/structarmed</code> as a dev dependency with a <code>structarmed.php</code> architecture file, and make closures <code>static</code> <a href="https://github.com/dotkernel/api/pull/553">https://github.com/dotkernel/api/pull/553</a></li>
+<li>Update <code>boundwize/structarmed</code> to <code>^0.18.0</code> <a href="https://github.com/dotkernel/api/pull/554">https://github.com/dotkernel/api/pull/554</a></li>
+<li>Update <code>boundwize/structarmed</code> to <code>^0.19.0</code> <a href="https://github.com/dotkernel/api/pull/562">https://github.com/dotkernel/api/pull/562</a></li>
+<li>Clarify in <code>config/autoload/cors.local.php.dist</code> how to restrict the allowed origins <a href="https://github.com/dotkernel/api/pull/536">https://github.com/dotkernel/api/pull/536</a></li>
+<li>Update the README: password warning for the fixtures <a href="https://github.com/dotkernel/api/pull/540">https://github.com/dotkernel/api/pull/540</a></li>
+<li>Update the README to reflect the application purpose <a href="https://github.com/dotkernel/api/pull/541">https://github.com/dotkernel/api/pull/541</a></li>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.0 <a href="https://github.com/dotkernel/api/pull/532">https://github.com/dotkernel/api/pull/532</a></li>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.1 <a href="https://github.com/dotkernel/api/pull/542">https://github.com/dotkernel/api/pull/542</a></li>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.2 <a href="https://github.com/dotkernel/api/pull/557">https://github.com/dotkernel/api/pull/557</a></li>
+</ul>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Is there an automated upgrade from 7.1 to 7.2?</strong></p>
+<p>A: No.
+You implement each listed change manually in your own project.
+See <a href="../upgrading/">Upgrades</a> for the recommended procedure.</p>
+<p><strong>Q: Which PHP versions does 7.2 support?</strong></p>
+<p>A: The same as 7.1: PHP 8.3, 8.4 and 8.5.
+No pull request in this release changes the <code>php</code> constraint in <code>composer.json</code>.</p>
+<p><strong>Q: Do I need a database migration?</strong></p>
+<p>A: No.
+None of the pull requests in this release changes an entity, an enum or a migration.</p>
+<p><strong>Q: Where did the OpenAPI root attributes go?</strong></p>
+<p>A: Pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 removes them from <code>src/App/src/OpenAPI.php</code>.
+The document root is now assembled by <code>bin/generate-openapi.php</code> from <code>config/autoload/openapi.global.php</code> and the <code>application.url</code> key, so run <code>composer openapi</code> to generate the document.</p>
+<p><strong>Q: Will my API clients notice a change?</strong></p>
+<p>A: Yes, in four places.
+<code>RuntimeException</code> and <code>SunsetException</code> now return <code>500</code> instead of <code>400</code> and <code>401</code>, and a disabled error-report endpoint now returns <code>403</code> (pull request 567).
+<code>GET /</code> no longer returns <code>Sunset</code> and <code>Link</code> headers (pull request 565).
+The <code>operationId</code> values in the generated OpenAPI document change (pull request 566).
+No route or request format changes.</p>
+<p><strong>Q: Do I have to apply the optional updates?</strong></p>
+<p>A: No.
+They only concern documentation, type declarations, development tooling and CI.</p>
+<p><strong>Q: Where do I find the complete list of changes?</strong></p>
+<p>A: In the <a href="https://github.com/dotkernel/api/releases/tag/7.1.1">7.1.1 release notes</a> and the <a href="https://github.com/dotkernel/api/commits/7.0">commits on the 7.0 branch</a>.
+The project <code>CHANGELOG.md</code> does not list these pull requests.</p>
+
+
+
+
+    <nav>
+    <ul class="list-unstyled page-nav row w-100 mt-5 mb-3 pt-5 pb-3">
+        
+        <li class="col text-nowrap text-md-start">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../upgrading/">
+                    <i class="bi bi-chevron-left"></i>
+                    Upgrade procedure
+                </a>
+            
+        </li>
+
+        
+        <li class="col text-nowrap text-md-end pe-0">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../UPGRADE-7.1/">
+                    Upgrading 7.0 to 7.1
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                    
+                </div>
+
+                
+                
+                <div class="col-xl-2 d-none d-xl-block page_toc">
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+            
+                <li class="toc__entry">
+                    <a href="#summary" class="toc__link nav-link">Summary</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#details" class="toc__link nav-link">Details</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#faq" class="toc__link nav-link">FAQ</a>
+                </li>
+            
+            </ul>
+        </div>
+    
+
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <footer class="dk-home-footer">
+    <div class="dk-home-footer__grid">
+        <div class="dk-home-footer__col">
+            <div class="dk-home-footer__label">Products</div>
+            <a href="https://docs.dotkernel.org/api-documentation/">API</a>
+            <a href="https://docs.dotkernel.org/admin-documentation/">Admin</a>
+            <a href="https://docs.dotkernel.org/queue-documentation/">Queue</a>
+            <a href="https://docs.dotkernel.org/light-documentation/">Light</a>
+        </div>
+        <div class="dk-home-footer__col">
+            <div class="dk-home-footer__label">Resources</div>
+            <a href="https://docs.dotkernel.org/dotboost/">Dotboost</a>
+            <a href="https://docs.dotkernel.org/headless-documentation/">Architecture</a>
+            <a href="https://www.dotkernel.com/dotkernel-packages-oss-lifecycle/">Packages Lifecycle</a>
+            <a href="https://docs.dotkernel.org/development/">WSL2 Dev Stack</a>
+        </div>
+        <div class="dk-home-footer__col">
+            <div class="dk-home-footer__label">More</div>
+            <a href="https://www.dotkernel.com/">Categories</a>
+            <a href="https://www.dotkernel.com/blog/">Blog</a>
+            <a href="https://github.com/orgs/dotkernel/discussions">Discussion</a>
+            <a href="https://www.dotkernel.com/about/">About</a>
+            <a href="https://www.dotkernel.com/contact/">Contact us</a>
+        </div>
+        <div class="dk-home-footer__col">
+            <div class="dk-home-footer__label">Follow</div>
+            <a href="https://github.com/dotkernel" target="_blank">GitHub</a>
+            <a href="https://www.dotkernel.com/feed/" target="_blank">Dotkernel RSS Feed</a>
+            <div class="dk-home-footer__note">Open-source tooling supported by JetBrains.</div>
+        </div>
+    </div>
+
+    <div class="dk-home-footer__bottom">
+        <img src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" alt="Dotkernel" width="112" height="21" style="opacity:.75" />
+        <div class="dk-home-footer__tagline">Built with Mezzio, Laminas &amp; Doctrine &mdash; for PHP developers, by PHP developers. The Laminas logo is copyright of the Laminas Foundation.</div>
+        <div class="flex-grow-1"></div>
+        <div class="dk-home-footer__copyright">&#169; Copyright Dotkernel <span id="current-year"></span>. All rights reserved.</div>
+    </div>
+</footer>
+
+        <script>
+            let base_url = '../../..',
+                project  = "api",
+                siteName = 'api';
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
+                        if (link.getAttribute('href') === './') {
+                            link.parentNode.parentNode.classList.add('show');
+                        }
+                    });
+                });
+        </script>
+        
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in api" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+</html>

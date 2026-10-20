@@ -10,6 +10,10 @@ To provide an interactive documentation, Dotkernel API implemented [zircote/swag
 
 Developers can use this library to auto-generate documentation that outlines available endpoints, their request details, and their response formats.
 
+> The pages of this section describe Dotkernel API 7.2, where `composer openapi` generates the file from configuration.
+> Versions 7.0 and 7.1 have no `composer openapi` script or `openapi.global.php`; see the version differences in [Generate documentation](generate-documentation.md#version-differences).
+> Update to the latest Dotkernel API 7.x release, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 ## FAQ
 
 **Q: What is OpenAPI?**

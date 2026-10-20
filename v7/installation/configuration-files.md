@@ -33,6 +33,10 @@ The installation script will duplicate the following files:
 > Most often, you will be using either `Sendmail` or `SMTP` to send emails.
 > If you opt for `SMTP`, ake sure to configure the SMTP connection parameters under the `smtp_options` key.
 
+> Dotkernel API 7.0 creates this file as `config/autoload/mail.global.php` instead.
+> From 7.1 it is `mail.local.php`, plus a `mail.local.php.dist` copy.
+> Update to the latest Dotkernel API 7.x release and move your settings, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 * `config/autoload/local.test.php.dist` as `config/autoload/local.test.php` to run and create tests.
 
 > This creates a new in-memory database that your tests will run on.
@@ -62,6 +66,7 @@ See the [CORS tutorial](https://docs.dotkernel.org/api-documentation/v7/tutorial
 **Q: Where does `mail.local.php` come from?**
 
 A: It is copied from the `dot-mail` package in `vendor`.
+In Dotkernel API 7.0 the copy is named `mail.global.php`.
 Configure the `mail` key, and the `smtp_options` sub-key if you send through SMTP.
 See [Rendering and sending emails](../core-features/rendering-and-sending-emails.md).
 

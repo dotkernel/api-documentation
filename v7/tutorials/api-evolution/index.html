@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1117,7 +1123,8 @@
     <h1 id="api-evolution-pattern">API Evolution pattern</h1>
 <h2 id="summary">Summary</h2>
 <p>Dotkernel API lets you evolve endpoints without breaking existing consumers by marking a handler with the <code>ResourceDeprecation</code> attribute.
-The <code>DeprecationMiddleware</code> then adds <code>Sunset</code> and <code>Link</code> response headers, telling consumers when the resource may stop responding and where the change is documented.</p>
+The <code>DeprecationMiddleware</code> then adds <code>Sunset</code> and <code>Link</code> response headers, telling consumers when the resource will stop responding and where the change is documented.
+From the sunset date onwards the middleware no longer runs the handler and returns <code>410 Gone</code>.</p>
 <h2 id="details">Details</h2>
 <p>API evolution: Updating an API while keeping it compatible for existing consumers by adding new features, fixing bugs, planning and removing outdated features.</p>
 <h2 id="how-it-works">How it works</h2>
@@ -1125,7 +1132,7 @@ The <code>DeprecationMiddleware</code> then adds <code>Sunset</code> and <code>L
 We use response headers to inform the consumers about the future changes by using two new headers:</p>
 <ul>
 <li><code>Link</code> - it's a link to the official documentation pointing out the changes that will take place.</li>
-<li><code>Sunset</code> - this header is a date, indicating when the deprecated resource will potentially become unresponsive.</li>
+<li><code>Sunset</code> - this header is a date, indicating when the deprecated resource becomes unavailable. From that date the endpoint returns <code>410 Gone</code>.</li>
 </ul>
 <p><strong>The above headers are independent, so you can use them separately.</strong></p>
 <blockquote>
@@ -1158,6 +1165,12 @@ Permissions-Policy: interest-cohort=()
 Sunset: 2038-01-01
 Link: https://docs.dotkernel.org/api-documentation/v7/tutorials/api-evolution/;rel="sunset";type="text/html"
 Vary: Origin</code></pre>
+<h2 id="version-differences">Version differences</h2>
+<p>In Dotkernel API 7.0 and 7.1, the <code>GET /</code> handler (<code>GetIndexResourceHandler</code>) carries this attribute as a live example, so the <code>curl</code> call above shows the <code>Sunset</code> and <code>Link</code> headers.
+In 7.2 the attribute is removed from that handler, so <code>GET /</code> returns no deprecation headers; the headers appear on the handlers you mark yourself.</p>
+<blockquote>
+<p>Update to the latest Dotkernel API 7.x release to get the current behavior, see <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
+</blockquote>
 <h2 id="notes">Notes</h2>
 <blockquote>
 <p>If <code>Link</code> or <code>Sunset</code> do not have a value they will not appear in the response headers.</p>
@@ -1168,7 +1181,7 @@ Vary: Origin</code></pre>
 </blockquote>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: What do the <code>Sunset</code> and <code>Link</code> headers mean?</strong></p>
-<p>A: <code>Sunset</code> is the date on which the deprecated resource may stop responding; <code>Link</code> points to documentation describing the change.
+<p>A: <code>Sunset</code> is the date on which the deprecated resource stops responding and starts returning <code>410 Gone</code>; <code>Link</code> points to documentation describing the change.
 They are independent, so either can be used alone.</p>
 <p><strong>Q: What do I need in place before deprecations work?</strong></p>
 <p>A: <code>DeprecationMiddleware::class</code> must be present in your pipeline — in the default project, <code>config/pipeline.php</code>.
@@ -1177,10 +1190,13 @@ See <a href="../../flow/middleware-flow/">Middleware flow</a>.</p>
 <p>A: The <code>ResourceDeprecation</code> attribute is applied to the handler class, so the unit of deprecation is the handler.
 Since each handler serves one method and route, deprecating the handler deprecates that method.</p>
 <p><strong>Q: What happens if I leave <code>Sunset</code> or <code>Link</code> empty?</strong></p>
-<p>A: The corresponding header is simply omitted from the response.</p>
+<p>A: The corresponding header is simply omitted from the response. Without a <code>Sunset</code> date the endpoint never returns <code>410 Gone</code>.</p>
 <p><strong>Q: What if the <code>Sunset</code> date is invalid?</strong></p>
 <p>A: It throws an error.
 The value has to be a valid date.</p>
+<p><strong>Q: What does the response look like once the sunset date has passed?</strong></p>
+<p>A: The handler is not run and the response is <code>410 Gone</code> with the detail <code>This resource is no longer available (sunset on &lt;date&gt;).</code>
+The <code>type</code> field of the problem-details body holds the documentation URL: the attribute's <code>link</code>, or else the configured <code>documentation_url</code>.</p>
 <p><strong>Q: Are <code>rel</code> and <code>type</code> required?</strong></p>
 <p>A: No.
 They default to <code>sunset</code> and <code>text/html</code>, and both relate to the <code>Link</code> header.</p>
@@ -1250,6 +1266,10 @@ Treat it like a renamed field: keep the old name until its consumers have moved.
             
                 <li class="toc__entry">
                     <a href="#marking-an-endpoint-as-deprecated" class="toc__link nav-link">Marking an endpoint as deprecated</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#version-differences" class="toc__link nav-link">Version differences</a>
                 </li>
             
                 <li class="toc__entry">

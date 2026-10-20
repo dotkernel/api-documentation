@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1189,7 +1195,11 @@ This will list all component types that can be created - for this tutorial, ente
 <li><code>Allow deleting Books?</code>, <code>Allow editing Books?</code> and <code>Allow replacing Books?</code> (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.</li>
 </ul>
 </li>
-<li>Following this step, <code>dot-maker</code> will automatically generate the <code>ConfigProvider.php</code> classes for both the <code>Api</code> and <code>Core</code> namespaces, as well as the <code>OpenAPI.php</code> class which automatically documents the previously generated routes, each with its own <code>operationId</code>.</li>
+<li>Following this step, <code>dot-maker</code> will automatically generate the <code>ConfigProvider.php</code> classes for both the <code>Api</code> and <code>Core</code> namespaces, as well as the <code>OpenAPI.php</code> class which automatically documents the previously generated routes.<ul>
+<li><code>dot-maker</code> 2.0.0 does not add an <code>operationId</code> to those operations.
+  Dotkernel API 7.2 requires one on every operation and its <code>OperationIdTest</code> fails without it, so add each <code>operationId</code> yourself, see <a href="../../openapi/write-documentation/">Write documentation</a>.</li>
+</ul>
+</li>
 </ul>
 <p>You will then be instructed to:</p>
 <ul>

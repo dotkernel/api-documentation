@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1155,7 +1161,7 @@ The constraints below mirror it exactly, with a short note on what each entry is
 <li><code>roave/psr-container-doctrine</code>:<code>^5.2.2 || ^6.0.0</code> - Doctrine Factories for PSR-11 Containers</li>
 <li><code>symfony/filesystem</code>:<code>^7.2.0</code> - Provides basic utilities for the filesystem</li>
 <li><code>symfony/var-exporter</code>:<code>^6.4 || ^7.4</code> - Exports serializable PHP data structures as plain PHP code; required to keep Doctrine LazyGhost proxy support</li>
-<li><code>zircote/swagger-php</code>:<code>^6.0.0</code> - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations</li>
+<li><code>zircote/swagger-php</code>:<code>^6.4.0</code> - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations</li>
 </ul>
 <h3 id="installed-as-dependencies">Installed as dependencies</h3>
 <p>These are used directly by the application but are <strong>not</strong> declared in <code>composer.json</code>.
@@ -1169,6 +1175,7 @@ They are resolved transitively through the packages listed above, so a normal in
 <h3 id="development-requirements">Development requirements</h3>
 <p>Declared under <code>require-dev</code>, installed unless you pass <code>--no-dev</code>:</p>
 <ul>
+<li><code>boundwize/structarmed</code>:<code>^0.19.0</code> - Architecture and code quality checks, configured in <code>structarmed.php</code></li>
 <li><code>dotkernel/dot-maker</code>:<code>^2.0.0</code> - Generates modules, handlers, services and input filters; see <a href="../../tutorials/create-book-module-via-dot-maker/">Creating a book module using DotMaker</a></li>
 <li><code>laminas/laminas-coding-standard</code>:<code>^3.0.1</code> - Coding standard ruleset used by <code>composer cs-check</code> and <code>composer cs-fix</code></li>
 <li><code>laminas/laminas-development-mode</code>:<code>^3.13.0</code> - Toggles development mode; see <a href="../../installation/composer/">Composer</a></li>
@@ -1179,6 +1186,60 @@ They are resolved transitively through the packages listed above, so a normal in
 <li><code>roave/security-advisories</code>:<code>dev-latest</code> - Blocks installation of packages with known vulnerabilities</li>
 <li><code>symfony/var-dumper</code>:<code>^7.2.3</code> - Debug output helper</li>
 </ul>
+<h3 id="version-differences">Version differences</h3>
+<p>The lists above show the constraints of Dotkernel API 7.2.
+These constraints differ in earlier 7.x versions:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Package</th>
+<th>7.0</th>
+<th>7.1</th>
+<th>7.2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mezzio/mezzio-authentication-oauth2</code></td>
+<td><code>^2.11.0</code></td>
+<td><code>^3.0.1</code></td>
+<td><code>^3.0.1</code></td>
+</tr>
+<tr>
+<td><code>symfony/var-exporter</code></td>
+<td>not required</td>
+<td><code>^6.4 || ^7.4</code></td>
+<td><code>^6.4 || ^7.4</code></td>
+</tr>
+<tr>
+<td><code>zircote/swagger-php</code></td>
+<td><code>^5.0.7</code></td>
+<td><code>^6.0.0</code></td>
+<td><code>^6.4.0</code></td>
+</tr>
+<tr>
+<td><code>dotkernel/dot-maker</code> (dev)</td>
+<td><code>^1.0.2</code></td>
+<td><code>^2.0.0</code></td>
+<td><code>^2.0.0</code></td>
+</tr>
+<tr>
+<td><code>phpunit/phpunit</code> (dev)</td>
+<td><code>^10.5.45</code></td>
+<td><code>^12.5.23</code></td>
+<td><code>^12.5.23</code></td>
+</tr>
+<tr>
+<td><code>boundwize/structarmed</code> (dev)</td>
+<td>not required</td>
+<td>not required</td>
+<td><code>^0.19.0</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Update to the latest Dotkernel API 7.x release to get these versions, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a> and <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
+</blockquote>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Is this list authoritative?</strong></p>
 <p>A: The authoritative source is the <code>require</code> section of the project's <code>composer.json</code>.

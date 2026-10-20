@@ -70,6 +70,7 @@ Two endpoints make this matter more than it would on a read-only API.
 
 - `POST /security/generate-token` is unauthenticated and verifies a password hash on every call, which makes it both a brute-force target and an expensive one.
     Nothing counts failed attempts: the `AdminLogin` entity models a login record, but no lockout or backoff is applied on repeated failures, and there is no equivalent record for regular users.
+    In 7.0 that record stores `deviceBrand`, `deviceModel`, `osPlatform`, `clientEngine` and `clientVersion`; from 7.1 it stores an `isCrawler` flag instead, which needs a database migration, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 - `POST /error-report` is guarded by a static token plus a domain or IP whitelist, and appends every accepted report to a single file.
     A leaked token with no rate limit in front of it is a way to fill a disk.
 
@@ -99,6 +100,8 @@ Two things to get right when you do.
 CORS is answered inside the application by `mezzio/mezzio-cors` from the CORS local config, and the static security headers — `X-Content-Type-Options`, `Referrer-Policy` and `permissions-policy` — come from `dot-response-header` via `config/autoload/response-header.global.php`.
 If the gateway adds its own copies of these, clients receive duplicates.
 Decide which layer owns each header and disable it in the other.
+`X-Content-Type-Options` and `Referrer-Policy` are only set from 7.1 onwards, and `Cache-Control: no-store` on the token routes also arrived in 7.1; Dotkernel API 7.0 sets `permissions-policy` alone.
+See [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 
 **`X-Forwarded-For` is trusted without a proxy allowlist.**
 `Core\App\Service\IpService::getUserIp()` returns `HTTP_X_FORWARDED_FOR` whenever that value parses as a public IP address, then falls back to `HTTP_CLIENT_IP`, and only then to `REMOTE_ADDR`.
@@ -222,7 +225,8 @@ Register a **new** service rather than redefining `dot-log.default_logger`.
 There is no health or readiness endpoint.
 `GET /` is handled by `Api\App\Handler\GetIndexResourceHandler`, which reads the application name and version out of configuration and returns them.
 It touches neither the database nor any downstream service, so a `200` from it means PHP is running and nothing more.
-It also carries a `#[ResourceDeprecation]` attribute with a sunset date of 2038-01-01, present purely as an example of the deprecation feature, so every response to it is decorated with deprecation headers.
+In 7.0 and 7.1 it also carries a `#[ResourceDeprecation]` attribute with a sunset date of 2038-01-01, present purely as an example of the deprecation feature, so every response to it is decorated with deprecation headers.
+In 7.2 that attribute is removed and the response carries no deprecation headers; see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
 It is not a health endpoint and should not be used as one.
 
 A readiness check for this application needs to cover at least the database connection, whether migrations are at head, write access to `log/` and `data/cache`, read access to the three files in `data/oauth`, and the mail transport if you send mail during requests.
@@ -281,6 +285,9 @@ Producing one is a step you add to your own build or deploy:
 ```shell
 composer openapi
 ```
+
+This script exists in Dotkernel API 7.2 only.
+In 7.0 and 7.1, run `./vendor/bin/openapi ./src --output <file>` instead; see [Generate documentation](../openapi/generate-documentation.md#version-differences) and [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
 
 `zircote/swagger-php` is a `require` rather than a `require-dev` dependency, so the generator is present on a production install as well.
 The file is written to `openapi.output_file`, which defaults to `public/openapi.yaml`: point it outside `public/` if the specification must not be served.

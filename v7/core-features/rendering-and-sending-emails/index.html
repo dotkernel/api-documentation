@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1165,7 +1171,7 @@ Rendering happens in the handler, and the finished body is passed to the mail se
 <p>A: Other Dotkernel applications on the Core architecture do exactly that — the pattern in the handler is the same, only the renderer differs.
 Within Dotkernel API the custom renderer is the default.</p>
 <p><strong>Q: Where is the mail transport configured?</strong></p>
-<p>A: In <code>config/autoload/mail.local.php</code>, under the <code>mail</code> key.
+<p>A: In <code>config/autoload/mail.local.php</code>, under the <code>mail</code> key (in Dotkernel API 7.0 the file is <code>config/autoload/mail.global.php</code>).
 See <a href="../../installation/configuration-files/">Configuration files</a>.</p>
 
 

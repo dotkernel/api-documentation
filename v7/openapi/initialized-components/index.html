@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1123,7 +1129,8 @@ It also shows how to turn an entity or a collection into an <code>OA\Schema</cod
 <blockquote>
 <p><code>OA\Info</code>, <code>OA\Server</code>, <code>OA\SecurityScheme</code> and <code>OA\ExternalDocumentation</code> are not declared as attributes.
 <code>bin/generate-openapi.php</code> builds them from <code>config/autoload/openapi.global.php</code> and <code>application.url</code> when you run <code>composer openapi</code>, and adds them to the document after the scan of <code>src</code>.
-See <a href="../configuration/">OpenAPI configuration</a> for every key.</p>
+See <a href="../configuration/">OpenAPI configuration</a> for every key.
+That is how Dotkernel API 7.2 works; in 7.0 and 7.1 these components are attributes at the top of <code>src/App/src/OpenAPI.php</code>, see <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
 </blockquote>
 <h2 id="oainfo">OA\Info</h2>
 <p>Built from the <code>openapi.info</code> key in <code>config/autoload/openapi.global.php</code>, this object provides general info about the API:</p>

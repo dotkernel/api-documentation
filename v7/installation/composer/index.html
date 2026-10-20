@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1142,7 +1148,8 @@ In some IDEs, Composer may not be able to prompt for configuration settings.</p>
 <li>Creates the <code>composer.lock</code> file that locks all dependencies to exact versions (you can still run <code>composer update</code> to replace them with newer versions, if available and installable without conflicts).</li>
 <li>Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.</li>
 <li>Generate and save the OAuth2 keys in the <code>data/oauth</code> folder.<ul>
-<li>Performed by this script <code>./bin/generate-oauth2-keys.php</code>.</li>
+<li>Performed by this script <code>./bin/generate-oauth2-keys.php</code>, which keeps existing keys.</li>
+<li>In Dotkernel API 7.0 it is <code>./vendor/bin/generate-oauth2-keys</code>, which regenerates them; see <a href="../../security/oauth2-security/#autogeneration-of-cryptographic-keys">OAuth2 Security</a>.</li>
 </ul>
 </li>
 <li>Creates the initial <code>config/autoload</code> configuration files.<ul>
@@ -1150,13 +1157,14 @@ In some IDEs, Composer may not be able to prompt for configuration settings.</p>
 <li>These files are created:<ul>
 <li>config/autoload/local.php</li>
 <li>config/autoload/local.test.php</li>
-<li>config/autoload/mail.global.php</li>
+<li>config/autoload/mail.local.php (and <code>config/autoload/mail.local.php.dist</code>)</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
+<p>In Dotkernel API 7.0 the mail configuration file is <code>config/autoload/mail.global.php</code>; see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
 <p>The post install commands are run automatically on every <code>composer install</code> and <code>composer update</code>.
 The scripts check if the files exist to prevent overwriting them.</p>
 </blockquote>

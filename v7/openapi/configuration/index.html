@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1119,6 +1125,10 @@
 <p>The values that make up the root of the generated OpenAPI document — where the file is written, the OpenAPI version, <code>info</code>, <code>servers</code>, external documentation, tags and security schemes — are not attributes.
 They live in <code>config/autoload/openapi.global.php</code> and <code>application.url</code>, and <code>bin/generate-openapi.php</code> reads them when you run <code>composer openapi</code>.</p>
 <h2 id="details">Details</h2>
+<blockquote>
+<p>This configuration exists in Dotkernel API 7.2 only.
+In 7.0 and 7.1 the document root is declared in attributes in <code>src/App/src/OpenAPI.php</code>, see <a href="../generate-documentation/#version-differences">Generate documentation</a> and <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
+</blockquote>
 <p>PHP attribute arguments must be constant expressions, so an <code>OA\Server</code> attribute cannot read the base URL out of your local config.
 For that reason the document root is assembled by <code>bin/generate-openapi.php</code> from configuration after the scan of <code>src</code>, while paths and schemas stay in each module's <code>OpenAPI.php</code>.</p>
 <p>The environment-independent keys belong in <code>config/autoload/openapi.global.php</code>, under the <code>openapi</code> key.

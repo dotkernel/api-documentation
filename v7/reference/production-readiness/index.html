@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1268,7 +1274,8 @@ Every endpoint accepts requests as fast as the web server will serve them.</p>
 <p>Two endpoints make this matter more than it would on a read-only API.</p>
 <ul>
 <li><code>POST /security/generate-token</code> is unauthenticated and verifies a password hash on every call, which makes it both a brute-force target and an expensive one.
-    Nothing counts failed attempts: the <code>AdminLogin</code> entity models a login record, but no lockout or backoff is applied on repeated failures, and there is no equivalent record for regular users.</li>
+    Nothing counts failed attempts: the <code>AdminLogin</code> entity models a login record, but no lockout or backoff is applied on repeated failures, and there is no equivalent record for regular users.
+    In 7.0 that record stores <code>deviceBrand</code>, <code>deviceModel</code>, <code>osPlatform</code>, <code>clientEngine</code> and <code>clientVersion</code>; from 7.1 it stores an <code>isCrawler</code> flag instead, which needs a database migration, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</li>
 <li><code>POST /error-report</code> is guarded by a static token plus a domain or IP whitelist, and appends every accepted report to a single file.
     A leaked token with no rate limit in front of it is a way to fill a disk.</li>
 </ul>
@@ -1291,7 +1298,9 @@ Putting a gateway in front of Dotkernel API is entirely your own work, and it is
 <p><strong>Do not double up on headers.</strong>
 CORS is answered inside the application by <code>mezzio/mezzio-cors</code> from the CORS local config, and the static security headers — <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> and <code>permissions-policy</code> — come from <code>dot-response-header</code> via <code>config/autoload/response-header.global.php</code>.
 If the gateway adds its own copies of these, clients receive duplicates.
-Decide which layer owns each header and disable it in the other.</p>
+Decide which layer owns each header and disable it in the other.
+<code>X-Content-Type-Options</code> and <code>Referrer-Policy</code> are only set from 7.1 onwards, and <code>Cache-Control: no-store</code> on the token routes also arrived in 7.1; Dotkernel API 7.0 sets <code>permissions-policy</code> alone.
+See <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
 <p><strong><code>X-Forwarded-For</code> is trusted without a proxy allowlist.</strong>
 <code>Core\App\Service\IpService::getUserIp()</code> returns <code>HTTP_X_FORWARDED_FOR</code> whenever that value parses as a public IP address, then falls back to <code>HTTP_CLIENT_IP</code>, and only then to <code>REMOTE_ADDR</code>.
 There is no trusted-proxy list and no check that the request actually arrived through your proxy, so a client can set either header and choose the address the application sees.
@@ -1387,7 +1396,8 @@ return [
 <p>There is no health or readiness endpoint.
 <code>GET /</code> is handled by <code>Api\App\Handler\GetIndexResourceHandler</code>, which reads the application name and version out of configuration and returns them.
 It touches neither the database nor any downstream service, so a <code>200</code> from it means PHP is running and nothing more.
-It also carries a <code>#[ResourceDeprecation]</code> attribute with a sunset date of 2038-01-01, present purely as an example of the deprecation feature, so every response to it is decorated with deprecation headers.
+In 7.0 and 7.1 it also carries a <code>#[ResourceDeprecation]</code> attribute with a sunset date of 2038-01-01, present purely as an example of the deprecation feature, so every response to it is decorated with deprecation headers.
+In 7.2 that attribute is removed and the response carries no deprecation headers; see <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.
 It is not a health endpoint and should not be used as one.</p>
 <p>A readiness check for this application needs to cover at least the database connection, whether migrations are at head, write access to <code>log/</code> and <code>data/cache</code>, read access to the three files in <code>data/oauth</code>, and the mail transport if you send mail during requests.
 Issue #492 is the open RFC; until it lands, add your own handler and route.</p>
@@ -1432,6 +1442,8 @@ Every path and schema is declared across four files — <code>src/App/src/OpenAP
 <code>public/</code> contains no <code>openapi.yaml</code> or <code>openapi.json</code>.
 Producing one is a step you add to your own build or deploy:</p>
 <pre class="highlight"><code class="language-shell">composer openapi</code></pre>
+<p>This script exists in Dotkernel API 7.2 only.
+In 7.0 and 7.1, run <code>./vendor/bin/openapi ./src --output &lt;file&gt;</code> instead; see <a href="../../openapi/generate-documentation/#version-differences">Generate documentation</a> and <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
 <p><code>zircote/swagger-php</code> is a <code>require</code> rather than a <code>require-dev</code> dependency, so the generator is present on a production install as well.
 The file is written to <code>openapi.output_file</code>, which defaults to <code>public/openapi.yaml</code>: point it outside <code>public/</code> if the specification must not be served.</p>
 <p>Two things to get right.</p>

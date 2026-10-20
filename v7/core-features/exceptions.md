@@ -83,11 +83,26 @@ throw BadRequestException::create(
 | `ForbiddenException` | `403 Forbidden` | `ErrorReportPermissionMiddleware`, `ErrorReportService` (including when error reporting is disabled) |
 | `NotFoundException` | `404 Not Found` | handlers and services, for a missing resource |
 | `NotAcceptableException` | `406 Not Acceptable` | `ContentNegotiationMiddleware` |
-| `ConflictException` | `409 Conflict` | `UserService`, `AdminService`, `DeprecationMiddleware`, `ResourceProviderMiddleware` |
-| `ExpiredException` | `410 Gone` | the password reset handlers |
+| `ConflictException` | `409 Conflict` | `UserService`, `AdminService`, `ResourceProviderMiddleware` |
+| `ExpiredException` | `410 Gone` | the password reset handlers, `DeprecationMiddleware` once a `sunset` date is reached |
 | `UnsupportedMediaTypeException` | `415 Unsupported Media Type` | `ContentNegotiationMiddleware` |
 | `RuntimeException` | `500 Internal Server Error` | `Renderer`, `HandlerService`, `ErrorReportService`, `HandlerDelegatorFactory`, `ProblemDetailsDelegatorFactory` |
 | `SunsetException` | `500 Internal Server Error` | `BaseDeprecation`, on an invalid `sunset` date |
+
+### Version differences
+
+The table above and the sections below describe Dotkernel API 7.2.
+Earlier 7.x versions behave differently in these places:
+
+| Behavior | 7.0 | 7.1 | 7.2 |
+| --- | --- | --- | --- |
+| `RuntimeException` status | `400 Bad Request` | `400 Bad Request` | `500 Internal Server Error` |
+| `SunsetException` status | `401 Unauthorized` | `401 Unauthorized` | `500 Internal Server Error` |
+| Error reporting disabled | `RuntimeException`, `400 Bad Request` | `RuntimeException`, `400 Bad Request` | `ForbiddenException`, `403 Forbidden` |
+| Malformed JSON request body | no dedicated handling: the problem details middleware answers with the exception's `400` only when exception details are exposed, otherwise with `500` | `MalformedRequestBodyMiddleware` throws `BadRequestException`, `400 Bad Request` | `MalformedRequestBodyMiddleware` throws `BadRequestException`, `400 Bad Request` |
+
+> Update to the latest Dotkernel API 7.x release to get the current behavior.
+> See [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md) and [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
 
 ### `BadRequestException` thrown when
 
@@ -139,6 +154,7 @@ Note that this is not what a failed RBAC check produces — see [How it works](#
 - The **resource cannot be accessed**
     - because it has **expired** (example: account activation link)
     - because it has been **consumed** (example: one-time password)
+    - because it has **reached its sunset date** (example: an endpoint marked with `ResourceDeprecation`), see [API Evolution pattern](../tutorials/api-evolution.md)
 
 ### `UnsupportedMediaTypeException` thrown when
 
@@ -296,7 +312,7 @@ It returns `409 Conflict`.
 
 **Q: What does `ExpiredException` cover?**
 
-A: Resources that can no longer be used because they expired, such as an activation link, or because they were already consumed, such as a one-time password.
+A: Resources that can no longer be used because they expired, such as an activation link, because they were already consumed, such as a one-time password, or because they reached their sunset date, such as a deprecated endpoint.
 It returns `410 Gone`.
 
 **Q: Why can I not pass a message to the constructor?**

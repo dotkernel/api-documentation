@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1152,8 +1158,27 @@ It should also work on Microsoft's IIS server with minimal modifications, but we
 <pre class="highlight"><code class="language-json">"require": {
     "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
 }</code></pre>
-<p>Earlier PHP versions are not supported.
-Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.</p>
+<p>Earlier PHP versions are not supported.</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Supported PHP versions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7.0</td>
+<td>8.2, 8.3, 8.4 and 8.5 (<code>~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0</code>)</td>
+</tr>
+<tr>
+<td>7.1 and 7.2</td>
+<td>8.3, 8.4 and 8.5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Support for PHP 8.2 was dropped in Dotkernel API 7.1.
+Update to the latest Dotkernel API 7.x release and raise the <code>php</code> constraint in your <code>composer.json</code>, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
 <blockquote>
 <p>The constraint uses <code>~</code> per minor version rather than <code>&gt;=</code>, so each supported branch is listed explicitly and a newly released PHP version is not assumed to work until it has been tested.</p>
 </blockquote>
@@ -1164,9 +1189,10 @@ Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.</p>
 <li>CLI SAPI (Command Line Interface) - Required for Cron jobs, migrations, and fixtures</li>
 </ul>
 <h3 id="why-php-83">Why PHP 8.3+?</h3>
-<p>The floor is set by <strong>typed class constants</strong>, a PHP 8.3 feature used throughout the codebase — for example in <code>Api\App\Middleware\ContentNegotiationMiddleware</code>:</p>
+<p>In 7.1 the floor came from the PHPUnit 12 upgrade, which requires PHP 8.3.
+In 7.2 it is also enforced by <strong>typed class constants</strong>, a PHP 8.3 feature used throughout the codebase — for example in <code>Api\App\Middleware\ContentNegotiationMiddleware</code>:</p>
 <pre class="highlight"><code class="language-php">public const string DEFAULT_HEADERS = 'default';</code></pre>
-<p>The project will not even parse on PHP 8.2.</p>
+<p>The 7.2 code will not even parse on PHP 8.2.</p>
 <h2 id="required-settings-and-modules-extensions">Required Settings and Modules &amp; Extensions</h2>
 <p>These extensions are declared in the <code>require</code> section of <code>composer.json</code> as <code>ext-gd</code> and <code>ext-json</code>, so Composer refuses to install the project without them:</p>
 <ul>
@@ -1258,8 +1284,8 @@ See "Why 11.4 is the minimum" above.</p>
 <p><strong>Q: What is the minimum PHP version?</strong></p>
 <p>A: PHP 8.3.
 <code>composer.json</code> requires <code>~8.3.0 || ~8.4.0 || ~8.5.0</code>, so 8.3, 8.4 and 8.5 are supported and earlier versions are not.
-PHP 8.2 support was dropped in Dotkernel API 7.2.0.
-The hard blocker is typed class constants, a PHP 8.3 feature used throughout the codebase, so the project will not parse on 8.2.</p>
+Dotkernel API 7.0 also supports PHP 8.2; that support was dropped in 7.1.
+Since 7.2 typed class constants, a PHP 8.3 feature used throughout the codebase, are a hard blocker, so the project will not parse on 8.2.</p>
 <p><strong>Q: Do I need the CLI SAPI as well as FPM?</strong></p>
 <p>A: Yes.
 FPM (or FastCGI) serves web requests, while the CLI SAPI is required for cron jobs, migrations and fixtures.</p>

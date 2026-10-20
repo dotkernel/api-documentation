@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1129,6 +1135,32 @@ It is strongly recommended that custom functionality parsing user input also mak
 <blockquote>
 <p>Read more about <a href="https://www.dotkernel.com/dotkernel-api/content-negotiation-in-dotkernel-rest-api/">content negotiation</a> and the way it is implemented in <a href="../../core-features/content-validation/">Dotkernel API</a>.</p>
 </blockquote>
+<h2 id="response-headers">Response Headers</h2>
+<p>Dotkernel API sets response headers through <code>dot-response-header</code>, configured in <code>config/autoload/response-header.global.php</code>.</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Headers on all responses</th>
+<th>Headers on <code>security::generate-token</code> and <code>security::refresh-token</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7.0</td>
+<td><code>Permissions-Policy: interest-cohort=()</code></td>
+<td>none</td>
+</tr>
+<tr>
+<td>7.1 and 7.2</td>
+<td><code>Permissions-Policy: interest-cohort=()</code>, <code>X-Content-Type-Options: nosniff</code> and <code>Referrer-Policy: no-referrer</code></td>
+<td><code>Cache-Control: no-store</code> and <code>Pragma: no-cache</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Update to the latest Dotkernel API 7.x release to get the security headers, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
+</blockquote>
 <h2 id="cross-origin-resource-sharing">Cross-Origin Resource Sharing</h2>
 <p>Dotkernel API uses <a href="https://github.com/mezzio/mezzio-cors">mezzio/mezzio-cors</a> to handle CORS details.
 The default configuration, found in <code>config/autoload/cors.local.php</code>, makes the application accessible by any origin.</p>
@@ -1269,6 +1301,10 @@ See <a href="../../openapi/introduction/">OpenAPI documentation</a>.</p>
             
                 <li class="toc__entry">
                     <a href="#content-negotiation" class="toc__link nav-link">Content Negotiation</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#response-headers" class="toc__link nav-link">Response Headers</a>
                 </li>
             
                 <li class="toc__entry">

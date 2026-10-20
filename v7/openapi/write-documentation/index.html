@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1142,6 +1148,11 @@ This is easier than it sounds because in most cases you will do the same: add a 
 </ul>
 <p>There are a lot more, but these are the most often used ones.</p>
 <p>If you need help, take a look at the existing definitions found in Dotkernel API.</p>
+<blockquote>
+<p>An explicit <code>operationId</code> on every operation exists in Dotkernel API 7.2.
+In 7.0 and 7.1 the attributes have none, and <code>zircote/swagger-php</code> generates a hash for each operation.
+Update to the latest Dotkernel API 7.x release, see <a href="../../upgrading/UPGRADE-7.2/">Upgrading from 7.1 to 7.2</a>.</p>
+</blockquote>
 <h3 id="oadelete">OA\Delete</h3>
 <p>Defines a <code>DELETE</code> HTTP request.
 It should specify at least the following parameters:</p>

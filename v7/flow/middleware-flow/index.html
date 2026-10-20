@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1120,6 +1126,11 @@
 <h2 id="details">Details</h2>
 <p>The graph below demonstrates a default flow between Dotkernel's middlewares.</p>
 <p><img alt="Dotkernel API Middleware Flow!" src="https://docs.dotkernel.org/img/api/v7/dotkernel-middleware-flow.png" class="img-responsive"/></p>
+<blockquote>
+<p>Dotkernel API 7.1 and 7.2 pipe <code>MalformedRequestBodyMiddleware</code> right after <code>ProblemDetailsMiddleware</code>, so a malformed request body produces a <code>400 Bad Request</code> response.
+The diagram does not show it, and version 7.0 does not have it.
+Update to the latest Dotkernel API 7.x release to get it, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
+</blockquote>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Why does middleware order matter?</strong></p>
 <p>A: Each middleware may short-circuit the request or add attributes the next one relies on.

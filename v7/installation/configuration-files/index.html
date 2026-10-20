@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1148,6 +1154,9 @@ It contains the database connection parameters, the API key, and other configura
 <p>If your API sends emails, you also need to configure the <code>mail</code> key.
 Most often, you will be using either <code>Sendmail</code> or <code>SMTP</code> to send emails.
 If you opt for <code>SMTP</code>, ake sure to configure the SMTP connection parameters under the <code>smtp_options</code> key.</p>
+<p>Dotkernel API 7.0 creates this file as <code>config/autoload/mail.global.php</code> instead.
+From 7.1 it is <code>mail.local.php</code>, plus a <code>mail.local.php.dist</code> copy.
+Update to the latest Dotkernel API 7.x release and move your settings, see <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
 </blockquote>
 <ul>
 <li><code>config/autoload/local.test.php.dist</code> as <code>config/autoload/local.test.php</code> to run and create tests.</li>
@@ -1170,6 +1179,7 @@ The remaining options can normally stay as shipped.
 See the <a href="https://docs.dotkernel.org/api-documentation/v7/tutorials/cors/">CORS tutorial</a>.</p>
 <p><strong>Q: Where does <code>mail.local.php</code> come from?</strong></p>
 <p>A: It is copied from the <code>dot-mail</code> package in <code>vendor</code>.
+In Dotkernel API 7.0 the copy is named <code>mail.global.php</code>.
 Configure the <code>mail</code> key, and the <code>smtp_options</code> sub-key if you send through SMTP.
 See <a href="../../core-features/rendering-and-sending-emails/">Rendering and sending emails</a>.</p>
 <p><strong>Q: Do tests use my development database?</strong></p>

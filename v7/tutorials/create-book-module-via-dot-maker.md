@@ -85,7 +85,9 @@ Next you will be prompted to add the relevant components of a module, accepting 
     * `Allow viewing Books?` (Y): will generate the single resource GET action handler - `GetBookResourceHandler.php`.
     * `Allow creating Books?` (Y): will generate the POST action handler for the `Book` entity - `PostBookResourceHandler.php`, as well as the input filter used for validating the data - `CreateBookInputFilter.php`.
     * `Allow deleting Books?`, `Allow editing Books?` and `Allow replacing Books?` (N): will generate handlers that reflect the DELETE, PATCH and PUT actions respectively, but are not necessary for this tutorial.
-* Following this step, `dot-maker` will automatically generate the `ConfigProvider.php` classes for both the `Api` and `Core` namespaces, as well as the `OpenAPI.php` class which automatically documents the previously generated routes, each with its own `operationId`.
+* Following this step, `dot-maker` will automatically generate the `ConfigProvider.php` classes for both the `Api` and `Core` namespaces, as well as the `OpenAPI.php` class which automatically documents the previously generated routes.
+    * `dot-maker` 2.0.0 does not add an `operationId` to those operations.
+      Dotkernel API 7.2 requires one on every operation and its `OperationIdTest` fails without it, so add each `operationId` yourself, see [Write documentation](../openapi/write-documentation.md).
 
 You will then be instructed to:
 

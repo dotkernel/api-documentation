@@ -403,6 +403,12 @@
         
         
 <li class="subnavigation__list-item ">
+    <a href="../../upgrading/UPGRADE-7.2/" class="subnavigation__link">Upgrading 7.1 to 7.2</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
     <a href="../../upgrading/UPGRADE-7.1/" class="subnavigation__link">Upgrading 7.0 to 7.1</a>
 </li>
 
@@ -1285,6 +1291,11 @@ class Book extends AbstractEntity
     }
 }
 </code></pre>
+<blockquote>
+<p>The <code>created</code> value is typed <code>DateTimeImmutable|null</code> because <code>TimestampsTrait</code> makes <code>created</code> nullable from Dotkernel API 7.1 (<code>getCreatedFormatted()</code> returns <code>?string</code>).
+In 7.0 <code>created</code> is a non-null <code>DateTimeImmutable</code> and <code>getCreatedFormatted()</code> returns <code>string</code>, so use <code>created: DateTimeImmutable</code> in the docblock.
+See <a href="../../upgrading/UPGRADE-7.1/">Upgrading from 7.0 to 7.1</a>.</p>
+</blockquote>
 <ul>
 <li><code>src/Core/src/Book/src/Repository/BookRepository.php</code></li>
 </ul>

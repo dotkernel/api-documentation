@@ -22,6 +22,17 @@ Whenever an endpoint needs custom `Accept` and/or `Content-Type`, make sure that
 
 > Read more about [content negotiation](https://www.dotkernel.com/dotkernel-api/content-negotiation-in-dotkernel-rest-api/) and the way it is implemented in [Dotkernel API](../core-features/content-validation.md).
 
+## Response Headers
+
+Dotkernel API sets response headers through `dot-response-header`, configured in `config/autoload/response-header.global.php`.
+
+| Version | Headers on all responses | Headers on `security::generate-token` and `security::refresh-token` |
+| --- | --- | --- |
+| 7.0 | `Permissions-Policy: interest-cohort=()` | none |
+| 7.1 and 7.2 | `Permissions-Policy: interest-cohort=()`, `X-Content-Type-Options: nosniff` and `Referrer-Policy: no-referrer` | `Cache-Control: no-store` and `Pragma: no-cache` |
+
+> Update to the latest Dotkernel API 7.x release to get the security headers, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 ## Cross-Origin Resource Sharing
 
 Dotkernel API uses [mezzio/mezzio-cors](https://github.com/mezzio/mezzio-cors) to handle CORS details.

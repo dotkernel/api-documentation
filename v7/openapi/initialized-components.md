@@ -12,6 +12,7 @@ Below you will find details on some prepopulated OpenAPI components we added to 
 > `OA\Info`, `OA\Server`, `OA\SecurityScheme` and `OA\ExternalDocumentation` are not declared as attributes.
 > `bin/generate-openapi.php` builds them from `config/autoload/openapi.global.php` and `application.url` when you run `composer openapi`, and adds them to the document after the scan of `src`.
 > See [OpenAPI configuration](configuration.md) for every key.
+> That is how Dotkernel API 7.2 works; in 7.0 and 7.1 these components are attributes at the top of `src/App/src/OpenAPI.php`, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
 
 ## OA\Info
 
