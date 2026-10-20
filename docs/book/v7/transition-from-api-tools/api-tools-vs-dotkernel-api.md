@@ -27,6 +27,9 @@ API Tools is archived and MVC/event-driven; Dotkernel API is actively maintained
 | Code Generator      | Yes                                            | [dotkernel/dot-maker](https://www.dotkernel.com/headless-platform/dotmaker-generate-common-code-in-dotkernel/)                                         |
 | PSR                 | PSR-7                                          | PSR-7, PSR-15                                                                                                                                          |
 
+> The PHP versions listed are those of Dotkernel API 7.1 and 7.2; version 7.0 also supports PHP 8.2, see [Server requirements](../introduction/server-requirements.md#php-83-84-or-85).
+> Update to the latest Dotkernel API 7.x release, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 ## FAQ
 
 **Q: Is Dotkernel API a drop-in replacement for API Tools?**

@@ -7,6 +7,9 @@ They live in `config/autoload/openapi.global.php` and `application.url`, and `bi
 
 ## Details
 
+> This configuration exists in Dotkernel API 7.2 only.
+> In 7.0 and 7.1 the document root is declared in attributes in `src/App/src/OpenAPI.php`, see [Generate documentation](generate-documentation.md#version-differences) and [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 PHP attribute arguments must be constant expressions, so an `OA\Server` attribute cannot read the base URL out of your local config.
 For that reason the document root is assembled by `bin/generate-openapi.php` from configuration after the scan of `src`, while paths and schemas stay in each module's `OpenAPI.php`.
 

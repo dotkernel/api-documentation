@@ -81,5 +81,5 @@ Within Dotkernel API the custom renderer is the default.
 
 **Q: Where is the mail transport configured?**
 
-A: In `config/autoload/mail.local.php`, under the `mail` key.
+A: In `config/autoload/mail.local.php`, under the `mail` key (in Dotkernel API 7.0 the file is `config/autoload/mail.global.php`).
 See [Configuration files](../installation/configuration-files.md).

@@ -33,6 +33,10 @@ There are a lot more, but these are the most often used ones.
 
 If you need help, take a look at the existing definitions found in Dotkernel API.
 
+> An explicit `operationId` on every operation exists in Dotkernel API 7.2.
+> In 7.0 and 7.1 the attributes have none, and `zircote/swagger-php` generates a hash for each operation.
+> Update to the latest Dotkernel API 7.x release, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 ### OA\Delete
 
 Defines a `DELETE` HTTP request.

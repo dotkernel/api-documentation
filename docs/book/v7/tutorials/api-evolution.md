@@ -3,7 +3,8 @@
 ## Summary
 
 Dotkernel API lets you evolve endpoints without breaking existing consumers by marking a handler with the `ResourceDeprecation` attribute.
-The `DeprecationMiddleware` then adds `Sunset` and `Link` response headers, telling consumers when the resource may stop responding and where the change is documented.
+The `DeprecationMiddleware` then adds `Sunset` and `Link` response headers, telling consumers when the resource will stop responding and where the change is documented.
+From the sunset date onwards the middleware no longer runs the handler and returns `410 Gone`.
 
 ## Details
 
@@ -15,7 +16,7 @@ In Dotkernel API we can mark an endpoint as deprecated using attributes on handl
 We use response headers to inform the consumers about the future changes by using two new headers:
 
 - `Link` - it's a link to the official documentation pointing out the changes that will take place.
-- `Sunset` - this header is a date, indicating when the deprecated resource will potentially become unresponsive.
+- `Sunset` - this header is a date, indicating when the deprecated resource becomes unavailable. From that date the endpoint returns `410 Gone`.
 
 **The above headers are independent, so you can use them separately.**
 
@@ -61,6 +62,13 @@ Link: https://docs.dotkernel.org/api-documentation/v7/tutorials/api-evolution/;r
 Vary: Origin
 ```
 
+## Version differences
+
+In Dotkernel API 7.0 and 7.1, the `GET /` handler (`GetIndexResourceHandler`) carries this attribute as a live example, so the `curl` call above shows the `Sunset` and `Link` headers.
+In 7.2 the attribute is removed from that handler, so `GET /` returns no deprecation headers; the headers appear on the handlers you mark yourself.
+
+> Update to the latest Dotkernel API 7.x release to get the current behavior, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 ## Notes
 
 > If `Link` or `Sunset` do not have a value they will not appear in the response headers.
@@ -77,7 +85,7 @@ Vary: Origin
 
 **Q: What do the `Sunset` and `Link` headers mean?**
 
-A: `Sunset` is the date on which the deprecated resource may stop responding; `Link` points to documentation describing the change.
+A: `Sunset` is the date on which the deprecated resource stops responding and starts returning `410 Gone`; `Link` points to documentation describing the change.
 They are independent, so either can be used alone.
 
 **Q: What do I need in place before deprecations work?**
@@ -92,12 +100,17 @@ Since each handler serves one method and route, deprecating the handler deprecat
 
 **Q: What happens if I leave `Sunset` or `Link` empty?**
 
-A: The corresponding header is simply omitted from the response.
+A: The corresponding header is simply omitted from the response. Without a `Sunset` date the endpoint never returns `410 Gone`.
 
 **Q: What if the `Sunset` date is invalid?**
 
 A: It throws an error.
 The value has to be a valid date.
+
+**Q: What does the response look like once the sunset date has passed?**
+
+A: The handler is not run and the response is `410 Gone` with the detail `This resource is no longer available (sunset on <date>).`
+The `type` field of the problem-details body holds the documentation URL: the attribute's `link`, or else the configured `documentation_url`.
 
 **Q: Are `rel` and `type` required?**
 

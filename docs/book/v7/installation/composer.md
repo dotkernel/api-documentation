@@ -34,13 +34,16 @@ The automatic setup script performs these tasks:
 - Creates the `composer.lock` file that locks all dependencies to exact versions (you can still run `composer update` to replace them with newer versions, if available and installable without conflicts).
 - Configures PHP CodeSniffer, a utility to detect code style errors in PHP code.
 - Generate and save the OAuth2 keys in the `data/oauth` folder.
-    - Performed by this script `./bin/generate-oauth2-keys.php`.
+    - Performed by this script `./bin/generate-oauth2-keys.php`, which keeps existing keys.
+    - In Dotkernel API 7.0 it is `./vendor/bin/generate-oauth2-keys`, which regenerates them; see [OAuth2 Security](../security/oauth2-security.md#autogeneration-of-cryptographic-keys).
 - Creates the initial `config/autoload` configuration files.
     - Performed by this script `./bin/composer-post-install-script.php`.
     - These files are created:
         - config/autoload/local.php
         - config/autoload/local.test.php
-        - config/autoload/mail.global.php
+        - config/autoload/mail.local.php (and `config/autoload/mail.local.php.dist`)
+
+> In Dotkernel API 7.0 the mail configuration file is `config/autoload/mail.global.php`; see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 
 > The post install commands are run automatically on every `composer install` and `composer update`.
 > The scripts check if the files exist to prevent overwriting them.
