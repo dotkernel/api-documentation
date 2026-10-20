@@ -32,6 +32,10 @@ From this point on, you are ready to add custom code to your application.
 [Bruno](https://www.usebruno.com/) is a Git-native API client we recommend using for working with the API.
 
 The endpoint collection is found in `documentation/Dotkernel_API_Bruno.zip`.
+
+> The Bruno collection was added in Dotkernel API 7.1; version 7.0 ships only the Postman collection and environment files, see the alternative below.
+> Update to the latest Dotkernel API 7.x release to get it, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 Import it in Bruno by following these steps:
 
 - Open the `My Workspace` dropdown and select `Import workspace`.

@@ -62,6 +62,13 @@ Link: https://docs.dotkernel.org/api-documentation/v7/tutorials/api-evolution/;r
 Vary: Origin
 ```
 
+## Version differences
+
+In Dotkernel API 7.0 and 7.1, the `GET /` handler (`GetIndexResourceHandler`) carries this attribute as a live example, so the `curl` call above shows the `Sunset` and `Link` headers.
+In 7.2 the attribute is removed from that handler, so `GET /` returns no deprecation headers; the headers appear on the handlers you mark yourself.
+
+> Update to the latest Dotkernel API 7.x release to get the current behavior, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 ## Notes
 
 > If `Link` or `Sunset` do not have a value they will not appear in the response headers.

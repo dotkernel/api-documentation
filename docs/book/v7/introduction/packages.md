@@ -45,7 +45,7 @@ Composer refuses to install the project unless all of these are satisfied:
 * `roave/psr-container-doctrine`:`^5.2.2 || ^6.0.0` - Doctrine Factories for PSR-11 Containers
 * `symfony/filesystem`:`^7.2.0` - Provides basic utilities for the filesystem
 * `symfony/var-exporter`:`^6.4 || ^7.4` - Exports serializable PHP data structures as plain PHP code; required to keep Doctrine LazyGhost proxy support
-* `zircote/swagger-php`:`^6.0.0` - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations
+* `zircote/swagger-php`:`^6.4.0` - Generate interactive documentation for your RESTful API using PHP attributes (preferred) or PHPDoc annotations
 
 ### Installed as dependencies
 
@@ -62,6 +62,7 @@ To see which versions you actually have, run `composer show doctrine/orm` (or `c
 
 Declared under `require-dev`, installed unless you pass `--no-dev`:
 
+* `boundwize/structarmed`:`^0.19.0` - Architecture and code quality checks, configured in `structarmed.php`
 * `dotkernel/dot-maker`:`^2.0.0` - Generates modules, handlers, services and input filters; see [Creating a book module using DotMaker](../tutorials/create-book-module-via-dot-maker.md)
 * `laminas/laminas-coding-standard`:`^3.0.1` - Coding standard ruleset used by `composer cs-check` and `composer cs-fix`
 * `laminas/laminas-development-mode`:`^3.13.0` - Toggles development mode; see [Composer](../installation/composer.md)
@@ -71,6 +72,22 @@ Declared under `require-dev`, installed unless you pass `--no-dev`:
 * `phpunit/phpunit`:`^12.5.23` - Test framework for the unit and functional suites
 * `roave/security-advisories`:`dev-latest` - Blocks installation of packages with known vulnerabilities
 * `symfony/var-dumper`:`^7.2.3` - Debug output helper
+
+### Version differences
+
+The lists above show the constraints of Dotkernel API 7.2.
+These constraints differ in earlier 7.x versions:
+
+| Package | 7.0 | 7.1 | 7.2 |
+| --- | --- | --- | --- |
+| `mezzio/mezzio-authentication-oauth2` | `^2.11.0` | `^3.0.1` | `^3.0.1` |
+| `symfony/var-exporter` | not required | `^6.4 \|\| ^7.4` | `^6.4 \|\| ^7.4` |
+| `zircote/swagger-php` | `^5.0.7` | `^6.0.0` | `^6.4.0` |
+| `dotkernel/dot-maker` (dev) | `^1.0.2` | `^2.0.0` | `^2.0.0` |
+| `phpunit/phpunit` (dev) | `^10.5.45` | `^12.5.23` | `^12.5.23` |
+| `boundwize/structarmed` (dev) | not required | not required | `^0.19.0` |
+
+> Update to the latest Dotkernel API 7.x release to get these versions, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md) and [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
 
 ## FAQ
 

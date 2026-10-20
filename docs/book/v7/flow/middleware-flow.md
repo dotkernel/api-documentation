@@ -10,6 +10,10 @@ The graph below demonstrates a default flow between Dotkernel's middlewares.
 
 ![Dotkernel API Middleware Flow!](https://docs.dotkernel.org/img/api/v7/dotkernel-middleware-flow.png)
 
+> Dotkernel API 7.1 and 7.2 pipe `MalformedRequestBodyMiddleware` right after `ProblemDetailsMiddleware`, so a malformed request body produces a `400 Bad Request` response.
+> The diagram does not show it, and version 7.0 does not have it.
+> Update to the latest Dotkernel API 7.x release to get it, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 ## FAQ
 
 **Q: Why does middleware order matter?**

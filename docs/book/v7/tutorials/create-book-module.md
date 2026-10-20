@@ -183,6 +183,10 @@ class Book extends AbstractEntity
 
 ```
 
+> The `created` value is typed `DateTimeImmutable|null` because `TimestampsTrait` makes `created` nullable from Dotkernel API 7.1 (`getCreatedFormatted()` returns `?string`).
+> In 7.0 `created` is a non-null `DateTimeImmutable` and `getCreatedFormatted()` returns `string`, so use `created: DateTimeImmutable` in the docblock.
+> See [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
+
 * `src/Core/src/Book/src/Repository/BookRepository.php`
 
 ```php

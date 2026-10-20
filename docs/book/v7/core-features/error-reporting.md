@@ -63,6 +63,10 @@ Below are the requirements for an application to be able to send error messages 
     - `ErrorReportServiceInterface::class` . `tokens` must contain at least one token.
     - At least one of `ErrorReportServiceInterface::class` . `domain_whitelist`/`ip_whitelist` must have at least one value.
 
+> When `enabled` is not `true`, Dotkernel API 7.2 answers `403 Forbidden` (`ForbiddenException`).
+> Versions 7.0 and 7.1 answer `400 Bad Request` (`RuntimeException`).
+> Update to the latest Dotkernel API 7.x release to get the current behavior, see [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 > In `src/App/src/Service/ErrorReportService.php`, the method `checkRequest()` tries to validate the request by checking matches for `domain_whitelist` with `isMatchingDomain()` and for `ip_whitelist` with `isMatchingIpAddress()`.
 > If both return `false`, a `ForbiddenException` is thrown and the error message does not get stored.
 

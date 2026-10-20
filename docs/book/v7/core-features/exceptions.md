@@ -89,6 +89,21 @@ throw BadRequestException::create(
 | `RuntimeException` | `500 Internal Server Error` | `Renderer`, `HandlerService`, `ErrorReportService`, `HandlerDelegatorFactory`, `ProblemDetailsDelegatorFactory` |
 | `SunsetException` | `500 Internal Server Error` | `BaseDeprecation`, on an invalid `sunset` date |
 
+### Version differences
+
+The table above and the sections below describe Dotkernel API 7.2.
+Earlier 7.x versions behave differently in these places:
+
+| Behavior | 7.0 | 7.1 | 7.2 |
+| --- | --- | --- | --- |
+| `RuntimeException` status | `400 Bad Request` | `400 Bad Request` | `500 Internal Server Error` |
+| `SunsetException` status | `401 Unauthorized` | `401 Unauthorized` | `500 Internal Server Error` |
+| Error reporting disabled | `RuntimeException`, `400 Bad Request` | `RuntimeException`, `400 Bad Request` | `ForbiddenException`, `403 Forbidden` |
+| Malformed JSON request body | no dedicated handling: the problem details middleware answers with the exception's `400` only when exception details are exposed, otherwise with `500` | `MalformedRequestBodyMiddleware` throws `BadRequestException`, `400 Bad Request` | `MalformedRequestBodyMiddleware` throws `BadRequestException`, `400 Bad Request` |
+
+> Update to the latest Dotkernel API 7.x release to get the current behavior.
+> See [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md) and [Upgrading from 7.1 to 7.2](../upgrading/UPGRADE-7.2.md).
+
 ### `BadRequestException` thrown when
 
 - The client tries to **create/update a resource**, but the **request data is invalid/incomplete** (example: client tries to create an account, but does not send the required `identity` field)

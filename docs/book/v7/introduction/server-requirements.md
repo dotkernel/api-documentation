@@ -49,7 +49,14 @@ Dotkernel API v7 requires PHP 8.3, 8.4 or 8.5, as declared in `composer.json`:
 ```
 
 Earlier PHP versions are not supported.
-Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.
+
+| Version | Supported PHP versions |
+| --- | --- |
+| 7.0 | 8.2, 8.3, 8.4 and 8.5 (`~8.2.0 \|\| ~8.3.0 \|\| ~8.4.0 \|\| ~8.5.0`) |
+| 7.1 and 7.2 | 8.3, 8.4 and 8.5 |
+
+Support for PHP 8.2 was dropped in Dotkernel API 7.1.
+Update to the latest Dotkernel API 7.x release and raise the `php` constraint in your `composer.json`, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 
 > The constraint uses `~` per minor version rather than `>=`, so each supported branch is listed explicitly and a newly released PHP version is not assumed to work until it has been tested.
 
@@ -61,13 +68,14 @@ Support for PHP 8.2 was dropped in Dotkernel API 7.2.0.
 
 ### Why PHP 8.3+?
 
-The floor is set by **typed class constants**, a PHP 8.3 feature used throughout the codebase — for example in `Api\App\Middleware\ContentNegotiationMiddleware`:
+In 7.1 the floor came from the PHPUnit 12 upgrade, which requires PHP 8.3.
+In 7.2 it is also enforced by **typed class constants**, a PHP 8.3 feature used throughout the codebase — for example in `Api\App\Middleware\ContentNegotiationMiddleware`:
 
 ```php
 public const string DEFAULT_HEADERS = 'default';
 ```
 
-The project will not even parse on PHP 8.2.
+The 7.2 code will not even parse on PHP 8.2.
 
 ## Required Settings and Modules & Extensions
 
@@ -182,8 +190,8 @@ A: `utf8mb4_general_ci` or `utf8mb4_unicode_ci` on MariaDB, and `C.UTF-8` or `en
 
 A: PHP 8.3.
 `composer.json` requires `~8.3.0 || ~8.4.0 || ~8.5.0`, so 8.3, 8.4 and 8.5 are supported and earlier versions are not.
-PHP 8.2 support was dropped in Dotkernel API 7.2.0.
-The hard blocker is typed class constants, a PHP 8.3 feature used throughout the codebase, so the project will not parse on 8.2.
+Dotkernel API 7.0 also supports PHP 8.2; that support was dropped in 7.1.
+Since 7.2 typed class constants, a PHP 8.3 feature used throughout the codebase, are a hard blocker, so the project will not parse on 8.2.
 
 **Q: Do I need the CLI SAPI as well as FPM?**
 

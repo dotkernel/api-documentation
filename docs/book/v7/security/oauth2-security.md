@@ -47,7 +47,9 @@ Skipping...` and stops.
 Only when one is missing does it delegate to `vendor/mezzio/mezzio-authentication-oauth2/bin/generate-oauth2-keys` to generate the set.
 
 > This guard matters in production: regenerating the keys invalidates every access token already issued.
-> Preserving them across updates was added in Dotkernel API 7.2.0 ([issue #503](https://github.com/dotkernel/api/issues/503)).
+> Preserving them across updates was added in Dotkernel API 7.1 ([issue #503](https://github.com/dotkernel/api/issues/503)).
+> In 7.0, `post-update-cmd` runs `php ./vendor/bin/generate-oauth2-keys` instead, which invalidated the issued tokens on every update.
+> Update to the latest Dotkernel API 7.x release to get this behavior, see [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 > If you deliberately want to rotate the keys, delete the three files from `data/oauth` and run `composer update` — accepting that existing tokens stop working.
 
 While hidden to the VCS by default, keep in mind not to commit any local keys.
@@ -83,7 +85,7 @@ Skipping...` and leaves them alone, so updating dependencies does not invalidate
 **Q: How do I stop the keys from being generated?**
 
 A: Remove `php ./bin/generate-oauth2-keys.php` from the `scripts.post-update-cmd` key in `composer.json`.
-Since 7.2.0 this is rarely necessary — the script already preserves existing keys, which is what protects issued tokens on a server.
+Since 7.1 this is rarely necessary — the script already preserves existing keys, which is what protects issued tokens on a server.
 
 **Q: How do I deliberately rotate the keys?**
 

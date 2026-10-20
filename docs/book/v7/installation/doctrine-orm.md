@@ -37,7 +37,7 @@ $databases = [
         'table_prefix' => '',
     ],
     'postgresql' => [
-        'host'         => 'localhost',
+        'host'         => '127.0.0.1',
         'dbname'       => 'dotkernel',
         'user'         => '',
         'password'     => '',
@@ -48,6 +48,9 @@ $databases = [
     ],
 ];
 ```
+
+> Dotkernel API 7.0 ships the PostgreSQL `host` as `localhost`; 7.1 and 7.2 ship `127.0.0.1`, because `localhost` only works for socket connections.
+> See [Upgrading from 7.0 to 7.1](../upgrading/UPGRADE-7.1.md).
 
 > The database `dotkernel` is provided as an example, but you can use any name you like.
 > Make sure to use the same database name when you create the database in the next step.
