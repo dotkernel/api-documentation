@@ -3,22 +3,23 @@
 ## Summary
 
 The changes you need to port into your project when moving from Dotkernel API 7.1 to 7.2, each linked to the pull request that introduced it.
-The headline items are the new `composer openapi` generator with its configuration file, the explicit `operationId` on every operation, and the changed exception status codes.
+The headline items are the new `composer openapi` generator with its configuration file, the explicit `operationId` on every operation, the changed exception status codes, and the `410 Gone` response for resources past their sunset date.
 
 ## Details
 
-> You can find the release notes in [7.1.1](https://github.com/dotkernel/api/releases/tag/7.1.1), the [7.1.0...7.1.1 compare view](https://github.com/dotkernel/api/compare/7.1.0...7.1.1) and the commits on the [7.0 branch](https://github.com/dotkernel/api/commits/7.0).
-> The project `CHANGELOG.md` does not list the 7.2 pull requests, and pull requests 565, 566 and 567 are not in any release notes, so they are listed here from their code changes.
+> You can find the release notes in [7.1.1](https://github.com/dotkernel/api/releases/tag/7.1.1), the [7.1.0...7.1.1 compare view](https://github.com/dotkernel/api/compare/7.1.0...7.1.1), the [7.1.1...7.0 compare view](https://github.com/dotkernel/api/compare/7.1.1...7.0) for the later pull requests, and the commits on the [7.0 branch](https://github.com/dotkernel/api/commits/7.0).
+> The project `CHANGELOG.md` does not list the 7.2 pull requests, and pull requests 565, 566, 567 and 570 are not in any release notes, so they are listed here from their code changes.
 
 ### Important updates
 
 These changes affect your Composer scripts and dependencies, configuration, the published OpenAPI document, response behavior or error behavior.
 
-* Add `bin/generate-openapi.php`, the `openapi` Composer script (`php bin/generate-openapi.php`) and `config/autoload/openapi.global.php`: the OpenAPI document root (`info`, `servers`, security schemes, tags, external docs) now comes from configuration instead of attributes, and the server URL is taken from `application.url`. Copy the config file, add the script to your `composer.json`, add the `openapi` key with `server_description` to `config/autoload/local.php`, and add `public/openapi.yaml` to `.gitignore`. The generated document also defines a shared `DateTimeObject` schema [https://github.com/dotkernel/api/pull/560](https://github.com/dotkernel/api/pull/560)
+* Add `bin/generate-openapi.php`, the `src/App/src/Helper/OpenApiServers.php` helper it imports, the `openapi` Composer script (`php bin/generate-openapi.php`) and `config/autoload/openapi.global.php`: the OpenAPI document root (`info`, `servers`, security schemes, tags, external docs) now comes from configuration instead of attributes, and the first server URL is taken from `application.url`. Copy the script, the helper and the config file, add the script to your `composer.json`, require `zircote/swagger-php` `^6.4.0` as in pull request 566, add the `openapi` key with `server_description` to `config/autoload/local.php`, and add `public/openapi.yaml` to `.gitignore`. The script exits with `1` without `application.url` and `openapi.output_file`. `output_file` defaults to `public/openapi.yaml`, which the web server serves, so point it elsewhere if the document must stay private. The same file also configures `exclude_tags` (hide a module from the document), `servers` (additional servers), `generated_timezone` (the `info.x-generated` timestamp, or `null` to omit it) and `openapi_version`. In the `OpenAPI.php` files of the `Admin` and `User` modules, replace the `created`, `updated` and `expires` properties with a `$ref` to the new shared `DateTimeObject` schema, which is defined in `src/App/src/OpenAPI.php`, and update the `HomeMessage` example to `Dotkernel API version 7` [https://github.com/dotkernel/api/pull/560](https://github.com/dotkernel/api/pull/560)
 * Move the OpenAPI root attributes (`Info`, `Server`, security schemes, external docs) out of `src/App/src/OpenAPI.php`: pull request 551 wraps them in `OA\OpenApi`, and pull request 560 then removes them in favor of the configuration file. Apply both together and remove the attributes from your copy of the file [https://github.com/dotkernel/api/pull/551](https://github.com/dotkernel/api/pull/551)
-* Add an explicit `operationId` to every operation in the `OpenAPI.php` files, add a test that fails on a missing or duplicate id (`test/Unit/App/OpenApi/OperationIdTest.php`) and require `zircote/swagger-php` `^6.4.0`: the ids in the generated document change from hashes to readable names, for example `getAdminCollection` and `postUserResource`. Clients generated from the document must be regenerated [https://github.com/dotkernel/api/pull/566](https://github.com/dotkernel/api/pull/566)
-* Change exception status codes: `RuntimeException` and `SunsetException` return `500 Internal Server Error` instead of `400` and `401`, and `ErrorReportService` throws `ForbiddenException` (`403`) instead of `RuntimeException` when error reporting is not enabled. Update API clients that match on the old status codes [https://github.com/dotkernel/api/pull/567](https://github.com/dotkernel/api/pull/567)
-* Remove the `ResourceDeprecation` attribute from `GetIndexResourceHandler`: `GET /` no longer returns the `Sunset` and `Link` headers [https://github.com/dotkernel/api/pull/565](https://github.com/dotkernel/api/pull/565)
+* Add an explicit `operationId` to every operation in the `OpenAPI.php` files, add a test that fails on a missing or duplicate id (`test/Unit/App/OpenApi/OperationIdTest.php`) and require `zircote/swagger-php` `^6.4.0` (apply this together with pull request 560, whose generator is written against the same version): the ids in the generated document change from hashes to readable names, for example `getAdminCollection` and `postUserResource`. Clients generated from the document must be regenerated [https://github.com/dotkernel/api/pull/566](https://github.com/dotkernel/api/pull/566)
+* Change exception status codes: `RuntimeException` and `SunsetException` return `500 Internal Server Error` instead of `400` and `401`, and `ErrorReportService` throws `ForbiddenException` (`403`) instead of `RuntimeException` when error reporting is not enabled. `RuntimeException` is also thrown by the other `ErrorReportService` configuration checks, the template renderer, `HandlerService` and the handler factories, so those failures now return `500` as well, including `POST /error-report` when the endpoint is misconfigured. `SunsetException` is thrown for an invalid `sunset` value in `ResourceDeprecation`. Update API clients that match on the old status codes [https://github.com/dotkernel/api/pull/567](https://github.com/dotkernel/api/pull/567)
+* Remove the `ResourceDeprecation` attribute from `GetIndexResourceHandler`, the only handler in the skeleton that used it: `GET /` no longer returns the `Sunset` and `Link` headers. Handlers you annotated yourself keep their attribute; see pull request 570 for what happens once their sunset date passes [https://github.com/dotkernel/api/pull/565](https://github.com/dotkernel/api/pull/565)
+* Change `DeprecationMiddleware` so that a resource whose `ResourceDeprecation` sunset date has been reached is no longer executed: the request throws `ExpiredException` and returns `410 Gone` with the detail `This resource is no longer available (sunset on <date>).`, and the problem-details `type` is the attribute's `link`, or `application.versioning.documentation_url` when the attribute has none. Before, the handler still ran and only the `Sunset` header was added. Copy `src/App/src/Middleware/DeprecationMiddleware.php` and check every handler of yours that uses `#[ResourceDeprecation]` for a sunset date that is already in the past [https://github.com/dotkernel/api/pull/570](https://github.com/dotkernel/api/pull/570)
 
 ### Optional updates
 
@@ -26,7 +27,7 @@ These changes cover documentation fixes, type-only cleanups, development tooling
 Skipping them does not affect how the API runs.
 
 * Document the recover-account endpoint at its registered path in `src/User/src/OpenAPI.php`: `/user/account/recover` instead of `/account/recover-identity`. The route itself is unchanged [https://github.com/dotkernel/api/pull/550](https://github.com/dotkernel/api/pull/550)
-* Add class constant type declarations and the `SlevomatCodingStandard.TypeHints.ClassConstantTypeHint` rule to `phpcs.xml`. It only matters if a subclass of the affected classes overrides one of those constants [https://github.com/dotkernel/api/pull/537](https://github.com/dotkernel/api/pull/537)
+* Add class constant type declarations (for example in the input filters, the DBAL types, `Message`, `ConfigProvider`, `UserAvatarService`, `ContentNegotiationMiddleware` and `ErrorReportService`) and the `SlevomatCodingStandard.TypeHints.ClassConstantTypeHint` rule to `phpcs.xml`. It only matters if a subclass of the affected classes overrides one of those constants [https://github.com/dotkernel/api/pull/537](https://github.com/dotkernel/api/pull/537)
 * Add `boundwize/structarmed` as a dev dependency with a `structarmed.php` architecture file, and make closures `static` [https://github.com/dotkernel/api/pull/553](https://github.com/dotkernel/api/pull/553)
 * Update `boundwize/structarmed` to `^0.18.0` [https://github.com/dotkernel/api/pull/554](https://github.com/dotkernel/api/pull/554)
 * Update `boundwize/structarmed` to `^0.19.0` [https://github.com/dotkernel/api/pull/562](https://github.com/dotkernel/api/pull/562)
@@ -62,10 +63,12 @@ The document root is now assembled by `bin/generate-openapi.php` from `config/au
 
 **Q: Will my API clients notice a change?**
 
-A: Yes, in four places.
+A: Yes, in five places.
 `RuntimeException` and `SunsetException` now return `500` instead of `400` and `401`, and a disabled error-report endpoint now returns `403` (pull request 567).
 `GET /` no longer returns `Sunset` and `Link` headers (pull request 565).
+A resource whose `ResourceDeprecation` sunset date has been reached now returns `410 Gone` instead of running (pull request 570).
 The `operationId` values in the generated OpenAPI document change (pull request 566).
+The document is now served from `public/openapi.yaml` after `composer openapi`, unless you change `openapi.output_file` (pull request 560).
 No route or request format changes.
 
 **Q: Do I have to apply the optional updates?**
@@ -75,5 +78,5 @@ They only concern documentation, type declarations, development tooling and CI.
 
 **Q: Where do I find the complete list of changes?**
 
-A: In the [7.1.1 release notes](https://github.com/dotkernel/api/releases/tag/7.1.1) and the [commits on the 7.0 branch](https://github.com/dotkernel/api/commits/7.0).
+A: In the [7.1.1 release notes](https://github.com/dotkernel/api/releases/tag/7.1.1), the [7.1.1...7.0 compare view](https://github.com/dotkernel/api/compare/7.1.1...7.0) and the [commits on the 7.0 branch](https://github.com/dotkernel/api/commits/7.0).
 The project `CHANGELOG.md` does not list these pull requests.
