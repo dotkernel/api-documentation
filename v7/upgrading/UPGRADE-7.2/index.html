@@ -1132,7 +1132,8 @@ You can find the changes in their release notes, in the compare views <a href="h
 <h3 id="important-updates">Important updates</h3>
 <p>These changes affect your Composer scripts and dependencies, configuration, the published OpenAPI document, response behavior or error behavior.</p>
 <ul>
-<li><a href="https://github.com/dotkernel/api/pull/560">#560</a>: Add the <code>composer openapi</code> generator: the OpenAPI document root (<code>info</code>, <code>servers</code>, security schemes, tags, external docs) now comes from configuration instead of attributes, and the first server URL is taken from <code>application.url</code>.<ul>
+<li><a href="https://github.com/dotkernel/api/pull/560">https://github.com/dotkernel/api/pull/560</a><ul>
+<li>Add the <code>composer openapi</code> generator: the OpenAPI document root (<code>info</code>, <code>servers</code>, security schemes, tags, external docs) now comes from configuration instead of attributes, and the first server URL is taken from <code>application.url</code>.</li>
 <li>Copy <code>bin/generate-openapi.php</code>, the <code>src/App/src/Helper/OpenApiServers.php</code> helper it imports, and <code>config/autoload/openapi.global.php</code>.</li>
 <li>Add the <code>openapi</code> script (<code>php bin/generate-openapi.php</code>) to your <code>composer.json</code> and require <code>zircote/swagger-php</code> <code>^6.4.0</code>, the first version that provides the <code>OpenApi\Builder</code> class the script uses (see pull request 566).</li>
 <li>Add the <code>openapi</code> key with <code>server_description</code> to <code>config/autoload/local.php</code>, and add <code>public/openapi.yaml</code> to <code>.gitignore</code>.</li>
@@ -1143,22 +1144,25 @@ You can find the changes in their release notes, in the compare views <a href="h
 <li>Update the <code>HomeMessage</code> example to <code>Dotkernel API version 7</code>.</li>
 </ul>
 </li>
-<li><a href="https://github.com/dotkernel/api/pull/551">#551</a>: Move the OpenAPI root attributes (<code>Info</code>, <code>Server</code>, security schemes, external docs) out of <code>src/App/src/OpenAPI.php</code>: pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 then removes them in favor of the configuration file. Apply both together and remove the attributes from your copy of the file</li>
-<li><a href="https://github.com/dotkernel/api/pull/566">#566</a>: Add an explicit <code>operationId</code> to every operation: the ids in the generated document change from hashes to readable names, for example <code>getAdminCollection</code> and <code>postUserResource</code>.<ul>
+<li><a href="https://github.com/dotkernel/api/pull/551">https://github.com/dotkernel/api/pull/551</a>: Move the OpenAPI root attributes (<code>Info</code>, <code>Server</code>, security schemes, external docs) out of <code>src/App/src/OpenAPI.php</code>: pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 then removes them in favor of the configuration file. Apply both together and remove the attributes from your copy of the file</li>
+<li><a href="https://github.com/dotkernel/api/pull/566">https://github.com/dotkernel/api/pull/566</a><ul>
+<li>Every operation gets an explicit <code>operationId</code>: the ids in the generated document change from hashes to readable names, for example <code>getAdminCollection</code> and <code>postUserResource</code>.</li>
 <li>Add an <code>operationId</code> to every operation in the <code>OpenAPI.php</code> files.</li>
 <li>Add the test <code>test/Unit/App/OpenApi/OperationIdTest.php</code>, which fails on a missing or duplicate id.</li>
 <li>Require <code>zircote/swagger-php</code> <code>^6.4.0</code>. Apply this together with pull request 560: its generator needs <code>OpenApi\Builder</code>, which first appears in <code>^6.4.0</code>, and the new test needs <code>OpenApi\Undefined</code>, which first appears in 6.3.1.</li>
 <li>Regenerate any client that was generated from the document.</li>
 </ul>
 </li>
-<li><a href="https://github.com/dotkernel/api/pull/567">#567</a>: Change exception status codes: <code>RuntimeException</code> and <code>SunsetException</code> return <code>500 Internal Server Error</code> instead of <code>400</code> and <code>401</code>, and <code>ErrorReportService</code> throws <code>ForbiddenException</code> (<code>403</code>) instead of <code>RuntimeException</code> when error reporting is not enabled.<ul>
+<li><a href="https://github.com/dotkernel/api/pull/567">https://github.com/dotkernel/api/pull/567</a><ul>
+<li><code>RuntimeException</code> and <code>SunsetException</code> return <code>500 Internal Server Error</code> instead of <code>400</code> and <code>401</code>, and <code>ErrorReportService</code> throws <code>ForbiddenException</code> (<code>403</code>) instead of <code>RuntimeException</code> when error reporting is not enabled.</li>
 <li><code>RuntimeException</code> is also thrown by the other <code>ErrorReportService</code> configuration checks, the template renderer, <code>HandlerService</code> and the handler factories, so those failures now return <code>500</code> as well, including <code>POST /error-report</code> when the endpoint is misconfigured.</li>
 <li><code>SunsetException</code> is thrown for an invalid <code>sunset</code> value in <code>ResourceDeprecation</code>.</li>
 <li>Update API clients that match on the old status codes.</li>
 </ul>
 </li>
-<li><a href="https://github.com/dotkernel/api/pull/565">#565</a>: Remove the <code>ResourceDeprecation</code> attribute from <code>GetIndexResourceHandler</code>, the only handler in the skeleton that used it: <code>GET /</code> no longer returns the <code>Sunset</code> and <code>Link</code> headers. Handlers you annotated yourself keep their attribute; see pull request 570 for what happens once their sunset date passes</li>
-<li><a href="https://github.com/dotkernel/api/pull/570">#570</a>: Change <code>DeprecationMiddleware</code> so that a resource whose <code>ResourceDeprecation</code> sunset date has been reached is no longer executed. Before, the handler still ran and only the <code>Sunset</code> header was added.<ul>
+<li><a href="https://github.com/dotkernel/api/pull/565">https://github.com/dotkernel/api/pull/565</a>: Remove the <code>ResourceDeprecation</code> attribute from <code>GetIndexResourceHandler</code>, the only handler in the skeleton that used it: <code>GET /</code> no longer returns the <code>Sunset</code> and <code>Link</code> headers. Handlers you annotated yourself keep their attribute; see pull request 570 for what happens once their sunset date passes</li>
+<li><a href="https://github.com/dotkernel/api/pull/570">https://github.com/dotkernel/api/pull/570</a><ul>
+<li>A resource whose <code>ResourceDeprecation</code> sunset date has been reached is no longer executed. Before, the handler still ran and only the <code>Sunset</code> header was added.</li>
 <li>The request now throws <code>ExpiredException</code> and returns <code>410 Gone</code> with the detail <code>This resource is no longer available (sunset on &lt;date&gt;).</code>.</li>
 <li>The problem-details <code>type</code> is the attribute's <code>link</code>, or <code>application.versioning.documentation_url</code> when the attribute has none.</li>
 <li>Copy <code>src/App/src/Middleware/DeprecationMiddleware.php</code>.</li>
@@ -1170,17 +1174,17 @@ You can find the changes in their release notes, in the compare views <a href="h
 <p>These changes cover documentation fixes, type-only cleanups, development tooling and CI.
 Skipping them does not affect how the API runs.</p>
 <ul>
-<li><a href="https://github.com/dotkernel/api/pull/550">#550</a>: Document the recover-account endpoint at its registered path in <code>src/User/src/OpenAPI.php</code>: <code>/user/account/recover</code> instead of <code>/account/recover-identity</code>. The route itself is unchanged</li>
-<li><a href="https://github.com/dotkernel/api/pull/537">#537</a>: Add class constant type declarations (for example in the input filters, the DBAL types, <code>Message</code>, <code>ConfigProvider</code>, <code>UserAvatarService</code>, <code>ContentNegotiationMiddleware</code> and <code>ErrorReportService</code>) and the <code>SlevomatCodingStandard.TypeHints.ClassConstantTypeHint</code> rule to <code>phpcs.xml</code>. It only matters if a subclass of the affected classes overrides one of those constants</li>
-<li><a href="https://github.com/dotkernel/api/pull/553">#553</a>: Add <code>boundwize/structarmed</code> as a dev dependency with a <code>structarmed.php</code> architecture file, and make closures <code>static</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/554">#554</a>: Update <code>boundwize/structarmed</code> to <code>^0.18.0</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/562">#562</a>: Update <code>boundwize/structarmed</code> to <code>^0.19.0</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/536">#536</a>: Clarify in <code>config/autoload/cors.local.php.dist</code> how to restrict the allowed origins</li>
-<li><a href="https://github.com/dotkernel/api/pull/540">#540</a>: Update the README: password warning for the fixtures</li>
-<li><a href="https://github.com/dotkernel/api/pull/541">#541</a>: Update the README to reflect the application purpose</li>
-<li><a href="https://github.com/dotkernel/api/pull/532">#532</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.0</li>
-<li><a href="https://github.com/dotkernel/api/pull/542">#542</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.1</li>
-<li><a href="https://github.com/dotkernel/api/pull/557">#557</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.2</li>
+<li><a href="https://github.com/dotkernel/api/pull/550">https://github.com/dotkernel/api/pull/550</a>: Document the recover-account endpoint at its registered path in <code>src/User/src/OpenAPI.php</code>: <code>/user/account/recover</code> instead of <code>/account/recover-identity</code>. The route itself is unchanged</li>
+<li><a href="https://github.com/dotkernel/api/pull/537">https://github.com/dotkernel/api/pull/537</a>: Add class constant type declarations (for example in the input filters, the DBAL types, <code>Message</code>, <code>ConfigProvider</code>, <code>UserAvatarService</code>, <code>ContentNegotiationMiddleware</code> and <code>ErrorReportService</code>) and the <code>SlevomatCodingStandard.TypeHints.ClassConstantTypeHint</code> rule to <code>phpcs.xml</code>. It only matters if a subclass of the affected classes overrides one of those constants</li>
+<li><a href="https://github.com/dotkernel/api/pull/553">https://github.com/dotkernel/api/pull/553</a>: Add <code>boundwize/structarmed</code> as a dev dependency with a <code>structarmed.php</code> architecture file, and make closures <code>static</code></li>
+<li><a href="https://github.com/dotkernel/api/pull/554">https://github.com/dotkernel/api/pull/554</a>: Update <code>boundwize/structarmed</code> to <code>^0.18.0</code></li>
+<li><a href="https://github.com/dotkernel/api/pull/562">https://github.com/dotkernel/api/pull/562</a>: Update <code>boundwize/structarmed</code> to <code>^0.19.0</code></li>
+<li><a href="https://github.com/dotkernel/api/pull/536">https://github.com/dotkernel/api/pull/536</a>: Clarify in <code>config/autoload/cors.local.php.dist</code> how to restrict the allowed origins</li>
+<li><a href="https://github.com/dotkernel/api/pull/540">https://github.com/dotkernel/api/pull/540</a>: Update the README: password warning for the fixtures</li>
+<li><a href="https://github.com/dotkernel/api/pull/541">https://github.com/dotkernel/api/pull/541</a>: Update the README to reflect the application purpose</li>
+<li><a href="https://github.com/dotkernel/api/pull/532">https://github.com/dotkernel/api/pull/532</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.0</li>
+<li><a href="https://github.com/dotkernel/api/pull/542">https://github.com/dotkernel/api/pull/542</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.1</li>
+<li><a href="https://github.com/dotkernel/api/pull/557">https://github.com/dotkernel/api/pull/557</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.2</li>
 </ul>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Is there an automated upgrade from 7.1 to 7.2?</strong></p>
