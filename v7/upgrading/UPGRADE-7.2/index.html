@@ -1144,7 +1144,11 @@ You can find the changes in their release notes, in the compare views <a href="h
 <li>Update the <code>HomeMessage</code> example to <code>Dotkernel API version 7</code>.</li>
 </ul>
 </li>
-<li><a href="https://github.com/dotkernel/api/pull/551">https://github.com/dotkernel/api/pull/551</a>: Move the OpenAPI root attributes (<code>Info</code>, <code>Server</code>, security schemes, external docs) out of <code>src/App/src/OpenAPI.php</code>: pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 then removes them in favor of the configuration file. Apply both together and remove the attributes from your copy of the file</li>
+<li><a href="https://github.com/dotkernel/api/pull/551">https://github.com/dotkernel/api/pull/551</a><ul>
+<li>Move the OpenAPI root attributes (<code>Info</code>, <code>Server</code>, security schemes, external docs) out of <code>src/App/src/OpenAPI.php</code>: pull request 551 wraps them in <code>OA\OpenApi</code>, and pull request 560 then removes them in favor of the configuration file.</li>
+<li>Apply both together and remove the attributes from your copy of the file.</li>
+</ul>
+</li>
 <li><a href="https://github.com/dotkernel/api/pull/566">https://github.com/dotkernel/api/pull/566</a><ul>
 <li>Every operation gets an explicit <code>operationId</code>: the ids in the generated document change from hashes to readable names, for example <code>getAdminCollection</code> and <code>postUserResource</code>.</li>
 <li>Add an <code>operationId</code> to every operation in the <code>OpenAPI.php</code> files.</li>
@@ -1160,7 +1164,11 @@ You can find the changes in their release notes, in the compare views <a href="h
 <li>Update API clients that match on the old status codes.</li>
 </ul>
 </li>
-<li><a href="https://github.com/dotkernel/api/pull/565">https://github.com/dotkernel/api/pull/565</a>: Remove the <code>ResourceDeprecation</code> attribute from <code>GetIndexResourceHandler</code>, the only handler in the skeleton that used it: <code>GET /</code> no longer returns the <code>Sunset</code> and <code>Link</code> headers. Handlers you annotated yourself keep their attribute; see pull request 570 for what happens once their sunset date passes</li>
+<li><a href="https://github.com/dotkernel/api/pull/565">https://github.com/dotkernel/api/pull/565</a><ul>
+<li>Remove the <code>ResourceDeprecation</code> attribute from <code>GetIndexResourceHandler</code>, the only handler in the skeleton that used it: <code>GET /</code> no longer returns the <code>Sunset</code> and <code>Link</code> headers.</li>
+<li>Handlers you annotated yourself keep their attribute; see pull request 570 for what happens once their sunset date passes.</li>
+</ul>
+</li>
 <li><a href="https://github.com/dotkernel/api/pull/570">https://github.com/dotkernel/api/pull/570</a><ul>
 <li>A resource whose <code>ResourceDeprecation</code> sunset date has been reached is no longer executed. Before, the handler still ran and only the <code>Sunset</code> header was added.</li>
 <li>The request now throws <code>ExpiredException</code> and returns <code>410 Gone</code> with the detail <code>This resource is no longer available (sunset on &lt;date&gt;).</code>.</li>
@@ -1174,17 +1182,52 @@ You can find the changes in their release notes, in the compare views <a href="h
 <p>These changes cover documentation fixes, type-only cleanups, development tooling and CI.
 Skipping them does not affect how the API runs.</p>
 <ul>
-<li><a href="https://github.com/dotkernel/api/pull/550">https://github.com/dotkernel/api/pull/550</a>: Document the recover-account endpoint at its registered path in <code>src/User/src/OpenAPI.php</code>: <code>/user/account/recover</code> instead of <code>/account/recover-identity</code>. The route itself is unchanged</li>
-<li><a href="https://github.com/dotkernel/api/pull/537">https://github.com/dotkernel/api/pull/537</a>: Add class constant type declarations (for example in the input filters, the DBAL types, <code>Message</code>, <code>ConfigProvider</code>, <code>UserAvatarService</code>, <code>ContentNegotiationMiddleware</code> and <code>ErrorReportService</code>) and the <code>SlevomatCodingStandard.TypeHints.ClassConstantTypeHint</code> rule to <code>phpcs.xml</code>. It only matters if a subclass of the affected classes overrides one of those constants</li>
-<li><a href="https://github.com/dotkernel/api/pull/553">https://github.com/dotkernel/api/pull/553</a>: Add <code>boundwize/structarmed</code> as a dev dependency with a <code>structarmed.php</code> architecture file, and make closures <code>static</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/554">https://github.com/dotkernel/api/pull/554</a>: Update <code>boundwize/structarmed</code> to <code>^0.18.0</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/562">https://github.com/dotkernel/api/pull/562</a>: Update <code>boundwize/structarmed</code> to <code>^0.19.0</code></li>
-<li><a href="https://github.com/dotkernel/api/pull/536">https://github.com/dotkernel/api/pull/536</a>: Clarify in <code>config/autoload/cors.local.php.dist</code> how to restrict the allowed origins</li>
-<li><a href="https://github.com/dotkernel/api/pull/540">https://github.com/dotkernel/api/pull/540</a>: Update the README: password warning for the fixtures</li>
-<li><a href="https://github.com/dotkernel/api/pull/541">https://github.com/dotkernel/api/pull/541</a>: Update the README to reflect the application purpose</li>
-<li><a href="https://github.com/dotkernel/api/pull/532">https://github.com/dotkernel/api/pull/532</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.0</li>
-<li><a href="https://github.com/dotkernel/api/pull/542">https://github.com/dotkernel/api/pull/542</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.1</li>
-<li><a href="https://github.com/dotkernel/api/pull/557">https://github.com/dotkernel/api/pull/557</a>: Update <code>JetBrains/qodana-action</code> to v2026.2.2</li>
+<li><a href="https://github.com/dotkernel/api/pull/550">https://github.com/dotkernel/api/pull/550</a><ul>
+<li>Document the recover-account endpoint at its registered path in <code>src/User/src/OpenAPI.php</code>: <code>/user/account/recover</code> instead of <code>/account/recover-identity</code>.</li>
+<li>The route itself is unchanged.</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/537">https://github.com/dotkernel/api/pull/537</a><ul>
+<li>Add class constant type declarations (for example in the input filters, the DBAL types, <code>Message</code>, <code>ConfigProvider</code>, <code>UserAvatarService</code>, <code>ContentNegotiationMiddleware</code> and <code>ErrorReportService</code>) and the <code>SlevomatCodingStandard.TypeHints.ClassConstantTypeHint</code> rule to <code>phpcs.xml</code>.</li>
+<li>It only matters if a subclass of the affected classes overrides one of those constants.</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/553">https://github.com/dotkernel/api/pull/553</a><ul>
+<li>Add <code>boundwize/structarmed</code> as a dev dependency with a <code>structarmed.php</code> architecture file, and make closures <code>static</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/554">https://github.com/dotkernel/api/pull/554</a><ul>
+<li>Update <code>boundwize/structarmed</code> to <code>^0.18.0</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/562">https://github.com/dotkernel/api/pull/562</a><ul>
+<li>Update <code>boundwize/structarmed</code> to <code>^0.19.0</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/536">https://github.com/dotkernel/api/pull/536</a><ul>
+<li>Clarify in <code>config/autoload/cors.local.php.dist</code> how to restrict the allowed origins</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/540">https://github.com/dotkernel/api/pull/540</a><ul>
+<li>Update the README: password warning for the fixtures</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/541">https://github.com/dotkernel/api/pull/541</a><ul>
+<li>Update the README to reflect the application purpose</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/532">https://github.com/dotkernel/api/pull/532</a><ul>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.0</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/542">https://github.com/dotkernel/api/pull/542</a><ul>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.1</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotkernel/api/pull/557">https://github.com/dotkernel/api/pull/557</a><ul>
+<li>Update <code>JetBrains/qodana-action</code> to v2026.2.2</li>
+</ul>
+</li>
 </ul>
 <h2 id="faq">FAQ</h2>
 <p><strong>Q: Is there an automated upgrade from 7.1 to 7.2?</strong></p>

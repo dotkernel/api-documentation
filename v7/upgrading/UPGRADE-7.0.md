@@ -14,17 +14,25 @@ Version 7.0 does not change the PHP version or any Composer dependency constrain
 
 These changes affect your database schema, configuration, entities or runtime behavior.
 
-* [https://github.com/dotkernel/api/pull/456](https://github.com/dotkernel/api/pull/456): Use native UUIDs in database via `ramsey/uuid`: entities get their identifier from the new `UuidIdentifierTrait` and a `UuidType` that declares the SQL type `UUID`. `getUuid()` becomes `getId()` and the `uuid` key becomes `id` in entities, repositories, services, input filters and OpenAPI. A schema migration is required
-* [https://github.com/dotkernel/api/pull/462](https://github.com/dotkernel/api/pull/462): PostgreSQL implementation: in `config/autoload/local.php.dist` the `default` connection is renamed `mariadb`, a `postgresql` connection is added, and `charset` and `collate` are replaced by `collation`. `AbstractEnumType` is reworked, `MigrationsMigratedSubscriber` is added and `config/cli-config.php` is updated
-* [https://github.com/dotkernel/api/pull/470](https://github.com/dotkernel/api/pull/470): Remove `MethodDeprecation` implementation: the attribute and its tests are deleted, and `DeprecationMiddleware` and the error-report handler no longer use it
+* [https://github.com/dotkernel/api/pull/456](https://github.com/dotkernel/api/pull/456)
+    * Use native UUIDs in database via `ramsey/uuid`: entities get their identifier from the new `UuidIdentifierTrait` and a `UuidType` that declares the SQL type `UUID`.
+    * `getUuid()` becomes `getId()` and the `uuid` key becomes `id` in entities, repositories, services, input filters and OpenAPI.
+    * A schema migration is required.
+* [https://github.com/dotkernel/api/pull/462](https://github.com/dotkernel/api/pull/462)
+    * PostgreSQL implementation: in `config/autoload/local.php.dist` the `default` connection is renamed `mariadb`, a `postgresql` connection is added, and `charset` and `collate` are replaced by `collation`.
+    * `AbstractEnumType` is reworked, `MigrationsMigratedSubscriber` is added and `config/cli-config.php` is updated.
+* [https://github.com/dotkernel/api/pull/470](https://github.com/dotkernel/api/pull/470)
+    * Remove `MethodDeprecation` implementation: the attribute and its tests are deleted, and `DeprecationMiddleware` and the error-report handler no longer use it
 
 ### Optional updates
 
 These changes cover documentation and comments.
 Skipping them does not affect how the API runs.
 
-* [https://github.com/dotkernel/api/pull/472](https://github.com/dotkernel/api/pull/472): Clarify instructions regarding multiple connections in `config/autoload/local.php.dist`
-* [https://github.com/dotkernel/api/pull/461](https://github.com/dotkernel/api/pull/461): Update readme and security documents
+* [https://github.com/dotkernel/api/pull/472](https://github.com/dotkernel/api/pull/472)
+    * Clarify instructions regarding multiple connections in `config/autoload/local.php.dist`
+* [https://github.com/dotkernel/api/pull/461](https://github.com/dotkernel/api/pull/461)
+    * Update readme and security documents
 
 ## FAQ
 
