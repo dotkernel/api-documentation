@@ -9,26 +9,26 @@ This release reorganised shared logic into the Core module, refactored handlers 
 
 > You can find a complete list in [Changelog](https://github.com/dotkernel/api/blob/7.0/CHANGELOG.md)
 
-* Move common logic to Core module [https://github.com/dotkernel/api/pull/358](https://github.com/dotkernel/api/pull/358)
-* Refactored Handlers [https://github.com/dotkernel/api/pull/385](https://github.com/dotkernel/api/pull/385)
-* Inject `InputFilters` in handlers [https://github.com/dotkernel/api/pull/389](https://github.com/dotkernel/api/pull/389)
-* Implemented route grouping [https://github.com/dotkernel/api/pull/391](https://github.com/dotkernel/api/pull/391)
-* Service refactoring [https://github.com/dotkernel/api/pull/396](https://github.com/dotkernel/api/pull/396)
-* Autogenerate `OAuth2` keys when cloning the project [https://github.com/dotkernel/api/pull/398](https://github.com/dotkernel/api/pull/398)
-* Refresh Postman documentation [https://github.com/dotkernel/api/pull/400](https://github.com/dotkernel/api/pull/400)
-* Merge `Admin.Core` into `API.Core` [https://github.com/dotkernel/api/pull/401](https://github.com/dotkernel/api/pull/401)
-* Implemented `mezzio/mezzio-problem-details` [https://github.com/dotkernel/api/pull/402](https://github.com/dotkernel/api/pull/402)
-* Update pre-run.sh [https://github.com/dotkernel/api/pull/404](https://github.com/dotkernel/api/pull/404)
-* Update `GetIndexResourceHandler.php` [https://github.com/dotkernel/api/pull/408](https://github.com/dotkernel/api/pull/408)
-* Update `local.php.dist` [https://github.com/dotkernel/api/pull/409](https://github.com/dotkernel/api/pull/409)
-* Fixed error handling [https://github.com/dotkernel/api/pull/412](https://github.com/dotkernel/api/pull/412)
-* Implemented `ResourceProviderMiddleware` and added `ResourceGuardInterface` [https://github.com/dotkernel/api/pull/403](https://github.com/dotkernel/api/pull/403)
-* Updated logic in `ContentNegotiationMiddleware` [https://github.com/dotkernel/api/pull/413](https://github.com/dotkernel/api/pull/413)
-* `AuthenticationMiddleware` no longer extends `AuthenticationMiddleware` from `mezzio/mezzio-authentication` [https://github.com/dotkernel/api/pull/418](https://github.com/dotkernel/api/pull/418)
-* Update `qodana_code_quality.yml` [https://github.com/dotkernel/api/pull/416](https://github.com/dotkernel/api/pull/416)
-* Replaced `Twig` with custom templating solution [https://github.com/dotkernel/api/pull/419](https://github.com/dotkernel/api/pull/419)
-* Increased `PHPStan` level to 8 [https://github.com/dotkernel/api/pull/421](https://github.com/dotkernel/api/pull/421)
-* Split the `/security/token` endpoint into two separate endpoints [https://github.com/dotkernel/api/pull/423](https://github.com/dotkernel/api/pull/423)
+* [#358](https://github.com/dotkernel/api/pull/358): Move common logic to Core module
+* [#385](https://github.com/dotkernel/api/pull/385): Refactored Handlers
+* [#389](https://github.com/dotkernel/api/pull/389): Inject `InputFilters` in handlers
+* [#391](https://github.com/dotkernel/api/pull/391): Implemented route grouping
+* [#396](https://github.com/dotkernel/api/pull/396): Service refactoring
+* [#398](https://github.com/dotkernel/api/pull/398): Autogenerate `OAuth2` keys when cloning the project
+* [#400](https://github.com/dotkernel/api/pull/400): Refresh Postman documentation
+* [#401](https://github.com/dotkernel/api/pull/401): Merge `Admin.Core` into `API.Core`
+* [#402](https://github.com/dotkernel/api/pull/402): Implemented `mezzio/mezzio-problem-details`
+* [#404](https://github.com/dotkernel/api/pull/404): Update pre-run.sh
+* [#408](https://github.com/dotkernel/api/pull/408): Update `GetIndexResourceHandler.php`
+* [#409](https://github.com/dotkernel/api/pull/409): Update `local.php.dist`
+* [#412](https://github.com/dotkernel/api/pull/412): Fixed error handling
+* [#403](https://github.com/dotkernel/api/pull/403): Implemented `ResourceProviderMiddleware` and added `ResourceGuardInterface`
+* [#413](https://github.com/dotkernel/api/pull/413): Updated logic in `ContentNegotiationMiddleware`
+* [#418](https://github.com/dotkernel/api/pull/418): `AuthenticationMiddleware` no longer extends `AuthenticationMiddleware` from `mezzio/mezzio-authentication`
+* [#416](https://github.com/dotkernel/api/pull/416): Update `qodana_code_quality.yml`
+* [#419](https://github.com/dotkernel/api/pull/419): Replaced `Twig` with custom templating solution
+* [#421](https://github.com/dotkernel/api/pull/421): Increased `PHPStan` level to 8
+* [#423](https://github.com/dotkernel/api/pull/423): Split the `/security/token` endpoint into two separate endpoints
 
 ## FAQ
 
