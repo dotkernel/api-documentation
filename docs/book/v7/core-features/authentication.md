@@ -24,7 +24,7 @@ This allows users to exchange their credentials (username/password) for access t
 These tokens are then used for later requests instead of repeatedly sending credentials.
 
 Authentication in Dotkernel API is built around the `mezzio/mezzio-authentication-oauth2` component and is already configured out of the box.
-To customize authentication behavior (token lifetimes, algorithms, etc.), edit `config/autoload/local.php` under the `authentication` key.
+To customize authentication behavior (token lifetimes, algorithms, etc.), edit `config/autoload/authentication.global.php` under the `authentication` key.
 See the [Mezzio OAuth2 documentation](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) for all available options.
 
 > You can check the [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) configuration part for more info.
@@ -226,7 +226,7 @@ The client values come from `oauth_clients` and the scope from `oauth_scopes`.
 
 **Q: How long do the tokens last?**
 
-A: Access tokens expire after one day and refresh tokens after one month, both configurable under the `authentication` key in `config/autoload/local.php`.
+A: Access tokens expire after one day and refresh tokens after one month, both configurable under the `authentication` key in `config/autoload/authentication.global.php`.
 
 **Q: How do I renew an expired access token?**
 

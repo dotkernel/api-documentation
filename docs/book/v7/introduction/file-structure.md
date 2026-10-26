@@ -50,6 +50,7 @@ This folder contains all application-related config files:
 
 This folder contains all service-related local and global config files:
 
+* `authentication.global.php` - Configures OAuth2 authentication: key paths, token lifetimes and the invalid credentials message
 * `authorization.global.php` - Configures access per route for user roles
 * `cli.global.php` - Configures cli
 * `content-negotiation.global.php` - Configures request and response formats
@@ -57,7 +58,7 @@ This folder contains all service-related local and global config files:
 * `dependencies.global.php` - Sets global dependencies that should be accessible by all modules
 * `development.local.php.dist` - Gets symlinked into place when enabling development mode; activates error handlers
 * `error-handling.global.php` - Configures and activates error logs
-* `local.php.dist` - Local configuration file: database credentials, application name and URL, OAuth2 key paths
+* `local.php.dist` - Local configuration file: database credentials, application name and URL
 * `local.test.php.dist` - Local configuration for functional tests
 * `mail.local.php.dist` - Mail configuration; e.g. sendmail vs smtp, message configuration, mail logging. Not committed: the post-install script copies it out of `dotkernel/dot-mail` during installation (in 7.0 this file is `mail.global.php`)
 * `mezzio.global.php` - Mezzio core config file
