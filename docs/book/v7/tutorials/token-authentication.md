@@ -152,7 +152,7 @@ You should see a `200 OK` response with the following JSON body:
 Field description:
 
 - `token_type`: token type to be set when sending the `Authorization` header (example: `Authorization: Bearer eyJ0e...`)
-- `expires_in`: access token lifetime (modify in: `config/autoload/local.php` > `authentication`.`access_token_expire`)
+- `expires_in`: access token lifetime (modify in: `config/autoload/authentication.global.php` > `authentication`.`access_token_expire`; `config/autoload/local.php` in 7.2 and earlier)
 - `access_token`: generated access token (store it for later use)
 - `refresh_token`: generated refresh token (store it for regenerating expired access token)
 
@@ -256,7 +256,7 @@ You should see a `200 OK` response with the following JSON body:
 Field description:
 
 - `token_type`: token type to be set when sending the `Authorization` header (example: `Authorization: Bearer eyJ0e...`)
-- `expires_in`: access token lifetime (change here: `config/autoload/local.php` `authentication`->`access_token_expire`)
+- `expires_in`: access token lifetime (change here: `config/autoload/authentication.global.php` `authentication`->`access_token_expire`; `config/autoload/local.php` in 7.2 and earlier)
 - `access_token`: generated access token (store it for later use)
 - `refresh_token`: generated refresh token (store it for regenerating expired access token)
 
@@ -392,7 +392,7 @@ A: Generating uses `grant_type: password` with a username and password; refreshi
 
 **Q: How long is an access token valid?**
 
-A: 86400 seconds — one day — configurable via `authentication`, `access_token_expire` in `config/autoload/local.php`.
+A: 86400 seconds — one day — configurable via `authentication`, `access_token_expire` in `config/autoload/authentication.global.php` (`config/autoload/local.php` in 7.2 and earlier).
 
 **Q: I get `400 Bad Request` with "Invalid credentials". What should I check?**
 
