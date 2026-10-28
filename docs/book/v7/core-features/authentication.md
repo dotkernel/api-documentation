@@ -27,7 +27,42 @@ Authentication in Dotkernel API is built around the `mezzio/mezzio-authenticatio
 To customize authentication behavior (token lifetimes, algorithms, etc.), edit `config/autoload/authentication.global.php` under the `authentication` key.
 See the [Mezzio OAuth2 documentation](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) for all available options.
 
+> The `authentication.global.php` file applies from Dotkernel API versions after 7.2.
+> In Dotkernel API 7.2 and earlier, the `authentication` key is in `config/autoload/local.php`.
+
 > You can check the [mezzio/mezzio-authentication-oauth2](https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration) configuration part for more info.
+
+### Token lifetime format
+
+The token lifetimes are set as [DateInterval](https://www.php.net/manual/en/dateinterval.construct.php) strings, under the `authentication` key in `config/autoload/authentication.global.php` (`config/autoload/local.php` in 7.2 and earlier):
+
+| Key                    | Default | Controls                                  |
+|------------------------|---------|-------------------------------------------|
+| `access_token_expire`  | `P1D`   | How long an access token is valid         |
+| `refresh_token_expire` | `P1M`   | How long a refresh token is valid         |
+| `auth_code_expire`     | `PT10M` | How long an authorization code is valid   |
+
+A value is made of:
+
+- `P`, followed by date units: `D` days, `W` weeks, `M` months, `Y` years
+- `PT`, followed by time units: `H` hours, `M` minutes, `S` seconds
+- a number before each unit, e.g. `P2D` or `PT10M`
+
+Date and time units can be combined in one value, with the `T` separating them.
+
+Examples:
+
+| Value     | Meaning                    |
+|-----------|----------------------------|
+| `P1D`     | 1 day                      |
+| `P1M`     | 1 calendar month           |
+| `P30D`    | exactly 30 days            |
+| `P2DT3H`  | 2 days and 3 hours         |
+| `PT10M`   | 10 minutes                 |
+| `PT3600S` | 3600 seconds (1 hour)      |
+
+> `P1M` is a calendar month, so its length in days depends on the month it starts in.
+> Use `P30D` if the lifetime must be exactly 30 days.
 
 ## How it works
 
@@ -226,7 +261,7 @@ The client values come from `oauth_clients` and the scope from `oauth_scopes`.
 
 **Q: How long do the tokens last?**
 
-A: Access tokens expire after one day and refresh tokens after one month, both configurable under the `authentication` key in `config/autoload/authentication.global.php`.
+A: Access tokens expire after one day and refresh tokens after one month, both configurable under the `authentication` key in `config/autoload/authentication.global.php` (`config/autoload/local.php` in 7.2 and earlier), see [Token lifetime format](#token-lifetime-format).
 
 **Q: How do I renew an expired access token?**
 
