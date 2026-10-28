@@ -260,7 +260,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#overview" role="button" aria-expanded="false" aria-controls="overview">
+    <a data-bs-toggle="collapse" href="#overview" role="button" class="collapsed" aria-expanded="false" aria-controls="overview">
         <span class="subnavigation__headline">Overview</span>
     </a>
     <ul class="subnavigation__list collapse" id="overview">
@@ -322,7 +322,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+    <a data-bs-toggle="collapse" href="#installation" role="button" class="collapsed" aria-expanded="false" aria-controls="installation">
         <span class="subnavigation__headline">Installation</span>
     </a>
     <ul class="subnavigation__list collapse" id="installation">
@@ -390,7 +390,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#upgrading" role="button" aria-expanded="false" aria-controls="upgrading">
+    <a data-bs-toggle="collapse" href="#upgrading" role="button" class="collapsed" aria-expanded="false" aria-controls="upgrading">
         <span class="subnavigation__headline">Upgrading</span>
     </a>
     <ul class="subnavigation__list collapse" id="upgrading">
@@ -442,7 +442,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+    <a data-bs-toggle="collapse" href="#flow" role="button" class="collapsed" aria-expanded="false" aria-controls="flow">
         <span class="subnavigation__headline">Flow</span>
     </a>
     <ul class="subnavigation__list collapse" id="flow">
@@ -500,7 +500,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" class="collapsed" aria-expanded="false" aria-controls="core-features">
         <span class="subnavigation__headline">Core Features</span>
     </a>
     <ul class="subnavigation__list collapse" id="core-features">
@@ -590,7 +590,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#extended-features" role="button" aria-expanded="false" aria-controls="extended-features">
+    <a data-bs-toggle="collapse" href="#extended-features" role="button" class="collapsed" aria-expanded="false" aria-controls="extended-features">
         <span class="subnavigation__headline">Extended features</span>
     </a>
     <ul class="subnavigation__list collapse" id="extended-features">
@@ -650,7 +650,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+    <a data-bs-toggle="collapse" href="#commands" role="button" class="collapsed" aria-expanded="false" aria-controls="commands">
         <span class="subnavigation__headline">Commands</span>
     </a>
     <ul class="subnavigation__list collapse" id="commands">
@@ -706,7 +706,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" class="collapsed" aria-expanded="false" aria-controls="tutorials">
         <span class="subnavigation__headline">Tutorials</span>
     </a>
     <ul class="subnavigation__list collapse" id="tutorials">
@@ -806,7 +806,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" class="collapsed" aria-expanded="false" aria-controls="transition-from-api-tools">
         <span class="subnavigation__headline">Transition from API Tools</span>
     </a>
     <ul class="subnavigation__list collapse" id="transition-from-api-tools">
@@ -852,7 +852,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#openapi" role="button" aria-expanded="false" aria-controls="openapi">
+    <a data-bs-toggle="collapse" href="#openapi" role="button" class="collapsed" aria-expanded="false" aria-controls="openapi">
         <span class="subnavigation__headline">OpenAPI</span>
     </a>
     <ul class="subnavigation__list collapse" id="openapi">
@@ -942,10 +942,10 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#basic-security" role="button" aria-expanded="false" aria-controls="basic-security">
+    <a data-bs-toggle="collapse" href="#basic-security" role="button" class="" aria-expanded="true" aria-controls="basic-security">
         <span class="subnavigation__headline">Basic Security</span>
     </a>
-    <ul class="subnavigation__list collapse" id="basic-security">
+    <ul class="subnavigation__list collapse show" id="basic-security">
         
         
 <li class="subnavigation__list-item ">
@@ -986,7 +986,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#reference" role="button" aria-expanded="false" aria-controls="reference">
+    <a data-bs-toggle="collapse" href="#reference" role="button" class="collapsed" aria-expanded="false" aria-controls="reference">
         <span class="subnavigation__headline">Reference</span>
     </a>
     <ul class="subnavigation__list collapse" id="reference">
@@ -1130,7 +1130,8 @@ As a security stating point, when developing an application using this project, 
 <p>The project ships with the default OAuth clients <code>admin</code> and <code>frontend</code> with passwords equal to their names, as described in the <a href="https://docs.dotkernel.org/api-documentation/v7/core-features/authentication/">Authentication</a> guide.</p>
 <p>These clients <strong>must not</strong> remain unchanged in your production environment, as they are a security risk; ensure you deleted them or updated the passwords.</p>
 <h2 id="oauth-token-lifetime-and-refresh-hygiene">OAuth Token Lifetime and Refresh Hygiene</h2>
-<p>The configuration for OAuth2 tokens can be edited in <code>config/autoload/local.php</code> under the <code>authentication</code> key.</p>
+<p>The configuration for OAuth2 tokens can be edited in <code>config/autoload/authentication.global.php</code> under the <code>authentication</code> key (<code>config/autoload/local.php</code> in 7.2 and earlier).
+The values use the <code>DateInterval</code> format, explained in <a href="../../core-features/authentication/#token-lifetime-format">Token lifetime format</a>.</p>
 <p>By default, the lifetimes of the <code>access</code> and <code>refresh</code> tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance with your application's needs, with lower values being generally safer.</p>
 <blockquote>
@@ -1167,7 +1168,7 @@ If you deliberately want to rotate the keys, delete the three files from <code>d
 <p>A: Deleting or re-passwording the default <code>admin</code> and <code>frontend</code> OAuth clients.
 They ship with passwords equal to their names, so leaving them in place hands anyone a valid client.</p>
 <p><strong>Q: Where do I change token lifetimes?</strong></p>
-<p>A: Under the <code>authentication</code> key in <code>config/autoload/local.php</code>.
+<p>A: Under the <code>authentication</code> key in <code>config/autoload/authentication.global.php</code> (<code>config/autoload/local.php</code> in 7.2 and earlier), using the <a href="../../core-features/authentication/#token-lifetime-format">DateInterval format</a>.
 Defaults are one day for access tokens and one month for refresh tokens; shorter values are generally safer.</p>
 <p><strong>Q: Can I invalidate a user's tokens before they expire?</strong></p>
 <p>A: Yes, but not via <code>UserService::revokeTokens()</code> — that method is <code>private</code>.
@@ -1312,14 +1313,6 @@ The keys are excluded from version control by default, and the directory holding
             let base_url = '../../..',
                 project  = "api",
                 siteName = 'api';
-
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
-                        if (link.getAttribute('href') === './') {
-                            link.parentNode.parentNode.classList.add('show');
-                        }
-                    });
-                });
         </script>
         
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

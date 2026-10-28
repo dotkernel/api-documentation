@@ -260,7 +260,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#overview" role="button" aria-expanded="false" aria-controls="overview">
+    <a data-bs-toggle="collapse" href="#overview" role="button" class="collapsed" aria-expanded="false" aria-controls="overview">
         <span class="subnavigation__headline">Overview</span>
     </a>
     <ul class="subnavigation__list collapse" id="overview">
@@ -322,7 +322,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+    <a data-bs-toggle="collapse" href="#installation" role="button" class="collapsed" aria-expanded="false" aria-controls="installation">
         <span class="subnavigation__headline">Installation</span>
     </a>
     <ul class="subnavigation__list collapse" id="installation">
@@ -390,7 +390,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#upgrading" role="button" aria-expanded="false" aria-controls="upgrading">
+    <a data-bs-toggle="collapse" href="#upgrading" role="button" class="collapsed" aria-expanded="false" aria-controls="upgrading">
         <span class="subnavigation__headline">Upgrading</span>
     </a>
     <ul class="subnavigation__list collapse" id="upgrading">
@@ -442,7 +442,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+    <a data-bs-toggle="collapse" href="#flow" role="button" class="collapsed" aria-expanded="false" aria-controls="flow">
         <span class="subnavigation__headline">Flow</span>
     </a>
     <ul class="subnavigation__list collapse" id="flow">
@@ -500,10 +500,10 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" class="" aria-expanded="true" aria-controls="core-features">
         <span class="subnavigation__headline">Core Features</span>
     </a>
-    <ul class="subnavigation__list collapse" id="core-features">
+    <ul class="subnavigation__list collapse show" id="core-features">
         
         
 <li class="subnavigation__list-item subnavigation__list-item--active">
@@ -590,7 +590,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#extended-features" role="button" aria-expanded="false" aria-controls="extended-features">
+    <a data-bs-toggle="collapse" href="#extended-features" role="button" class="collapsed" aria-expanded="false" aria-controls="extended-features">
         <span class="subnavigation__headline">Extended features</span>
     </a>
     <ul class="subnavigation__list collapse" id="extended-features">
@@ -650,7 +650,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+    <a data-bs-toggle="collapse" href="#commands" role="button" class="collapsed" aria-expanded="false" aria-controls="commands">
         <span class="subnavigation__headline">Commands</span>
     </a>
     <ul class="subnavigation__list collapse" id="commands">
@@ -706,7 +706,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" class="collapsed" aria-expanded="false" aria-controls="tutorials">
         <span class="subnavigation__headline">Tutorials</span>
     </a>
     <ul class="subnavigation__list collapse" id="tutorials">
@@ -806,7 +806,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" class="collapsed" aria-expanded="false" aria-controls="transition-from-api-tools">
         <span class="subnavigation__headline">Transition from API Tools</span>
     </a>
     <ul class="subnavigation__list collapse" id="transition-from-api-tools">
@@ -852,7 +852,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#openapi" role="button" aria-expanded="false" aria-controls="openapi">
+    <a data-bs-toggle="collapse" href="#openapi" role="button" class="collapsed" aria-expanded="false" aria-controls="openapi">
         <span class="subnavigation__headline">OpenAPI</span>
     </a>
     <ul class="subnavigation__list collapse" id="openapi">
@@ -942,7 +942,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#basic-security" role="button" aria-expanded="false" aria-controls="basic-security">
+    <a data-bs-toggle="collapse" href="#basic-security" role="button" class="collapsed" aria-expanded="false" aria-controls="basic-security">
         <span class="subnavigation__headline">Basic Security</span>
     </a>
     <ul class="subnavigation__list collapse" id="basic-security">
@@ -986,7 +986,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#reference" role="button" aria-expanded="false" aria-controls="reference">
+    <a data-bs-toggle="collapse" href="#reference" role="button" class="collapsed" aria-expanded="false" aria-controls="reference">
         <span class="subnavigation__headline">Reference</span>
     </a>
     <ul class="subnavigation__list collapse" id="reference">
@@ -1138,10 +1138,86 @@ Check out the <a href="https://docs.dotkernel.org/api-documentation/v7/core-feat
 This allows users to exchange their credentials (username/password) for access tokens.
 These tokens are then used for later requests instead of repeatedly sending credentials.</p>
 <p>Authentication in Dotkernel API is built around the <code>mezzio/mezzio-authentication-oauth2</code> component and is already configured out of the box.
-To customize authentication behavior (token lifetimes, algorithms, etc.), edit <code>config/autoload/local.php</code> under the <code>authentication</code> key.
+To customize authentication behavior (token lifetimes, algorithms, etc.), edit <code>config/autoload/authentication.global.php</code> under the <code>authentication</code> key.
 See the <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">Mezzio OAuth2 documentation</a> for all available options.</p>
 <blockquote>
+<p>The <code>authentication.global.php</code> file applies from Dotkernel API versions after 7.2.
+In Dotkernel API 7.2 and earlier, the <code>authentication</code> key is in <code>config/autoload/local.php</code>.</p>
 <p>You can check the <a href="https://docs.mezzio.dev/mezzio-authentication-oauth2/v1/intro/#configuration">mezzio/mezzio-authentication-oauth2</a> configuration part for more info.</p>
+</blockquote>
+<h3 id="token-lifetime-format">Token lifetime format</h3>
+<p>The token lifetimes are set as <a href="https://www.php.net/manual/en/dateinterval.construct.php">DateInterval</a> strings, under the <code>authentication</code> key in <code>config/autoload/authentication.global.php</code> (<code>config/autoload/local.php</code> in 7.2 and earlier):</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Controls</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>access_token_expire</code></td>
+<td><code>P1D</code></td>
+<td>How long an access token is valid</td>
+</tr>
+<tr>
+<td><code>refresh_token_expire</code></td>
+<td><code>P1M</code></td>
+<td>How long a refresh token is valid</td>
+</tr>
+<tr>
+<td><code>auth_code_expire</code></td>
+<td><code>PT10M</code></td>
+<td>How long an authorization code is valid</td>
+</tr>
+</tbody>
+</table></div>
+<p>A value is made of:</p>
+<ul>
+<li><code>P</code>, followed by date units: <code>D</code> days, <code>W</code> weeks, <code>M</code> months, <code>Y</code> years</li>
+<li><code>PT</code>, followed by time units: <code>H</code> hours, <code>M</code> minutes, <code>S</code> seconds</li>
+<li>a number before each unit, e.g. <code>P2D</code> or <code>PT10M</code></li>
+</ul>
+<p>Date and time units can be combined in one value, with the <code>T</code> separating them.</p>
+<p>Examples:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>P1D</code></td>
+<td>1 day</td>
+</tr>
+<tr>
+<td><code>P1M</code></td>
+<td>1 calendar month</td>
+</tr>
+<tr>
+<td><code>P30D</code></td>
+<td>exactly 30 days</td>
+</tr>
+<tr>
+<td><code>P2DT3H</code></td>
+<td>2 days and 3 hours</td>
+</tr>
+<tr>
+<td><code>PT10M</code></td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td><code>PT3600S</code></td>
+<td>3600 seconds (1 hour)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><code>P1M</code> is a calendar month, so its length in days depends on the month it starts in.
+Use <code>P30D</code> if the lifetime must be exactly 30 days.</p>
 </blockquote>
 <h2 id="how-it-works">How it works</h2>
 <p>Dotkernel API authentication system can be used for SPAs (single-page applications), mobile applications, and simple, token-based APIs.
@@ -1353,7 +1429,7 @@ Authenticated identities therefore come from either the <code>admin</code> or th
 <p>A: <code>grant_type</code>, <code>client_id</code>, <code>client_secret</code>, <code>scope</code>, <code>username</code> and <code>password</code>.
 The client values come from <code>oauth_clients</code> and the scope from <code>oauth_scopes</code>.</p>
 <p><strong>Q: How long do the tokens last?</strong></p>
-<p>A: Access tokens expire after one day and refresh tokens after one month, both configurable under the <code>authentication</code> key in <code>config/autoload/local.php</code>.</p>
+<p>A: Access tokens expire after one day and refresh tokens after one month, both configurable under the <code>authentication</code> key in <code>config/autoload/authentication.global.php</code> (<code>config/autoload/local.php</code> in 7.2 and earlier), see <a href="#token-lifetime-format">Token lifetime format</a>.</p>
 <p><strong>Q: How do I renew an expired access token?</strong></p>
 <p>A: Post the <code>refresh_token</code> to <code>/security/refresh-token</code> with <code>grant_type</code> set to <code>refresh_token</code>.
 If the refresh token has expired too, authenticate again with credentials.</p>
@@ -1499,14 +1575,6 @@ See <a href="../authorization/">Authorization</a>.</p>
             let base_url = '../../..',
                 project  = "api",
                 siteName = 'api';
-
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
-                        if (link.getAttribute('href') === './') {
-                            link.parentNode.parentNode.classList.add('show');
-                        }
-                    });
-                });
         </script>
         
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

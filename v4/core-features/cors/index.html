@@ -278,7 +278,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#overview" role="button" aria-expanded="false" aria-controls="overview">
+    <a data-bs-toggle="collapse" href="#overview" role="button" class="collapsed" aria-expanded="false" aria-controls="overview">
         <span class="subnavigation__headline">Overview</span>
     </a>
     <ul class="subnavigation__list collapse" id="overview">
@@ -334,7 +334,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#installation" role="button" aria-expanded="false" aria-controls="installation">
+    <a data-bs-toggle="collapse" href="#installation" role="button" class="collapsed" aria-expanded="false" aria-controls="installation">
         <span class="subnavigation__headline">Installation</span>
     </a>
     <ul class="subnavigation__list collapse" id="installation">
@@ -392,7 +392,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#flow" role="button" aria-expanded="false" aria-controls="flow">
+    <a data-bs-toggle="collapse" href="#flow" role="button" class="collapsed" aria-expanded="false" aria-controls="flow">
         <span class="subnavigation__headline">Flow</span>
     </a>
     <ul class="subnavigation__list collapse" id="flow">
@@ -450,10 +450,10 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#core-features" role="button" aria-expanded="false" aria-controls="core-features">
+    <a data-bs-toggle="collapse" href="#core-features" role="button" class="" aria-expanded="true" aria-controls="core-features">
         <span class="subnavigation__headline">Core Features</span>
     </a>
-    <ul class="subnavigation__list collapse" id="core-features">
+    <ul class="subnavigation__list collapse show" id="core-features">
         
         
 <li class="subnavigation__list-item ">
@@ -510,7 +510,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#commands" role="button" aria-expanded="false" aria-controls="commands">
+    <a data-bs-toggle="collapse" href="#commands" role="button" class="collapsed" aria-expanded="false" aria-controls="commands">
         <span class="subnavigation__headline">Commands</span>
     </a>
     <ul class="subnavigation__list collapse" id="commands">
@@ -566,7 +566,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#tutorials" role="button" aria-expanded="false" aria-controls="tutorials">
+    <a data-bs-toggle="collapse" href="#tutorials" role="button" class="collapsed" aria-expanded="false" aria-controls="tutorials">
         <span class="subnavigation__headline">Tutorials</span>
     </a>
     <ul class="subnavigation__list collapse" id="tutorials">
@@ -642,7 +642,7 @@
 
 
 <li class="subnavigation__list-item">
-    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" aria-expanded="false" aria-controls="transition-from-api-tools">
+    <a data-bs-toggle="collapse" href="#transition-from-api-tools" role="button" class="collapsed" aria-expanded="false" aria-controls="transition-from-api-tools">
         <span class="subnavigation__headline">Transition from API Tools</span>
     </a>
     <ul class="subnavigation__list collapse" id="transition-from-api-tools">
@@ -923,14 +923,6 @@ return [
             let base_url = '../../..',
                 project  = "api",
                 siteName = 'api';
-
-                document.addEventListener("DOMContentLoaded", function() {
-                    document.querySelectorAll('.subnavigation__link').forEach(function(link) {
-                        if (link.getAttribute('href') === './') {
-                            link.parentNode.parentNode.classList.add('show');
-                        }
-                    });
-                });
         </script>
         
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

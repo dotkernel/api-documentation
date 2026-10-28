@@ -17,7 +17,8 @@ These clients **must not** remain unchanged in your production environment, as t
 
 ## OAuth Token Lifetime and Refresh Hygiene
 
-The configuration for OAuth2 tokens can be edited in `config/autoload/local.php` under the `authentication` key.
+The configuration for OAuth2 tokens can be edited in `config/autoload/authentication.global.php` under the `authentication` key (`config/autoload/local.php` in 7.2 and earlier).
+The values use the `DateInterval` format, explained in [Token lifetime format](../core-features/authentication.md#token-lifetime-format).
 
 By default, the lifetimes of the `access` and `refresh` tokens are set to one day and one month respectively.
 Make sure to adjust their values in accordance with your application's needs, with lower values being generally safer.
@@ -67,7 +68,7 @@ They ship with passwords equal to their names, so leaving them in place hands an
 
 **Q: Where do I change token lifetimes?**
 
-A: Under the `authentication` key in `config/autoload/local.php`.
+A: Under the `authentication` key in `config/autoload/authentication.global.php` (`config/autoload/local.php` in 7.2 and earlier), using the [DateInterval format](../core-features/authentication.md#token-lifetime-format).
 Defaults are one day for access tokens and one month for refresh tokens; shorter values are generally safer.
 
 **Q: Can I invalidate a user's tokens before they expire?**
