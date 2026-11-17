@@ -145,11 +145,8 @@ Install with composer require doctrine/orm-plugin-second-level-cache
 ```
 
 The Core `ConfigProvider` turns the cache on by default.
-`config/autoload/local.php` switches it off with the `$enableSecondLevelCache` flag, which loads after the Core configuration and overrides only the `enabled` key:
-
-```php
-$enableSecondLevelCache = false;
-```
+`config/autoload/local.php` switches it off by setting the `enabled` key to `false`.
+It loads after the Core configuration and overrides only that key, so the other second-level cache settings still come from Core:
 
 ```php
 'doctrine' => [
@@ -159,7 +156,7 @@ $enableSecondLevelCache = false;
     'configuration' => [
         'orm_default' => [
             'second_level_cache' => [
-                'enabled' => $enableSecondLevelCache,
+                'enabled' => false,
             ],
         ],
     ],
@@ -169,14 +166,14 @@ $enableSecondLevelCache = false;
 The stock application does not use the second-level cache: no entity has `#[ORM\Cache]` and no query calls `setCacheable(true)`.
 The query cache used by the repositories (`useQueryCache(true)`) is a separate cache and is not affected by this flag.
 
-To enable the second-level cache, install the plugin and then set the flag to `true`:
+To enable the second-level cache, install the plugin and then set `enabled` to `true`:
 
 ```shell
 composer require doctrine/orm-plugin-second-level-cache:^1.0
 ```
 
 > `config/autoload/local.php` is copied from `local.php.dist` only once, at install time.
-> If your installation predates this flag, add the variable and the `configuration` block to your `local.php` by hand.
+> If your installation predates this setting, add the `configuration` block to your `local.php` by hand.
 > If configuration caching is enabled, delete `data/cache/config-cache.php` afterwards.
 
 ### Creating Migrations
@@ -318,7 +315,7 @@ The prefix is applied verbatim, with no separator added, and `doctrine_migration
 **Q: The first request fails with "Using the second level cache requires installing an additional package". What is wrong?**
 
 A: Composer installed `doctrine/orm` 3.8.0 or later, which needs `doctrine/orm-plugin-second-level-cache` for the second-level cache, and your configuration still enables that cache.
-Add `$enableSecondLevelCache = false;` and the `doctrine.configuration.orm_default.second_level_cache.enabled` key to `config/autoload/local.php`, or install the plugin if you need the cache.
+Set `doctrine.configuration.orm_default.second_level_cache.enabled` to `false` in `config/autoload/local.php`, or install the plugin if you need the cache.
 See [Second-level cache](#second-level-cache).
 
 **Q: Does disabling the second-level cache slow the application down?**

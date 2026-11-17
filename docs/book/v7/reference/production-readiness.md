@@ -246,7 +246,7 @@ At the HTTP level there is no `ETag`, no `Last-Modified` and no conditional-requ
 Every other response leaves caching headers unset, which means intermediaries fall back to their own heuristics on responses that are usually per-identity.
 Set a conservative default under the `'*'` key in `config/autoload/response-header.global.php` and relax it only where you actually want caching.
 
-Doctrine's result cache is not configured either, and the second-level cache is switched off by `$enableSecondLevelCache` in `config/autoload/local.php`, so a collection endpoint queries the database on every request.
+Doctrine's result cache is not configured either, and the second-level cache is switched off in `config/autoload/local.php`, so a collection endpoint queries the database on every request.
 Enabling the second-level cache on `doctrine/orm` 3.8 or later also requires `doctrine/orm-plugin-second-level-cache`; see [Second-level cache](../installation/doctrine-orm.md#second-level-cache).
 Issue #443 is the open RFC to extend caching in the API.
 
