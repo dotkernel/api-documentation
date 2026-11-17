@@ -26,6 +26,7 @@ The installation script will duplicate the following files:
 
 > `local.php` is the main configuration file for your application.
 > It contains the database connection parameters, the API key, and other configuration items.
+> It also holds the `$enableSecondLevelCache` flag, which is `false` by default; see [Second-level cache](doctrine-orm.md#second-level-cache).
 
 * `config/autoload/mail.local.php` from the `dot-mail` package installed in the `vendor` folder.
 
