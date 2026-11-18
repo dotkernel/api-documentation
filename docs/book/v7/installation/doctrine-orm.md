@@ -10,6 +10,8 @@ In this step you will:
 
 - [Save the database connection credentials in the API configuration file](#setup-database).
 - [Learn about table names prefixing](#understanding-table-names-prefixing).
+- [Decide whether to use persistent connections](#persistent-connections).
+- [Decide whether to enable the second-level cache](#second-level-cache).
 - [Create a migration](#creating-migrations).
 - [Run a migration](#running-migrations).
 - [Executing fixtures to populate your database](#executing-fixtures).
@@ -33,6 +35,7 @@ $databases = [
         'password'     => '',
         'port'         => 3306,
         'driver'       => 'pdo_mysql',
+        'persistent'   => false,
         'collation'    => 'utf8mb4_general_ci',
         'table_prefix' => '',
     ],
@@ -43,6 +46,7 @@ $databases = [
         'password'     => '',
         'port'         => 5432,
         'driver'       => 'pdo_pgsql',
+        'persistent'   => false,
         'collation'    => 'utf8mb4_general_ci',
         'table_prefix' => '',
     ],
@@ -63,11 +67,14 @@ You can switch to the 'postgresql' connection by commenting `'params' => $databa
 
 ```php
 'doctrine'            => [
-    'connection' => [
+    'connection'    => [
         'orm_default' => [
             'params' => $databases['mariadb'],
 //                'params' => $databases['postgresql'],
         ],
+    ],
+    'configuration' => [
+        // second-level cache, see below
     ],
 ],
 ```
@@ -127,6 +134,86 @@ This feature helps organize databases and prevent naming conflicts if you plan o
 > The configured prefix is prepended as is, no intermediary character will be added.
 
 > `doctrine_migration_versions` is an exception and will remain unchanged, since it's a special table handled only by Doctrine Migrations.
+
+### Second-level cache
+
+Starting with `doctrine/orm` 3.8.0, Doctrine's second-level cache needs the separate package `doctrine/orm-plugin-second-level-cache`.
+The ORM only suggests that package, so Composer does not install it.
+If the cache is enabled and the package is missing, the entity manager cannot be created and the first request fails with:
+
+```text
+Service with name "doctrine.entity_manager.orm_default" could not be created.
+Reason: Using the second level cache requires installing an additional package.
+Install with composer require doctrine/orm-plugin-second-level-cache
+```
+
+The Core `ConfigProvider` turns the cache on by default.
+`config/autoload/local.php` switches it off by setting the `enabled` key to `false`.
+It loads after the Core configuration and overrides only that key, so the other second-level cache settings still come from Core:
+
+```php
+'doctrine' => [
+    'connection'    => [
+        // ...
+    ],
+    'configuration' => [
+        'orm_default' => [
+            'second_level_cache' => [
+                'enabled' => false,
+            ],
+        ],
+    ],
+],
+```
+
+The stock application does not use the second-level cache: no entity has `#[ORM\Cache]` and no query calls `setCacheable(true)`.
+The query cache used by the repositories (`useQueryCache(true)`) is a separate cache and is not affected by this flag.
+
+To enable the second-level cache, install the plugin and then set `enabled` to `true`:
+
+```shell
+composer require doctrine/orm-plugin-second-level-cache:^1.0
+```
+
+> `config/autoload/local.php` is copied from `local.php.dist` only once, at install time.
+> If your installation predates this setting, add the `configuration` block to your `local.php` by hand.
+> If configuration caching is enabled, delete `data/cache/config-cache.php` afterwards.
+
+### Persistent connections
+
+Each entry in `$databases` has a `persistent` key, which is `false` by default.
+Set it to `true` on the connection you use to keep the database connection open after a request ends, so the next request handled by the same PHP process reuses it instead of opening a new one.
+
+| Driver | `persistent` supported |
+| --- | --- |
+| `pdo_mysql`, `mysqli` | Yes |
+| `pdo_pgsql` | Yes |
+| `pgsql` | No |
+| `pdo_sqlite`, `sqlite3` | No, the key is ignored |
+
+> Persistent connections for MySQL and PostgreSQL are first documented in `doctrine/dbal` 4.3 and 3.10.
+> `doctrine/dbal` is installed as a dependency of other packages, so run `composer show doctrine/dbal` to check your version.
+> Older versions ignore the key.
+
+Before you turn it on, check the following:
+
+- **Connection limit:** every PHP-FPM worker holds its own connection, so the database's `max_connections` must be higher than the total number of workers across every pool and server that connects to it.
+- **Leftover state:** a reused connection keeps whatever the previous request left on it, such as an open transaction after a fatal error, session variables, temporary tables or locks.
+- **Idle timeouts:** the database can close a connection that has been idle too long (MariaDB's `wait_timeout`), and the next request on that worker then fails with "server has gone away".
+- **CLI:** commands gain nothing, because each one runs in its own process.
+- **PostgreSQL:** a connection pooler such as PgBouncer is usually a better choice than persistent connections.
+
+To confirm that connections are reused, make a few requests and compare the connection IDs:
+
+```sql
+-- MariaDB
+SHOW PROCESSLIST;
+
+-- PostgreSQL
+SELECT pid, backend_start FROM pg_stat_activity WHERE datname = 'dotkernel';
+```
+
+> If your installation predates this setting, add `'persistent' => false,` to each entry in `$databases` in your `local.php` by hand.
 
 ### Creating Migrations
 
@@ -263,6 +350,28 @@ That is only an example — use any name, as long as the configuration and the d
 
 A: It prepends a string to every table name from the entities, which keeps table sets apart when several applications share one database.
 The prefix is applied verbatim, with no separator added, and `doctrine_migration_versions` is left untouched because Doctrine Migrations owns it.
+
+**Q: Should I enable persistent connections?**
+
+A: Only after checking that the database's `max_connections` covers every PHP-FPM worker that connects to it.
+They save the cost of opening a connection on each request, but each worker then holds a connection permanently.
+See [Persistent connections](#persistent-connections).
+
+**Q: I set `persistent` to `true`, but every request still opens a new connection. Why?**
+
+A: Check that you changed the entry that `doctrine.connection.orm_default.params` points to, that the driver is `pdo_mysql`, `mysqli` or `pdo_pgsql`, and that `doctrine/dbal` is at least 4.3 (or 3.10).
+If configuration caching is enabled, delete `data/cache/config-cache.php`.
+
+**Q: The first request fails with "Using the second level cache requires installing an additional package". What is wrong?**
+
+A: Composer installed `doctrine/orm` 3.8.0 or later, which needs `doctrine/orm-plugin-second-level-cache` for the second-level cache, and your configuration still enables that cache.
+Set `doctrine.configuration.orm_default.second_level_cache.enabled` to `false` in `config/autoload/local.php`, or install the plugin if you need the cache.
+See [Second-level cache](#second-level-cache).
+
+**Q: Does disabling the second-level cache slow the application down?**
+
+A: Not in the stock application, which never stores entities in it.
+It only matters if you add `#[ORM\Cache]` to entities or call `setCacheable(true)` on queries.
 
 **Q: Why use migrations instead of editing the schema by hand?**
 
