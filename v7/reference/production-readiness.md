@@ -246,8 +246,18 @@ At the HTTP level there is no `ETag`, no `Last-Modified` and no conditional-requ
 Every other response leaves caching headers unset, which means intermediaries fall back to their own heuristics on responses that are usually per-identity.
 Set a conservative default under the `'*'` key in `config/autoload/response-header.global.php` and relax it only where you actually want caching.
 
-Doctrine's second-level cache and result cache are not configured either, so a collection endpoint queries the database on every request.
+Doctrine's result cache is not configured either, and the second-level cache is switched off in `config/autoload/local.php`, so a collection endpoint queries the database on every request.
+Enabling the second-level cache on `doctrine/orm` 3.8 or later also requires `doctrine/orm-plugin-second-level-cache`; see [Second-level cache](../installation/doctrine-orm.md#second-level-cache).
 Issue #443 is the open RFC to extend caching in the API.
+
+## Database connections
+
+By default, each request opens a new database connection and closes it at the end.
+The `persistent` key in each `$databases` entry of `config/autoload/local.php` lets PHP-FPM workers keep their connection open and reuse it, which saves the connection setup on every request.
+It ships as `false`.
+Before you set it to `true`, make sure the database's `max_connections` is higher than the total number of PHP-FPM workers that connect to it.
+For PostgreSQL, a connection pooler such as PgBouncer is usually the better option.
+See [Persistent connections](../installation/doctrine-orm.md#persistent-connections).
 
 ## Background work
 

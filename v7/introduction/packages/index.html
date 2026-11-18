@@ -158,12 +158,12 @@
     
     <div class="version-selector">
         <div class="btn-group">
-            <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            <button type="button" class="btn dropdown-toggle bg-light" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
                     v7
                 
             </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="version-selector-dropdown">
                 
                 
                 <a href="../introduction/" class="dropdown-item active">
@@ -1258,6 +1258,10 @@ See <a href="../../installation/doctrine-orm/">Doctrine ORM</a>.</p>
 <p>A: Because <code>composer.json</code> does not declare them.
 The application uses all three directly — Doctrine throughout the entities, repositories and migrations, and the service manager in <code>config/container.php</code> — but they are installed transitively as dependencies of the declared packages.
 Run <code>composer show &lt;package&gt;</code> to see the version you have.</p>
+<p><strong>Q: Why did a <code>composer update</code> break the entity manager?</strong></p>
+<p>A: Because <code>doctrine/orm</code> is not pinned, an update can pull in a new minor release.
+<code>doctrine/orm</code> 3.8.0 moved the second-level cache into the separate package <code>doctrine/orm-plugin-second-level-cache</code>, so an installation that still enables that cache fails on the first request.
+See <a href="../../installation/doctrine-orm/#second-level-cache">Second-level cache</a>.</p>
 <p><strong>Q: Why does <code>ramsey/uuid</code> require at least <code>4.5.0</code> specifically?</strong></p>
 <p>A: <code>4.5.0</code> is the release that added <code>Uuid::uuid7()</code>.
 Every entity identifier is a UUIDv7 generated in PHP, so an older release would not provide the method.
@@ -1372,8 +1376,8 @@ Remove the corresponding configuration and pipeline entries first, then verify t
     </div>
 
     <div class="dk-home-footer__bottom">
-        <img src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" alt="Dotkernel" width="112" height="21" style="opacity:.75" />
-        <div class="dk-home-footer__tagline">Built with Mezzio, Laminas &amp; Doctrine &mdash; for PHP developers, by PHP developers. The Laminas logo is copyright of the Laminas Foundation.</div>
+        <img src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" alt="Dotkernel Logo" width="112" height="21" style="opacity:.75" />
+        <div class="dk-home-footer__tagline">Built with Mezzio, Laminas &amp; Doctrine - for PHP developers, by PHP developers. The Laminas logo is copyright of the Laminas Foundation.</div>
         <div class="flex-grow-1"></div>
         <div class="dk-home-footer__copyright">&#169; Copyright Dotkernel <span id="current-year"></span>. All rights reserved.</div>
     </div>

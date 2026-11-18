@@ -158,12 +158,12 @@
     
     <div class="version-selector">
         <div class="btn-group">
-            <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            <button type="button" class="btn dropdown-toggle bg-light" data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
                     v7
                 
             </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="version-selector-dropdown">
                 
                 
                 <a href="../../introduction/introduction/" class="dropdown-item active">
@@ -1411,8 +1411,16 @@ That is a boot-time optimization, not response caching.</p>
 <code>Cache-Control</code> is set on exactly two routes — <code>security::generate-token</code> and <code>security::refresh-token</code>, both to <code>no-store</code>.
 Every other response leaves caching headers unset, which means intermediaries fall back to their own heuristics on responses that are usually per-identity.
 Set a conservative default under the <code>'*'</code> key in <code>config/autoload/response-header.global.php</code> and relax it only where you actually want caching.</p>
-<p>Doctrine's second-level cache and result cache are not configured either, so a collection endpoint queries the database on every request.
+<p>Doctrine's result cache is not configured either, and the second-level cache is switched off in <code>config/autoload/local.php</code>, so a collection endpoint queries the database on every request.
+Enabling the second-level cache on <code>doctrine/orm</code> 3.8 or later also requires <code>doctrine/orm-plugin-second-level-cache</code>; see <a href="../../installation/doctrine-orm/#second-level-cache">Second-level cache</a>.
 Issue #443 is the open RFC to extend caching in the API.</p>
+<h2 id="database-connections">Database connections</h2>
+<p>By default, each request opens a new database connection and closes it at the end.
+The <code>persistent</code> key in each <code>$databases</code> entry of <code>config/autoload/local.php</code> lets PHP-FPM workers keep their connection open and reuse it, which saves the connection setup on every request.
+It ships as <code>false</code>.
+Before you set it to <code>true</code>, make sure the database's <code>max_connections</code> is higher than the total number of PHP-FPM workers that connect to it.
+For PostgreSQL, a connection pooler such as PgBouncer is usually the better option.
+See <a href="../../installation/doctrine-orm/#persistent-connections">Persistent connections</a>.</p>
 <h2 id="background-work">Background work</h2>
 <p>Everything happens inside the request.
 <code>Core\App\Service\MailService</code> calls <code>dot-mail</code> synchronously, so account activation, password recovery and password reset emails hold the HTTP connection open for the length of the SMTP conversation, and a transport failure surfaces to the client as a failed request.
@@ -1674,6 +1682,10 @@ Ship them with your own agent, or repoint the <code>stream</code> writer in <cod
                 </li>
             
                 <li class="toc__entry">
+                    <a href="#database-connections" class="toc__link nav-link">Database connections</a>
+                </li>
+            
+                <li class="toc__entry">
                     <a href="#background-work" class="toc__link nav-link">Background work</a>
                 </li>
             
@@ -1740,8 +1752,8 @@ Ship them with your own agent, or repoint the <code>stream</code> writer in <cod
     </div>
 
     <div class="dk-home-footer__bottom">
-        <img src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" alt="Dotkernel" width="112" height="21" style="opacity:.75" />
-        <div class="dk-home-footer__tagline">Built with Mezzio, Laminas &amp; Doctrine &mdash; for PHP developers, by PHP developers. The Laminas logo is copyright of the Laminas Foundation.</div>
+        <img src="https://docs.dotkernel.org/img/dk_logo_2024_white.svg" alt="Dotkernel Logo" width="112" height="21" style="opacity:.75" />
+        <div class="dk-home-footer__tagline">Built with Mezzio, Laminas &amp; Doctrine - for PHP developers, by PHP developers. The Laminas logo is copyright of the Laminas Foundation.</div>
         <div class="flex-grow-1"></div>
         <div class="dk-home-footer__copyright">&#169; Copyright Dotkernel <span id="current-year"></span>. All rights reserved.</div>
     </div>

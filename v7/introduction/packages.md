@@ -118,6 +118,12 @@ A: Because `composer.json` does not declare them.
 The application uses all three directly — Doctrine throughout the entities, repositories and migrations, and the service manager in `config/container.php` — but they are installed transitively as dependencies of the declared packages.
 Run `composer show <package>` to see the version you have.
 
+**Q: Why did a `composer update` break the entity manager?**
+
+A: Because `doctrine/orm` is not pinned, an update can pull in a new minor release.
+`doctrine/orm` 3.8.0 moved the second-level cache into the separate package `doctrine/orm-plugin-second-level-cache`, so an installation that still enables that cache fails on the first request.
+See [Second-level cache](../installation/doctrine-orm.md#second-level-cache).
+
 **Q: Why does `ramsey/uuid` require at least `4.5.0` specifically?**
 
 A: `4.5.0` is the release that added `Uuid::uuid7()`.
