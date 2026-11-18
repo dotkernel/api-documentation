@@ -10,6 +10,7 @@ In this step you will:
 
 - [Save the database connection credentials in the API configuration file](#setup-database).
 - [Learn about table names prefixing](#understanding-table-names-prefixing).
+- [Decide whether to use persistent connections](#persistent-connections).
 - [Decide whether to enable the second-level cache](#second-level-cache).
 - [Create a migration](#creating-migrations).
 - [Run a migration](#running-migrations).
@@ -34,6 +35,7 @@ $databases = [
         'password'     => '',
         'port'         => 3306,
         'driver'       => 'pdo_mysql',
+        'persistent'   => false,
         'collation'    => 'utf8mb4_general_ci',
         'table_prefix' => '',
     ],
@@ -44,6 +46,7 @@ $databases = [
         'password'     => '',
         'port'         => 5432,
         'driver'       => 'pdo_pgsql',
+        'persistent'   => false,
         'collation'    => 'utf8mb4_general_ci',
         'table_prefix' => '',
     ],
@@ -175,6 +178,42 @@ composer require doctrine/orm-plugin-second-level-cache:^1.0
 > `config/autoload/local.php` is copied from `local.php.dist` only once, at install time.
 > If your installation predates this setting, add the `configuration` block to your `local.php` by hand.
 > If configuration caching is enabled, delete `data/cache/config-cache.php` afterwards.
+
+### Persistent connections
+
+Each entry in `$databases` has a `persistent` key, which is `false` by default.
+Set it to `true` on the connection you use to keep the database connection open after a request ends, so the next request handled by the same PHP process reuses it instead of opening a new one.
+
+| Driver | `persistent` supported |
+| --- | --- |
+| `pdo_mysql`, `mysqli` | Yes |
+| `pdo_pgsql` | Yes |
+| `pgsql` | No |
+| `pdo_sqlite`, `sqlite3` | No, the key is ignored |
+
+> Persistent connections for MySQL and PostgreSQL are first documented in `doctrine/dbal` 4.3 and 3.10.
+> `doctrine/dbal` is installed as a dependency of other packages, so run `composer show doctrine/dbal` to check your version.
+> Older versions ignore the key.
+
+Before you turn it on, check the following:
+
+- **Connection limit:** every PHP-FPM worker holds its own connection, so the database's `max_connections` must be higher than the total number of workers across every pool and server that connects to it.
+- **Leftover state:** a reused connection keeps whatever the previous request left on it, such as an open transaction after a fatal error, session variables, temporary tables or locks.
+- **Idle timeouts:** the database can close a connection that has been idle too long (MariaDB's `wait_timeout`), and the next request on that worker then fails with "server has gone away".
+- **CLI:** commands gain nothing, because each one runs in its own process.
+- **PostgreSQL:** a connection pooler such as PgBouncer is usually a better choice than persistent connections.
+
+To confirm that connections are reused, make a few requests and compare the connection IDs:
+
+```sql
+-- MariaDB
+SHOW PROCESSLIST;
+
+-- PostgreSQL
+SELECT pid, backend_start FROM pg_stat_activity WHERE datname = 'dotkernel';
+```
+
+> If your installation predates this setting, add `'persistent' => false,` to each entry in `$databases` in your `local.php` by hand.
 
 ### Creating Migrations
 
@@ -311,6 +350,17 @@ That is only an example — use any name, as long as the configuration and the d
 
 A: It prepends a string to every table name from the entities, which keeps table sets apart when several applications share one database.
 The prefix is applied verbatim, with no separator added, and `doctrine_migration_versions` is left untouched because Doctrine Migrations owns it.
+
+**Q: Should I enable persistent connections?**
+
+A: Only after checking that the database's `max_connections` covers every PHP-FPM worker that connects to it.
+They save the cost of opening a connection on each request, but each worker then holds a connection permanently.
+See [Persistent connections](#persistent-connections).
+
+**Q: I set `persistent` to `true`, but every request still opens a new connection. Why?**
+
+A: Check that you changed the entry that `doctrine.connection.orm_default.params` points to, that the driver is `pdo_mysql`, `mysqli` or `pdo_pgsql`, and that `doctrine/dbal` is at least 4.3 (or 3.10).
+If configuration caching is enabled, delete `data/cache/config-cache.php`.
 
 **Q: The first request fails with "Using the second level cache requires installing an additional package". What is wrong?**
 
